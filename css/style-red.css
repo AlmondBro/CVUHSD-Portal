@@ -1,13 +1,16 @@
 body {
     font-family: Lato, sans-serif;
     font-size: 16px;
-    background-color: #f4f7f9;
+    color: #931e1e;
+    background-color: white;
     /* background-color: #def1fb; */
     /* background-image: url('../images/nature-blurred.jpg'); */
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+}
+
+body a:hover,
+body a:focus {
+    color: #7c2323;
+    text-decoration: underline;
 }
 
 .container-fluid {
@@ -38,16 +41,16 @@ body {
     z-index: 2;
     /* Same as font size to vertically align an
     element with float to its parent */
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f4f7f9+0,2989d8+0,f4f7f9+0,ffffff+100 */
-    background: #f4f7f9;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ead6d5+0,ffffff+100 */
+    background: #ead6d5;
     /* Old browsers */
-    background: -moz-linear-gradient(top, #f4f7f9 0%, #2989d8 0%, #f4f7f9 0%, #ffffff 100%);
+    background: -moz-linear-gradient(top, #ead6d5 0%, #ffffff 100%);
     /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #f4f7f9 0%, #2989d8 0%, #f4f7f9 0%, #ffffff 100%);
+    background: -webkit-linear-gradient(top, #ead6d5 0%, #ffffff 100%);
     /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #f4f7f9 0%, #2989d8 0%, #f4f7f9 0%, #ffffff 100%);
+    background: linear-gradient(to bottom, #ead6d5 0%, #ffffff 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f4f7f9', endColorstr='#ffffff', GradientType=0);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ead6d5', endColorstr='#ffffff', GradientType=0);
     /* IE6-9 */
 }
 
@@ -71,7 +74,16 @@ body {
 
 .navigation-bar ul li {
     margin: 0 15px;
+}
+
+.navigation-bar ul li a {
     font-size: 1.2em;
+    color: #931e1e;
+}
+
+.navigation-bar ul li a:hover,
+.navigation-bar ul li a:focus {
+    color: #651b1b;
 }
 
 
@@ -99,7 +111,7 @@ body {
     padding: 15px 0;
     border-radius: 5px;
     background-color: white;
-    color: rgb(30, 108, 147);
+    color: rgb(147, 30, 30);
     /* margin: 2.5% auto; */
     /* Was 3.5% */
     text-align: center;
@@ -136,7 +148,8 @@ h2 {
 }
 
 .section-header {
-    background-color: rgb(30, 108, 147);
+    background-color: rgb(147, 30, 30);
+    /*background-color: rgb(152, 30, 30); */
     color: white;
     text-align: center;
     padding: 15px 0;
@@ -242,7 +255,7 @@ h2 {
     /*  padding: 5px 10px 10px 10px; */
     border-radius: 100%;
     background-color: white;
-    color: #1e6c93;
+    color: rgb(147, 30, 30);
 }
 
 .open-column-button::after {
@@ -275,10 +288,10 @@ h2 {
 .bar3 {
     width: 35px;
     height: 5px;
-    background-color: #1e6c93;
+    background-color: #931e1e;
     margin: 6px auto;
     transition: 0.4s;
-    color: #1e6c93
+    color: #931e1e;
 }
 
 
@@ -308,7 +321,7 @@ h2 {
     .navigation-bar-image-wrapper::after {
         content: 'Centinela Valley Union High School District';
         display: inline;
-        color: #1e6c93;
+        color: rgb(147, 30, 30);
         font-size: 1.3em;
         position: absolute;
         bottom: 52px;
@@ -348,7 +361,7 @@ h2 {
         margin-left: 25%;
     }
     #home-icon {
-        color: rgb(21, 73, 99);
+        color: #651b1b;
     }
     .navigation-bar ul {
         position: relative;
@@ -365,7 +378,7 @@ h2 {
     ul.navigation-bar-ul>li~li::before {
         content: "•";
         margin-right: 8px;
-        color: rgb(21, 73, 99);
+        color: #651b1b;
     }
     #menu-toggle:checked~li {
         /*margin: 0 60px; */
@@ -380,7 +393,7 @@ h2 {
     }
     #arrow-link {
         display: block;
-        background-color: #1e6c93;
+        background-color: #931e1e;
     }
     .scrollArrow {
         display: block;
@@ -393,9 +406,12 @@ h2 {
         background-color: white;
         opacity: 0.65;
         border-image: initial;
-        border: 3px solid rgb(30, 108, 147);
+        border: 3px solid #651b1b;
         border-radius: 10px;
         padding: 5px;
+    }
+    .scrollArrow a {
+        color: #931e1e;
     }
 }
 
@@ -411,8 +427,8 @@ fixed starting at tablet sizes */
     .navigation-bar-header {
         position: fixed;
         /* Bottom two BG-color and border-bottom were not here before */
-        background: #f4f7f9;
-        border-bottom: 5px solid #1e6c93;
+        background: #f9f2f1;
+        border-bottom: 5px solid #931e1e;
     }
 }
 
