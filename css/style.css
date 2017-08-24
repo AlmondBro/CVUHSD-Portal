@@ -177,13 +177,17 @@ h2 {
 #administratorTools-collapseToggle:checked~div#administratorToolsButtonRow,
 #teacherTools-collapseToggle:checked~div#teacherToolsButtonRow,
 #classroomPrograms-collapseToggle:checked~div#classroomProgramsButtonRow,
-#webAdmin-collapseToggle:checked~div#webAdminButtonRow,
 #learningTools-collapseToggle:checked~div#learningToolsButtonRow,
 #digitalTextbooks-collapseToggle:checked~div#digitalTextbooksButtonRow,
 #mediaResources-collapseToggle:checked~div#mediaResourcesButtonRow,
 #schoolWebsites-collapseToggle:checked~div#schoolWebsitesButtonRow,
 #studentPortal-collapseToggle:checked~div#studentPortalButtonRow {
-    margin: 3.5% auto;
+    margin: 2.5% auto;
+    height: 100%;
+}
+
+#webAdmin-collapseToggle:checked~div#webAdminButtonRow {
+    margin: 0.5% auto;
     height: 100%;
 }
 
@@ -203,13 +207,21 @@ h2 {
 }
 
 #webAdmin-collapseToggle:checked~div.admin-links {
-    margin: 1.5% auto;
+    /* Old rules: */
+    /* margin: 1.5% auto;
     height: 100%;
     display: table;
     vertical-align: middle;
     padding: 10px 30px;
     border: 1px solid #1e6c93;
-    border-radius: 8px;
+    border-radius: 8px; */
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    display: table;
+    vertical-align: middle;
+    padding: 1% 3%;
+    background-color: #f4f7f9;
 }
 
 .admin-links {
@@ -414,6 +426,14 @@ fixed starting at tablet sizes */
         background: #f4f7f9;
         border-bottom: 5px solid #1e6c93;
     }
+}
+
+.google-sheet {
+    width: 100%;
+}
+
+.google-sheet #top-bar {
+    background-color: #1e6c93;
 }
 
 
