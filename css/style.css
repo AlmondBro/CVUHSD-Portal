@@ -28,12 +28,27 @@ body {
 .navigation-bar-header {
     position: relative;
     width: 100%;
-    background-color: white;
+    /* Bottom three BG-color and margin bottom rules, and border-bottom were not here before */
+    /* background-color: #f4f7f9; */
+    margin-bottom: 20px;
+    /* border-bottom: 1px solid #1e6c93; */
+    /* background-color: white; */
     line-height: 1.0em;
     padding: 6px 0;
     z-index: 2;
     /* Same as font size to vertically align an
     element with float to its parent */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f4f7f9+0,2989d8+0,f4f7f9+0,ffffff+100 */
+    background: #f4f7f9;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #f4f7f9 0%, #2989d8 0%, #f4f7f9 0%, #ffffff 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #f4f7f9 0%, #2989d8 0%, #f4f7f9 0%, #ffffff 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #f4f7f9 0%, #2989d8 0%, #f4f7f9 0%, #ffffff 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f4f7f9', endColorstr='#ffffff', GradientType=0);
+    /* IE6-9 */
 }
 
 .navigation-bar-wrapper {
@@ -193,6 +208,7 @@ h2 {
     display: table;
     vertical-align: middle;
     padding: 10px 30px;
+    border: 1px solid #1e6c93;
     border-radius: 8px;
 }
 
@@ -395,6 +411,8 @@ fixed starting at tablet sizes */
     }
     .navigation-bar-header {
         position: fixed;
+        /* Bottom two BG-color and border-bottom were not here before */
+        background: #f4f7f9;
         border-bottom: 5px solid #1e6c93;
     }
 }
