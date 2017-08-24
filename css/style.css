@@ -1,0 +1,430 @@
+body {
+    font-family: Lato, sans-serif;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('../images/nature-blurred.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navigation-bar-image-wrapper {
+    margin-top: 5px;
+}
+
+#navbar-logo {
+    height: 100px;
+    /* Was 50px */
+    width: auto;
+}
+
+.navigation-bar-header {
+    position: relative;
+    width: 100%;
+    background-color: white;
+    line-height: 1.0em;
+    padding: 6px 0;
+    z-index: 2;
+    /* Same as font size to vertically align an
+    element with float to its parent */
+}
+
+.navigation-bar-wrapper {
+    float: left;
+}
+
+.navigation-bar-ul {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5em;
+    /*-1/2 of line-height */
+    right: 0px;
+    padding-right: 2.5%;
+}
+
+.navigation-bar,
+.navigation-bar ul li {
+    display: inline-block;
+}
+
+.navigation-bar ul li {
+    margin: 0 15px;
+    font-size: 1.2em;
+}
+
+
+/* .navigation-bar ul li a {} */
+
+.navigation-bar>ul li.mobile-collapse-links {
+    display: none;
+}
+
+#navbar-logo {
+    margin-left: 50%;
+    margin-top: 8px;
+}
+
+#home-icon {
+    margin-right: 8px;
+}
+
+.staff-dashboard-header-container {
+    /* max-width: 500px; */
+    margin: 0px auto;
+}
+
+.staff-dashboard-header {
+    padding: 15px 0;
+    border-radius: 5px;
+    background-color: white;
+    color: rgb(30, 108, 147);
+    /* margin: 2.5% auto; */
+    /* Was 3.5% */
+    text-align: center;
+    /* background-image: url('../images/Night-shot-w-lights_cropped.jpg');
+    background-size: cover; */
+    margin-top: -40px;
+}
+
+h1 {
+    font-size: 3.0em;
+}
+
+h2 {
+    font-size: 2.5em;
+}
+
+.blue-section {
+    text-align: center;
+    overflow: hidden;
+}
+
+.button-row {
+    margin: 3.5% auto;
+}
+
+.blue-section {
+    position: relative;
+}
+
+.blue-section a button,
+.blue-section a button img {
+    border: 0;
+    background-color: transparent;
+}
+
+.section-header {
+    background-color: rgb(30, 108, 147);
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    vertical-align: middle;
+}
+
+.section-header h3 {
+    font-size: 2em;
+    display: inline;
+}
+
+#teacherToolsButtonRow a button img {
+    position: relative;
+}
+
+
+/* Animate opening and closing of rows */
+
+#quickLinksButtonRow,
+#standardStaffToolsButtonRow,
+#administratorToolsButtonRow,
+#teacherToolsButtonRow,
+#classroomProgramsButtonRow,
+#webAdminButtonRow,
+#learningToolsButtonRow,
+#digitalTextbooksButtonRow,
+#mediaResourcesButtonRow,
+#schoolWebsitesButtonRow,
+#studentPortalButtonRow,
+.admin-links {
+    height: 0;
+    margin: 0;
+    transition: height, margin 0.5s;
+}
+
+#quickLinks-collapseToggle:checked~div#quickLinksButtonRow,
+#standardStaffTools-collapseToggle:checked~div#standardStaffToolsButtonRow,
+#administratorTools-collapseToggle:checked~div#administratorToolsButtonRow,
+#teacherTools-collapseToggle:checked~div#teacherToolsButtonRow,
+#classroomPrograms-collapseToggle:checked~div#classroomProgramsButtonRow,
+#webAdmin-collapseToggle:checked~div#webAdminButtonRow,
+#learningTools-collapseToggle:checked~div#learningToolsButtonRow,
+#digitalTextbooks-collapseToggle:checked~div#digitalTextbooksButtonRow,
+#mediaResources-collapseToggle:checked~div#mediaResourcesButtonRow,
+#schoolWebsites-collapseToggle:checked~div#schoolWebsitesButtonRow,
+#studentPortal-collapseToggle:checked~div#studentPortalButtonRow {
+    margin: 3.5% auto;
+    height: 100%;
+}
+
+#quickLinks-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#standardStaffTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#administratorTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#teacherTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#classroomPrograms-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#webAdmin-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#learningTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#digitalTextbooks-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#mediaResources-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#schoolWebsites-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#studentPortal-collapseToggle:checked+div.section-header label>div.open-column-button::after {
+    content: '-';
+    /* was 029BB or 02297  */
+}
+
+#webAdmin-collapseToggle:checked~div.admin-links {
+    margin: 1.5% auto;
+    height: 100%;
+    display: table;
+    vertical-align: middle;
+    padding: 10px 30px;
+    border-radius: 8px;
+}
+
+.admin-links {
+    height: 0;
+    background-color: white;
+}
+
+.admin-links a {
+    display: block;
+    text-align: left;
+    margin: 8px 0;
+}
+
+.admin-links a::before {
+    content: "\00bb";
+    padding-right: 3px;
+}
+
+.open-column-button {
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    font-size: 2.2em;
+    padding: 0px 9px 3px 9px;
+    display: inline;
+    margin-left: 20px;
+    /*used to be 5px*/
+    /* Padding when icons were being used :
+   padding: 0px 5px 5px 5px;
+    /*  padding: 5px 10px 10px 10px; */
+    border-radius: 100%;
+    background-color: white;
+    color: #1e6c93;
+}
+
+.open-column-button::after {
+    content: '+';
+    /* \02295' */
+}
+
+.nonButtonImages {
+    height: 98px;
+}
+
+#arrow-link,
+.scrollArrow {
+    display: none;
+}
+
+
+/* Menu Bar */
+
+.nav-menu-icon {
+    display: none;
+}
+
+.checkbox-hack {
+    display: none;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #1e6c93;
+    margin: 6px auto;
+    transition: 0.4s;
+    color: #1e6c93
+}
+
+
+/* Rotate First Bar */
+
+#menu-toggle:checked~label .nav-menu-icon .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+
+/* Fade out second bar */
+
+#menu-toggle:checked~label .nav-menu-icon .bar2 {
+    opacity: 0;
+}
+
+
+/*Rotate last bar */
+
+#menu-toggle:checked~label .nav-menu-icon .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
+}
+
+@media only screen and (min-width: 1127px) {
+    .navigation-bar-image-wrapper::after {
+        content: 'Centinela Valley Union High School District';
+        display: inline;
+        color: #1e6c93;
+        font-size: 1.3em;
+        position: absolute;
+        bottom: 52px;
+        left: 220px;
+        /*180px is for Chrome, 220px for Firefox*/
+        font-weight: bold;
+    }
+}
+
+
+/* Was 585px with smaller logo and font */
+
+
+/* Was 624px for Chrome only now 660px for FF */
+
+@media only screen and (max-width: 660px) {
+    .staff-dashboard-header {
+        margin-top: 100px;
+        /*Used to be 170px */
+    }
+    .navigation-bar {
+        display: inline;
+    }
+    .navigation-bar-header {
+        display: inline-block;
+    }
+    .navigation-bar-image-wrapper {
+        display: inline;
+    }
+    .nav-menu-icon {
+        display: block;
+        cursor: pointer
+    }
+    #navbar-logo {
+        display: inline;
+        vertical-align: middle;
+        margin-top: 20px;
+        margin-left: 25%;
+    }
+    #home-icon {
+        color: rgb(21, 73, 99);
+    }
+    .navigation-bar ul {
+        position: relative;
+        bottom: 60px;
+        left: 15%;
+        margin-bottom: -52px;
+        /*Used to be -25px, now it's -50px */
+        /*margin-bottom Used to be -10px */
+    }
+    .navigation-bar ul li {
+        display: none;
+        margin: auto;
+    }
+    ul.navigation-bar-ul>li~li::before {
+        content: "•";
+        margin-right: 8px;
+        color: rgb(21, 73, 99);
+    }
+    #menu-toggle:checked~li {
+        /*margin: 0 60px; */
+        display: block;
+        border: 0;
+        border-radius: 0;
+        animation: fadeIn 0.8s ease-in-out;
+        padding: 15px 0;
+    }
+    body>div>header.navigation-bar-header>nav>ul>li:nth-child(3) {
+        margin-top: 55px;
+    }
+    #arrow-link {
+        display: block;
+        background-color: #1e6c93;
+    }
+    .scrollArrow {
+        display: block;
+        font-size: 1.2em;
+        position: fixed;
+        z-index: 2;
+        bottom: 2%;
+        right: 25px;
+        color: rgb(30, 108, 147);
+        background-color: white;
+        opacity: 0.65;
+        border-image: initial;
+        border: 3px solid rgb(30, 108, 147);
+        border-radius: 10px;
+        padding: 5px;
+    }
+}
+
+
+/* Make the navigation bar responsive and
+fixed starting at tablet sizes */
+
+@media only screen and (max-width: 765px) {
+    .staff-dashboard-header {
+        margin-top: 95px;
+        /*Used to be 150px*/
+    }
+    .navigation-bar-header {
+        position: fixed;
+        border-bottom: 5px solid #1e6c93;
+    }
+}
+
+
+/* Fade in animation for navigation menu-icon on mobile */
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+.fadeOut {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
