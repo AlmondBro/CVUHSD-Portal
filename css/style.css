@@ -320,6 +320,106 @@ h2 {
     transform: rotate(45deg) translate(-8px, -8px);
 }
 
+
+/* CSS for search pop-up */
+
+#nav-search-icon {
+    color: #1e6c93;
+}
+
+#search-toggle:checked+#search-modal {
+    visibility: visible;
+    opacity: 1;
+    height: 75px;
+    transition-delay: 0s;
+    /* Was 102px */
+    border-radius: 10px;
+    box-shadow: 7px 7px 9px #1e6c93;
+    border: 3px solid #1e6c93;
+}
+
+#search-modal {
+    visibility: hidden;
+    opacity: 0;
+    height: 0px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.4s linear 0.3s, opacity 0.3s linear;
+    position: absolute;
+    background-color: white;
+    max-width: 500px;
+    border: 0px;
+    box-shadow: 0px;
+    right: 30px;
+    top: 100px;
+    z-index: 5;
+    /* overflow: hidden; */
+}
+
+#search-modal-load-indicator {
+    position: absolute;
+    float: left;
+    color: #1e6c93;
+    background-color: #fafafa;
+    top: 26px;
+    left: 291px;
+    padding: 3px 2px;
+}
+
+#search-modal-load-indicator i {
+    font-size: 1.3em;
+}
+
+
+/* Arrow on box */
+
+#search-modal::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 298px;
+    /*
+    border-width: 5px 0 0 5px;
+    border-style: solid;
+    border-color: #6c0300; */
+    /* Width & Height Are replacement for content:''?*/
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 16px solid #1e6c93;
+    z-index: 234242343;
+}
+
+.nav-popup-input-field {
+    padding: 3px 7px;
+    width: 300px;
+    border: solid 1px #0f106b4d;
+    background: #fafafa;
+    transition: box-shadow 0.3s, border 0.3s;
+    color: #207098;
+    font-weight: bold;
+    font-size: 1em;
+    display: block;
+    margin: 2px 7px;
+}
+
+.search-button {
+    display: inline;
+    margin: 0 auto;
+    color: white;
+    font-size: 1.2em;
+    background-color: #1e6c93;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 0;
+    margin-bottom: 8px;
+}
+
+#search-modal-text {
+    padding-left: 8px;
+}
+
 @media only screen and (min-width: 1127px) {
     .navigation-bar-image-wrapper::after {
         content: 'Centinela Valley Union High School District';
@@ -413,6 +513,13 @@ h2 {
         border-radius: 10px;
         padding: 5px;
     }
+    section#search-modal {
+        right: 80px;
+        top: 750px;
+    }
+    section#search-modal::after {
+        left: 8px;
+    }
 }
 
 
@@ -429,6 +536,14 @@ fixed starting at tablet sizes */
         /* Bottom two BG-color and border-bottom were not here before */
         background: #f4f7f9;
         border-bottom: 5px solid #1e6c93;
+    }
+    #search-modal {
+        position: fixed;
+        /* overflow: hidden; */
+    }
+    #search-modal::after {
+        bottom: 100%;
+        left: 312px;
     }
 }
 

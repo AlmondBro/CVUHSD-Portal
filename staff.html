@@ -69,9 +69,36 @@
                     <li>
                         <a href="#allTools-blueSection">All Links</a>
                     </li>
+                    <li>
+                        <!-- Search Icon -->
+                        <label for="search-toggle">
+                            <i id="nav-search-icon" class="fa fa-search" aria-hidden="true"></i>
+                        </label>
+                    </li>
                 </ul>
             </nav>
         </header>
+
+        <!-- CSS Checkbox Hack -->
+        <input type="checkbox" class="checkbox-hack" id="search-toggle">
+        <!-- Search Box Section -->
+        <section class="pop-up-modal" id="search-modal">
+            <form>
+                <p>
+                    <!-- Search -->
+                    <label for="device-id-field"><strong id="search-modal-text">Search:</strong></label>
+                    <input type="search" class="nav-popup-input-field" id="device-id-field">
+                </p>
+
+                <div id="search-modal-load-indicator">
+                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                </div>
+                <span class="sr-only">Loading...</span>
+
+                <!-- <center><button type="submit" class="search-button">Search</button></center> -->
+
+            </form>
+        </section>
 
         <div class="staff-dashboard-header-container" id="back-to-top">
             <header class="staff-dashboard-header">
