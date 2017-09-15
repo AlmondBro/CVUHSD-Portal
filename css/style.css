@@ -357,6 +357,7 @@ h2 {
 }
 
 #search-modal-load-indicator {
+    visibility: hidden;
     position: absolute;
     float: left;
     color: #1e6c93;
