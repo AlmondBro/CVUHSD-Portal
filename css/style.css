@@ -421,6 +421,10 @@ h2 {
     padding-left: 8px;
 }
 
+#searchResults-blueSection {
+    display: none;
+}
+
 @media only screen and (min-width: 1127px) {
     .navigation-bar-image-wrapper::after {
         content: 'Centinela Valley Union High School District';

@@ -110,18 +110,13 @@
         <section class="blue-section" id="searchResults-blueSection">
             <input type="checkbox" class="checkbox-hack blueSection-collapseToggle" id="searchResults-collapseToggle" checked="">
             <div class="section-header">
-                <h3>Search Results</h3>
+                <h3 id="search-results-header">Search Results</h3>
                 <label for="searchResults-collapseToggle">
                     <div class="open-column-button"></div>
                 </label>
             </div>
             <div class="row button-row" id="searchResultsButtonRow">
-                <div>
-                    <a href="https://powerschool.centinela.k12.ca.us/teachers/pw.html" target="_blank"><button><img class="img-responsive" href="" src="images/buttons/PT.png" alt="PowerSchool Teacher" alt="PowerSchool Teacher"></button></a>
-                    <a href="https://sso.centinela.k12.ca.us/adfs/ls/?wa=wsignin1.0&amp;wtrealm=https%3a%2f%2fmail.centinela.k12.ca.us%2fowa%2f&amp;wctx=rm%3d0%26id%3dpassive%26ru%3d%252fowa%252f&amp;wct=2017-08-21T18%3a05%3a05Z" target="_blank"><button><img class="img-responsive" href="" src="images/buttons/outlook.png" alt="Outlook Email"></button></a>
-                    <a href="https://accounts.google.com/signin/v2/sl/pwd?service=mail&amp;passive=true&amp;rm=false&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ss=1&amp;scc=1&amp;ltmpl=default&amp;ltmplcache=2&amp;emr=1&amp;osid=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin"
-                        target="_blank"><button><img class="img-responsive" href="" src="images/buttons/gmail.png" alt="Gmail"></button></a>
-                </div>
+
             </div>
         </section>
 
@@ -136,8 +131,9 @@
             </div>
             <div class="row button-row" id="quickLinksButtonRow">
                 <div>
-                    <a href="https://powerschool.centinela.k12.ca.us/teachers/pw.html" target="_blank"><button><img class="img-responsive" href="" src="images/buttons/PT.png" alt="PowerSchool Teacher" alt="PowerSchool Teacher"></button></a>
-                    <a href="https://sso.centinela.k12.ca.us/adfs/ls/?wa=wsignin1.0&amp;wtrealm=https%3a%2f%2fmail.centinela.k12.ca.us%2fowa%2f&amp;wctx=rm%3d0%26id%3dpassive%26ru%3d%252fowa%252f&amp;wct=2017-08-21T18%3a05%3a05Z" target="_blank"><button><img class="img-responsive" href="" src="images/buttons/outlook.png" alt="Outlook Email"></button></a>
+                    <a href="https://powerschool.centinela.k12.ca.us/teachers/pw.html" id="sampleLink" target="_blank" data-title="Power Teacher" data-link="https://powerschool.centinela.k12.ca.us/teachers/pw.html" data-keywords="Attendance Gradebook power teacher" class="buttonLink"><button><img class="img-responsive" href="" src="images/buttons/PT.png" alt="PowerSchool Teacher" alt="PowerSchool Teacher"></button></a>
+                    <a href="https://sso.centinela.k12.ca.us/adfs/ls/?wa=wsignin1.0&amp;wtrealm=https%3a%2f%2fmail.centinela.k12.ca.us%2fowa%2f&amp;wctx=rm%3d0%26id%3dpassive%26ru%3d%252fowa%252f&amp;wct=2017-08-21T18%3a05%3a05Z" target="_blank" data-keywords="Attendance Gradebook power teacher"
+                        class="buttonLink"><button><img class="img-responsive" href="" src="images/buttons/outlook.png" alt="Outlook Email"></button></a>
                     <a href="https://accounts.google.com/signin/v2/sl/pwd?service=mail&amp;passive=true&amp;rm=false&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ss=1&amp;scc=1&amp;ltmpl=default&amp;ltmplcache=2&amp;emr=1&amp;osid=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin"
                         target="_blank"><button><img class="img-responsive" href="" src="images/buttons/gmail.png" alt="Gmail"></button></a>
                 </div>
@@ -401,8 +397,7 @@
         </a>
     </div>
     <!-- Note: Language attribute is deprecated! -->
-    <script language="javascript" type="text/javascript" src="js/search.js">
-    </script>
+    <script type="text/javascript" src="js/search.js"></script>
 </body>
 
 </html>
