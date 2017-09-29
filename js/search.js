@@ -84,10 +84,19 @@ window.addEventListener("load", function() {
                 searchResults_blueSection.style.display = "block";
             } //end if statement
             else if (searchResults !== undefined) {
+                var duplicateFlag = false;
                 //Check to be sure that there are no duplicate links generated
-                for (var i = 0; i < searchResults.length; i++) {
+                var index = 0;
+                while (searchResults[i] != undefined && index <= searchResults.length) {
+                    console.log("while loop");
                     //If statement to check if the actual link of link element does not already exist
-                    if ((searchResults[i] != undefined) && (searchResults[i].href !== linkElement.href)) {
+                    if (searchResults[i].href === linkElement.href) {
+                        console.log("while loop if");
+                        duplicateFlag = true;
+
+                        //break;
+                    } //end if-statement
+                    if (duplicateFlag != true) {
                         console.log("searchResults[i].href != linkElement.href");
                         console.log("Render search results, more buttons");
 
@@ -97,36 +106,23 @@ window.addEventListener("load", function() {
                         console.log("Search result src: " + searchResults[i].childNodes[0].firstChild.src + "\n\n");
                         console.log("Link Element result src: " + linkElement.childNodes[0].firstChild.src + "\n\n");
 
-                        for (var i = 0; i < searchResults.length; i++) {
-                            if (searchResults[i].firstChild.firstChild.src !== linkElement.firstChild.firstChild.src) {
-                                var link_element = document.createElement("a");
-                                link_element.href = linkElement.href;
-                                link_element.classList.add("search-result");
+                        var link_element = document.createElement("a");
+                        link_element.href = linkElement.href;
+                        link_element.classList.add("search-result");
 
-                                var button_element = document.createElement("button");
+                        var button_element = document.createElement("button");
 
-                                var image_element = document.createElement("img");
+                        var image_element = document.createElement("img");
 
-                                console.log(linkElement.firstChild.firstChild.src);
+                        console.log(linkElement.firstChild.firstChild.src);
 
-                                image_element.src = linkElement.firstChild.firstChild.src;
+                        image_element.src = linkElement.firstChild.firstChild.src;
 
-                                searchResults_buttonRow.appendChild(link_element).appendChild(button_element).appendChild(image_element);
-                            } //end inner if-statement
-                        } //end inner for loop
-
-
-                        /* for (var j = 0; j < searchResults.length; j++) {
-                             console.log("j for-loop");
-                             if (searchResults[i].href != searchResults[j].href) {
-                           
-                             } //end inner if-statement
-                         } //end inner for loop */
-
-                    } //end if-statement
-                    else { break; }
-                    break;
-                } //end for loop
+                        searchResults_buttonRow.appendChild(link_element).appendChild(button_element).appendChild(image_element);
+                        break;
+                    } //end else-statement
+                    index++;
+                } //end while loop
             } //end else-statement
         } //end renderSearchResults() function
     }
