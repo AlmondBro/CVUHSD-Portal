@@ -26,9 +26,10 @@ window.addEventListener("load", function() {
         var searchInput_value = searchInputBox.value;
         var searchResults = document.getElementsByClassName("search-result");
 
-        if (searchInput_value == '' || searchInput_value == null || searchInput_value == undefined) {
+        if (searchInput_value == ' ' || searchInput_value == null || searchInput_value == undefined) {
             if (searchResults[0] !== undefined || searchResults[0] !== null) {
                 function removeElementsByClass(className) {
+                    console.log("removeElementsByClass");
                     var classElements = document.getElementsByClassName(className);
                     while (classElements.length > 0) {
                         classElements[0].parentNode.removeChild(classElements[0]);
@@ -55,7 +56,7 @@ window.addEventListener("load", function() {
 
         function search_inputValue(linkElement) {
             console.log("Inside search_inputValue() \n\n");
-            if ((linkElement != null) && (linkElement.getAttribute('data-title').indexOf(searchInput_value) > -1)) {
+            if ((linkElement != null) && (linkElement.getAttribute('data-title').indexOf(search_inputValue))) {
                 console.log("search_inputValue() if-statement\n\n");
                 renderSearchResults(linkElement);
             }
@@ -83,28 +84,48 @@ window.addEventListener("load", function() {
                 searchResults_blueSection.style.display = "block";
             } //end if statement
             else if (searchResults !== undefined) {
+                //Check to be sure that there are no duplicate links generated
                 for (var i = 0; i < searchResults.length; i++) {
                     //If statement to check if the actual link of link element does not already exist
-                    if ((searchResults[i] != undefined) && (searchResults[i].href != linkElement.href)) {
+                    if ((searchResults[i] != undefined) && (searchResults[i].href !== linkElement.href)) {
+                        console.log("searchResults[i].href != linkElement.href");
                         console.log("Render search results, more buttons");
 
                         console.log("Search Result link: " + searchResults[i].href);
-                        console.log("LinkElement " + linkElement.href);
+                        console.log("LinkElement link: " + linkElement.href);
 
-                        var link_element = document.createElement("a");
-                        link_element.href = linkElement.href;
-                        link_element.classList.add("search-result");
+                        console.log("Search result src: " + searchResults[i].childNodes[0].firstChild.src + "\n\n");
+                        console.log("Link Element result src: " + linkElement.childNodes[0].firstChild.src + "\n\n");
 
-                        var button_element = document.createElement("button");
+                        for (var i = 0; i < searchResults.length; i++) {
+                            if (searchResults[i].firstChild.firstChild.src !== linkElement.firstChild.firstChild.src) {
+                                var link_element = document.createElement("a");
+                                link_element.href = linkElement.href;
+                                link_element.classList.add("search-result");
 
-                        var image_element = document.createElement("img");
+                                var button_element = document.createElement("button");
 
-                        console.log(linkElement.firstChild.firstChild.src);
+                                var image_element = document.createElement("img");
 
-                        image_element.src = linkElement.firstChild.firstChild.src;
+                                console.log(linkElement.firstChild.firstChild.src);
 
-                        searchResults_buttonRow.appendChild(link_element).appendChild(button_element).appendChild(image_element);
+                                image_element.src = linkElement.firstChild.firstChild.src;
+
+                                searchResults_buttonRow.appendChild(link_element).appendChild(button_element).appendChild(image_element);
+                            } //end inner if-statement
+                        } //end inner for loop
+
+
+                        /* for (var j = 0; j < searchResults.length; j++) {
+                             console.log("j for-loop");
+                             if (searchResults[i].href != searchResults[j].href) {
+                           
+                             } //end inner if-statement
+                         } //end inner for loop */
+
                     } //end if-statement
+                    else { break; }
+                    break;
                 } //end for loop
             } //end else-statement
         } //end renderSearchResults() function
