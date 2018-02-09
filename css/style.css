@@ -320,7 +320,7 @@ h2 {
     transform: rotate(45deg) translate(-8px, -8px);
 }
 
-@media only screen and (min-width: 1127px) {
+@media only screen and (min-width: 1268px) {
     .navigation-bar-image-wrapper::after {
         content: 'Centinela Valley Union High School District';
         display: inline;
