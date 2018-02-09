@@ -340,7 +340,7 @@ h2 {
 
 /* Was 624px for Chrome only now 660px for FF */
 
-@media only screen and (max-width: 660px) {
+@media only screen and (max-width: 833px) {
     .staff-dashboard-header {
         margin-top: 100px;
         /*Used to be 170px */
