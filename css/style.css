@@ -574,3 +574,39 @@ appears centered all the time*/
         opacity: 1;
     }
 }
+
+.centWiFiTut h4 {
+    font-size: 1.5em;
+}
+
+.centWiFiTut h5 {
+    color: #cc3333;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.centWiFiTut h6 {
+    display: inline;
+    color: black;
+    font-size: 2em;
+}
+
+.centWiFiTut p {
+    color: #cc3333;
+    width: 75px;
+    font-size: 2em;
+    border-right: 2px solid #939598;
+    padding-right: 10px;
+}
+
+.centWiFiTut p span {
+    display: block;
+    color: #cccccc;
+    font-size: 0.65em;
+}
+
+.tutImage {
+    display: inline;
+    width: 450px;
+    margin: 0 auto;
+}
