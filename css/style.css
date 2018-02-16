@@ -626,6 +626,20 @@ appears centered all the time*/
 }
 
 .tutImage {
-    display: inline;
+    display: inline-block;
     margin: 0 auto;
+    width: 450px;
+}
+
+.dlTutLink {
+    background-color: #337ab7;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 1.1em;
+}
+
+.tutDLButton {
+    color: white;
+    font-size: 1.1em;
+    border-radius: 10px;
 }
