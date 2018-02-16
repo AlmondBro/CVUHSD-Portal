@@ -586,13 +586,20 @@ appears centered all the time*/
     font-style: italic;
 }
 
+.tutStep {
+    margin: 55px auto;
+}
+
 .tutStepHeader {
-    border-bottom: 3px solid #1E6C93;
-    width: 450px;
+    /* border-bottom: 3px solid #1E6C93; */
+    /* max-width: 100%; */
     display: block;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     padding-bottom: 5px;
     margin-bottom: 15px;
+    /* float: left; */
+    /* position: relative; */
+    /* left: 80px; */
 }
 
 .tutStepHeader h6 {
@@ -620,6 +627,5 @@ appears centered all the time*/
 
 .tutImage {
     display: inline;
-    width: 450px;
     margin: 0 auto;
 }
