@@ -575,31 +575,44 @@ appears centered all the time*/
     }
 }
 
-.centWiFiTut h4 {
-    font-size: 1.5em;
+.tutorialTitle {
+    font-size: 2.5em;
 }
 
-.centWiFiTut h5 {
+.tutorialTitle-edition {
     color: #cc3333;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.5em;
+    font-style: italic;
 }
 
-.centWiFiTut h6 {
+.tutStepHeader {
+    border-bottom: 3px solid #1E6C93;
+    width: 450px;
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.tutStepHeader h6 {
     display: inline;
     color: black;
     font-size: 2em;
 }
 
-.centWiFiTut p {
+.tutStepHeader p {
     color: #cc3333;
     width: 75px;
     font-size: 2em;
-    border-right: 2px solid #939598;
+    border-right: 1px solid #939598;
     padding-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
 }
 
-.centWiFiTut p span {
+.tutStepHeader p span {
     display: block;
     color: #cccccc;
     font-size: 0.65em;
