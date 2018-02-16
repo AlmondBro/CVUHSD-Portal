@@ -632,7 +632,8 @@ appears centered all the time*/
 }
 
 .dlTutLink {
-    background-color: #337ab7;
+    background-color: #1E6C93;
+    /*was the 337 color before*/
     padding: 10px 12px;
     border-radius: 10px;
     font-size: 1.1em;
@@ -646,5 +647,6 @@ appears centered all the time*/
 
 .tutImageCaption {
     color: #337AB7;
+    /* #337AB7 */
     padding: 10px;
 }
