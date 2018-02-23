@@ -191,6 +191,7 @@ h2 {
     height: 100%;
 }
 
+#quickLinks-collapseToggle:checked+div.blue-section-innerContainer>div.section-header label>div.open-column-button::after,
 #quickLinks-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #standardStaffTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #administratorTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
