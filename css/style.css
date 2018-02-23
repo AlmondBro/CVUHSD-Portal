@@ -230,6 +230,10 @@ h2 {
     background-color: #f4f7f9;
 }
 
+#quickLinks-collapseToggle:checked+div.blue-section-innerContainer>div.section-content {
+    display: table;
+}
+
 .admin-links {
     height: 0;
     background-color: white;
@@ -665,10 +669,15 @@ appears centered all the time*/
 }
 
 .section-content {
-    display: table;
+    display: block;
     margin: 0 auto;
 }
 
 .tut-Header {
     text-align: center;
+}
+
+.tut-Header h4,
+.tut-Header h5 {
+    margin: 0;
 }
