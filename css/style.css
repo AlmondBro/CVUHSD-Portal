@@ -632,11 +632,13 @@ appears centered all the time*/
 }
 
 .dlTutLink {
+    display: table;
     background-color: #1E6C93;
     /*was the 337 color before*/
     padding: 10px 12px;
     border-radius: 10px;
     font-size: 1.1em;
+    margin: 0 auto;
 }
 
 .tutDLButton {
@@ -649,4 +651,18 @@ appears centered all the time*/
     color: #337AB7;
     /* #337AB7 */
     padding: 10px;
+    text-align: center;
+}
+
+.blue-section.troubleshooting {
+    text-align: unset;
+}
+
+.section-content {
+    display: table;
+    margin: 0 auto;
+}
+
+.tut-Header {
+    text-align: center;
 }
