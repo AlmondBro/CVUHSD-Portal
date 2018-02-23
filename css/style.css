@@ -155,7 +155,10 @@ h2 {
 
 /* Animate opening and closing of rows */
 
-div.blue-section-innerContainer>.section-content,
+
+/*div.blue-section-innerContainer>.section-content,*/
+
+#connectingToCentinela-content,
 #quickLinksButtonRow,
 #standardStaffToolsButtonRow,
 #administratorToolsButtonRow,
@@ -173,7 +176,7 @@ div.blue-section-innerContainer>.section-content,
     transition: height, margin 0.5s;
 }
 
-#quickLinks-collapseToggle:checked+div.blue-section-innerContainer>div.section-content,
+#quickLinks-collapseToggle:checked+div.blue-section-innerContainer>#connectingToCentinela-content,
 #quickLinks-collapseToggle:checked~div#quickLinksButtonRow,
 #standardStaffTools-collapseToggle:checked~div#standardStaffToolsButtonRow,
 #administratorTools-collapseToggle:checked~div#administratorToolsButtonRow,
