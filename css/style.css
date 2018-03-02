@@ -670,10 +670,23 @@ header.tutStepHeader p span {
 }
 
 .tutImageCaption {
-    color: #337AB7;
-    /* #337AB7 */
-    padding: 10px;
+    color: white;
+    padding: 8px 6px;
     text-align: center;
+    font-size: 1.25em;
+    background-color: #337AB7;
+    margin: 0px 15px;
+    max-width: 889px;
+    border-radius: 2px;
+    border-top: 2px dashed;
+}
+
+p.tut-descr a.tutRef {
+    text-decoration: underline;
+}
+
+.imagecaptionLeftAlign {
+    text-align: unset;
 }
 
 .blue-section.troubleshooting {
