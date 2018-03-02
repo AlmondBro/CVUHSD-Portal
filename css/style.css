@@ -158,6 +158,7 @@ h2 {
 
 /*div.blue-section-innerContainer>.section-content,*/
 
+#restoringABrokenWiFiConnection-content,
 #connectingToCentinela-content,
 #quickLinksButtonRow,
 #standardStaffToolsButtonRow,
@@ -176,7 +177,8 @@ h2 {
     transition: height, margin 0.5s;
 }
 
-#quickLinks-collapseToggle:checked+div.blue-section-innerContainer>#connectingToCentinela-content,
+#restoringABrokenWiFiConnection-collapseToggle:checked+div.blue-section-innerContainer>#restoringABrokenWiFiConnection-content,
+#connectingToCentinela-collapseToggle:checked+div.blue-section-innerContainer>#connectingToCentinela-content,
 #quickLinks-collapseToggle:checked~div#quickLinksButtonRow,
 #standardStaffTools-collapseToggle:checked~div#standardStaffToolsButtonRow,
 #administratorTools-collapseToggle:checked~div#administratorToolsButtonRow,
@@ -196,7 +198,8 @@ h2 {
     height: 100%;
 }
 
-#quickLinks-collapseToggle:checked+div.blue-section-innerContainer>div.section-header label>div.open-column-button::after,
+#restoringABrokenWiFiConnection-collapseToggle:checked+div.blue-section-innerContainer>div.section-header label>div.open-column-button::after,
+#connectingToCentinela-collapseToggle:checked+div.blue-section-innerContainer>div.section-header label>div.open-column-button::after,
 #quickLinks-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #standardStaffTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #administratorTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
@@ -230,6 +233,8 @@ h2 {
     background-color: #f4f7f9;
 }
 
+#connectingToCentinela-collapseToggle:checked+div.blue-section-innerContainer>div.section-content,
+#restoringABrokenWiFiConnection-collapseToggle:checked+div.blue-section-innerContainer>div.section-content,
 #quickLinks-collapseToggle:checked+div.blue-section-innerContainer>div.section-content {
     display: table;
 }
@@ -602,7 +607,7 @@ appears centered all the time*/
 }
 
 .tutStep {
-    margin: 55px auto;
+    margin: 27px auto;
 }
 
 .tutStepHeader {
@@ -626,18 +631,20 @@ appears centered all the time*/
 .tutStepHeader p {
     color: #cc3333;
     width: 75px;
-    font-size: 2em;
+    font-size: 2.25em;
     border-right: 1px solid #939598;
     padding-right: 10px;
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
+    font-weight: bolder;
 }
 
-.tutStepHeader p span {
+header.tutStepHeader p span {
     display: block;
     color: #cccccc;
     font-size: 0.65em;
+    font-weight: normal;
 }
 
 .tutImage {
@@ -671,6 +678,12 @@ appears centered all the time*/
 
 .blue-section.troubleshooting {
     text-align: unset;
+}
+
+.blue-section.troubleshooting .section-content p.tut-descr {
+    font-size: 1.25em;
+    color: #1E6C93;
+    margin: 20px 0px;
 }
 
 .section-content {
