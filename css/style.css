@@ -599,11 +599,12 @@ appears centered all the time*/
     font-size: 2.5em;
 }
 
-.tutorialTitle-edition {
+.tut-Header h5.tutorialTitle-edition {
     color: #cc3333;
     font-weight: bold;
     font-size: 1.5em;
     font-style: italic;
+    margin: 7px 3px;
 }
 
 .tutStep {
@@ -711,4 +712,16 @@ p.tut-descr a.tutRef {
 .tut-Header h4,
 .tut-Header h5 {
     margin: 0;
+}
+
+@media only screen and (max-width: 926px) {
+    .tutStepHeader,
+    .tutImage,
+    .tutImageCaption {
+        margin-left: 15px;
+    }
+    .dlTutLink,
+    .blue-section.troubleshooting .section-content p.tut-descr {
+        margin: 8px 15px;
+    }
 }
