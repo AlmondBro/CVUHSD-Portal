@@ -137,6 +137,7 @@ h2 {
 
 .section-header {
     background-color: rgb(30, 108, 147);
+    /* A nice green: rgb(30, 147, 44) */
     color: white;
     text-align: center;
     padding: 15px 0;
