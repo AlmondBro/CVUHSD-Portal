@@ -26,6 +26,7 @@ body a:focus {
     height: 100px;
     /* Was 50px */
     width: auto;
+    z-index: 2;
 }
 
 .navigation-bar-header {
@@ -375,6 +376,8 @@ h2 {
         display: inline;
         vertical-align: middle;
         margin-left: 25%;
+        position: relative;
+        z-index: 2;
     }
     #home-icon {
         color: #651b1b;
@@ -384,6 +387,9 @@ h2 {
         bottom: 60px;
         left: 15%;
         margin-bottom: -52px;
+        z-index: 1;
+        max-height: 320px;
+        overflow-y: auto;
         /*Used to be -25px, now it's -50px */
         /*margin-bottom Used to be -10px */
     }

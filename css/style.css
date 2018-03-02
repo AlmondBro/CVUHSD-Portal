@@ -155,6 +155,10 @@ h2 {
 
 /* Animate opening and closing of rows */
 
+
+/*div.blue-section-innerContainer>.section-content,*/
+
+#connectingToCentinela-content,
 #quickLinksButtonRow,
 #standardStaffToolsButtonRow,
 #administratorToolsButtonRow,
@@ -172,6 +176,7 @@ h2 {
     transition: height, margin 0.5s;
 }
 
+#quickLinks-collapseToggle:checked+div.blue-section-innerContainer>#connectingToCentinela-content,
 #quickLinks-collapseToggle:checked~div#quickLinksButtonRow,
 #standardStaffTools-collapseToggle:checked~div#standardStaffToolsButtonRow,
 #administratorTools-collapseToggle:checked~div#administratorToolsButtonRow,
@@ -191,6 +196,7 @@ h2 {
     height: 100%;
 }
 
+#quickLinks-collapseToggle:checked+div.blue-section-innerContainer>div.section-header label>div.open-column-button::after,
 #quickLinks-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #standardStaffTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #administratorTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
@@ -222,6 +228,10 @@ h2 {
     vertical-align: middle;
     padding: 1% 3%;
     background-color: #f4f7f9;
+}
+
+#quickLinks-collapseToggle:checked+div.blue-section-innerContainer>div.section-content {
+    display: table;
 }
 
 .admin-links {
@@ -362,6 +372,8 @@ h2 {
         display: inline;
         vertical-align: middle;
         margin-left: 25%;
+        position: relative;
+        z-index: 2;
     }
     #home-icon {
         color: rgb(21, 73, 99);
@@ -371,6 +383,9 @@ h2 {
         bottom: 60px;
         left: 15%;
         margin-bottom: -52px;
+        z-index: 1;
+        max-height: 320px;
+        overflow-y: auto;
         /*Used to be -25px, now it's -50px */
         /*margin-bottom Used to be -10px */
     }
@@ -573,4 +588,101 @@ appears centered all the time*/
     to {
         opacity: 1;
     }
+}
+
+.tutorialTitle {
+    font-size: 2.5em;
+}
+
+.tutorialTitle-edition {
+    color: #cc3333;
+    font-weight: bold;
+    font-size: 1.5em;
+    font-style: italic;
+}
+
+.tutStep {
+    margin: 55px auto;
+}
+
+.tutStepHeader {
+    /* border-bottom: 3px solid #1E6C93; */
+    /* max-width: 100%; */
+    display: block;
+    /* margin: 0 auto; */
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    /* float: left; */
+    /* position: relative; */
+    /* left: 80px; */
+}
+
+.tutStepHeader h6 {
+    display: inline;
+    color: black;
+    font-size: 2em;
+}
+
+.tutStepHeader p {
+    color: #cc3333;
+    width: 75px;
+    font-size: 2em;
+    border-right: 1px solid #939598;
+    padding-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.tutStepHeader p span {
+    display: block;
+    color: #cccccc;
+    font-size: 0.65em;
+}
+
+.tutImage {
+    display: inline-block;
+    margin: 0 auto;
+    width: 450px;
+}
+
+.dlTutLink {
+    display: table;
+    background-color: #1E6C93;
+    /*was the 337 color before*/
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    margin: 0 auto;
+}
+
+.tutDLButton {
+    color: white;
+    font-size: 1.1em;
+    border-radius: 10px;
+}
+
+.tutImageCaption {
+    color: #337AB7;
+    /* #337AB7 */
+    padding: 10px;
+    text-align: center;
+}
+
+.blue-section.troubleshooting {
+    text-align: unset;
+}
+
+.section-content {
+    display: block;
+    margin: 0 auto;
+}
+
+.tut-Header {
+    text-align: center;
+}
+
+.tut-Header h4,
+.tut-Header h5 {
+    margin: 0;
 }
