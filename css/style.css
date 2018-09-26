@@ -172,6 +172,7 @@ h2 {
 #mediaResourcesButtonRow,
 #schoolWebsitesButtonRow,
 #studentPortalButtonRow,
+#systemStatusesButtonRow,
 .admin-links {
     height: 0;
     margin: 0;
@@ -189,7 +190,8 @@ h2 {
 #digitalTextbooks-collapseToggle:checked~div#digitalTextbooksButtonRow,
 #mediaResources-collapseToggle:checked~div#mediaResourcesButtonRow,
 #schoolWebsites-collapseToggle:checked~div#schoolWebsitesButtonRow,
-#studentPortal-collapseToggle:checked~div#studentPortalButtonRow {
+#studentPortal-collapseToggle:checked~div#studentPortalButtonRow,
+#systemStatuses-collapseToggle:checked~div#systemStatusesButtonRow {
     margin: 2.5% auto;
     height: 100%;
 }
@@ -211,7 +213,8 @@ h2 {
 #digitalTextbooks-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #mediaResources-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #schoolWebsites-collapseToggle:checked+div.section-header label>div.open-column-button::after,
-#studentPortal-collapseToggle:checked+div.section-header label>div.open-column-button::after {
+#studentPortal-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#systemStatuses-collapseToggle:checked+div.section-header label>div.open-column-button::after {
     content: '-';
     /* was 029BB or 02297  */
 }
@@ -236,7 +239,8 @@ h2 {
 
 #connectingToCentinela-collapseToggle:checked+div.blue-section-innerContainer>div.section-content,
 #restoringABrokenWiFiConnection-collapseToggle:checked+div.blue-section-innerContainer>div.section-content,
-#quickLinks-collapseToggle:checked+div.blue-section-innerContainer>div.section-content {
+#quickLinks-collapseToggle:checked+div.blue-section-innerContainer>div.section-content,
+#systemStatuses-collapseToggle:checked+div.blue-section-innerContainer>div.section-content {
     display: table;
 }
 
