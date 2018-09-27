@@ -149,6 +149,15 @@ h2 {
     display: inline;
 }
 
+
+.statusEmbed {
+    align: center;
+    height: 400px;
+    width: 1000px;
+    border: 0; 
+    frameborder: 0;
+}
+
 #teacherToolsButtonRow a button img {
     position: relative;
 }
