@@ -1,0 +1,56 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+#Ignore DisplaySwitch.exe
+DisplaySwitch.exe
+
+#Structure of folders in production build
+dist-structure.txt
+
+#Visual Studio Code Settings
+.vscode/
+/.vscode
+
+#ignore certificate
+*.cer
+*.pfx
+
+#Ignore React Build folder, since you can generate this at any time
+build
+/build
+build/
+build/*
+
+#Ignore Electron Build folder, since you can generate this at any time
+/dist
+dist
+dist/
+dist/*
+
+#Ignore NPM & yarn lock files
+package-lock.json
+yarn.lock
+
+#Ignore Flow static type checking in JavaScript configuration file
+.flowconfig
+
+# dependencies
+node_modules
+/node_modules
+reagent-reactjs/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
