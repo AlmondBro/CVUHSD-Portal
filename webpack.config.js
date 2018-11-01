@@ -1,16 +1,22 @@
 const path = require('path');
+//const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+//const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "development",
+  mode: "development", //development or production
   entry: "./js/logic.js",
+  devtool: 'eval-cheap-module-source-map',
   devServer: {
-    contentBase: path.join(__dirname),
+    contentBase: path.resolve(__dirname),
+    hot: true,
+    open: true,
     compress: true,
     port: 3002,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": "http://localhost:3002",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization",
+      "Service-Worker-Allowed": "/"
     }
   },
   output: {
@@ -19,10 +25,17 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.js$/, loader: "babel-loader" }
+      { 
+        test: /\.js$/, 
+        use: { loader: "babel-loader" },
+        exclude: /node_modules/ 
+      }
     ]
   },
-  target: "node"
+  node: {
+    fs: "empty"
+ },
+ // target: "node" //web or node
 };
 
 //path: path.resolve(__dirname, 'dist')
