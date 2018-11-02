@@ -19,10 +19,10 @@ let HTML5_Notification = (title, message, icon) => {
 
 let getMonitorImage = (monitorName) => {
     // console.log("getMonitorImage");
-    let basePath = "./../images/"
+    let basePath = "./../images/buttons/"
     let monitorImage;
     switch (monitorName) {
-        /*
+        
         case "Destiny":
             monitorImage = "Destiny.png";
             break;
@@ -70,7 +70,7 @@ let getMonitorImage = (monitorName) => {
         case "TimeClock Plus":
             monitorImage = "timeclockpluslogo.jpg";
             break;
-*/
+
         default: 
             monitorImage = "CV-600x600.png";
     }
