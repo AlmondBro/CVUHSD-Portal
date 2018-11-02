@@ -6,8 +6,6 @@
 console.log("logic.js loaded");
 const API_URL = "https://www.site24x7.com/api/current_status?apm_required=true&group_required=false&locations_required=false&suspended_required=false";
 
-let downMonitors = [];
-
 let HTML5_Notification = (title, message, icon) => {
     // console.log("HTML5_Notification()");
     let monitorNotification = new window.Notification(title, { 
@@ -17,69 +15,71 @@ let HTML5_Notification = (title, message, icon) => {
 
 }; //HTML5_Notification()
 
-let getMonitorImage = (monitorName) => {
-    // console.log("getMonitorImage");
-    let basePath = "./../images/buttons/"
-    let monitorImage;
-    switch (monitorName) {
-        
-        case "Destiny":
-            monitorImage = "Destiny.png";
-            break;
-
-        case "E2020":
-            monitorImage = "Edgenuity.png";
-            break;
-        
-        case "Helpdesk":
-            monitorImage = "HelpDesk.png";
-            break;
-
-        case "IlluminateEd":
-            monitorImage = "Illuminate.png";
-            break;  
-
-        case "Outlook":
-            monitorImage = "Outlook.png";
-            break;
-
-        case "PowerSchool":
-            monitorImage = "PS.png";
-            break;
-
-        case "Print Center":
-            monitorImage = "print-center.png";
-            break;
-
-        case "Read180 Hawthorne":
-            monitorImage = "Read180HW-Teacher.png";
-            break;
-
-        case "Read180 Lawndale":
-            monitorImage = "Read180LW-Teacher.png";
-            break;
-
-        case "Read180 Leuzinger":
-            monitorImage = "Read180LZ-Teacher.png";
-            break;
-
-        case "SmarteTools":
-            monitorImage = "smartetools.png";
-            break;
-
-        case "TimeClock Plus":
-            monitorImage = "timeclockpluslogo.jpg";
-            break;
-
-        default: 
-            monitorImage = "CV-600x600.png";
-    }
-
-    let fullPath = basePath + monitorImage;
-    return fullPath;
-}; //end getMonitorImage()
-
 let checkMonitorStatus = (monitors) => {
+    let downMonitors = [];
+
+    let getMonitorImage = (monitorName) => {
+        // console.log("getMonitorImage");
+        let basePath = "./../images/buttons/"
+        let monitorImage;
+        switch (monitorName) {
+            
+            case "Destiny":
+                monitorImage = "Destiny.png";
+                break;
+    
+            case "E2020":
+                monitorImage = "Edgenuity.png";
+                break;
+            
+            case "Helpdesk":
+                monitorImage = "HelpDesk.png";
+                break;
+    
+            case "IlluminateEd":
+                monitorImage = "Illuminate.png";
+                break;  
+    
+            case "Outlook":
+                monitorImage = "Outlook.png";
+                break;
+    
+            case "PowerSchool":
+                monitorImage = "PS.png";
+                break;
+    
+            case "Print Center":
+                monitorImage = "print-center.png";
+                break;
+    
+            case "Read180 Hawthorne":
+                monitorImage = "Read180HW-Teacher.png";
+                break;
+    
+            case "Read180 Lawndale":
+                monitorImage = "Read180LW-Teacher.png";
+                break;
+    
+            case "Read180 Leuzinger":
+                monitorImage = "Read180LZ-Teacher.png";
+                break;
+    
+            case "SmarteTools":
+                monitorImage = "smartetools.png";
+                break;
+    
+            case "TimeClock Plus":
+                monitorImage = "timeclockpluslogo.jpg";
+                break;
+    
+            default: 
+                monitorImage = "CV-600x600.png";
+        }
+    
+        let fullPath = basePath + monitorImage;
+        return fullPath;
+    }; //end getMonitorImage()
+
     console.log(`checkMonitorStatus():\t ${JSON.stringify(monitors)}`);
     console.log(monitors[0]);
 
@@ -125,6 +125,8 @@ let checkMonitorStatus = (monitors) => {
 const jsonFetch = () => {
     //corsAnywhere();
     console.log("jsonFetch()");
+
+    let monitors = [];
     let port = 3002;
     const proxy_URL = "https://cors-anywhere.herokuapp.com/";
    //`https://localhost:${port}/`;
@@ -145,8 +147,6 @@ const jsonFetch = () => {
 
     let request = new Request(fetchURL, initObject);
     
-    let monitors = [];
-
     window.fetch(request) //or use window.fetch(fetchURL, initObject)
         .then( (response) => {
             console.log(response);
@@ -169,8 +169,7 @@ const jsonFetch = () => {
 }; 
 
 jsonFetch();
-//AJAXrequest();
-//httpFetch();
+
 
 //window.onload = () => {
     /*
