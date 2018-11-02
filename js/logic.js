@@ -1,4 +1,4 @@
-import corsAnywhere from "./server.js";
+//import corsAnywhere from "./server.js";
 //import { headers } from "./headers.js";
 
 //const webpack = require('webpack');
@@ -6,8 +6,19 @@ import corsAnywhere from "./server.js";
 console.log("logic.js loaded");
 const API_URL = "https://www.site24x7.com/api/current_status?apm_required=true&group_required=false&locations_required=false&suspended_required=false";
 
+let downMonitors = [];
+
+let HTML5_Notification = (title, message, icon) => {
+    // console.log("HTML5_Notification()");
+    let monitorNotification = new window.Notification(title, { 
+        body: message,
+        icon: icon // optional
+    });  //end new Notification()
+
+}; //HTML5_Notification()
+
 let getMonitorImage = (monitorName) => {
-    console.log("getMonitorImage");
+    // console.log("getMonitorImage");
     let basePath = "./../images/"
     let monitorImage;
     switch (monitorName) {
@@ -72,34 +83,51 @@ let checkMonitorStatus = (monitors) => {
     console.log(`checkMonitorStatus():\t ${JSON.stringify(monitors)}`);
     console.log(monitors[0]);
 
-    for (let i = 0; i <= monitors.length; i++ ) {
-        console.log("checkMonitorStatus() for-loop");
-        console.dir(monitors[i]);
-
+    for (let i = 0; i < monitors.length; i++ ) {
+        //console.log("checkMonitorStatus() for-loop");
+        // console.dir(monitors[0]);
+       
         if ( monitors[i]["status"] === 1 ) {
             console.log(`${monitors[i].name} is up`);
-            console.log("Tesssttttinnngggg");
+            //downMonitors.push(monitors[i]);
 
-            if ( window.Notification && Notification.permission !== "denied" ) { //check that browser supports HTML5 notifications and that the browser has 
+            if ( window.Notification && window.Notification.permission !== "denied" ) { //check that browser supports HTML5 notifications and that the browser has 
                 Notification.requestPermission( (status) => {  // status is "granted", if accepted by user
-                    let monitorNotification = new Notification(`${monitors[i].name}`, { 
-                        body: `${monitors[i].name} is up`,
-                        icon: getMonitorImage(monitors[i].name) // optional
-                    });  //end new Notification()
-                });
-            } else {
+                    HTML5_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
+                }); //end request permission method
+            } //end inner if-statement (check for HTML5 notifications support)
+             else {
                 alert(`${monitors[i].name} is up`);
             } //end inner else-statement
-        } //end outter else-statement
+        } //end outer if-statement
+
+        if ( typeof(downMonitors[i]) != "undefined") {
+            if (downMonitors[i]["status"] === 1) {
+                if ( window.Notification && Notification.permission !== "denied" ) { //check that browser supports HTML5 notifications and that the browser has 
+                    Notification.requestPermission( (status) => {  // status is "granted", if accepted by user
+                        HTML5_Notification(`${downMonitors[i].name}`, `${downMonitors[i].name} is back up`, getMonitorImage(downMonitors[i].name) );
+                    }); //end request permission method
+                } //end inner if-statement (check for HTML5 notifications support)
+                 else {
+                    alert(`${monitors[i].name} is up`);
+                } //end inner else-statement
+    
+                for (let j = o; j < downMonitors.length; j++ ) {
+                    if (downMonitors[i].name === downMonitors[j].name ) {
+                        downMonitors.splice( downMonitors.indexOf(downMonitors[j].name), 1 );
+                    } //end inner if-statement
+                } //end for-loop
+            } //end inner if-statement
+        } // end outer if-statement
     } //end for-loop
 }; //end checkMonitorStatus();
 
 const jsonFetch = () => {
-    corsAnywhere();
+    //corsAnywhere();
     console.log("jsonFetch()");
     let port = 3002;
-    const proxy_URL = //"https://cors-anywhere.herokuapp.com/";
-   `https://localhost:${port}/`;
+    const proxy_URL = "https://cors-anywhere.herokuapp.com/";
+   //`https://localhost:${port}/`;
 
     let isDev = true;
     

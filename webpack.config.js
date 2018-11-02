@@ -3,11 +3,12 @@ const path = require('path');
 //const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "development", //development or production
+  mode: "development", // development or production
   entry: "./js/logic.js",
-  devtool: 'eval-cheap-module-source-map',
+  devtool: "inline-source-map", // https://webpack.js.org/configuration/devtool/
   devServer: {
     contentBase: path.resolve(__dirname),
+    inline: true,
     hot: true,
     open: true,
     compress: true,
@@ -35,7 +36,7 @@ module.exports = {
   node: {
     fs: "empty"
  },
- // target: "node" //web or node
+ target: "web" //web or node
 };
 
 //path: path.resolve(__dirname, 'dist')

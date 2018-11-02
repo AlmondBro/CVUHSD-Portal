@@ -14,6 +14,10 @@ dist-structure.txt
 *.cer
 *.pfx
 
+#ignore source maps & production bundle.js
+*.map
+bundle.js
+
 #Ignore React Build folder, since you can generate this at any time
 build
 /build
