@@ -17,6 +17,7 @@ dist-structure.txt
 #ignore source maps & production bundle.js
 *.map
 bundle.js
+js/bundle.js
 
 #Ignore React Build folder, since you can generate this at any time
 build
