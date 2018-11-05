@@ -4,6 +4,7 @@
 //const webpack = require('webpack');
 
 console.log("logic.js loaded");
+
 const API_URL = "https://www.site24x7.com/api/current_status?apm_required=true&group_required=false&locations_required=false&suspended_required=false";
 
 let HTML5_Notification = (title, message, icon) => {
@@ -168,23 +169,24 @@ const jsonFetch = () => {
         }); 
 }; 
 
+if ("serviceWorker" in navigator) {
+   // window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js", { scope: "/"} )
+        .then( (registration) => {
+            // Registration was successful
+            console.log("SW: ServiceWorker registration successful with scope: ", registration.scope);
+        }, (error) => {
+            // registration failed :(
+            console.log("SW: ServiceWorker registration failed: ", error);
+        }); //end .then()
+  //  }); //end load() window event
+} //end conditional check for service-worker
+
+else {
+    console.log("Service worker is not supported in this browser");
+}
+      
+
 jsonFetch();
 
-
-//window.onload = () => {
-    /*
-    if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register("js/service-worker.js", { scope: "/"} )
-            .then( (registration) => {
-                // Registration was successful
-                console.log("ServiceWorker registration successful with scope: ", registration.scope);
-            }, (error) => {
-                // registration failed :(
-                console.log("ServiceWorker registration failed: ", error);
-            }); //end .then()
-        }); //end load() window event
-      } //end conditional check for service-worker
-      */
-//}; //end window.onload() function
 
