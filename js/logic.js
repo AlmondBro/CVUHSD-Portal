@@ -184,8 +184,37 @@ if ("serviceWorker" in navigator) {
 else {
     console.log("Service worker is not supported in this browser");
 }
-      
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (event) => {
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    event.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = event;
+  });
+
+const addToHomeScreen = () => {
+    console.log("AddtoHomeScreen()");
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice
+      .then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        deferredPrompt = null;
+      });
+}
+
+window.addEventListener('appinstalled', (event) => {
+    app.logEvent('a2hs', 'installed');
+});
+
 jsonFetch();
+
+addToHomeScreen();
 
 const MINUTES = 15;
 const CHECK_TIME = 1000*60*MINUTES; //Time to check (convert milliseconds to minutes): milliseconds*seconds*minutes
