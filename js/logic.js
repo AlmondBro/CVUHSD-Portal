@@ -13,7 +13,6 @@ let HTML5_Notification = (title, message, icon) => {
         body: message,
         icon: icon // optional
     });  //end new Notification()
-
 }; //HTML5_Notification()
 
 let checkMonitorStatus = (monitors) => {
@@ -88,7 +87,7 @@ let checkMonitorStatus = (monitors) => {
         //console.log("checkMonitorStatus() for-loop");
         // console.dir(monitors[0]);
        
-        if ( monitors[i]["status"] === 1 ) {
+        if ( monitors[i]["name"] === "Destiny" ) {
             console.log(`${monitors[i].name} is up`);
             //downMonitors.push(monitors[i]);
 
@@ -124,16 +123,16 @@ let checkMonitorStatus = (monitors) => {
 }; //end checkMonitorStatus();
 
 const jsonFetch = () => {
-    //corsAnywhere();
     console.log("jsonFetch()");
-
+    let isDev = true;
+    if (!isDev) {
+        corsAnywhere();
+    }
+  
     let monitors = [];
     let port = 3002;
-    const proxy_URL = "https://cors-anywhere.herokuapp.com/";
-   //`https://localhost:${port}/`;
+    const proxy_URL =  isDev ? "https://cors-anywhere.herokuapp.com/" : `https://localhost:${port}/`;
 
-    let isDev = true;
-    
     let initObject = {
         method: "GET", 
         headers : { 
@@ -186,7 +185,10 @@ else {
     console.log("Service worker is not supported in this browser");
 }
       
-
 jsonFetch();
+
+const MINUTES = 15;
+const CHECK_TIME = 1000*60*MINUTES; //Time to check (convert milliseconds to minutes): milliseconds*seconds*minutes
+window.setInterval(jsonFetch, CHECK_TIME);
 
 

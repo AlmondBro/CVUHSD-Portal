@@ -340,7 +340,7 @@ self.addEventListener("fetch", (event) => {
     
         var testing = fetch(request) //or use window.fetch(fetchURL, initObject)
         .then( (response) => {
-            console.log("Response:\t " + response );
+            console.log("Response:\t " + JSON.stringify(response) );
             return response.json();
         })
         /*.then( (myJson) => {
