@@ -5,6 +5,26 @@ const CACHE_NAME = "staff-portal-cache";
    then the service worker won't be installed either.
 */
 
+//Function used from:
+let intervalWithWait = (func, wait, times) => {
+  var interv = function(w, t){
+      return function(){
+          if(typeof t === "undefined" || t-- > 0){
+              setTimeout(interv, w);
+              try{
+                  func.call(null);
+              }
+              catch(e){
+                  t = 0;
+                  throw e.toString();
+              }
+          }
+      };
+  }(wait, times);
+
+  setTimeout(interv, wait);
+};
+
 const API_URL = "https://www.site24x7.com/api/current_status?apm_required=true&group_required=false&locations_required=false&suspended_required=false";
 
 let offlineFundamentals = [
@@ -127,6 +147,7 @@ let checkMonitorStatus = (monitors) => {
       } // end outer if-statement
   } //end for-loop
 }; //end checkMonitorStatus();
+
 
 const jsonFetch = () => {
   console.log("jsonFetch()");
@@ -428,11 +449,13 @@ self.addEventListener("fetch", (event) => {
 jsonFetch();
 
 const MINUTES = 15;
-const CHECK_TIME = 1000*60*MINUTES; //Time to check (convert milliseconds to minutes): milliseconds*seconds*minutes
+const CHECK_TIME =  8000;
+//1000*60*MINUTES; //Time to check (convert milliseconds to minutes): milliseconds*seconds*minutes
 
 let runInterval = () => {
   console.log("runInterval");
-  setInterval(jsonFetch, CHECK_TIME);
+  // setInterval(jsonFetch, CHECK_TIME);
+  intervalWithWait(jsonFetch, CHECK_TIME);
 };
 
 runInterval();
