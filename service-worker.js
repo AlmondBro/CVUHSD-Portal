@@ -16,16 +16,16 @@ let offlineFundamentals = [
   "/css/style.css"
 ];
 
-let HTML5_Notification = (title, message, icon) => {
-  // console.log("HTML5_Notification()");
-  let monitorNotification = new window.Notification(title, { 
-      body: message,
-      icon: icon // optional
-  });  //end new Notification()
-
-}; //HTML5_Notification()
+let serviceWorker_Notification = (title, message, icon) => {
+  console.log("serviceWorker_Notification()");
+  self.registration.showNotification(title, { 
+    body: message,
+    icon: icon // optional 
+  });
+}; //serviceWorker_Notification()
 
 let checkMonitorStatus = (monitors) => {
+  console.log("Check monitor status");
   let downMonitors = [];
 
   let getMonitorImage = (monitorName) => {
@@ -97,15 +97,13 @@ let checkMonitorStatus = (monitors) => {
       //console.log("checkMonitorStatus() for-loop");
       // console.dir(monitors[0]);
      
-      if ( monitors[i]["status"] === 1 ) {
+      if ( monitors[i]["name"] === "Destiny" ) {
           console.log(`${monitors[i].name} is up`);
           //downMonitors.push(monitors[i]);
 
-          if ( window.Notification && window.Notification.permission !== "denied" ) { //check that browser supports HTML5 notifications and that the browser has 
-              Notification.requestPermission( (status) => {  // status is "granted", if accepted by user
-                  HTML5_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
-              }); //end request permission method
-          } //end inner if-statement (check for HTML5 notifications support)
+          if ( self.registration ) { //check that browser supports HTML5 notifications and that the browser has 
+                  serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
+          } //end inner if-statement (check for SW notifications support)
            else {
               alert(`${monitors[i].name} is up`);
           } //end inner else-statement
@@ -113,11 +111,9 @@ let checkMonitorStatus = (monitors) => {
 
       if ( typeof(downMonitors[i]) != "undefined") {
           if (downMonitors[i]["status"] === 1) {
-              if ( window.Notification && Notification.permission !== "denied" ) { //check that browser supports HTML5 notifications and that the browser has 
-                  Notification.requestPermission( (status) => {  // status is "granted", if accepted by user
-                      HTML5_Notification(`${downMonitors[i].name}`, `${downMonitors[i].name} is back up`, getMonitorImage(downMonitors[i].name) );
-                  }); //end request permission method
-              } //end inner if-statement (check for HTML5 notifications support)
+            if ( self.registration ) { //check that browser supports HTML5 notifications and that the browser has 
+              serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
+            } //end inner if-statement (check for SW notifications support)
                else {
                   alert(`${monitors[i].name} is up`);
               } //end inner else-statement
@@ -133,16 +129,16 @@ let checkMonitorStatus = (monitors) => {
 }; //end checkMonitorStatus();
 
 const jsonFetch = () => {
-  //corsAnywhere();
   console.log("jsonFetch()");
+  let isDev = true;
+  if (!isDev) {
+      corsAnywhere();
+  }
 
   let monitors = [];
   let port = 3002;
-  const proxy_URL = "https://cors-anywhere.herokuapp.com/";
- //`https://localhost:${port}/`;
+  const proxy_URL =  isDev ? "https://cors-anywhere.herokuapp.com/" : `https://localhost:${port}/`;
 
-  let isDev = true;
-  
   let initObject = {
       method: "GET", 
       headers : { 
@@ -157,7 +153,7 @@ const jsonFetch = () => {
 
   let request = new Request(fetchURL, initObject);
   
-  window.fetch(request) //or use window.fetch(fetchURL, initObject)
+  fetch(request) //or use window.fetch(fetchURL, initObject)
       .then( (response) => {
           console.log(response);
           return response.json();
@@ -165,10 +161,10 @@ const jsonFetch = () => {
       .then( (myJson) => {
          // console.log("JSON:\t" + JSON.stringify(myJson));
          
-         monitors = myJson["data"]["monitors"];
+          monitors = myJson["data"]["monitors"];
           // console.log(`Monitors: ${JSON.stringify(monitors)}`);
 
-         return monitors;
+          return monitors;
       })
       .then( (monitors) => {
           checkMonitorStatus(monitors);
@@ -251,7 +247,7 @@ self.addEventListener("activate", (event) => {
             })
         );
       })
-      .then(function() {
+      .then(() => {
         console.log('WORKER: activate completed.');
       })
   );
@@ -362,6 +358,7 @@ self.addEventListener("fetch", (event) => {
             back to waiting on the network as usual.
           */
           console.log('WORKER: fetch event', cached ? '(cached)' : '(network)', event.request.url);
+         // self.registration.showNotification("Hi", { "body": "Testttinngg"} );
           return cached || networked;
 
           function fetchedFromNetwork(response) {
@@ -427,6 +424,18 @@ self.addEventListener("fetch", (event) => {
  }
   
 }); //end self.addEventListener()
+
+jsonFetch();
+
+const MINUTES = 15;
+const CHECK_TIME = 1000*60*MINUTES; //Time to check (convert milliseconds to minutes): milliseconds*seconds*minutes
+
+let runInterval = () => {
+  console.log("runInterval");
+  setInterval(jsonFetch, CHECK_TIME);
+};
+
+runInterval();
 
 self.addEventListener("push", (event) => {
   let title="Test"; 
