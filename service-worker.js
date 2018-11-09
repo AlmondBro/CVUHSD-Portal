@@ -121,14 +121,17 @@ let checkMonitorStatus = (monitors) => {
           console.log(`${monitors[i].name} is up`);
           //downMonitors.push(monitors[i]);
 
-          if ( self.registration ) { //check that browser supports HTML5 notifications and that the browser has 
-                  serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
+          //check that browser supports HTML5 notifications and that the browser has 
+          if ( self.registration && self.registration !== "undefined" ) { 
+                serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
           } else  {
              console.log("Calling alert()");
+             console.log("Type of self.registration:\t" + typeof(self.registration) + "\t" + self.registration );
               alert(`${monitors[i].name} is up`);
           } //end inner else-statement (check for SW notifications support)
       } //end outer if-statement
 
+      /*Check if monitors that were previously down are now back up. */
       if ( typeof(downMonitors[i]) != "undefined") {
           if (downMonitors[i]["status"] === 1) {
             if ( self.registration ) { //check that browser supports HTML5 notifications and that the browser has 

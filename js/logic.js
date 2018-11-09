@@ -1,5 +1,3 @@
-import serviceWorker_Notification  from "../service-worker.js";
-
 console.log("logic.js loaded");
 
 const API_URL = "https://www.site24x7.com/api/current_status?apm_required=true&group_required=false&locations_required=false&suspended_required=false";
@@ -97,8 +95,8 @@ window.addEventListener("load", () => { //or use window.onload
              deferredPrompt.userChoice
                .then((choiceResult) => {
                  if (choiceResult.outcome === 'accepted') {
+                   addToHomeScreen_Button.style.display = "none";  
                    console.log('User accepted the A2HS prompt');
-                   addToHomeScreen_Button.style.display = "none";
                  } else {
                    console.log('User dismissed the A2HS prompt');
                  }
@@ -119,12 +117,13 @@ window.addEventListener("load", () => { //or use window.onload
      ); //end window.addEventListener('beforeinstallprompt')
 
      window.addEventListener('appinstalled', (event) => {
+        addToHomeScreen_Button.style.display = "none";
         if (app !== "undefined") {
             app.logEvent('a2hs', 'installed');
         } 
         console.log("App installed");
-        addToHomeScreen_Button.style.display = "none";
-        document.querySelector("div.tooltip #addToHomeScreenTooltip").style.display = "none;"
+       
+       // document.querySelector("div.tooltip #addToHomeScreenTooltip").style.display = "none;"
     });
 });
 
