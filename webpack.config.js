@@ -10,7 +10,7 @@ module.exports = {
     contentBase: path.resolve(__dirname),
     inline: true,
     hot: true,
-    open: true,
+    open: false,
     compress: true,
     port: 3002,
     headers: {

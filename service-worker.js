@@ -123,20 +123,19 @@ let checkMonitorStatus = (monitors) => {
 
           if ( self.registration ) { //check that browser supports HTML5 notifications and that the browser has 
                   serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
-          } //end inner if-statement (check for SW notifications support)
-           else {
+          } else if ( !self.registration )  {
+             console.log("Calling alert()");
               alert(`${monitors[i].name} is up`);
-          } //end inner else-statement
+          } //end inner else-statement (check for SW notifications support)
       } //end outer if-statement
 
       if ( typeof(downMonitors[i]) != "undefined") {
           if (downMonitors[i]["status"] === 1) {
             if ( self.registration ) { //check that browser supports HTML5 notifications and that the browser has 
               serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
-            } //end inner if-statement (check for SW notifications support)
-               else {
+            } else {
                   alert(`${monitors[i].name} is up`);
-              } //end inner else-statement
+            } //end inner else-statement (check for SW notifications support)
   
               for (let j = o; j < downMonitors.length; j++ ) {
                   if (downMonitors[i].name === downMonitors[j].name ) {
@@ -429,7 +428,7 @@ self.addEventListener("fetch", (event) => {
             /* Here we're creating a response programmatically. The first parameter is the
               response body, and the second one defines the options for the response.
             */
-            return new Response('<h1>Service Unavailable: Nothing in cache and unable to fetch from network.</h1>', {
+            return new Response('<h1>Portal Unavailable: Nothing in cache and unable to fetch from network.</h1>', {
               status: 503,
               statusText: 'Service Unavailable',
               headers: new Headers({
@@ -474,4 +473,3 @@ self.addEventListener("push", (event) => {
     );
   }
 });
-
