@@ -123,7 +123,7 @@ let checkMonitorStatus = (monitors) => {
 
           if ( self.registration ) { //check that browser supports HTML5 notifications and that the browser has 
                   serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
-          } else if ( !self.registration )  {
+          } else  {
              console.log("Calling alert()");
               alert(`${monitors[i].name} is up`);
           } //end inner else-statement (check for SW notifications support)
