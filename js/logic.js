@@ -24,7 +24,15 @@ let HTML5_Notification = (title, message, icon, actionsArray) => {
 
 
 window.addEventListener("load", () => { //or use window.onload
+    
+    // let isHomeButtonClicked = false;
     let addToHomeScreen_Button = document.getElementById("addToHomeScreenButton");
+
+    let isFirefox = navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
+    let isChrome = navigator.userAgent.toLowerCase().indexOf("chrome") > -1;
+    let isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1;
+
+    let isMobileFirefox = isFirefox && isAndroid;
     let deferredPrompt;
 
     if ("serviceWorker" in navigator) {
@@ -95,8 +103,10 @@ window.addEventListener("load", () => { //or use window.onload
              deferredPrompt.userChoice
                .then((choiceResult) => {
                  if (choiceResult.outcome === 'accepted') {
-                   addToHomeScreen_Button.style.display = "none";  
+                   addToHomeScreen_Button.style.display = "none"; 
                    console.log('User accepted the A2HS prompt');
+                   // isHomeButtonClicked = true;
+
                  } else {
                    console.log('User dismissed the A2HS prompt');
                  }
@@ -112,13 +122,17 @@ window.addEventListener("load", () => { //or use window.onload
              // Stash the event so it can be triggered later.
              deferredPrompt = event;
      
-             addToHomeScreen();
+            if ( (isMobileFirefox || isChrome) ) {
+                addToHomeScreen_Button.style.display = "inline-block";
+                addToHomeScreen();
+            } //end if-statement   
+            console.log("beforeinstallprompt");
     }
      ); //end window.addEventListener('beforeinstallprompt')
 
-     window.addEventListener('appinstalled', (event) => {
+     window.addEventListener("appinstalled", (event) => {
         addToHomeScreen_Button.style.display = "none";
-        if (app !== "undefined") {
+        if (typeof(app) !== "undefined") {
             app.logEvent('a2hs', 'installed');
         } 
         console.log("App installed");

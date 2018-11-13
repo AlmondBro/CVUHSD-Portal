@@ -784,6 +784,10 @@ p.tut-descr a.tutRef {
     transition: opacity 1s ease-in-out;
 }
 
+#addToHomeScreenButton {
+    display: none;
+}
+
 #addToHomeScreenButton:hover + .tooltip {
     /* visibility: visible; */
     opacity: 1;
