@@ -1,6 +1,7 @@
 const path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 //const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-//const HtmlWebPackPlugin = require("html-webpack-plugin");
+
 
 module.exports = {
   mode: "development", // development or production
@@ -23,7 +24,7 @@ module.exports = {
     }
   },
   output: {
-    filename: '[name]',
+    filename: 'dist/[name]',
     path: path.resolve(__dirname)
   },
   module: {
@@ -38,6 +39,12 @@ module.exports = {
   node: {
     fs: "empty"
  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "staff-prod.html",
+      filename: "dist/staff.html"
+    })
+  ],
  target: "web" //web or node
 };
 

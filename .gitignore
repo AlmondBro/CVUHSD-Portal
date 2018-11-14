@@ -30,6 +30,7 @@ build/*
 dist
 dist/
 dist/*
+dist*
 
 #Ignore photoshop files
 *.psd
