@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 //const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 /*
@@ -49,7 +50,8 @@ module.exports = {
       title: "staff-prod.html",
       filename: "dist/staff.html",
       template: "staff.html"
-    })
+    }),
+    new HtmlWebpackIncludeAssetsPlugin({ assets: ['.js', '.css'], append: true })
   ],
  target: "web" //web or node
 };
