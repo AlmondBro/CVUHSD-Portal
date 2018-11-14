@@ -4,7 +4,9 @@ const path = require('path');
 
 module.exports = {
   mode: "development", // development or production
-  entry: "./js/logic.js",
+  entry: { "js/logic.bundle.js": "./js/logic.js",
+           "service-worker.bundle.js": "./service-worker.js" 
+         },
   devtool: "inline-source-map", // https://webpack.js.org/configuration/devtool/
   devServer: {
     contentBase: path.resolve(__dirname),
@@ -21,8 +23,8 @@ module.exports = {
     }
   },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'js')
+    filename: '[name]',
+    path: path.resolve(__dirname)
   },
   module: {
     rules: [
