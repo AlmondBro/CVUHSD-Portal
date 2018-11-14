@@ -2,6 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 //const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
+/*
+ inline: true,
+    hot: true, 
+
+    //dev-server 
+*/
 
 module.exports = {
   mode: "development", // development or production
@@ -10,9 +16,8 @@ module.exports = {
          },
   devtool: "inline-source-map", // https://webpack.js.org/configuration/devtool/
   devServer: {
-    contentBase: path.resolve(__dirname),
-    inline: true,
-    hot: true,
+    contentBase: path.resolve(__dirname, "dist"),
+   
     open: false,
     compress: true,
     port: 3002,
@@ -42,7 +47,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "staff-prod.html",
-      filename: "dist/staff.html"
+      filename: "dist/staff.html",
+      template: "staff.html"
     })
   ],
  target: "web" //web or node

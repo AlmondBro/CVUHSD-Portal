@@ -10,7 +10,8 @@
     "prod": "webpack --mode production",
     "dev-build": "webpack --mode development",
     "start": "npm run dev-build  && webpack-dev-server",
-    "product": "webpack && webpack-dev-server --inline --hot"
+    "product": "webpack && webpack-dev-server --inline --hot",
+    "dev-server": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
