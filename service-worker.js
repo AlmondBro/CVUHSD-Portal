@@ -451,8 +451,7 @@ self.addEventListener("fetch", (event) => {
 jsonFetch();
 
 const MINUTES = 15;
-const CHECK_TIME =  4000;
-// 1000*60*MINUTES; //Time to check (convert milliseconds to minutes): milliseconds*seconds*minutes
+const CHECK_TIME =  1000*60*MINUTES; //Time to check (convert milliseconds to minutes): milliseconds*seconds*minutes
 
 let runInterval = () => {
   console.log("runInterval");
