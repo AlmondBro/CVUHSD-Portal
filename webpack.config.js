@@ -54,6 +54,10 @@ module.exports = {
       filename: "staff.html",
       template: "staff.html"
     }),
+    new HtmlWebpackPlugin({
+      filename: "student.html",
+      template: "student.html"
+    }),
     new CopyWebpackPlugin([ { from: "css/font-awesome.min.css", to: "css/font-awesome.min.css"},
                             { from: "css/grid-system.css", to: "css/grid-system.css" },
                             { from: "css/style.css", to: "css/style.css" },

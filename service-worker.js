@@ -152,7 +152,6 @@ let checkMonitorStatus = (monitors) => {
   } //end for-loop
 }; //end checkMonitorStatus();
 
-
 const jsonFetch = () => {
   console.log("jsonFetch()");
   let isDev = true;
