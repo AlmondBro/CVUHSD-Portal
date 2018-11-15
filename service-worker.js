@@ -30,9 +30,7 @@ const API_URL = "https://www.site24x7.com/api/current_status?apm_required=true&g
 let offlineFundamentals = [
   "staff.html",
   "student.html",
-  "/css/font-awesome.min.css",
   "/css/grid-system.css",
-  "/css/style-red.css",
   "/css/style.css"
 ];
 

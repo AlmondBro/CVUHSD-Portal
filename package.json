@@ -11,7 +11,8 @@
     "dev-build": "webpack --mode development",
     "start": "npm run dev-build  && webpack-dev-server",
     "product": "webpack && webpack-dev-server --inline --hot",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server",
+    "dev": "npm run dev-build && npm run dev-server"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "babel-loader": "^8.0.4",
+    "copy-webpack-plugin": "^4.6.0",
     "cors-anywhere": "^0.4.1",
     "html-loader": "^0.5.5",
     "html-webpack-include-assets-plugin": "^1.0.6",
