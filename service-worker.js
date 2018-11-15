@@ -36,10 +36,13 @@ let offlineFundamentals = [
 
 let serviceWorker_Notification = (title, message, icon) => {
   console.log("serviceWorker_Notification()");
-  self.registration.showNotification(title, { 
-    body: message,
-    icon: icon // optional 
-  });
+  if (self.registration) {
+    self.registration.showNotification(title, { 
+      body: message,
+      icon: icon // optional 
+    });
+  }
+
 }; //serviceWorker_Notification()
 
 let checkMonitorStatus = (monitors) => {
@@ -120,9 +123,10 @@ let checkMonitorStatus = (monitors) => {
           //downMonitors.push(monitors[i]);
 
           //check that browser supports HTML5 notifications and that the browser has 
-          if ( self.registration && self.registration !== "undefined" ) { 
+          if ( self.registration !== "undefined" &&  self.registration ) { 
                 serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
-          } else  {
+          } 
+          if (self.registration === "undefined" && !self.registration ) {
              console.log("Calling alert()");
              console.log("Type of self.registration:\t" + typeof(self.registration) + "\t" + self.registration );
               alert(`${monitors[i].name} is up`);

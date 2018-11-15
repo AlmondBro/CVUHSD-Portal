@@ -13,7 +13,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   mode: "development", // development or production
   entry: { "js/logic.bundle.js": "./js/logic.js",
-           "service-worker.bundle.js": "./service-worker.js"
+           "service-worker.js": "./service-worker.js"
          },
   devtool: "inline-source-map", // https://webpack.js.org/configuration/devtool/
   devServer: {
@@ -34,10 +34,15 @@ module.exports = {
   },
   module: {
     rules: [
-      { 
-        test: /\.js$/, 
-        use: { loader: "babel-loader" },
-        exclude: /node_modules/ 
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
       }
     ]
   },
