@@ -29,8 +29,8 @@ module.exports = {
     }
   },
   output: {
-    filename: 'dist/[name]',
-    path: path.resolve(__dirname)
+    filename: '[name]',
+    path: path.resolve(__dirname, "dist")
   },
   module: {
     rules: [
