@@ -46,17 +46,16 @@ module.exports = {
  },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "staff-prod.html",
-      filename: "dist/staff.html",
+      filename: "staff.html",
       template: "staff.html"
     }),
-    new CopyWebpackPlugin([ { from: "css/font-awesome.min.css", to: "dist/css/font-awesome.min.css"},
-                            { from: "css/grid-system.css", to: "dist/css/grid-system.css" },
-                            { from: "css/style.css", to: "dist/css/style.css" },
-                            { from: "css/style-red.css", to: "dist/css/style-red.css" },
-                            { from: "images/*", to: "dist"},
-                            { from: "images/*/**", to: "dist"},
-                            { from: "js/staff-manifest.json", to: "dist/js/staff-manifest.json"}
+    new CopyWebpackPlugin([ { from: "css/font-awesome.min.css", to: "css/font-awesome.min.css"},
+                            { from: "css/grid-system.css", to: "css/grid-system.css" },
+                            { from: "css/style.css", to: "css/style.css" },
+                            { from: "css/style-red.css", to: "css/style-red.css" },
+                            { from: "images/*", to: ""},
+                            { from: "images/*/**", to: ""},
+                            { from: "js/staff-manifest.json", to: "js/staff-manifest.json"}
                           ], { debug: "info"}),
     new HtmlWebpackIncludeAssetsPlugin({ assets: ['css/font-awesome.min.css',
                                                   'css/grid-system.css',
