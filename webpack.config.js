@@ -67,7 +67,7 @@ module.exports = {
                             { from: "js/staff-manifest.json", to: "js/staff-manifest.json"}
                           ], { debug: "info"}),
     new HtmlWebpackIncludeAssetsPlugin({ assets: ['css/font-awesome.min.css',
-                                                  'css/grid-system.css',
+                                                  'css/grid-system.css',                                            
                                                   'css/style.css',
                                                  ], 
                                          append: true })

@@ -22,6 +22,7 @@ let HTML5_Notification = (title, message, icon, actionsArray) => {
     });  //end new Notification()
 }; //HTML5_Notification()
 
+var webpageName = document.title;
 
 window.addEventListener("load", () => { //or use window.onload
     

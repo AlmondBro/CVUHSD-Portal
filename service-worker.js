@@ -31,7 +31,8 @@ let offlineFundamentals = [
   "staff.html",
   "student.html",
   "/css/grid-system.css",
-  "/css/style.css"
+  "/css/style.css", 
+  "/css/style-red.css"
 ];
 
 let serviceWorker_Notification = (title, message, icon) => {
@@ -448,9 +449,7 @@ self.addEventListener("fetch", (event) => {
   
 }); //end self.addEventListener()
 
-jsonFetch();
-
-const MINUTES = 15;
+const MINUTES = 10;
 const CHECK_TIME =  1000*60*MINUTES; //Time to check (convert milliseconds to minutes): milliseconds*seconds*minutes
 
 let runInterval = () => {
@@ -459,7 +458,12 @@ let runInterval = () => {
   intervalWithWait(jsonFetch, CHECK_TIME);
 };
 
-runInterval();
+// if (webpageName === "CVUHSD | Staff Portal") {
+  console.log("running-staff portal")
+  jsonFetch();
+
+  runInterval();
+// }
 
 self.addEventListener("push", (event) => {
   let title="Test"; 
