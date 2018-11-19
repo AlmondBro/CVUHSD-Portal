@@ -36,12 +36,11 @@ let offlineFundamentals = [
 
 let serviceWorker_Notification = (title, message, icon) => {
   console.log("serviceWorker_Notification()");
-  if (self.registration) {
+
     self.registration.showNotification(title, { 
       body: message,
       icon: icon // optional 
     });
-  }
 
 }; //serviceWorker_Notification()
 
