@@ -118,13 +118,13 @@ let checkMonitorStatus = (monitors) => {
       //console.log("checkMonitorStatus() for-loop");
       // console.dir(monitors[0]);
      
-      if ( monitors[i]["name"] === "Destiny" ) {
-          console.log(`${monitors[i].name} is up`);
+      if ( monitors[i]["status"] == "0" ) {
+          console.log(`${monitors[i].name} is currently down`);
           //downMonitors.push(monitors[i]);
 
           //check that browser supports HTML5 notifications and that the browser has 
           if ( self.registration !== "undefined" &&  self.registration ) { 
-                serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
+                serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is currently down`, getMonitorImage(monitors[i].name) );
           } 
           if (self.registration === "undefined" && !self.registration ) {
              console.log("Calling alert()");
@@ -317,6 +317,8 @@ self.addEventListener("fetch", (event) => {
             Read more:
             https://ponyfoo.com/articles/progressive-networking-serviceworker
           */
+
+
         /*
           var networked = fetch(event.request)
             // We handle the network request with success and failure scenarios.
