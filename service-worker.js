@@ -129,7 +129,7 @@ let checkMonitorStatus = (monitors) => {
           if (self.registration === "undefined" && !self.registration ) {
              console.log("Calling alert()");
              console.log("Type of self.registration:\t" + typeof(self.registration) + "\t" + self.registration );
-              alert(`${monitors[i].name} is up`);
+              alert(`${monitors[i].name} is currently down`);
           } //end inner else-statement (check for SW notifications support)
       } //end outer if-statement
 
@@ -137,9 +137,9 @@ let checkMonitorStatus = (monitors) => {
       if ( typeof(downMonitors[i]) != "undefined") {
           if (downMonitors[i]["status"] === 1) {
             if ( self.registration ) { //check that browser supports HTML5 notifications and that the browser has 
-              serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is up`, getMonitorImage(monitors[i].name) );
+              serviceWorker_Notification(`${monitors[i].name}`, `${monitors[i].name} is back up`, getMonitorImage(monitors[i].name) );
             } else {
-                  alert(`${monitors[i].name} is up`);
+                  alert(`${monitors[i].name} is back up`);
             } //end inner else-statement (check for SW notifications support)
   
               for (let j = o; j < downMonitors.length; j++ ) {
@@ -451,7 +451,7 @@ self.addEventListener("fetch", (event) => {
   
 }); //end self.addEventListener()
 
-const MINUTES = 10;
+const MINUTES = 5;
 const CHECK_TIME =  1000*60*MINUTES; //Time to check (convert milliseconds to minutes): milliseconds*seconds*minutes
 
 let runInterval = () => {
