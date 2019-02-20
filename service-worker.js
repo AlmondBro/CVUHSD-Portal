@@ -283,7 +283,7 @@ self.addEventListener("activate", (event) => {
    CSS resources, fonts, any images, etc.
 */
 self.addEventListener("fetch", (event) => {
-  console.log('WORKER: fetch event in progress.');
+  // console.log('WORKER: fetch event in progress.');
 
   /* We should only cache GET requests, and deal with the rest of method in the
      client-side, by handling failed POST,PUT,PATCH,etc. requests.
@@ -301,7 +301,7 @@ self.addEventListener("fetch", (event) => {
      HTTP response indicating failure.
   */ //event.request.url.startsWith(self.location.origin)
   if (true) {
-    console.log("Enter if-statement");
+    // console.log("Enter if-statement");
     event.respondWith(
       caches
         /* This method returns a promise that resolves to a cache entry matching
