@@ -8,22 +8,35 @@
     <meta http-equiv="content-language" content="en-us">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="description" content="Centinella Valley School District Single Sign-On (SSO) Dashboard">
+    <link rel="manifest" href="js/staff-manifest.json">
     <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive" rel="stylesheet">
-    <link href="css/grid-system.css" rel="stylesheet">
+    <!-- Stylsheets commented out due to Webpack injection -->
+    <!-- <link href="css/grid-system.css" rel="stylesheet"> -->
     <!-- Grid System -->
-    <link href="css/style.css" rel="stylesheet">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
     <!-- All styling outside the grid system is done here-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- Favicons --->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png">
+    <!-- <link rel="manifest" href="/images/favicons/site.webmanifest"> -->
+    <link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/images/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#1e6c93">
+   
     <title>CVUHSD | Staff Portal</title>
-</head>
+<link href="css/font-awesome.min.css" rel="stylesheet"><link href="css/grid-system.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head>
 
 <body>
     <div class="container-fluid">
         <header class="navigation-bar-header">
             <nav class="navigation-bar">
                 <div class="navigation-bar-image-wrapper">
-                    <a class="navbar-logo-link" href="http://portal.centinela.k12.ca.us"><img class="img-responsive" id="navbar-logo" href="#" src="images/CV-600x600.png"></a>
+                    <a class="navbar-logo-link" href="http://portal.centinela.k12.ca.us"><img class="img-responsive" id="navbar-logo" href="#" src="images/CV-600x600-portal.png"></a>
                 </div>
                 <ul class="navigation-bar-ul">
                     <input type="checkbox" class="checkbox-hack" id="menu-toggle">
@@ -34,7 +47,7 @@
                             <div class="bar3"></div>
                         </div>    
                     </label>
-                    <li><a href="https://www.centinela.k12.ca.us/"><i class="fa fa-home" aria-hidden="true" id="home-icon"></i>CVUHSD Home</a></li>
+                    <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
                     <!--<li><a href="https://portal.centinela.k12.ca.us/staff.html">Staff Portal</a></li>-->
                     <li class="mobile-collapse-links">
                         <a href="#quickLinks-blueSection">Quick Links</a>
@@ -80,6 +93,16 @@
             <header class="staff-dashboard-header">
                 <h1><strong>CVUHSD</strong></h1>
                 <h2>Staff Portal</h2>
+                <button class="addToHomeScreenButton blueBG" id="addToHomeScreenButton">Add to Home Screen</button>
+                <div class="tooltip" id="addToHomeScreenTooltip">
+                    <p>
+                        Create a shortcut to the portal app on your desktop. 
+                    </p>
+                    <p>
+                        Be notified when a service such as Destiny is down, and 
+                        conversely when it comes back up.
+                    </p>  
+                </div>
             </header>
         </div>
 
@@ -308,11 +331,9 @@
                         <a href="https://lloydehs.edlioadmin.com/apps/login/" target="_blank"><button><img class="img-responsive" href="" src="images/buttons/Edlio-LL.png" alt="Edlio Website Administration - Lloyde"></button></a>
                     </div>
                     <div>
-    
                         <a href="https://lawndalehigh.edlioadmin.com/apps/login/" target="_blank"><button><img class="img-responsive" href="" src="images/buttons/Edlio-LW.png" alt="Edlio Website Administration - Lawndale"></button></a>
                         <a href="https://hhscougars.edlioadmin.com/apps/login/" target="_blank"><button><img class="img-responsive" href="" src="images/buttons/Edlio-HW.png" alt="Edlio Website Administration - Hawthorne"></button></a>
                         <a href="https://leuzinger.edlioadmin.com/apps/login/" target="_blank"><button><img class="img-responsive" href="" src="images/buttons/Edlio-LZ.png" alt="Edlio Website Administration - Leuzinger"></button></a>
-    
                     </div>
                 </div>
                 <!-- /.schoolWebsitesButtonRow -->
@@ -340,6 +361,7 @@
             <i class="fa fa-arrow-up" aria-hidden="true"></i>
         </a>
     </div>
-</body>
+    <!-- <script src="js/logic.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="js/logic.bundle.js"></script></body>
 
 </html>

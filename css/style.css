@@ -739,3 +739,57 @@ p.tut-descr a.tutRef {
         margin: 8px 15px;
     }
 }
+
+.addToHomeScreenButton {
+        position: relative;
+        display: inline-block;
+        color: white;
+        border: 0;
+        font-size: 1.3em;
+        padding: 0.4em 0.6em;
+        margin: 0.4em;
+        border-radius: 1em;
+}
+
+.blueBG {
+    background-color: #1E6C93;
+}
+
+.tooltip {
+    display: block;
+    /* visibility: hidden; */
+    width: 210px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 0.55em;
+    position: absolute;
+    z-index: 1;
+    left: 47%;
+    margin-left: -60px;
+    opacity: 0;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+    -webkit-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+
+#addToHomeScreenButton {
+    display: none;
+}
+
+#addToHomeScreenButton:hover + .tooltip {
+    /* visibility: visible; */
+    opacity: 1;
+}
+
