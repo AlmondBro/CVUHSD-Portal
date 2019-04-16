@@ -4,18 +4,32 @@ import React from "react";
 import BlueSectionButton from "./BlueSectionButton.js";
 
 const BlueSection = (props) => {
+    let generateBlueSectionButtons = () => {
+        console.log("generateBlueSectionButtons()");
+        for (let i=0; i<= props.buttons; i++) {
+            return <BlueSectionButton buttonLink={props.buttons[i].buttonLink} buttonImg={props.buttons[i].buttonImg} />
+        }
+    };
+
+    let blueSectionButton = (buttonLink, buttonImg) => {
+        return {
+            buttonLink: buttonLink,
+            buttonImg: buttonImg
+        };
+    };
+
     return (
-        <section class="blue-section" id={props.blueSectionName + "blueSection"}>
-            <input type="checkbox" class="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "collapseToggle"} checked="" />
-            <div class="section-header">
+        <section className="blue-section" id={props.blueSectionName + "blueSection"}>
+            <input type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "collapseToggle"} defaultChecked />
+            <div className="section-header">
                 <h3>{props.headerTitle}</h3>
-                <label for={props.blueSectionName + "collapseToggle"}>
-                    <div class="open-column-button"></div>
+                <label htmlFor={props.blueSectionName + "collapseToggle"}>
+                    <div className="open-column-button"></div>
                 </label>
             </div>
-            <div class="row button-row" id={props.buttonRowID}>
+            <div className="row button-row" id={props.buttonRowID}>
               {
-                  this.generateBlueSectionButtons()
+                 generateBlueSectionButtons()
               }
             </div>
     </section>

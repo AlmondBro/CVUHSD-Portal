@@ -7,7 +7,7 @@ import PageContent from "./PageContent.js";
 class App extends Component {
   render() {
     return (
-      <div class="container-fluid">
+      <div className="container-fluid">
         <Header />
         <PageContent />
       </div>
