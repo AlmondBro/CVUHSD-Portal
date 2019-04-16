@@ -6,6 +6,7 @@ import BlueSectionButton from "./BlueSectionButton.js";
 const BlueSection = (props) => {
     let generateBlueSectionButtons = () => {
         console.log("generateBlueSectionButtons()");
+        console.log(JSON.stringify(props));
         for (let i=0; i<= props.buttons; i++) {
             return <BlueSectionButton buttonLink={props.buttons[i].buttonLink} buttonImg={props.buttons[i].buttonImg} />
         }
