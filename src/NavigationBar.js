@@ -5,7 +5,7 @@ const NavigationBar = (props) => {
         <nav className="navigation-bar">
             <div className="navigation-bar-image-wrapper">
                 <a className="navbar-logo-link" href="http://portal.centinela.k12.ca.us">
-                    <img className="img-responsive" id="navbar-logo" href="#" src="images/CV-600x600-portal.png" />
+                    <img className="img-responsive" id="navbar-logo" href="#" src="./images/CV-600x600-portal.png" />
                 </a>
             </div>
             <ul className="navigation-bar-ul">
