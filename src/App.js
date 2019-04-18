@@ -8,8 +8,8 @@ class App extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <Header />
-        <PageContent />
+        <Header key="header" />
+        <PageContent key="pageContent"/>
       </div>
     );
   }

@@ -32,7 +32,7 @@ const NavigationBar = (props) => {
                     <a href="#teacherTools-blueSection">Teacher Tools</a>
                 </li>
                 <li className="mobile-collapse-links">
-                    <a href="#classNameRoomTools-blueSection">classNameroom Tools</a>
+                    <a href="#classRoomTools-blueSection">Classroom Tools</a>
                 </li>
                 <li className="mobile-collapse-links">
                     <a href="#learningTools-blueSection">Learning Tools</a>

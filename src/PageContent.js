@@ -20,7 +20,7 @@ const PageContent = (props) => {
 
     let quickLinks_hero_button = {
         buttonLink: "https://access.heropowered.com/login/centinelavalley-usd",
-        buttomImg: "hero.png"
+        buttonImg: "hero.png"
     };
     
     let quickLinks_schoolMessenger_button = {
@@ -60,10 +60,15 @@ const PageContent = (props) => {
 
     return (
         <div className="page-content">
-        [
+            <BlueSection 
+                blueSectionName="systemStatuses"
+                checked={ true }
+                headerTitle="System Statuses"
+                buttonRowID="systemStatusesButtonRow"
+            />
             <BlueSection 
                 blueSectionName="quickLinks"
-                checked={ true }
+                checked={ false }
                 headerTitle="Quick Links"
                 buttonRowID="quickLinksButtonRow"
                 buttons={ [ quickLinks_outlookEmail_button, quickLinks_canvas_button, 
@@ -74,21 +79,16 @@ const PageContent = (props) => {
                             quickLinks_californiaCollegeGuidance_Initiative
                           ] 
                         }
-            />,
+            />
             <BlueSection 
                 blueSectionName="standardStaffTools"
                 checked={ false }
                 headerTitle="Standard Staff Tools"
                 buttonRowID="standardStaffToolsButtonRow"
-                buttons={ [ quickLinks_outlookEmail_button, quickLinks_canvas_button, 
-                            quickLinks_illuminate_button, quickLinks_hero_button, 
-                            quickLinks_schoolMessenger_button, quickLinks_powerTeacher_button,
-                            quickLinks_googleDrive_button, quickLinks_printCenter_button, 
-                            quickLinks_helpDesk_button, quickLinks_office365_button,
-                            quickLinks_californiaCollegeGuidance_Initiative
+                buttons={ [ 
                             ] 
                         }
-        />]
+        />
         </div>
     );
 }; 
