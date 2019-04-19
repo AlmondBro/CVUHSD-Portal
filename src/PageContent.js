@@ -68,7 +68,7 @@ const PageContent = (props) => {
             />
             <BlueSection 
                 blueSectionName="quickLinks"
-                checked={ false }
+                checked={ true }
                 headerTitle="Quick Links"
                 buttonRowID="quickLinksButtonRow"
                 buttons={ [ quickLinks_outlookEmail_button, quickLinks_canvas_button, 

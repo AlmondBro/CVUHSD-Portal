@@ -14,7 +14,7 @@ const BlueSection = (props) => {
             
            return [...props.buttons].map( (object, index) => {
                /* Group buttons in tabs of four */
-                if (index %4 === 0 && index >= 3 ) {
+                if (index %4 === 0 && index >= 4 ) {
                     return (
                         <div></div>
                         ); 
@@ -61,7 +61,7 @@ const BlueSection = (props) => {
             <input type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "-collapseToggle"} defaultChecked />
             <div className="section-header">
                 <h3>{props.headerTitle}</h3>
-                <label htmlFor={props.blueSectionName + "collapseToggle"}>
+                <label htmlFor={props.blueSectionName + "-collapseToggle"}>
                     <div className="open-column-button"></div>
                 </label>
             </div>
