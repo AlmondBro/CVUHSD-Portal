@@ -55,11 +55,20 @@ const BlueSection = (props) => {
             buttonImg: buttonImg
         };
     };
-
+    // 
+    
+    /* 
+        Interesting piece of information about the checked property in React: 
+        React treats a value of null as if the property was not set at all. Use the 
+        double exclamation point to cast null or undefined to false, and register the checked 
+        property as part of controlled form component. 
+        https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react 
+    https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react
+    // */
     return (
         <section className="blue-section" id={props.blueSectionName + "blueSection"}>
-            <input type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "-collapseToggle"} defaultChecked />
-            <div className="section-header">
+            <input type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "-collapseToggle"} defaultChecked={!!props.checked} />
+           <div className="section-header">
                 <h3>{props.headerTitle}</h3>
                 <label htmlFor={props.blueSectionName + "-collapseToggle"}>
                     <div className="open-column-button"></div>
