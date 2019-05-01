@@ -12,12 +12,14 @@ const PageContent = (props) => {
     
         canvas_button : {
             buttonLink: "https://centinela.instructure.com/",
-            buttonImg: "canvas.png"
+            buttonImg: "canvas.png",
+            description: "Canvas (Learning Management System)"
         },
     
         illuminate_button : {
             buttonLink: "https://centinela.illuminateed.com/dna/?prev_page=Main_NotDashboardPage&amp;page=SisLogin",
-            buttonImg: "illuminate.png"
+            buttonImg: "illuminate.png",
+            description: "Illuminate (Assessments)"
         },
     
         hero_button : {
