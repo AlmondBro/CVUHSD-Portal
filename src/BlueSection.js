@@ -67,7 +67,7 @@ const BlueSection = (props) => {
     // */
     return (
         <section className="blue-section" id={props.blueSectionName + "blueSection"}>
-            <input type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "-collapseToggle"} defaultChecked={!!props.checked} />
+            <input type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "-collapseToggle"} defaultChecked={!!props.expanded} />
            <div className="section-header">
                 <h3>{props.headerTitle}</h3>
                 <label htmlFor={props.blueSectionName + "-collapseToggle"}>
