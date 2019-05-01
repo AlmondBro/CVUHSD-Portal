@@ -7,6 +7,7 @@ const PageContent = (props) => {
         outlookEmail_button : {
             buttonLink: "https://sso.centinela.k12.ca.us/adfs/ls/?wa=wsignin1.0&amp;wtrealm=https%3a%2f%2fmail.centinela.k12.ca.us%2fowa%2f&amp;wctx=rm%3d0%26id%3dpassive%26ru%3d%252fowa%252f&amp;wct=2017-08-21T18%3a05%3a05Z",
             buttonImg: "Outlook.png",
+            description: "Outlook E-mail"
         },
     
         canvas_button : {

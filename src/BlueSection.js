@@ -6,13 +6,12 @@ import BlueSectionButton from "./BlueSectionButton.js";
 const BlueSection = (props) => {
     let generateBlueSectionButtons = () => {
         console.log("generateBlueSectionButtons()");
-        //console.log(JSON.stringify(props));
 
         if (props.buttonRowID !== "systemStatusesButtonRow") {
            // console.log("props.buttonRowID !== systemStatusesButtonRow");
             console.log("props.buttons:\t" + JSON.stringify(props.buttons));
             
-           return [...props.buttons].map( (object, index) => {
+           return [...props.buttons].map( (buttonObject, index) => {
                /* Group buttons in tabs of four */
                 if (index %4 === 0 && index >= 4 ) {
                     return (
@@ -22,8 +21,9 @@ const BlueSection = (props) => {
 
             return (<BlueSectionButton 
                         key={index} 
-                        buttonLink={object.buttonLink} 
-                        buttonImg={object.buttonImg} 
+                        buttonLink={buttonObject.buttonLink} 
+                        buttonImg={buttonObject.buttonImg} 
+                        description={buttonObject.description}
                     />); 
             }); 
 
@@ -48,13 +48,6 @@ const BlueSection = (props) => {
         } //end else-statement
       
     };
-
-    let blueSectionButton = (buttonLink, buttonImg) => {
-        return {
-            buttonLink: buttonLink,
-            buttonImg: buttonImg
-        };
-    };
     // 
     
     /* 
@@ -63,7 +56,7 @@ const BlueSection = (props) => {
         double exclamation point to cast null or undefined to false, and register the checked 
         property as part of controlled form component. 
         https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react 
-    https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react
+        https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react
     // */
     return (
         <section className="blue-section" id={props.blueSectionName + "blueSection"}>
