@@ -71,6 +71,62 @@ const PageContent = (props) => {
         }
     }; //end quickLinks
 
+    let standardStaffTools = {
+        gmail_button : {
+            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=mail&amp;passive=true&amp;rm=false&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ss=1&amp;scc=1&amp;ltmpl=default&amp;ltmplcache=2&amp;emr=1&amp;osid=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonImg: "gmail.png",
+            description: "Gmail"
+        },
+
+        googleDrive_button : {
+            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=wise&amp;passive=1209600&amp;osid=1&amp;continue=https%3A%2F%2Fdrive.google.com%2F&amp;followup=https%3A%2F%2Fdrive.google.com%2F&amp;emr=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonImg: "google-drive.png",
+            description: "Google Drive"
+        },
+
+        helpDesk_button : {
+            buttonLink: "https://helpdesk.centinela.k12.ca.us",
+            buttonImg: "helpdesk.png",
+            description: "Helpdesk (CV It Department)"
+        },
+
+        outlook_button : {
+            buttonLink: "https://sso.centinela.k12.ca.us/adfs/ls/?wa=wsignin1.0&amp;wtrealm=https%3a%2f%2fmail.centinela.k12.ca.us%2fowa%2f&amp;wctx=rm%3d0%26id%3dpassive%26ru%3d%252fowa%252f&amp;wct=2017-08-21T18%3a05%3a05Z",
+            buttonImg: "outlook.png",
+            description: "Outlook E-mail"
+        },
+
+        schoolMessenger_button: {
+            buttonLink: "https://asp.schoolmessenger.com/centinela",
+            buttonImg: "schoolmessenger-button.png",
+            description: "School Messenger"
+        },
+
+        passwordPortal_button: {
+            buttonLink: "https://updatemanager:9251/showLogin.cc",
+            buttonImg: "password-portal.png",
+            description: "Password Assistance"
+        },
+
+        printCenter_button : {
+            buttonLink: "https://cvprintcenter.myprintdesk.net/DSF/smartstore.aspx#!/Storefron",
+            buttonImg: "print-center.png",
+            description: "Print Center"
+        },
+
+        schoolDude_button : {
+            buttonLink: "https://login.schooldude.com/mlogin?productid=community",
+            buttonImg: "school-dude.png",
+            description: "School Dude"
+        },
+
+        behaviorAlert_button : {
+            buttonLink: "https://siaesolutions.com/portal/?app=behavioralert",
+            buttonImg: "behavior-alert.png",
+            description: "Behavior Alert"
+        }
+    }; //end standardStaffTools
+
     return (
         <div className="page-content">
             <BlueSection 
@@ -91,7 +147,8 @@ const PageContent = (props) => {
                 expanded={ false }
                 headerTitle="Standard Staff Tools"
                 buttonRowID="standardStaffToolsButtonRow"
-        />
+                buttons={ standardStaffTools }
+            />
         </div>
     );
 }; 
