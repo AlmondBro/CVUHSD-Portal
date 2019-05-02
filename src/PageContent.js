@@ -5,7 +5,7 @@ import BlueSection from "./BlueSection.js"
 const PageContent = (props) => {
     let quickLinks = {
         outlookEmail_button : {
-            buttonLink: "https://sso.centinela.k12.ca.us/adfs/ls/?wa=wsignin1.0&amp;wtrealm=https%3a%2f%2fmail.centinela.k12.ca.us%2fowa%2f&amp;wctx=rm%3d0%26id%3dpassive%26ru%3d%252fowa%252f&amp;wct=2017-08-21T18%3a05%3a05Z",
+            buttonLink: "https://sso.centinela.k12.ca.us/adfs/ls/?wa=wsignin1.0&wtrealm=https%3a%2f%2fmail.centinela.k12.ca.us%2fowa%2f&wctx=rm%3d0%26id%3dpassive%26ru%3d%252fowa%252f&wct=2017-08-21T18%3a05%3a05Z",
             buttonImg: "Outlook.png",
             description: "Outlook E-mail"
         },
@@ -91,7 +91,7 @@ const PageContent = (props) => {
         },
 
         outlook_button : {
-            buttonLink: "https://sso.centinela.k12.ca.us/adfs/ls/?wa=wsignin1.0&amp;wtrealm=https%3a%2f%2fmail.centinela.k12.ca.us%2fowa%2f&amp;wctx=rm%3d0%26id%3dpassive%26ru%3d%252fowa%252f&amp;wct=2017-08-21T18%3a05%3a05Z",
+            buttonLink: "https://sso.centinela.k12.ca.us/adfs/ls/?wa=wsignin1.0&wtrealm=https%3a%2f%2fmail.centinela.k12.ca.us%2fowa%2f&wctx=rm%3d0%26id%3dpassive%26ru%3d%252fowa%252f&wct=2017-08-21T18%3a05%3a05Z",
             buttonImg: "outlook.png",
             description: "Outlook E-mail"
         },
@@ -147,6 +147,56 @@ const PageContent = (props) => {
         }
     }; //end administrativeTools
 
+    let teacherTools = {
+        frontLine_button : {
+            buttonLink: "https://login.frontlineeducation.com/login?signin=dc20373fccea7afc2e324f7ceec30775&productId=ABSMGMT&clientId=ABSMGMT#/login",
+            buttonImg: "aesop.png",
+            description: "Frontline (Absence Management/Subfinder)"
+        },
+
+        cvuhsdCourseResources_button : {
+            buttonLink: "https://drive.google.com/drive/folders/0B8DM6hczyKMbfkNvaU9LS3lLanpkS09GTExmTjR3TW0tZzBDYjlZd0ZRNkZKQUpHdERSZ28?usp=sharing",
+            buttonImg: "cvuhsd-course-resources.png",
+            description: "CVUHSD Course Resources (Google Drive)"
+        },
+
+        powerTeacher_button : {
+            buttonLink: "https://powerschool.centinela.k12.ca.us/teachers/pw.html",
+            buttonImg: "PT.png",
+            description: "PowerTeacher (GradeBook &amp; Attendance)"
+        },
+
+        cvRestricted_button : {
+            buttonLink: "http://www.centinela.k12.ca.us/staff_only",
+            buttonImg: "staff-only.png",
+            description: "Restricted Staff Area (Staff Resources - District Website)"
+        },
+
+        edTechResources_button : {
+            buttonLink: "https://drive.google.com/drive/folders/0B_ico1iiP8Effkp5RkE2VnlmSzIybW5YbVRqQnVXb3NZSFIwQ1IwcUdYbEZtNWlvLTJGZHM",
+            buttonImg: "ed-tech-resources.png",
+            description: "Ed Tech Resources"
+        },
+        
+        lawndaleLaptopCartSystem_button : {
+            buttonLink: "https://sites.google.com/a/cvuhsd.org/lwlaptopcartsystem/home",
+            buttonImg: "lawndale-laptop-cart-system.png",
+            description: "Lawndale Laptop Cart System"
+        },
+        
+        leuzingerLaptopCartSystem_button : {
+            buttonLink: "https://sites.google.com/a/cvuhsd.org/lzlaptopcartsystem/",
+            buttonImg: "Hawthorne-laptop-cart-system.png",
+            description: "Leuzinger Laptop Cart System"
+        },
+
+        hawthorneLaptopCartSystem_button : {
+            buttonLink: "https://sites.google.com/a/cvuhsd.org/hwlaptopcartsystem/",
+            buttonImg: "Hawthorne-laptop-cart-system.png",
+            description: "Hawthorne Laptop Cart System"
+        }
+    } ; //end teacherTools
+
     return (
         <div className="page-content">
             <BlueSection 
@@ -172,9 +222,16 @@ const PageContent = (props) => {
             <BlueSection 
                 blueSectionName="administratorTools"
                 expanded={ false }
-                headerTitle="Administrator Tools"
+                headerTitle="Administrative Tools"
                 buttonRowID="administratorToolsButtonRow"
                 buttons={ administrativeTools }
+            />
+             <BlueSection 
+                blueSectionName="teacherTools"
+                expanded={ false }
+                headerTitle="Teacher Tools"
+                buttonRowID="teacherToolsButtonRow"
+                buttons={ teacherTools }
             />
         </div>
     );
