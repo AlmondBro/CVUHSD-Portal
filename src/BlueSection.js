@@ -4,18 +4,17 @@ import React from "react";
 import BlueSectionButton from "./BlueSectionButton.js";
 
 const BlueSection = (props) => {
+   
     let generateBlueSectionButtons = () => {
         console.log("generateBlueSectionButtons()");
 
-        if (props.buttonRowID !== "systemStatusesButtonRow") {
-           // console.log("props.buttonRowID !== systemStatusesButtonRow");
-            console.log("props.buttons:\t" + JSON.stringify(props.buttons));
-            
-           return [...props.buttons].map( (buttonObject, index) => {
+        if ( (typeof(props.buttons) !== "undefined" || props.buttons != null) && props.buttonRowID !== "systemStatusesButtonRow") {
+            let buttonsArray = Object.values(props.buttons);
+           return [...buttonsArray].map( (buttonObject, index) => {
                /* Group buttons in tabs of four */
                 if (index %4 === 0 && index >= 4 ) {
                     return (
-                        <div></div>
+                        <div key={index}></div>
                         ); 
                 } 
 

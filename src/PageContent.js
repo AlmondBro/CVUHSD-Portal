@@ -24,44 +24,52 @@ const PageContent = (props) => {
     
         hero_button : {
             buttonLink: "https://access.heropowered.com/login/centinelavalley-usd",
-            buttonImg: "hero.png"
+            buttonImg: "hero.png",
+            description: "Hero (PBIS System)"
         },
         
         schoolMessenger_button : {
             buttonLink: "https://asp.schoolmessenger.com/centinela",
-            buttonImg: "schoolmessenger-button.png"
+            buttonImg: "schoolmessenger-button.png",
+            description: "School Messenger"
         },
     
         powerTeacher_button : {
             buttonLink: "https://powerschool.centinela.k12.ca.us/teachers/pw.html",
-            buttonImg: "PT.png"
+            buttonImg: "PT.png",
+            description: "PowerSchool Teacher"
         },
     
         googleDrive_button : { 
             buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=wise&amp;passive=1209600&amp;osid=1&amp;continue=https%3A%2F%2Fdrive.google.com%2F&amp;followup=https%3A%2F%2Fdrive.google.com%2F&amp;emr=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
-            buttonImg: "google-drive.png"
+            buttonImg: "google-drive.png",
+            description: "Google Drive"
         },
     
         printCenter_button : {
             buttonLink: "https://cvprintcenter.myprintdesk.net/DSF/smartstore.aspx#!/Storefront",
-            buttonImg: "print-center.png"
+            buttonImg: "print-center.png",
+            description: "Printer Center"
         },
     
         helpDesk_button : {
             buttonLink: "https://helpdesk.centinela.k12.ca.us",
-            buttonImg: "helpdesk.png"
+            buttonImg: "helpdesk.png",
+            description: "Helpdesk (C.V. I.T. Department)"
         },
     
         office365_button : {
             buttonLink: "https://portal.office.com/",
-            buttonImg: "office365.png"
+            buttonImg: "office365.png",
+            description: "Office 365 Login"
         },
     
         californiaCollegeGuidance_Initiative : {
             buttonLink: "https://www.californiacolleges.edu/#/user-login",
-            buttonImg: "ccgi-logo.png"
+            buttonImg: "ccgi-logo.png",
+            description: "California College Guidance Initiative"
         }
-    }
+    }; //end quickLinks
 
     return (
         <div className="page-content">
@@ -76,23 +84,13 @@ const PageContent = (props) => {
                 expanded={ true }
                 headerTitle="Quick Links"
                 buttonRowID="quickLinksButtonRow"
-                buttons={ [ quickLinks.outlookEmail_button, quickLinks.canvas_button, 
-                            quickLinks.illuminate_button, quickLinks.hero_button, 
-                            quickLinks.schoolMessenger_button, quickLinks.powerTeacher_button,
-                            quickLinks.googleDrive_button, quickLinks.printCenter_button, 
-                            quickLinks.helpDesk_button, quickLinks.office365_button,
-                            quickLinks.californiaCollegeGuidance_Initiative
-                          ] 
-                        }
+                buttons={ quickLinks }
             />
             <BlueSection 
                 blueSectionName="standardStaffTools"
                 expanded={ false }
                 headerTitle="Standard Staff Tools"
                 buttonRowID="standardStaffToolsButtonRow"
-                buttons={ [ 
-                            ] 
-                        }
         />
         </div>
     );
