@@ -127,6 +127,26 @@ const PageContent = (props) => {
         }
     }; //end standardStaffTools
 
+    let administrativeTools = {
+       powerSchool_button : {
+            buttonLink: "https://powerschool.centinela.k12.ca.us/admin",
+            buttonImg: "PS.png",
+            description: "PowerSchool (Admin)"
+        },
+
+        smarteTools_button : {
+            buttonLink: "https://Smartetools.centinela.k12.ca.us/",
+            buttonImg: "smartetools.png",
+            description: "SmartETools"
+        },
+        
+        infoSnap_button : {
+            buttonLink: "https://secure.infosnap.com/admin/login/login.rails?ReturnUrl=%2fadmin",
+            buttonImg: "infosnap.png",
+            description: "InfoSnap"
+        }
+    }; //end administrativeTools
+
     return (
         <div className="page-content">
             <BlueSection 
@@ -148,6 +168,13 @@ const PageContent = (props) => {
                 headerTitle="Standard Staff Tools"
                 buttonRowID="standardStaffToolsButtonRow"
                 buttons={ standardStaffTools }
+            />
+            <BlueSection 
+                blueSectionName="administratorTools"
+                expanded={ false }
+                headerTitle="Administrator Tools"
+                buttonRowID="administratorToolsButtonRow"
+                buttons={ administrativeTools }
             />
         </div>
     );
