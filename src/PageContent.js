@@ -197,6 +197,44 @@ const PageContent = (props) => {
         }
     } ; //end teacherTools
 
+    let classroomTools = {
+        canvas_button : {
+            buttonLink: "https://centinela.instructure.com/",
+            buttonImg: "canvas.png",
+            description: "Canvas (Learning Management System)"
+        },
+
+        edgenuity_button : {
+            buttonLink: "https://centinela.learn.edgenuity.com/",
+            buttonImg: "edgenuity.png",
+            description: "Edgenuity (Online Courses)"
+        },
+
+        turnItIn_button : {
+            buttonLink: "https://turnitin.com/",
+            buttonImg: "turnitin.png",
+            description: "TurnItIn.com (Originality Check & Feedback)"
+        },
+
+        illuminate_button : {
+            buttonLink: "https://centinela.illuminateed.com/dna/?prev_page=Main_NotDashboardPage&amp;page=SisLogin",
+            buttonImg: "illuminate.png",
+            description: "Illuminate (Assessments)"
+        },
+
+        goGuardian_button : {
+            buttonLink: "https://teacher.goguardian.com/#/classrooms/active",
+            buttonImg: "GoGuardian.png",
+            description: "Go Guardian"
+        },
+
+        hero_button : {
+            buttonLink: "https://access.heropowered.com/login/centinelavalley-usd",
+            buttonImg: "hero.png",
+            description: "Hero (PBIS System)"
+        }
+    }; //end classroomTools
+
     return (
         <div className="page-content">
             <BlueSection 
@@ -232,6 +270,13 @@ const PageContent = (props) => {
                 headerTitle="Teacher Tools"
                 buttonRowID="teacherToolsButtonRow"
                 buttons={ teacherTools }
+            />
+             <BlueSection 
+                blueSectionName="classRoomTools"
+                expanded={ false }
+                headerTitle="Classroom Tools"
+                buttonRowID="classroomProgramsButtonRow"
+                buttons={ classroomTools }
             />
         </div>
     );
