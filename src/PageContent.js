@@ -287,6 +287,80 @@ const PageContent = (props) => {
         }
     }; //end digitalTextbooks
 
+    let schoolWebsites = {
+        cvuhsdWebsite_Button : {
+            buttonLink: "https://www.centinela.k12.ca.us",
+            buttonImg: "CV-website.png",
+            description: "Centinela Valley Union High School District Website"
+        },
+
+        cvuhsdIndependentStudyWebsite_Button : {
+            buttonLink: "https://www.cvalternatives.org/",
+            buttonImg: "CVISS-Website.png",
+            description: "Centinela Valley Independent Study Website"
+        },
+
+        lloydeWebsite_Button : {
+            buttonLink: "https://www.lloydehs.org",
+            buttonImg: "LL-Website.png",
+            description: "LLoyde High School Website"
+        },
+
+        lawndaleWebsite_Button : {
+            buttonLink: "https://www.lawndalehs.org/",
+            buttonImg: "LW-Website.png",
+            description: "Lawndale High School Website"
+        },
+
+        leuzingerWebsite_Button : {
+            buttonLink: "https://www.leuzinger.org/",
+            buttonImg: "LZ-Website.png",
+            description: "Leuzinger High School Website"
+        },
+
+        hawthorneWebsite_Button : {
+            buttonLink: "https://www.hhscougars.org/",
+            buttonImg: "HW-Website.png",
+            description: "Hawthorne High School Website"
+        },
+
+        cvuhsdWebsiteEditingButton : {
+            buttonLink: "http://admin.centinela.k12.ca.us/",
+            buttonImg: "Edlio-CVUHSD.png",
+            description: "Edlio Website Administraton - Centinela Valley Union High School District (CVUHSD)"
+        },
+
+        cvissWebsiteEditingButton : {
+            buttonLink: "https://cvalternatives.edlioadmin.com/apps/login/",
+            buttonImg: "Edlio-CVISS.png",
+            description: "Edlio Website Administraton - Centinela Valley Independent Study"
+        },
+
+        lloydeWebsiteEditingButton : {
+            buttonLink: "https://lloydehs.edlioadmin.com/apps/login/",
+            buttonImg: "Edlio-LL",
+            description: "Edlio Website Administraton - Lloyde High School"
+        },
+
+        lawndaleWebsiteEditingButton : {
+            buttonLink: "https://lawndalehigh.edlioadmin.com/apps/login/",
+            buttonImg: "Edlio-LW",
+            description: "Edlio Website Administraton - Lawndale High School"
+        },
+
+        hawthorneWebsiteEditingButton : {
+            buttonLink: "https://hhscougars.edlioadmin.com/apps/login/",
+            buttonImg: "Edlio-HW",
+            description: "Edlio Website Administraton - Hawthorne High School"
+        },
+
+        lezuingerWebsiteEditingButton : {
+            buttonLink: "https://leuzinger.edlioadmin.com/apps/login/",
+            buttonImg: "Edlio-LZ",
+            description: "Edlio Website Administraton - Leuzinger High School"
+        }
+    };
+
     return (
         <div className="page-content">
             <BlueSection 
@@ -343,6 +417,13 @@ const PageContent = (props) => {
                 headerTitle="Digital Textbooks"
                 buttonRowID="digitalTextbooksButtonRow"
                 buttons={ digitalTextbooks }
+            />
+             <BlueSection 
+                blueSectionName="schoolWebsites"
+                expanded={ false }
+                headerTitle="School Websites"
+                buttonRowID="schoolWebsitesButtonRow"
+                buttons={ schoolWebsites }
             />
         </div>
     );
