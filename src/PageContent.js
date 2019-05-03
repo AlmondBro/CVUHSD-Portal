@@ -272,10 +272,10 @@ const PageContent = (props) => {
                 buttons={ teacherTools }
             />
              <BlueSection 
-                blueSectionName="classRoomTools"
+                blueSectionName="classroomTools"
                 expanded={ false }
                 headerTitle="Classroom Tools"
-                buttonRowID="classroomProgramsButtonRow"
+                buttonRowID="classroomToolsButtonRow"
                 buttons={ classroomTools }
             />
         </div>
