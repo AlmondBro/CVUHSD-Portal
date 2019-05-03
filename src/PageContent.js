@@ -420,12 +420,18 @@ const PageContent = (props) => {
                 buttonRowID="digitalTextbooksButtonRow"
                 buttons={ staffPortalButtons.digitalTextbooks }
             />
-             <BlueSection 
+            <BlueSection 
                 blueSectionName="schoolWebsites"
                 expanded={ false }
                 headerTitle="School Websites"
                 buttonRowID="schoolWebsitesButtonRow"
                 buttons={ staffPortalButtons.schoolWebsites }
+            />
+             <BlueSection 
+                blueSectionName="allTools"
+                expanded={ false }
+                headerTitle="ALL LINKS"
+                buttonRowID="webAdminButtonRow"
             />
         </div>
     );
