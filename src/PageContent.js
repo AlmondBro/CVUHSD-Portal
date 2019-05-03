@@ -429,7 +429,7 @@ const PageContent = (props) => {
             />
              <BlueSection 
                 blueSectionName="allTools"
-                expanded={ false }
+                expanded={ true }
                 headerTitle="ALL LINKS"
                 buttonRowID="webAdminButtonRow"
             />

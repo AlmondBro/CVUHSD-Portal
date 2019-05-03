@@ -205,7 +205,7 @@ h2 {
     height: 100%;
 }
 
-#webAdmin-collapseToggle:checked~div#webAdminButtonRow {
+#allTools-collapseToggle:checked~div#webAdminButtonRow {
     margin: 0.5% auto;
     height: 100%;
 }
@@ -217,7 +217,7 @@ h2 {
 #administratorTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #teacherTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #classroomTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
-#webAdmin-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#allTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #learningTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #digitalTextbooks-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #mediaResources-collapseToggle:checked+div.section-header label>div.open-column-button::after,
@@ -228,7 +228,7 @@ h2 {
     /* was 029BB or 02297  */
 }
 
-#webAdmin-collapseToggle:checked~div.admin-links {
+#allTools-collapseToggle:checked~div.admin-links {
     /* Old rules: */
     /* margin: 1.5% auto;
     height: 100%;
