@@ -235,6 +235,58 @@ const PageContent = (props) => {
         }
     }; //end classroomTools
 
+    let learningTools = {
+        brainPop_button : {
+            buttonLink: "https://www.brainpop.com/",
+            buttonImg: "BrainPop.png",
+            description: "BrainPop"
+        },
+
+        read180HW_button : {
+            buttonLink: "https://hwread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
+            buttonImg: "Read180HW-Teacher.png",
+            description: "Read 180/System 44-HW Teacher"
+        },
+        
+        read180LW_button : {
+            buttonLink: "https://lwread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
+            buttonImg: "Read180LW-Teacher.png",
+            description: "Read 180/System 44-LW Teacher"
+        },
+
+        read180LZ_button : {
+            buttonLink: "https://lxread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
+            buttonImg: "Read180LZ-Teacher.png",
+            description: "Read 180/System 44-LX Teacher"
+        },
+
+        schmoop_button : {
+            buttonLink: "https://schools.shmoop.com/login/centinela-valley-UHSD",
+            buttonImg: "shmoop.png",
+            description: "Schmoop"
+        },
+
+        schmoop_button : {
+            buttonLink: "https://clever.com/oauth/instant-login?client_id=2b024c690549687be970&district_id=5283beba2c067cd50b000031",
+            buttonImg: "everfi.png",
+            description: "Everfi"
+        }
+    }; //end learningTools
+
+    let digitalTextbooks = {
+        holt_button : {
+            buttonLink: "https://my.hrw.com/sp/access?sp=hrw&connection=CA-CVUHSD-00067204",
+            buttonImg: "HMH.png",
+            description: "Holt McDougal (Online Textbooks)"
+        },
+
+        wayside_Button : {
+            buttonLink: "https://learningsite.waysidepublishing.com/",
+            buttonImg: "Wayside-Publishing.png",
+            description: "Wayside Publishing"
+        }
+    }; //end digitalTextbooks
+
     return (
         <div className="page-content">
             <BlueSection 
@@ -271,12 +323,26 @@ const PageContent = (props) => {
                 buttonRowID="teacherToolsButtonRow"
                 buttons={ teacherTools }
             />
-             <BlueSection 
+            <BlueSection 
                 blueSectionName="classroomTools"
                 expanded={ false }
                 headerTitle="Classroom Tools"
                 buttonRowID="classroomToolsButtonRow"
                 buttons={ classroomTools }
+            />
+            <BlueSection 
+                blueSectionName="learningTools"
+                expanded={ false }
+                headerTitle="Learning Tools"
+                buttonRowID="learningToolsButtonRow"
+                buttons={ learningTools }
+            />
+             <BlueSection 
+                blueSectionName="digitalTextbooks"
+                expanded={ false }
+                headerTitle="Digital Textbooks"
+                buttonRowID="digitalTextbooksButtonRow"
+                buttons={ digitalTextbooks }
             />
         </div>
     );
