@@ -287,7 +287,57 @@ const PageContent = (props) => {
                 description: "Wayside Publishing"
             }
         }, //end digitalTextbooks
-    
+        
+        digitalLibraryResources : {
+            classroomVideo_Button : {
+                buttonLink: "http://cvod.infobase.com/p_Home.aspx",
+                buttonImg: "CVOD.png",
+                description: "Classroom Video on Demand (Educational Video Streaming)"
+            },
+
+            folletDestiny_Button : {
+                buttonLink: "http://destiny.centinela.k12.ca.us/",
+                buttonImg: "Destiny.png",
+                description: "Destiny"
+            },
+
+            ebsco_Button : {
+                buttonLink: "http://search.ebscohost.com/",
+                buttonImg: "ebsco.png",
+                description: "EBSCO (Research Databases)"
+            },
+
+            overdrive_Button : {
+                buttonLink: "http://centinela.lib.overdrive.com/",
+                buttonImg: "overdrive.png",
+                description: "Overdrive (Ebooks)"
+            },
+
+            calSnap_Button : {
+                buttonLink: "http://media.lacoe.edu",
+                buttonImg: "lacoe-media.jpg",
+                description: "LACOE - LACOE (Los Angeles County Office of Education)"
+            },
+
+            flipsterLW_Button : {
+                buttonLink: "http://web.b.ebscohost.com/eon/search/basic?sid=a4eca46f-31e5-4e5b-a010-c8e57da30aeb%40sessionmgr102&vid=0&hid=125",
+                buttonImg: "FlipsterLW.png",
+                description: "Flipster Lawndale (E-Magazines)"
+            },
+
+            flipsterLZ_Button : {
+                buttonLink: "http://web.b.ebscohost.com/eon/search/basic?sid=a4eca46f-31e5-4e5b-a010-c8e57da30aeb%40sessionmgr102&vid=0&hid=125",
+                buttonImg: "FlipsterLZ.png",
+                description: "Flipster Leuzinger (E-Magazines)"
+            },
+
+            flipsterHW_Button : {
+                buttonLink: "http://web.b.ebscohost.com/eon/search/basic?sid=10e9224c-4ef8-4d69-805f-55d64d31a26f%40sessionmgr103&vid=0&hid=125",
+                buttonImg: "FlipsterHW.png",
+                description: "Flipster Hawthorne (E-Magazines)"
+            }
+        },
+
         schoolWebsites : {
             cvuhsdWebsite_Button : {
                 buttonLink: "https://www.centinela.k12.ca.us",
