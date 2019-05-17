@@ -1,7 +1,8 @@
-import React, { Component} from "react";
+import React from "react";
 
-//Import componentas
-import NavigationBar from "./NavigationBar.js"
+//Import components
+import NavigationBar from "./NavigationBar.js";
+
 const Header = (props) => {
     return ([
         <header className="navigation-bar-header">
