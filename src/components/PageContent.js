@@ -1,6 +1,6 @@
 import React from "react";
 
-import BlueSection from "./BlueSection.js"
+import BlueSection from "./BlueSection/BlueSection.js";
 
 const PageContent = (props) => {
     let staffPortalButtons = {
