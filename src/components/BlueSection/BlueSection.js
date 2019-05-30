@@ -7,12 +7,63 @@ import BlueSectionButton from "./BlueSectionButton.js";
 import styled from 'styled-components';
 
 const BlueSection = (props) => {
-    let BlueSection = styled.section`
+    let generateBlueSectionButtons = () => {
+        console.log("generateBlueSectionButtons()");
+
+        if ( (typeof(props.buttons) !== "undefined" || props.buttons != null) && props.buttonRowID !== "systemStatusesButtonRow") {
+            let buttonsArray = Object.values(props.buttons);
+           return [...buttonsArray].map( (buttonObject, index) => {
+               /* Group buttons in tabs of four */
+                if (index %4 === 0 && index >= 4 ) {
+                    return (
+                        <div key={index}></div>
+                        ); 
+                } 
+
+            return (<BlueSectionButton 
+                        key={index} 
+                        buttonLink={buttonObject.buttonLink} 
+                        buttonImg={buttonObject.buttonImg} 
+                        description={buttonObject.description}
+                    />); 
+            }); 
+
+            /* For loop can work here, but it does not return any new values whereas map does: 
+                Source: https://stackoverflow.com/questions/45576223/why-are-for-loops-not-allowed-in-react-jsx
+            */
+           /*
+            let buttonsArray = [];
+            for (let i=0; i < props.buttons.length; i++) {
+                buttonsArray.push(<BlueSectionButton 
+                                    key={i} 
+                                    buttonLink={props.buttons.buttonLink} 
+                                    buttonImg={props.buttons.buttonImg} 
+                                />);
+            }
+            
+            return buttonsArray; */
+        
+        } else if (props.buttonRowID === "systemStatusesButtonRow") {
+           return  (<iframe className="statusEmbed" src='https://www.site24x7.com/sv.do?id=-lTskTIBFC99AjBdJTzdd22ylcZvGBYnfGhcgwvt1-27W89lFFvf7WICSx8TdzUT6kB92hYLWdGYIInKaxcmHcJTzDPBf7IFLjpWmnUEJ18%3D&st=false' scrolling='yes'></iframe>);
+           // return <BlueSectionButton />
+        } else if (props.buttonRowID === "webAdminButtonRow") {
+            return (
+                    <iframe class="google-sheet" 
+                            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSOPMzFTLmTXsOzY172KN_3IaJqeO9bLPl_3TIgc_bBQiWEanznykV6cEiPBuV9WUHEnL2vesphHEWZ/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+                    >
+                    </iframe>);
+        }//end else-statement
+    }; //end generateBlueSectionButtons()
+
+    let BlueSectionContainer = styled.section`
         position: relative;
         text-align: center;
         overflow: hidden;
 
-        & a button,
+        & a button {
+            border: 0;
+            background-color: transparent;
+        }
         & a button img {
             border: 0;
             background-color: transparent;
@@ -74,58 +125,8 @@ const BlueSection = (props) => {
 
     let buttonRow = styled.div`
         margin: 3.5% auto;
-    `
+    `;
 
-    let generateBlueSectionButtons = () => {
-        console.log("generateBlueSectionButtons()");
-
-        if ( (typeof(props.buttons) !== "undefined" || props.buttons != null) && props.buttonRowID !== "systemStatusesButtonRow") {
-            let buttonsArray = Object.values(props.buttons);
-           return [...buttonsArray].map( (buttonObject, index) => {
-               /* Group buttons in tabs of four */
-                if (index %4 === 0 && index >= 4 ) {
-                    return (
-                        <div key={index}></div>
-                        ); 
-                } 
-
-            return (<BlueSectionButton 
-                        key={index} 
-                        buttonLink={buttonObject.buttonLink} 
-                        buttonImg={buttonObject.buttonImg} 
-                        description={buttonObject.description}
-                    />); 
-            }); 
-
-            /* For loop can work here, but it does not return any new values whereas map does: 
-                Source: https://stackoverflow.com/questions/45576223/why-are-for-loops-not-allowed-in-react-jsx
-            */
-           /*
-            let buttonsArray = [];
-            for (let i=0; i < props.buttons.length; i++) {
-                buttonsArray.push(<BlueSectionButton 
-                                    key={i} 
-                                    buttonLink={props.buttons.buttonLink} 
-                                    buttonImg={props.buttons.buttonImg} 
-                                />);
-            }
-            
-            return buttonsArray; */
-        
-        } else if (props.buttonRowID === "systemStatusesButtonRow") {
-           return  (<iframe className="statusEmbed" src='https://www.site24x7.com/sv.do?id=-lTskTIBFC99AjBdJTzdd22ylcZvGBYnfGhcgwvt1-27W89lFFvf7WICSx8TdzUT6kB92hYLWdGYIInKaxcmHcJTzDPBf7IFLjpWmnUEJ18%3D&st=false' scrolling='yes'></iframe>);
-           // return <BlueSectionButton />
-        } else if (props.buttonRowID === "webAdminButtonRow") {
-            return (
-                    <iframe class="google-sheet" 
-                            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSOPMzFTLmTXsOzY172KN_3IaJqeO9bLPl_3TIgc_bBQiWEanznykV6cEiPBuV9WUHEnL2vesphHEWZ/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
-                    >
-                    </iframe>);
-        }//end else-statement
-      
-    };
-    // 
-    
     /* 
         Interesting piece of information about the checked property in React: 
         React treats a value of null as if the property was not set at all. Use the 
@@ -136,7 +137,7 @@ const BlueSection = (props) => {
     // */
 
     return (
-        <BlueSection className="blue-section" id={props.blueSectionName + "blueSection"} >
+        <BlueSectionContainer className="blue-section" id={props.blueSectionName + "blueSection"} >
             <inputCheckBoxHack type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "-collapseToggle"} defaultChecked={!!props.expanded} />
             <sectionHeader className="section-header">
                 <h3>{props.headerTitle}</h3>
@@ -149,7 +150,7 @@ const BlueSection = (props) => {
                 generateBlueSectionButtons()
             }
             </buttonRow>
-        </BlueSection>
+        </BlueSectionContainer>
     );
 };
 
