@@ -101,6 +101,38 @@ const NavigationBar = (props) => {
         }
     `; //end NavBarUL
 
+    let MenuToggle = styled.input`
+        display: none;
+
+        /* Rotate First Bar */
+        &:checked~label .nav-menu-icon .bar1 {
+            -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+            transform: rotate(-45deg) translate(-9px, 6px);
+        }
+
+        /* Fade out second bar */
+        &:checked~label .nav-menu-icon .bar2 {
+            opacity: 0;
+        }
+
+                
+        /*Rotate last bar */
+        #menu-toggle:checked~label .nav-menu-icon .bar3 {
+            -webkit-transform: rotate(45deg) translate(-8px, -8px);
+            transform: rotate(45deg) translate(-8px, -8px);
+        }
+
+        @media only screen and (max-width: 833px) {
+            &:checked~li {
+                /*margin: 0 60px; */
+                display: block;
+                border: 0;
+                border-radius: 0;
+                animation: fadeIn 0.8s ease-in-out;
+                padding: 15px 0;
+            }
+        }
+    `; //end CheckBoxHack
     return (
         <NavBar className="navigation-bar">
             <NavBarImageWrapper className="navigation-bar-image-wrapper">
@@ -109,7 +141,7 @@ const NavigationBar = (props) => {
                 </a>
             </NavBarImageWrapper>
             <NavBarUL className="navigation-bar-ul">
-                <input type="checkbox" className="checkbox-hack" id="menu-toggle" />
+                <MenuToggle type="checkbox" id="menu-toggle" />
                 <label id="nav-menu-icon-label" htmlFor="menu-toggle">
                     <div className="nav-menu-icon">
                         <div className="bar1"></div>
