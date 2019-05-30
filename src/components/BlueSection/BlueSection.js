@@ -11,22 +11,24 @@ const BlueSection = (props) => {
         console.log("generateBlueSectionButtons()");
 
         if ( (typeof(props.buttons) !== "undefined" || props.buttons != null) && props.buttonRowID !== "systemStatusesButtonRow") {
+            
             let buttonsArray = Object.values(props.buttons);
-           return [...buttonsArray].map( (buttonObject, index) => {
+            
+            return [...buttonsArray].map( (buttonObject, index) => {
                /* Group buttons in tabs of four */
                 if (index %4 === 0 && index >= 4 ) {
                     return (
                         <div key={index}></div>
                         ); 
-                } 
+                } //end if statement 
 
-            return (<BlueSectionButton 
-                        key={index} 
-                        buttonLink={buttonObject.buttonLink} 
-                        buttonImg={buttonObject.buttonImg} 
-                        description={buttonObject.description}
-                    />); 
-            }); 
+                return (<BlueSectionButton 
+                            key={index} 
+                            buttonLink={buttonObject.buttonLink} 
+                            buttonImg={buttonObject.buttonImg} 
+                            description={buttonObject.description}
+                        />); 
+            }); //return map() functiom
 
             /* For loop can work here, but it does not return any new values whereas map does: 
                 Source: https://stackoverflow.com/questions/45576223/why-are-for-loops-not-allowed-in-react-jsx
