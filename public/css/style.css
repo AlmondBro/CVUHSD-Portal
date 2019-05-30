@@ -1,13 +1,3 @@
-.navigation-bar-image-wrapper {
-    margin-top: 5px;
-}
-
-#navbar-logo {
-    height: 100px;
-    /* Was 50px */
-    width: auto;
-}
-
 .navigation-bar-wrapper {
     float: left;
 }
@@ -21,23 +11,7 @@
     padding-right: 2.5%;
 }
 
-.navigation-bar ul li {
-    margin: 0 15px;
-    font-size: 1.2em;
-}
-
-
 /* .navigation-bar ul li a {} */
-
-.navigation-bar>ul li.mobile-collapse-links {
-    display: none;
-}
-
-#navbar-logo {
-    margin-left: 50%;
-    margin-top: 8px;
-}
-
 #home-icon {
     margin-right: 8px;
 }
@@ -301,20 +275,6 @@ h2 {
     transform: rotate(45deg) translate(-8px, -8px);
 }
 
-@media only screen and (min-width: 1268px) {
-    .navigation-bar-image-wrapper::after {
-        content: 'Centinela Valley Union High School District';
-        display: inline;
-        color: #1e6c93;
-        font-size: 1.3em;
-        position: absolute;
-        bottom: 52px;
-        left: 220px;
-        /*180px is for Chrome, 220px for Firefox*/
-        font-weight: bold;
-    }
-}
-
 
 /* Was 585px with smaller logo and font */
 
@@ -326,15 +286,11 @@ h2 {
         margin-top: 100px;
         /*Used to be 170px */
     }
-    .navigation-bar {
-        display: inline;
-    }
+    
     .navigation-bar-header {
         display: inline-block;
     }
-    .navigation-bar-image-wrapper {
-        display: inline;
-    }
+   
     .nav-menu-icon {
         display: block;
         cursor: pointer
@@ -349,21 +305,7 @@ h2 {
     #home-icon {
         color: rgb(21, 73, 99);
     }
-    .navigation-bar ul {
-        position: relative;
-        bottom: 60px;
-        left: 15%;
-        margin-bottom: -52px;
-        z-index: 1;
-        max-height: 320px;
-        overflow-y: auto;
-        /*Used to be -25px, now it's -50px */
-        /*margin-bottom Used to be -10px */
-    }
-    .navigation-bar ul li {
-        display: none;
-        margin: auto;
-    }
+ 
     ul.navigation-bar-ul>li~li::before {
         content: "•";
         margin-right: 8px;
@@ -377,9 +319,7 @@ h2 {
         animation: fadeIn 0.8s ease-in-out;
         padding: 15px 0;
     }
-    body>div>header.navigation-bar-header>nav>ul>li:nth-child(3) {
-        margin-top: 55px;
-    }
+
     #arrow-link {
         display: block;
         background-color: #1e6c93;

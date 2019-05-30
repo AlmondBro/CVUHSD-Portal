@@ -43,13 +43,54 @@ const NavigationBar = (props) => {
         }
     `; //end NavBar
 
+    let NavBarImageWrapper = styled.div`
+        margin-top: 5px;
+
+        @media only screen and (max-width: 833px) {
+            .navigation-bar-image-wrapper {
+                display: inline;
+            } 
+        }
+
+        @media only screen and (min-width: 1268px) { 
+            &::after {
+                content: 'Centinela Valley Union High School District';
+                display: inline;
+                color: #1e6c93;
+                font-size: 1.3em;
+                position: absolute;
+                bottom: 52px;
+                left: 220px;
+                /*180px is for Chrome, 220px for Firefox*/
+                font-weight: bold;
+            }
+        }
+    `; //end navBarImageWrapper
+
+    let NavBarLogo = styled.img`
+        height: 100px;
+        /* Was 50px */
+        width: auto;
+
+        margin-left: 50%;
+        margin-top: 8px;
+
+        @media only screen and (max-width: 833px) { 
+            display: inline;
+            vertical-align: middle;
+            margin-left: 25%;
+            position: relative;
+            z-index: 2;
+        }
+    `; //end NavBar logo
+
     return (
         <NavBar className="navigation-bar">
-            <div className="navigation-bar-image-wrapper">
+            <NavBarImageWrapper className="navigation-bar-image-wrapper">
                 <a className="navbar-logo-link" href="http://portal.centinela.k12.ca.us">
-                    <img className="img-responsive" id="navbar-logo" href="#" src="./images/CV-600x600-portal.png" />
+                    <NavBarLogo className="img-responsive" id="navbar-logo" href="#" src="./images/CV-600x600-portal.png" />
                 </a>
-            </div>
+            </NavBarImageWrapper>
             <ul className="navigation-bar-ul">
                 <input type="checkbox" className="checkbox-hack" id="menu-toggle" />
                 <label id="nav-menu-icon-label" htmlFor="menu-toggle">
