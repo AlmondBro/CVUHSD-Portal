@@ -122,7 +122,7 @@ const BlueSection = (props) => {
         background-color: white;
         color: #1e6c93;
 
-        &::after {
+        &&::after {
             content: '+';
             /* \02295' */ 
         }
@@ -130,6 +130,10 @@ const BlueSection = (props) => {
 
     let ButtonRow = styled.div`
         margin: 3.5% auto;
+
+        height: 0;
+        margin: 0;
+        transition: height, margin 0.5s;
     `;
 
     /* 
