@@ -1,8 +1,50 @@
 import React from "react";
 
+//Import 3rd-party APIS
+import styled from "styled-components";
+
 const NavigationBar = (props) => {
+    let NavBar = styled.nav`
+        display: inline-block;
+
+        & ul li {
+            display: inline-block;
+            margin: 0 15px;
+            font-size: 1.2em;
+        }
+
+        &>ul li.mobile-collapse-links {
+            display: none;
+        }
+
+        @media only screen and (max-width: 833px) {
+            display: inline;
+
+            & ul {
+                position: relative;
+                bottom: 60px;
+                left: 15%;
+                margin-bottom: -52px;
+                z-index: 1;
+                max-height: 320px;
+                overflow-y: auto;
+                /*Used to be -25px, now it's -50px */
+                /*margin-bottom Used to be -10px */
+            }
+
+            & ul li {
+                display: none;
+                margin: auto;
+            }
+
+            &&>nav>ul>li:nth-child(3) {
+                margin-top: 55px;
+            }
+        }
+    `; //end NavBar
+
     return (
-        <nav className="navigation-bar">
+        <NavBar className="navigation-bar">
             <div className="navigation-bar-image-wrapper">
                 <a className="navbar-logo-link" href="http://portal.centinela.k12.ca.us">
                     <img className="img-responsive" id="navbar-logo" href="#" src="./images/CV-600x600-portal.png" />
@@ -56,7 +98,7 @@ const NavigationBar = (props) => {
                     <a href="#allTools-blueSection">All Links</a>
                 </li>
             </ul>
-        </nav>
+        </NavBar>
     );
 }; //end NavigationBar();
 
