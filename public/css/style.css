@@ -2,15 +2,6 @@
     float: left;
 }
 
-.navigation-bar-ul {
-    position: absolute;
-    top: 50%;
-    margin-top: -0.5em;
-    /*-1/2 of line-height */
-    right: 0px;
-    padding-right: 2.5%;
-}
-
 /* .navigation-bar ul li a {} */
 #home-icon {
     margin-right: 8px;
@@ -295,13 +286,7 @@ h2 {
         display: block;
         cursor: pointer
     }
-    #navbar-logo {
-        display: inline;
-        vertical-align: middle;
-        margin-left: 25%;
-        position: relative;
-        z-index: 2;
-    }
+ 
     #home-icon {
         color: rgb(21, 73, 99);
     }

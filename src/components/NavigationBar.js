@@ -84,6 +84,23 @@ const NavigationBar = (props) => {
         }
     `; //end NavBar logo
 
+    let NavBarUL = styled.ul`
+        position: absolute;
+        top: 50%;
+        margin-top: -0.5em;
+        /*-1/2 of line-height */
+        right: 0px;
+        padding-right: 2.5%;
+
+        @media only screen and (max-width: 833px) { 
+            &&>li~li::before {
+                content: "•";
+                margin-right: 8px;
+                color: rgb(21, 73, 99);
+            }
+        }
+    `; //end NavBarUL
+
     return (
         <NavBar className="navigation-bar">
             <NavBarImageWrapper className="navigation-bar-image-wrapper">
@@ -91,7 +108,7 @@ const NavigationBar = (props) => {
                     <NavBarLogo className="img-responsive" id="navbar-logo" href="#" src="./images/CV-600x600-portal.png" />
                 </a>
             </NavBarImageWrapper>
-            <ul className="navigation-bar-ul">
+            <NavBarUL className="navigation-bar-ul">
                 <input type="checkbox" className="checkbox-hack" id="menu-toggle" />
                 <label id="nav-menu-icon-label" htmlFor="menu-toggle">
                     <div className="nav-menu-icon">
@@ -138,7 +155,7 @@ const NavigationBar = (props) => {
                 <li>
                     <a href="#allTools-blueSection">All Links</a>
                 </li>
-            </ul>
+            </NavBarUL>
         </NavBar>
     );
 }; //end NavigationBar();
