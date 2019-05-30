@@ -46,7 +46,13 @@ const BlueSection = (props) => {
             return buttonsArray; */
         
         } else if (props.buttonRowID === "systemStatusesButtonRow") {
-           return  (<iframe className="statusEmbed" src='https://www.site24x7.com/sv.do?id=-lTskTIBFC99AjBdJTzdd22ylcZvGBYnfGhcgwvt1-27W89lFFvf7WICSx8TdzUT6kB92hYLWdGYIInKaxcmHcJTzDPBf7IFLjpWmnUEJ18%3D&st=false' scrolling='yes'></iframe>);
+           return  (<iframe style={ {   align: "center",
+                                        height: "400px",
+                                        width: "1000px",
+                                        border: "0", 
+                                        frameborder: "0"}
+                                } 
+                src='https://www.site24x7.com/sv.do?id=-lTskTIBFC99AjBdJTzdd22ylcZvGBYnfGhcgwvt1-27W89lFFvf7WICSx8TdzUT6kB92hYLWdGYIInKaxcmHcJTzDPBf7IFLjpWmnUEJ18%3D&st=false' scrolling='yes'></iframe>);
            // return <BlueSectionButton />
         } else if (props.buttonRowID === "webAdminButtonRow") {
             return (
