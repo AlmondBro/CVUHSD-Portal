@@ -133,6 +133,16 @@ const NavigationBar = (props) => {
             }
         }
     `; //end CheckBoxHack
+
+    let NavMenuIcon = styled.div`
+        display: none;
+
+        @media only screen and (max-width: 833px) {
+            display: block;
+            cursor: pointer
+        }  
+    `; //end NavMenuIcon
+
     return (
         <NavBar className="navigation-bar">
             <NavBarImageWrapper className="navigation-bar-image-wrapper">
@@ -143,11 +153,11 @@ const NavigationBar = (props) => {
             <NavBarUL className="navigation-bar-ul">
                 <MenuToggle type="checkbox" id="menu-toggle" />
                 <label id="nav-menu-icon-label" htmlFor="menu-toggle">
-                    <div className="nav-menu-icon">
+                    <NavMenuIcon className="nav-menu-icon">
                         <div className="bar1"></div>
                         <div className="bar2"></div>
                         <div className="bar3"></div>
-                    </div>    
+                    </NavMenuIcon>    
                 </label>
                 <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
                 {/* <li><a href="https://portal.centinela.k12.ca.us/staff.html">Staff Portal</a></li> */}
