@@ -143,6 +143,15 @@ const NavigationBar = (props) => {
         }  
     `; //end NavMenuIcon
 
+    let FirstBar = styled.div`
+        width: 35px;
+        height: 5px;
+        background-color: #1e6c93;
+        margin: 6px auto;
+        transition: 0.4s;
+        color: #1e6c93;
+    `;
+
     return (
         <NavBar className="navigation-bar">
             <NavBarImageWrapper className="navigation-bar-image-wrapper">
@@ -154,9 +163,9 @@ const NavigationBar = (props) => {
                 <MenuToggle type="checkbox" id="menu-toggle" />
                 <label id="nav-menu-icon-label" htmlFor="menu-toggle">
                     <NavMenuIcon className="nav-menu-icon">
-                        <div className="bar1"></div>
-                        <div className="bar2"></div>
-                        <div className="bar3"></div>
+                        <FirstBar className="bar1"></FirstBar>
+                        <FirstBar className="bar2"></FirstBar>
+                        <FirstBar className="bar3"></FirstBar>
                     </NavMenuIcon>    
                 </label>
                 <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
