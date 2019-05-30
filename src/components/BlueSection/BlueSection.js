@@ -3,8 +3,79 @@ import React from "react";
 //Import components
 import BlueSectionButton from "./BlueSectionButton.js";
 
+//Import 3rd-party APIs
+import styled from 'styled-components';
+
 const BlueSection = (props) => {
-   
+    let BlueSection = styled.section`
+        position: relative;
+        text-align: center;
+        overflow: hidden;
+
+        & a button,
+        & a button img {
+            border: 0;
+            background-color: transparent;
+        }
+    `; //end BlueSection
+
+    let inputCheckBoxHack = styled.input`
+        display: none;
+
+        &::checked+div.blue-section-innerContainer>div.section-content {
+            display: table;
+        }
+
+        &:checked+div.blue-section-innerContainer>div.section-header label>div.open-column-button::after {
+                content: '-';
+        }
+
+        :checked~div#${props.buttonRowID} {
+            margin: 2.5% auto;
+            height: 100%;
+        }
+    `; //end CheckboxHack
+
+    let sectionHeader = styled.div`
+        background-color: rgb(30, 108, 147);
+        /* A nice green: rgb(30, 147, 44) */
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        vertical-align: middle;
+
+        & h3 {
+            font-size: 2em;
+            display: inline;
+        }
+    `; //end sectionHeader
+
+    let openColumnButton = styled.div`
+        cursor: pointer;
+        border: 0;
+        background: transparent;
+        font-size: 2.2em;
+        padding: 0px 9px 3px 9px;
+        display: inline;
+        margin-left: 20px;
+        /*  used to be 5px*/
+        /*  Padding when icons were being used :
+            padding: 0px 5px 5px 5px;
+        /*  padding: 5px 10px 10px 10px; */
+        border-radius: 100%;
+        background-color: white;
+        color: #1e6c93;
+
+        &::after {
+            content: '+';
+            /* \02295' */ 
+        }
+    `; //end openColumnButton
+
+    let buttonRow = styled.div`
+        margin: 3.5% auto;
+    `
+
     let generateBlueSectionButtons = () => {
         console.log("generateBlueSectionButtons()");
 
@@ -63,21 +134,22 @@ const BlueSection = (props) => {
         https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react 
         https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react
     // */
+
     return (
-        <section className="blue-section" id={props.blueSectionName + "blueSection"}>
-            <input type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "-collapseToggle"} defaultChecked={!!props.expanded} />
-           <div className="section-header">
+        <BlueSection className="blue-section" id={props.blueSectionName + "blueSection"} >
+            <inputCheckBoxHack type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "-collapseToggle"} defaultChecked={!!props.expanded} />
+            <sectionHeader className="section-header">
                 <h3>{props.headerTitle}</h3>
                 <label htmlFor={props.blueSectionName + "-collapseToggle"}>
-                    <div className="open-column-button"></div>
+                    <openColumnButton className="open-column-button"></openColumnButton>
                 </label>
-            </div>
-            <div className="row button-row" id={props.buttonRowID}>
-              {
-                 generateBlueSectionButtons()
-              }
-            </div>
-    </section>
+            </sectionHeader>
+            <buttonRow className="row button-row" id={props.buttonRowID}>
+            {
+                generateBlueSectionButtons()
+            }
+            </buttonRow>
+        </BlueSection>
     );
 };
 

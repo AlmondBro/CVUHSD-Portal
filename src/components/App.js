@@ -4,13 +4,22 @@ import React, { Component } from 'react';
 import Header from "./Header.js";
 import PageContent from "./PageContent.js";
 
+
+//Import 3rd-party APIs
+import styled from 'styled-components';
+
+let ContainerFluid = styled.div`
+  padding-left: 0;
+  padding-right: 0;
+`;
+
 class App extends Component {
   render() {
     return (
-      <div className="container-fluid">
-        <Header key="header" />
+      <ContainerFluid>
+        <Header key="header" districtName="CVUHSD" headerTitle="Staff Portal" />
         <PageContent key="pageContent"/>
-      </div>
+      </ContainerFluid>
     );
   }
 }
