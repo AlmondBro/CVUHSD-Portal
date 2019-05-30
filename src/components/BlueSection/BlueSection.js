@@ -60,20 +60,17 @@ const BlueSection = (props) => {
         text-align: center;
         overflow: hidden;
 
-        & a button {
-            border: 0;
-            background-color: transparent;
-        }
+        & a button,
         & a button img {
             border: 0;
             background-color: transparent;
         }
     `; //end BlueSection
 
-    let inputCheckBoxHack = styled.input`
+    let InputCheckBoxHack = styled.input`
         display: none;
 
-        &::checked+div.blue-section-innerContainer>div.section-content {
+        &:checked+div.blue-section-innerContainer>div.section-content {
             display: table;
         }
 
@@ -81,13 +78,13 @@ const BlueSection = (props) => {
                 content: '-';
         }
 
-        :checked~div#${props.buttonRowID} {
+        &:checked~div#${props.buttonRowID} {
             margin: 2.5% auto;
             height: 100%;
         }
     `; //end CheckboxHack
 
-    let sectionHeader = styled.div`
+    let SectionHeader = styled.div`
         background-color: rgb(30, 108, 147);
         /* A nice green: rgb(30, 147, 44) */
         color: white;
@@ -101,7 +98,7 @@ const BlueSection = (props) => {
         }
     `; //end sectionHeader
 
-    let openColumnButton = styled.div`
+    let OpenColumnButton = styled.div`
         cursor: pointer;
         border: 0;
         background: transparent;
@@ -123,7 +120,7 @@ const BlueSection = (props) => {
         }
     `; //end openColumnButton
 
-    let buttonRow = styled.div`
+    let ButtonRow = styled.div`
         margin: 3.5% auto;
     `;
 
@@ -138,18 +135,18 @@ const BlueSection = (props) => {
 
     return (
         <BlueSectionContainer className="blue-section" id={props.blueSectionName + "blueSection"} >
-            <inputCheckBoxHack type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "-collapseToggle"} defaultChecked={!!props.expanded} />
-            <sectionHeader className="section-header">
+            <InputCheckBoxHack type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "-collapseToggle"} defaultChecked={!!props.expanded} />
+            <SectionHeader className="section-header">
                 <h3>{props.headerTitle}</h3>
                 <label htmlFor={props.blueSectionName + "-collapseToggle"}>
-                    <openColumnButton className="open-column-button"></openColumnButton>
+                    <OpenColumnButton className="open-column-button"></OpenColumnButton>
                 </label>
-            </sectionHeader>
-            <buttonRow className="row button-row" id={props.buttonRowID}>
+            </SectionHeader>
+            <ButtonRow className="row button-row" id={props.buttonRowID}>
             {
                 generateBlueSectionButtons()
             }
-            </buttonRow>
+            </ButtonRow>
         </BlueSectionContainer>
     );
 };
