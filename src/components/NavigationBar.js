@@ -117,7 +117,7 @@ const NavigationBar = (props) => {
 
                 
         /*Rotate last bar */
-        #menu-toggle:checked~label .nav-menu-icon .bar3 {
+        &:checked~label .nav-menu-icon .bar3 {
             -webkit-transform: rotate(45deg) translate(-8px, -8px);
             transform: rotate(45deg) translate(-8px, -8px);
         }

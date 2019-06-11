@@ -39,7 +39,7 @@ let NavigationBarHeader = styled.header`
     }
 
     @media only screen and (max-width: 833px) {
-        margin-top: -95px;
+        /* margin-top: -95px; */
         display: inline-block;
     }
 `//end NavigationBarHeader
@@ -73,7 +73,6 @@ let DashboardHeader = styled.header`
 
 let AddToHomeScreenButton = styled.button`
     display: none;
-
     position: relative;
     /* display: inline-block; */
     color: white;
