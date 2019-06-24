@@ -194,6 +194,11 @@ let staffPortalButtons = {
     }, //end teacherTools
 
     classroomTools : {
+        apex_button : {
+            buttonLink: "https://access.heropowered.com/login/centinelavalley-usd",
+            buttonImg: "apex.png",
+            description: "Apex Learning"
+        },
         canvas_button : {
             buttonLink: "https://centinela.instructure.com/",
             buttonImg: "canvas.png",
