@@ -17,9 +17,11 @@ const BlueSection = (props) => {
             return [...buttonsArray].map( (buttonObject, index) => {
                /* Group buttons in tabs of four */
                 if (index %4 === 0 && index >= 4 ) {
-                    return (
-                        <div key={index}></div>
-                        ); 
+                    // return (
+                    //     <div key={index}></div>
+                    //     ); 
+
+                    return null;
                 } //end if statement 
 
                 return (<BlueSectionButton 
