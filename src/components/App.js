@@ -9,8 +9,8 @@ import PageContent from "./PageContent.js";
 import styled from 'styled-components';
 
 import {  Redirect } from 'react-router'
-import { BrowserRouter as Router, Route, Switch, } from "react-router-dom";
-import LogIn from '../LogIn.js';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import LogIn from './LogIn.js';
 
 
 let ContainerFluid = styled.div`
@@ -32,7 +32,7 @@ class App extends Component {
         <ContainerFluid>
           <Header key="header" districtName="CVUHSD" headerTitle="Portal" />
           <Switch>
-            <Route path="/" 
+            <Route exact path="/" 
                    render={ () => {
                          return (<Redirect to="/login" />);
                     }
