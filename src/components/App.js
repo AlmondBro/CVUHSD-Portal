@@ -28,21 +28,19 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <ContainerFluid>
-          <Header key="header" districtName="CVUHSD" headerTitle="Portal" />
-          <Switch>
-            <Route exact path="/" 
-                   render={ () => {
-                         return (<Redirect to="/login" />);
-                    }
-                } 
-            />
-            <Route path="/login" component={LogIn} />
-          </Switch>
-          {/* <PageContent key="pageContent"/> */}
-        </ContainerFluid>
-        </Router>
+      <ContainerFluid>
+        <Header key="header" districtName="CVUHSD" headerTitle="Portal" />
+        <Switch>
+          <Route exact path="/" 
+                  render={ () => {
+                        return (<Redirect to="/login" />);
+                  }
+              } 
+          />
+          <Route path="/login" component={LogIn} />
+        </Switch>
+        {/* <PageContent key="pageContent"/> */}
+      </ContainerFluid>
     );
   }
 }
