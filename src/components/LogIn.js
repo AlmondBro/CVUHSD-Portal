@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 //Import 3rd-party APIs
-import styled from 'styled-components';
 
 class LogIn extends Component {
     constructor(props) {

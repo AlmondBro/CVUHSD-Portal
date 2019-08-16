@@ -48,7 +48,8 @@ const BlueSection = (props) => {
             return buttonsArray; */
         
         } else if (props.buttonRowID === "systemStatusesButtonRow") {
-           return  (<iframe style={ {   align: "center",
+           return  (<iframe title="System Statuses"
+                            style={ {   align: "center",
                                         height: "400px",
                                         width: "1000px",
                                         border: "0", 
@@ -58,7 +59,8 @@ const BlueSection = (props) => {
            // return <BlueSectionButton />
         } else if (props.buttonRowID === "webAdminButtonRow") {
             return (
-                    <iframe class="google-sheet" 
+                    <iframe title="All Links Google Sheets"
+                            class="google-sheet" 
                             src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSOPMzFTLmTXsOzY172KN_3IaJqeO9bLPl_3TIgc_bBQiWEanznykV6cEiPBuV9WUHEnL2vesphHEWZ/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
                     >
                     </iframe>);

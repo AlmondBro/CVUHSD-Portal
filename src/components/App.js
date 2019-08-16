@@ -9,7 +9,7 @@ import PageContent from "./PageContent.js";
 import styled from 'styled-components';
 
 import {  Redirect } from 'react-router'
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Route, Switch } from "react-router-dom";
 import LogIn from './LogIn.js';
 
 
@@ -33,13 +33,14 @@ class App extends Component {
         <Switch>
           <Route exact path="/" 
                   render={ () => {
-                        return (<Redirect to="/login" />);
+                       return (<Redirect to="/login" />);
                   }
               } 
           />
+          <Route path="/" component={LogIn} />
           <Route path="/login" component={LogIn} />
         </Switch>
-        {/* <PageContent key="pageContent"/> */}
+        <PageContent key="pageContent"/>
       </ContainerFluid>
     );
   }

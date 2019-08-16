@@ -9,18 +9,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve the static files from the React app (only in production?)
-app.use(express.static(path.join(__dirname, '../build')));
+/*app.use(express.static(path.join(__dirname, '../build'))); */
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 //Routes
 app.get('/hello-world', (req, res) => res.send('Hello World!')); 
 app.get('/ping', (req, res) => console.log("Ping pong bro"));
 
 // Handles any requests that don't match the ones above
-app.get('*', (req,res) =>{
-    res.sendFile(path.join(__dirname+'../build/index.html'));
-});
+/*
+app.get('*', (req,res) => {
+    res.sendFile(path.join(__dirname + '../build/index.html'));
+}); */
 
 
 //Post routes to test 
