@@ -1,27 +1,32 @@
 const express = require('express'); 
-const bodyParser = require('body-parser');
 const path = require('path');
+
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express(); 
 const port = process.env.PORT || 7000; 
 
+app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Serve the static files from the React app (only in production?)
-/*app.use(express.static(path.join(__dirname, '../build'))); */
-
-app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 //Routes
 app.get('/hello-world', (req, res) => res.send('Hello World!')); 
 app.get('/ping', (req, res) => console.log("Ping pong bro"));
 
-// Handles any requests that don't match the ones above
-/*
-app.get('*', (req,res) => {
-    res.sendFile(path.join(__dirname + '../build/index.html'));
-}); */
+
+if (process.env.NODE_ENV === 'production') {
+    // Serve the static files from the React app (only in production?)
+    app.use(express.static(path.join(__dirname, '../build'))); 
+
+    // Handles any requests that don't match the ones above,  Handle React routing, return all requests to React app
+    app.get('*', (req,res) => {
+        res.sendFile(path.join(__dirname, '../build/index.html'));
+    }); 
+}
+
 //Post routes to test 
 app.post('/api/world', (req, res) => {
     console.log(req.body);
@@ -37,3 +42,5 @@ process.on('uncaughtException', (error) => {
          console.log(error);
     process.exit(1);
 });  
+
+app.listen(port, () => console.log(`App listening on port ${port}!`));
