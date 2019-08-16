@@ -22,10 +22,6 @@ app.get('/ping', (req, res) => console.log("Ping pong bro"));
 app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname + '../build/index.html'));
 }); */
-
-
-
-
 //Post routes to test 
 app.post('/api/world', (req, res) => {
     console.log(req.body);
