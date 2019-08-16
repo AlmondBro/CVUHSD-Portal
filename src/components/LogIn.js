@@ -15,7 +15,7 @@ class LogIn extends Component {
             <div className="container-fluid">
                 <form>
                     <fieldset>
-                    <legend><h3>Login In</h3></legend>
+                    <legend><h3>Log In</h3></legend>
                     <p className="cvuhsd-username-container">
                         <label for="cvuhsd-username">Username:</label>
                         <input 

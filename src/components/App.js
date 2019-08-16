@@ -38,7 +38,7 @@ class App extends Component {
               } 
           />
           <Route path="/login" component={LogIn} />
-          <Route path="/pageContent" render={ () => { return <PageContent key="pageContent"/>} } />
+          <Route path="/page-content" render={ () => { return <PageContent key="pageContent"/>} } />
         
         </Switch>
   
