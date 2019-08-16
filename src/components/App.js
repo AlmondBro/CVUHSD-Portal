@@ -38,8 +38,7 @@ class App extends Component {
                     }
                 } 
             />
-            <Route path="/login" component={LogIn}></Route>
-
+            <Route path="/login" component={LogIn} />
           </Switch>
           {/* <PageContent key="pageContent"/> */}
         </ContainerFluid>
