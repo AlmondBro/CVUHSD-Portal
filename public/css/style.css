@@ -2,6 +2,18 @@
     float: left;
 }
 
+/*
+body inline:
+style="font-family: Lato, sans-serif;
+                font-size: 16px;
+                background-color: #f4f7f9;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;"
+
+*/
+
 /* .navigation-bar ul li a {} */
 #home-icon {
     margin-right: 8px;

@@ -8,10 +8,10 @@
       <meta http-equiv="content-type" content="text/html; charset=UTF-8">
       <meta name="description" content="Centinella Valley School District Single Sign-On (SSO) Dashboard">
       <link rel="manifest" href="js/staff-manifest.json">
-      <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+      <!-- <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive" rel="stylesheet"> -->
+      <!-- <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"> -->
       <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
-      <!-- Favicons -->
+      <!-- Favicons --> 
       <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png">
       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png">
@@ -23,7 +23,7 @@
       <meta name="theme-color" content="#1e6c93">
      
       <title>CVUHSD | Staff Portal</title>
-      <link href="/css/font-awesome.min.css" rel="stylesheet">
+      <link href="/css/font-awesome.min.css" rel="stylesheet" Content-Security-Policy: font-src 'self' data:;>
       <link href="/css/grid-system.css" rel="stylesheet">
       <link href="/css/style.css" rel="stylesheet">
 
@@ -44,14 +44,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   </head>
-  <body style="font-family: Lato, sans-serif;
-                font-size: 16px;
-                background-color: #f4f7f9;
-                background-attachment: fixed;
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center;"
-  >
+  <body>
     <noscript>You need to enable JavaScript to run this web application!</noscript>
     <div id="root"></div>
     <!--
