@@ -13,8 +13,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Routes
-app.get('/hello-world', (req, res) => res.send('Hello World!')); 
-app.get('/ping', (req, res) => console.log("Ping pong bro"));
+app.get('/hello-world', (req, res, next) => res.send('Hello World!')); 
+app.get('/ping', (req, res, next) => { res.send("Pong"); console.log("Ping pong bro");  } );
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -22,13 +22,13 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../build'))); 
 
     // Handles any requests that don't match the ones above,  Handle React routing, return all requests to React app
-    app.get('*', (req,res) => {
+    app.get('*', (req,res, next) => {
         res.sendFile(path.join(__dirname, '../build/index.html'));
     }); 
 }
 
 //Post routes to test 
-app.post('/api/world', (req, res) => {
+app.post('/api/world', (req, res, next) => {
     console.log(req.body);
     res.send(
       `I received your POST request. This is what you sent me: ${req.body.post}`,

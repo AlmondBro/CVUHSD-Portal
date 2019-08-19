@@ -156,7 +156,7 @@ const NavigationBar = (props) => {
         <NavBar className="navigation-bar">
             <NavBarImageWrapper className="navigation-bar-image-wrapper">
                 <a className="navbar-logo-link" href="http://portal.centinela.k12.ca.us">
-                    <NavBarLogo className="img-responsive" id="navbar-logo" href="#" src="./images/CV-600x600-portal.png" />
+                    <NavBarLogo className="img-responsive" id="navbar-logo" href="#" src="/images/CV-600x600-portal.png" />
                 </a>
             </NavBarImageWrapper>
             <NavBarUL className="navigation-bar-ul">

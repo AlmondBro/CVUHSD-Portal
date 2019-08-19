@@ -29,7 +29,7 @@ class App extends Component {
   render() {
     return (
       <ContainerFluid>
-        <Header key="header" districtName="CVUHSD" headerTitle="Portal" />
+        <Header districtName="CVUHSD" headerTitle="Portal" />
         <Switch>
           <Route exact path="/" 
                   render={ () => {
@@ -39,6 +39,7 @@ class App extends Component {
           />
           <Route path="/login" component={LogIn} />
           <Route path="/page-content" render={ () => { return <PageContent key="pageContent"/>} } />
+          <Route render={ () => { return <p>404 Not Found</p>} } />
         
         </Switch>
   
