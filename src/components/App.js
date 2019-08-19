@@ -9,7 +9,7 @@ import PageContent from "./PageContent.js";
 import styled from 'styled-components';
 
 import {  Redirect } from 'react-router'
-import { BrowserRouter as Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import LogIn from './LogIn.js';
 
 
@@ -39,7 +39,7 @@ class App extends Component {
           />
           <Route path="/login" component={LogIn} />
           <Route path="/page-content" render={ () => { return <PageContent key="pageContent"/>} } />
-          <Route render={ () => { return <p>404 Not Found</p>} } />
+          {/* <Route render={ () => { return <p>404 Not Found</p>} } /> */}
         
         </Switch>
   

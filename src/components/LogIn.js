@@ -13,7 +13,7 @@ class LogIn extends Component {
     render = () => { 
         return (
             <div className="container-fluid">
-                <form>
+                <form action="#" method="post" >
                     <fieldset>
                     <legend><h3>Log In</h3></legend>
                     <p className="cvuhsd-username-container">
@@ -24,11 +24,14 @@ class LogIn extends Component {
                         />
                     </p>
                     <p className="cvuhsd-password-container">
-                        <label for="cvuhsd-password">Username:</label>
+                        <label for="cvuhsd-password">Password:</label>
                         <input 
-                            type="text" 
+                            type="password" 
                             name="cvuhsd-password" 
                         />
+                    </p>
+                    <p className="form-buttons-container">
+                        <button type="submit">Submit</button>
                     </p>
                 </fieldset>
             </form>

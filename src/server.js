@@ -9,11 +9,11 @@ const port = process.env.PORT || 7000;
 
 app.use(cors());
 
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 //Routes
-app.get('/hello-world', (req, res, next) => res.send('Hello World!')); 
+app.get('/hello-world', (req, res, next) => { res.send('Hello World!'); console.log("Hello world"); }); 
 app.get('/ping', (req, res, next) => { res.send("Pong"); console.log("Ping pong bro");  } );
 
 
@@ -34,6 +34,17 @@ app.post('/api/world', (req, res, next) => {
       `I received your POST request. This is what you sent me: ${req.body.post}`,
     );
   });
+
+app.post('/login'), (req, res, next) => {
+  console.log(req.body);
+  res.send(
+    `Post login: I received your POST request. This is what you sent me: ${req.body.post}`,
+  );
+  
+  let username = req.body.username;
+  let password = req.body.password;
+  console.log("post received: %s %s", username, password);
+};
 
 process.on('uncaughtException', (error) => {
     if(error.errno === 'EADDRINUSE')
