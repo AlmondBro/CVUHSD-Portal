@@ -17,14 +17,14 @@ class LogIn extends Component {
                     <fieldset>
                     <legend><h3>Log In</h3></legend>
                     <p className="cvuhsd-username-container">
-                        <label for="cvuhsd-username">Username:</label>
+                        <label htmlFor="cvuhsd-username">Username:</label>
                         <input 
                             type="text" 
                             name="cvuhsd-username" 
                         />
                     </p>
                     <p className="cvuhsd-password-container">
-                        <label for="cvuhsd-password">Password:</label>
+                        <label htmlFor="cvuhsd-password">Password:</label>
                         <input 
                             type="password" 
                             name="cvuhsd-password" 

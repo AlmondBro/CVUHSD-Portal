@@ -32,6 +32,7 @@ app.use(function(req, res, next) {
 //Routes
 app.get('/hello-world', (req, res, next) => { res.send('Hello World!'); console.log("Hello world"); }); 
 app.get('/ping', (req, res, next) => { res.send("Pong"); console.log("Ping pong bro");  } );
+app.get('/login', (req, res, next) => { console.log("Login"); } ); 
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -63,6 +64,7 @@ app.post('/login'), (req, res, next) => {
   console.log("post received: %s %s", username, password);
 };
 
+//Catch errors
 process.on('uncaughtException', (error) => {
     if(error.errno === 'EADDRINUSE')
          console.log("Error -- EADDR in use:\t" + error);
@@ -71,4 +73,5 @@ process.on('uncaughtException', (error) => {
     process.exit(1);
 });  
 
+//Listen to 
 app.listen(port, () => console.log(`App listening on port ${port}!`));

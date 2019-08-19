@@ -39,7 +39,7 @@ class App extends Component {
           />
           <Route path="/login" component={LogIn} />
           <Route path="/page-content" render={ () => { return <PageContent key="pageContent"/>} } />
-          {/* <Route render={ () => { return <p>404 Not Found</p>} } /> */}
+          <Route render={ () => { return <p>404 Not Found</p>} } />
         
         </Switch>
   
