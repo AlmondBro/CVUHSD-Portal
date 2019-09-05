@@ -10,10 +10,15 @@ class LogIn extends Component {
         }
     }; //end constructor
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+        console.log("Submit");
+    };
+
     render = () => { 
         return (
             <div className="container-fluid">
-                <form action="/login" method="post" >
+                <form action="/login" method="post" onSubmit={this.handleSubmit}>
                     <fieldset>
                     <legend><h3>Log In</h3></legend>
                     <p className="cvuhsd-username-container">
