@@ -55,10 +55,7 @@ app.post('/api/world', (req, res, next) => {
 
 app.post('/login'), (req, res, next) => {
   console.log(req.body);
-  res.send(
-    `Post login: I received your POST request. This is what you sent me: ${req.body.post}`,
-  );
-  
+  console.log("Post request for login...");
   let username = req.body.username;
   let password = req.body.password;
   console.log("post received: %s %s", username, password);

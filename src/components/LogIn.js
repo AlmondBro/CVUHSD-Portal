@@ -6,13 +6,46 @@ class LogIn extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            logInSuccess: null
+            logInSuccess: null,
+            username: "",
+            password: ""
         }
     }; //end constructor
 
+    handleInputChange = (event) => {
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
+
+        this.setState({
+            [name] : value
+        });
+    };
+
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log("Submit");
+        console.log("Submitting...");
+
+        let { username, password} = this.state;
+
+        fetch("/login", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({username: username, password: password})
+        }).then(function(response) {
+            if (response.status >= 400) {
+                console.log("Response:\t" + JSON.stringify(response));
+              throw new Error("Bad response from server");
+            }
+            return response.json();
+        }).then(function(response) {
+            if(response === "success"){
+               //this.setState({msg: "User has been deleted."});  
+               console.log("Success");
+            }
+        }).catch(function(err) {
+            console.log(err)
+        });
     };
 
     render = () => { 
@@ -22,17 +55,21 @@ class LogIn extends Component {
                     <fieldset>
                     <legend><h3>Log In</h3></legend>
                     <p className="cvuhsd-username-container">
-                        <label htmlFor="cvuhsd-username">Username:</label>
+                        <label htmlFor="username">Username:</label>
                         <input 
                             type="text" 
-                            name="cvuhsd-username" 
+                            name="username" 
+                            onChange={this.handleInputChange}
+                            value={this.state.username}
                         />
                     </p>
                     <p className="cvuhsd-password-container">
-                        <label htmlFor="cvuhsd-password">Password:</label>
+                        <label htmlFor="password">Password:</label>
                         <input 
-                            type="password" 
-                            name="cvuhsd-password" 
+                            type="text" 
+                            name="password" 
+                            onChange={this.handleInputChange}
+                            value={this.state.password}
                         />
                     </p>
                     <p className="form-buttons-container">
