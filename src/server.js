@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const activeDirectory = require('ad');
 const csp = require('helmet-csp')
 
 const app = express(); 
@@ -33,6 +34,7 @@ app.use(function(req, res, next) {
 app.get('/hello-world', (req, res, next) => { res.send('Hello World!'); console.log("Hello world"); }); 
 app.get('/ping', (req, res, next) => { res.send("Pong"); console.log("Ping pong bro");  } );
 app.get('/login', (req, res, next) => { console.log("Login"); } ); 
+
 //Post routes to test 
 app.post('/api/world', (req, res, next) => {
     console.log(req.body);
@@ -41,12 +43,26 @@ app.post('/api/world', (req, res, next) => {
     );
   });
 
+  const username = "lopezj@centinela.k12.ca.us"
+  const pass = "password"
+
+const ad = new activeDirectory({
+    url: "ldaps://127.0.0.1",
+    user: username,
+    pass: pass
+});
+
 app.post('/login', (req, res, next) => {
   console.log(req.body);
   console.log("Post request for login...");
   let username = req.body.username;
   let password = req.body.password;
   console.log("post received: %s %s", username, password);
+ 
+ad.user(username).exists() ? console.log("i exist") : console.log("i do not exist");
+
+ad.user(username).isMemberOf("CV_IT") ? console.log(username + "is member of CV_IT") : console.log(username + "is not a member of CV_IT"); 
+
 });
 
 if (process.env.NODE_ENV === 'production') {
