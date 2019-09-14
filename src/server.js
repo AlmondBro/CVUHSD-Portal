@@ -43,8 +43,8 @@ app.post('/api/world', (req, res, next) => {
     );
   });
 
-  const username = "lopezj@centinela.k12.ca.us"
-  const pass = "password"
+  const username = "lwstudent@cvuhsd.org"
+  const pass = "Cardinal1"
 
 const ad = new activeDirectory({
     url: "ldaps://127.0.0.1",

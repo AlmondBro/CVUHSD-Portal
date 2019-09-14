@@ -13,6 +13,8 @@ import { Route, Switch } from "react-router-dom";
 import LogIn from './LogIn.js';
 
 
+//TODO: Have /staff.html redirect to /staff
+
 let ContainerFluid = styled.div`
   padding-left: 0;
   padding-right: 0;
