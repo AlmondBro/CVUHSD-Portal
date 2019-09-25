@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const activeDirectory = require('ad');
-const csp = require('helmet-csp')
+const csp = require('helmet-csp');
 
 const app = express(); 
 

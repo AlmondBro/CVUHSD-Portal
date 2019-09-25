@@ -276,7 +276,7 @@ let staffPortalButtons = {
 
         clever_button : {
             buttonLink: "https://clever.com/oauth/instant-login?client_id=2b024c690549687be970&district_id=5283beba2c067cd50b000031",
-            buttonImg: "everfi.png",
+            buttonImg: "everfi.jpg",
             description: "Everfi"
         }
     }, //end learningTools
