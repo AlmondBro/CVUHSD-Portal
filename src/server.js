@@ -30,6 +30,20 @@ app.use(function(req, res, next) {
   return next();
 });
 
+/*
+  In Express, 404 responses are not the result of an error, so the 
+  error-handler middleware will not capture them. This behavior is 
+  because a 404 response simply indicates the absence of additional 
+  work to do; in other words, Express has executed all middleware 
+  functions and routes, and found that none of them responded. 
+  All you need to do is add a middleware function at the very bottom 
+  of the stack (below all other functions) to handle a 404 response:
+
+*/
+app.use(function (req, res, next) {
+  res.status(404).send("Sorry can't find that!")
+})
+
 //Routes
 app.get('/hello-world', (req, res, next) => { res.send('Hello World!'); console.log("Hello world"); }); 
 app.get('/ping', (req, res, next) => { res.send("Pong"); console.log("Ping pong bro");  } );
@@ -43,13 +57,35 @@ app.post('/api/world', (req, res, next) => {
     );
   });
 
-  const username = "lwstudent@cvuhsd.org"
-  const pass = "Cardinal1"
+  const username = "lopezj@centinela.k12.ca.us"
+  const pass = "pHT3EuH1iIC123"
 
+  /*
 const ad = new activeDirectory({
     url: "ldaps://127.0.0.1",
     user: username,
     pass: pass
+});
+
+*/
+
+var config = { url: 'ldaps://127.0.0.1',
+               baseDN: 'dc=centinela.k12.ca,dc=com',
+               username: username,
+               password: pass }
+var ad = new activeDirectory(config);
+ 
+//ad.user(userName).exists() ? console.log("i exist") : console.log("i do not exist");
+
+// ad.user(userName).isMemberOf("CV_IT"); 
+ 
+ ad.userExists(username, function(err, exists) {
+  if (err) {
+    console.log('ERROR: ' +JSON.stringify(err));
+    return;
+  }
+ 
+  console.log(username + ' exists: ' + exists);
 });
 
 app.post('/login', (req, res, next) => {
@@ -59,9 +95,9 @@ app.post('/login', (req, res, next) => {
   let password = req.body.password;
   console.log("post received: %s %s", username, password);
  
-ad.user(username).exists() ? console.log("i exist") : console.log("i do not exist");
+//ad.user(username).exists() ? console.log("i exist") : console.log("i do not exist");
 
-ad.user(username).isMemberOf("CV_IT") ? console.log(username + "is member of CV_IT") : console.log(username + "is not a member of CV_IT"); 
+ad.user(username).isMemberOf("CVTECHS") ? console.log(username + "is member of CV_IT") : console.log(username + "is not a member of CV_IT"); 
 
 });
 
