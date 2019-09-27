@@ -8,7 +8,8 @@ class LogIn extends Component {
         this.state = {
             logInSuccess: null,
             username: "",
-            password: ""
+            password: "",
+            msg: ""
         }
     }; //end constructor
 
@@ -32,19 +33,23 @@ class LogIn extends Component {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username: username, password: password})
-        }).then(function(response) {
+        }).then((response) => {
             if (response.status >= 400) {
                 console.log("Response:\t" + JSON.stringify(response));
-              throw new Error("Bad response from server");
+
+                //throw new Error("Bad response from server");
             }
+            console.log(response);
             return response.json();
-        }).then(function(response) {
-            if(response === "success"){
-               //this.setState({msg: "User has been deleted."});  
-               console.log("Success");
+        }).then((response) => {
+            if (response === "success"){
+               this.setState({msg: "User has been deleted."});  
+             
+                console.log((response));
+                return response;
             }
         }).catch(function(err) {
-            console.log(err)
+            console.log(`Catching error:\t ${err}`);
         });
     };
 

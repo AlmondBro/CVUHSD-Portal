@@ -55,6 +55,7 @@ reagent-reactjs/node_modules
 
 #ignore environment variables
 .env
+*.env
 
 # misc
 .DS_Store
