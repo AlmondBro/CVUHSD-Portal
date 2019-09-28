@@ -1,4 +1,4 @@
-require('dotenv').config(); //Load environmental variables
+require('dotenv').config({path: __dirname + '/.env', debug: true}) //Load environmental variables
 
 const express = require('express'); 
 const path = require('path');
@@ -48,8 +48,8 @@ const ad = new activeDirectory({
 
 */
 
-let active_directory_config = { url: 'ldaps://127.0.0.1',
-               baseDN: 'dc=centinela.k12.ca,dc=com',
+let active_directory_config = { url: process.env.ADFS_SERVER_URL,
+               baseDN: 'dc=centinela.k12.ca.us,dc=com',
                username: username,
                password: pass }
 
