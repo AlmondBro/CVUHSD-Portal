@@ -26,13 +26,12 @@
     "passport": "^0.4.0",
     "passport-activedirectory": "^1.0.4",
     "passport-saml": "^1.2.0",
-    "passport-wsfed-saml2": "^3.0.17",
+    "passport-wsfed-saml2": "git+https://github.com/auth0/passport-wsfed-saml2.git",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
     "react-scripts": "2.1.8",
-    "styled-components": "^4.2.0",
-    "x509": "^0.3.4"
+    "styled-components": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
