@@ -77,7 +77,7 @@ const username = process.env.ADFS_USER_NAME;
 const pass = process.env.ADFS_USER_PASSWORD;
 
 let active_directory_config = { url: process.env.ADFS_SERVER_URL,
-  baseDN: "dc=centinela, dc=k12, dc=ca, dc=us",
+  baseDN: process.env.LDAP_BASEDN,
   username: username,
   password: pass }
 
@@ -87,19 +87,38 @@ let ad_config = {
   pass: pass
 }
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(session({
+  secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge: 600000 }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser( (user, done) => {
+  console.log("Serialized:\t" + user);
+  done(null, user);
+});
+
+passport.deserializeUser( (user, done) => {
+  console.log("Deserialized:\t" + user);
+  done(null, user);
+});
+
 passport.use(new ActiveDirectoryStrategy({
   integrated: false,
-  ldap: new ActiveDirectory(active_directory_config)
+  ldap: active_directory_config
 }, function (profile, ad, done) {
   ad.isUserMemberOf(profile._json.dn, 'Domain Users', function (err, isMember) {
     if (err) return done(err);
     return done(null, profile);
-  })
-}))
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(passport.initialize());
+  });
+}));
 /*
 app.use(csp({
   directives: {
@@ -170,6 +189,15 @@ app.post('/login',
     console.log("Login success");
     res.status(200).send({success: true});
   });
+
+// Test endpoint to check whether user is authenticated
+app.get('/test', function(req, res) {
+  if (req.isAuthenticated()) {
+      res.send('Authenticated!')
+  } else {
+      res.send('Not authenticated!')
+  }
+})
 
 /*
   In Express, 404 responses are not the result of an error, so the 
