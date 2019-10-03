@@ -177,9 +177,11 @@ app.post('/login',
       } else if (!user) {
         console.log("else if !user");        
        // res.status(401).send(info);
+        
         res.status(401).json({"success" : false, "message" : "User does not exist"});
       } else {
-        console.log("Loggged in successfully -- next");
+        res.locals.userInfo = user; //To 'pass a variable' to a middleware, attach it to the response.locals object
+        console.log("Logged in successfully -- Calling next() -- go to next middleware");
         
        // return done(null, user); //causes error
         next(); //pass to next function in middleware
@@ -192,7 +194,7 @@ app.post('/login',
   // function to call once successfully authenticated
   function (req, res) {
     console.log("Login success");
-    res.status(200).send({success: true, message : "Logging in..."});
+    res.status(200).send({success: true, message : "Logging in...", userInfo: res.locals.userInfo});
   });
 
 // Test endpoint to check whether user is authenticated
