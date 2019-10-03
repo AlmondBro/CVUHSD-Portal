@@ -198,7 +198,7 @@ app.post('/login',
   });
 
 // Test endpoint to check whether user is authenticated
-app.get('/test', function(req, res) {
+app.get('/isauthenticated', function(req, res) {
   if (req.isAuthenticated()) {
       res.send('Authenticated!')
   } else {
