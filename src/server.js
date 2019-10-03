@@ -149,7 +149,7 @@ let ad = new ActiveDirectory(active_directory_config);
 //app.options('/login', cors()); // enable pre-flight request for DELETE request
 
 let passportAuthentication_options = {  failWithError: true, 
-                                        session: false,
+                                        session: true,
                                         failureFlash: true 
        
                                  }
@@ -179,9 +179,9 @@ app.post('/login',
        // res.status(401).send(info);
         
         res.status(401).json({"success" : false, "message" : "User does not exist"});
-      } else {
-
-        req.logIn(user, function(err) {
+      } 
+        
+      req.logIn(user, function(err) {
           if (err) { return next(err); }
           
           res.locals.userInfo = user; //To 'pass a variable' to a middleware, attach it to the response.locals object
@@ -189,9 +189,7 @@ app.post('/login',
           
          // return done(null, user); //causes error
           next(); //pass to next function in middleware
-        });
-
-      } //end else
+      });
 
       //res.status(401).send(info); this was causing a headers already set error
     })(req, res);
