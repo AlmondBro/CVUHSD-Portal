@@ -154,6 +154,7 @@ let passportAuthentication_options = {  failWithError: true,
        
                                  }
 
+//TODO: Find a way so that if users input with the domain "@cvuhsd.org", they are also authenticated
 app.post('/login',
   // wrap passport.authenticate call in a middleware function
   function (req, res, next) {
