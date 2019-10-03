@@ -174,13 +174,15 @@ app.post('/login',
         res.status(401).send(error);
       } else if (!user) {
         console.log("else if !user");        
-        res.status(401).send(info);
+       // res.status(401).send(info);
+        res.json({"success" : false, "message" : "User does not exist"});
       } else {
         console.log("next");
-        next();
+        return done(null, user);
+        //next();
       }
 
-      res.status(401).send(info);
+      //res.status(401).send(info);
     })(req, res);
   },
 
