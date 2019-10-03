@@ -178,10 +178,10 @@ app.post('/login',
        // res.status(401).send(info);
         res.status(401).json({"success" : false, "message" : "User does not exist"});
       } else {
-        console.log("next");
+        console.log("Loggged in successfully -- next");
         
-        return done(null, user);
-        //next(); //can possibly cause a headers alreadt set error?
+       // return done(null, user); //causes error
+        next(); //pass to next function in middleware
       }
 
       //res.status(401).send(info); this was causing a headers already set error
@@ -191,7 +191,7 @@ app.post('/login',
   // function to call once successfully authenticated
   function (req, res) {
     console.log("Login success");
-    res.status(200).send({success: true, "message" : "Logging in..."});
+    res.status(200).send({success: true, message : "Logging in..."});
   });
 
 // Test endpoint to check whether user is authenticated

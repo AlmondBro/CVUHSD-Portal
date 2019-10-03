@@ -9,7 +9,7 @@ class LogIn extends Component {
             logInSuccess: null,
             username: "",
             password: "",
-            msg: ""
+            message: ""
         }
     }; //end constructor
 
@@ -31,23 +31,24 @@ class LogIn extends Component {
 
         fetch("/login", {
             method: 'POST',
-            headers: {'Content-Type': 'application/json',
-                    'credentials': 'include'
-            },
+            headers: {
+                        'Content-Type': 'application/json',
+                        'credentials': 'include'
+                    },
             body: JSON.stringify({username: username, password: password})
         }).then((response) => {
             if (response.status >= 400) {
                 console.log("Error & Response:\t" + JSON.stringify(response));
-
+                this.setState({logInSuccess: false, message: response.message});
                 //throw new Error("Bad response from server");
             }
-            console.log("Response:\t" + JSON.stringify(response) );
+            console.log("Response:\t" + JSON.stringify(response) ); //a response does not appear to be a
             console.log(response);
           return response.json();
           //return response;
         }).then((response) => {
             if (response.success === true){
-               this.setState({msg: "User has been deleted."});  
+               this.setState({logInSuccess: true, message: response.message});  
              
                 console.log("Success!!!");
                 console.log((response));
@@ -55,8 +56,10 @@ class LogIn extends Component {
             }
 
             console.log(response);
-            console.log("Success to front-end:\t" + JSON.stringify(response) );
+            console.log("Front-end response:\t" + JSON.stringify(response) );
+            this.setState({logInSuccess: false, message: response.message});
         }).catch(function(err) {
+            this.setState({logInSuccess: false});
             console.log(`Catching error:\t ${err}`);
         });
     };
@@ -87,6 +90,7 @@ class LogIn extends Component {
                     </p>
                     <p className="form-buttons-container">
                         <button type="submit">Submit</button>
+                        <span>{"\t" + this.state.message}</span>
                     </p>
                 </fieldset>
             </form>
