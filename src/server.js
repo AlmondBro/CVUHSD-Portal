@@ -180,12 +180,18 @@ app.post('/login',
         
         res.status(401).json({"success" : false, "message" : "User does not exist"});
       } else {
-        res.locals.userInfo = user; //To 'pass a variable' to a middleware, attach it to the response.locals object
-        console.log("Logged in successfully -- Calling next() -- go to next middleware");
-        
-       // return done(null, user); //causes error
-        next(); //pass to next function in middleware
-      }
+
+        req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          
+          res.locals.userInfo = user; //To 'pass a variable' to a middleware, attach it to the response.locals object
+          console.log("Logged in successfully -- Calling next() -- go to next middleware");
+          
+         // return done(null, user); //causes error
+          next(); //pass to next function in middleware
+        });
+
+      } //end else
 
       //res.status(401).send(info); this was causing a headers already set error
     })(req, res);
