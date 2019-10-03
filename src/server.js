@@ -170,26 +170,28 @@ app.post('/login',
      // let statusCode = /InvalidCredentialsError/.test(error.stack) || "";
       // || ( (statusCode == "401") || (statusCode == "500") )
       if (error) {
-        console.log("if error");
-        res.status(401).send(error);
+        console.log("invalid credentials error");
+        //res.status(401).send(error);
+        res.json({"success" : false, "message" : "Invalid password"});
       } else if (!user) {
         console.log("else if !user");        
        // res.status(401).send(info);
-        res.json({"success" : false, "message" : "User does not exist"});
+        res.status(401).json({"success" : false, "message" : "User does not exist"});
       } else {
         console.log("next");
+        
         return done(null, user);
-        //next();
+        //next(); //can possibly cause a headers alreadt set error?
       }
 
-      //res.status(401).send(info);
+      //res.status(401).send(info); this was causing a headers already set error
     })(req, res);
   },
 
   // function to call once successfully authenticated
   function (req, res) {
     console.log("Login success");
-    res.status(200).send({success: true});
+    res.status(200).send({success: true, "message" : "Logging in..."});
   });
 
 // Test endpoint to check whether user is authenticated
