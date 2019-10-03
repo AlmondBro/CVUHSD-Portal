@@ -37,20 +37,25 @@ class LogIn extends Component {
             body: JSON.stringify({username: username, password: password})
         }).then((response) => {
             if (response.status >= 400) {
-                console.log("Response:\t" + JSON.stringify(response));
+                console.log("Error & Response:\t" + JSON.stringify(response));
 
                 //throw new Error("Bad response from server");
             }
             console.log("Response:\t" + JSON.stringify(response) );
-          // return response.json();
-          return response;
+            console.log(response);
+          return response.json();
+          //return response;
         }).then((response) => {
-            if (response === "success"){
+            if (response.success === true){
                this.setState({msg: "User has been deleted."});  
              
+                console.log("Success!!!");
                 console.log((response));
                 return response;
             }
+
+            console.log(response);
+            console.log("Success to front-end:\t" + JSON.stringify(response) );
         }).catch(function(err) {
             console.log(`Catching error:\t ${err}`);
         });

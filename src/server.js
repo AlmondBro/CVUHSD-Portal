@@ -77,7 +77,7 @@ const username = process.env.ADFS_USER_NAME;
 const pass = process.env.ADFS_USER_PASSWORD;
 
 let active_directory_config = { url: process.env.ADFS_SERVER_URL,
-  baseDN: process.env.LDAP_BASEDN,
+  baseDN: "dc=centinela, dc=k12, dc=ca, dc=us",
   username: username,
   password: pass }
 
@@ -130,43 +130,46 @@ let ad = new ActiveDirectory(active_directory_config);
 //app.options('/login', cors()); // enable pre-flight request for DELETE request
 
 let passportAuthentication_options = {  failWithError: true, 
-                                        session: true,
+                                        session: false,
                                         failureFlash: true 
-                                    };
+       
+                                 }
 
-app.post('/login', (req, res, next) => {
-  console.log("Request body:\t" + JSON.stringify(req.body));
-  console.log("Post request for login...");
-  let userName = req.body.username || req.username;
-  let password = req.body.password || req.password;
-  console.log("Post request received: %s %s", userName, password);
- 
- // await ad.user(userName).exists() ? console.log(`${userName} does exist`) : console.log(`${userName} does not exist`);
+app.post('/login',
+  // wrap passport.authenticate call in a middleware function
+  function (req, res, next) {
+    // call passport authentication passing the "local" strategy name and a callback function
+    passport.authenticate('ActiveDirectory', passportAuthentication_options, function (error, user, info) {
+      // this will execute in any case, even if a passport strategy will find an error
+      // log everything to 
+      
+      console.log("\n------------------");
+      console.log("Error:\t" + error);
+      console.log("User:\t" + JSON.stringify(user) );
+      console.log("Info:\t" + info);
 
-  // await ad.user(userName).isMemberOf("CV_IT") ? console.log(userName + "is member of CV_IT") : console.log(userName + "is not a member of CV_IT"); 
+     // let statusCode = /InvalidCredentialsError/.test(error.stack) || "";
+      // || ( (statusCode == "401") || (statusCode == "500") )
+      if (error) {
+        console.log("if error");
+        res.status(401).send(error);
+      } else if (!user) {
+        console.log("else if !user");        
+        res.status(401).send(info);
+      } else {
+        console.log("next");
+        next();
+      }
 
-  //res.json({success: true});
+      res.status(401).send(info);
+    })(req, res);
+  },
 
-  let groupName = process.env.ADFS_GROUP;
-
-  /*
-  ad.isUserMemberOf(userName, groupName, function(err, isMember) {
-    if (err) {
-      console.log('ERROR: ' + JSON.stringify(err));
-      return;
-    }
-  
-    console.log(userName + ' isMemberOf ' + groupName + ': ' + isMember);
-  }); */
-
-  next();
-}, passport.authenticate('ActiveDirectory', passportAuthentication_options), (req, res) => {
-  console.log("Passport authenticating"); 
-  //req.login(); 
-  res.json({ response : req.user } );
-  }, (err) => { res.status(401).send('Not authenticated'); } 
-
-);
+  // function to call once successfully authenticated
+  function (req, res) {
+    console.log("Login success");
+    res.status(200).send({success: true});
+  });
 
 /*
   In Express, 404 responses are not the result of an error, so the 
