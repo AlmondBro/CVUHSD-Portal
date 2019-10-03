@@ -31,7 +31,9 @@ class LogIn extends Component {
 
         fetch("/login", {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json',
+                    credentials: 'include'
+            },
             body: JSON.stringify({username: username, password: password})
         }).then((response) => {
             if (response.status >= 400) {
@@ -39,8 +41,9 @@ class LogIn extends Component {
 
                 //throw new Error("Bad response from server");
             }
-            console.log(response);
-            return response.json();
+            console.log("Response:\t" + JSON.stringify(response) );
+          // return response.json();
+          return response;
         }).then((response) => {
             if (response === "success"){
                this.setState({msg: "User has been deleted."});  
@@ -71,7 +74,7 @@ class LogIn extends Component {
                     <p className="cvuhsd-password-container">
                         <label htmlFor="password">Password:</label>
                         <input 
-                            type="text" 
+                            type="password" 
                             name="password" 
                             onChange={this.handleInputChange}
                             value={this.state.password}

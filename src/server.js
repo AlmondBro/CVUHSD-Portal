@@ -7,12 +7,17 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const activeDirectory = require('ad');
+const ActiveDirectory = require('activedirectory');
+
+const passport = require("passport");
+const wsfedsaml2 = require("passport-wsfed-saml2").Strategy;
+const ActiveDirectoryStrategy = require("passport-activedirectory");
+
+const session = require("express-session");
 const csp = require('helmet-csp');
 
-const xml2js = require('xml2js');
 const https = require('https');
-//to process WS-Trust requests
-const trustClient = require('wstrust-client');
+
  
 //dotenv.config(); //Load environmental variables
 
@@ -20,11 +25,81 @@ const app = express();
 
 const port = process.env.PORT || 3001; 
 
+// Passport session setup.
+//   To support persistent login sessions, Passport needs to be able to
+//   serialize users into and deserialize users out of the session.  Typically,
+//   this will be as simple as storing the user ID when serializing, and finding
+//   the user by ID when deserializing.
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(err, user);
+  
+});
+
+/*
+app.use(cors({
+  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'exposedHeaders': ['sessionId'],
+  'origin': '*',
+  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'preflightContinue': false
+})); */
 app.use(cors());
+app.options('*', cors()) // include before other routes
+
+app.use( (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+/*
+passport.use(new wsfedsaml2(
+  {
+    path: '/login',
+    realm: 'http://localhost:3000',
+    homeRealm: '', // optionally specify an identity provider to avoid showing the idp selector
+    identityProviderUrl: 'https://sso.centinela.k12.ca.us/adfs/ls/',
+    thumbprints: ["207fed2bcc4c22cbc6fddae071d90a18580d0fed"]
+  },
+  function(profile, done) {
+      if (err) {
+        return done(err);
+      }
+      return done(null, profile);
+  })
+);
+*/
+
+const username = process.env.ADFS_USER_NAME;
+const pass = process.env.ADFS_USER_PASSWORD;
+
+let active_directory_config = { url: process.env.ADFS_SERVER_URL,
+  baseDN: process.env.LDAP_BASEDN,
+  username: username,
+  password: pass }
+
+let ad_config = {
+  url: process.env.ADFS_SERVER_URL,
+  user: username,
+  pass: pass
+}
+
+passport.use(new ActiveDirectoryStrategy({
+  integrated: false,
+  ldap: new ActiveDirectory(active_directory_config)
+}, function (profile, ad, done) {
+  ad.isUserMemberOf(profile._json.dn, 'Domain Users', function (err, isMember) {
+    if (err) return done(err);
+    return done(null, profile);
+  })
+}))
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(passport.initialize());
 /*
 app.use(csp({
   directives: {
@@ -36,34 +111,13 @@ app.use(csp({
 //Routes
 app.get('/login', (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
 
-const username = process.env.ADFS_USER_NAME;
-const pass = process.env.ADFS_USER_PASSWORD;
-
-  /*
-const ad = new activeDirectory({
-    url: "ldaps://127.0.0.1",
-    user: username,
-    pass: pass
-});
-
-*/
-
-let active_directory_config = { url: process.env.ADFS_SERVER_URL,
-               baseDN: 'dc=centinela.k12.ca.us,dc=com',
-               username: username,
-               password: pass }
-
-let ad_config = {
-  url: process.env.ADFS_SERVER_URL,
-  user: username,
-  pass: pass
-}
-let ad = new activeDirectory(ad_config);
+let ad = new ActiveDirectory(active_directory_config);
  
 //ad.user(userName).exists() ? console.log("i exist") : console.log("i do not exist");
 
 // ad.user(userName).isMemberOf("CV_IT"); 
  
+/*
  ad.userExists(username, function(err, exists) {
   if (err) {
     console.log('ERROR: ' +JSON.stringify(err));
@@ -71,21 +125,48 @@ let ad = new activeDirectory(ad_config);
   }
  
   console.log(username + ' exists: ' + exists);
-});
+}); */
 
-app.post('/login', async (req, res, next) => {
-  console.log(req.body);
+//app.options('/login', cors()); // enable pre-flight request for DELETE request
+
+let passportAuthentication_options = {  failWithError: true, 
+                                        session: true,
+                                        failureFlash: true 
+                                    };
+
+app.post('/login', (req, res, next) => {
+  console.log("Request body:\t" + JSON.stringify(req.body));
   console.log("Post request for login...");
   let userName = req.body.username || req.username;
   let password = req.body.password || req.password;
-  console.log("post received: %s %s", userName, password);
+  console.log("Post request received: %s %s", userName, password);
  
-  await ad.user(userName).exists() ? console.log(`${userName} does exist`) : console.log(`${userName} does not exist`);
+ // await ad.user(userName).exists() ? console.log(`${userName} does exist`) : console.log(`${userName} does not exist`);
 
-  await ad.user(userName).isMemberOf("CV_IT") ? console.log(userName + "is member of CV_IT") : console.log(userName + "is not a member of CV_IT"); 
+  // await ad.user(userName).isMemberOf("CV_IT") ? console.log(userName + "is member of CV_IT") : console.log(userName + "is not a member of CV_IT"); 
 
-  res.json({success: true});
-});
+  //res.json({success: true});
+
+  let groupName = process.env.ADFS_GROUP;
+
+  /*
+  ad.isUserMemberOf(userName, groupName, function(err, isMember) {
+    if (err) {
+      console.log('ERROR: ' + JSON.stringify(err));
+      return;
+    }
+  
+    console.log(userName + ' isMemberOf ' + groupName + ': ' + isMember);
+  }); */
+
+  next();
+}, passport.authenticate('ActiveDirectory', passportAuthentication_options), (req, res) => {
+  console.log("Passport authenticating"); 
+  //req.login(); 
+  res.json({ response : req.user } );
+  }, (err) => { res.status(401).send('Not authenticated'); } 
+
+);
 
 /*
   In Express, 404 responses are not the result of an error, so the 

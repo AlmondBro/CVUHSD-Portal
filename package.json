@@ -20,16 +20,19 @@
     "cors": "^2.8.5",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "helmet-csp": "^2.8.0",
+    "nan": "git+https://github.com/nodejs/nan.git",
     "passport": "^0.4.0",
     "passport-activedirectory": "^1.0.4",
+    "passport-saml": "^1.2.0",
+    "passport-wsfed-saml2": "^3.0.17",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
     "react-scripts": "2.1.8",
     "styled-components": "^4.2.0",
-    "wstrust-client": "0.0.1",
-    "xml2js": "^0.4.22"
+    "x509": "^0.3.4"
   },
   "scripts": {
     "start": "react-scripts start",
