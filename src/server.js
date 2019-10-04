@@ -35,7 +35,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-    done(err, user);
+    done(null, user);
   
 });
 
@@ -114,11 +114,13 @@ passport.use(new ActiveDirectoryStrategy({
   integrated: false,
   ldap: active_directory_config
 }, function (profile, ad, done) {
+  //This function is a verify callback -- strategies require this and the purpose is to find the user that possesses this set of credentials
   ad.isUserMemberOf(profile._json.dn, 'Domain Users', function (err, isMember) {
     if (err) return done(err);
     return done(null, profile);
   });
 }));
+
 /*
 app.use(csp({
   directives: {
