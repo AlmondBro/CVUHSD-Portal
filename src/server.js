@@ -23,6 +23,10 @@ const https = require('https');
 
 const app = express(); 
 
+//TODO: Use SSL and password encryption: https://github.com/gheeres/node-activedirectory/issues/155  ,/ 
+//TODO: Get user's profile pic: https://github.com/gheeres/node-activedirectory/issues/152
+
+
 const port = process.env.PORT || 3001; 
 
 // Passport session setup.
@@ -100,15 +104,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser( (user, done) => {
-  console.log("Serialized:\t" + user);
-  done(null, user);
-});
-
-passport.deserializeUser( (user, done) => {
-  console.log("Deserialized:\t" + user);
-  done(null, user);
-});
 
 passport.use(new ActiveDirectoryStrategy({
   integrated: false,
@@ -173,7 +168,7 @@ app.post('/login',
      // let statusCode = /InvalidCredentialsError/.test(error.stack) || "";
       // || ( (statusCode == "401") || (statusCode == "500") )
       if (error) {
-        console.log("invalid credentials error");
+        console.log("invalid credentials error:\t" + error);
         //res.status(401).send(error);
         res.json({"success" : false, "message" : "Invalid password"});
       } else if (!user) {
@@ -183,6 +178,7 @@ app.post('/login',
         res.status(401).json({"success" : false, "message" : "User does not exist"});
       } 
         
+      // "Note that when using a custom callback, it becomes the application's responsibility to establish a session (by calling req.login()) and send a response."
       req.logIn(user, function(err) {
           if (err) { return next(err); }
           
@@ -194,7 +190,7 @@ app.post('/login',
       });
 
       //res.status(401).send(info); this was causing a headers already set error
-    })(req, res);
+    })(req, res, next);
   },
 
   // function to call once successfully authenticated
@@ -210,7 +206,15 @@ app.get('/isauthenticated', function(req, res) {
   } else {
       res.send('Not authenticated!')
   }
-})
+});
+
+app.get('/get-ip-address', function(req, res) {
+  //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
+  let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
+  console.log("IP:\t" + IP);
+  res.send(IP);
+});
+
 
 /*
   In Express, 404 responses are not the result of an error, so the 
