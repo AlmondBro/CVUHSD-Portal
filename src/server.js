@@ -6,26 +6,18 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const activeDirectory = require('ad');
-const ActiveDirectory = require('activedirectory');
+//const ActiveDirectory = require('activedirectory');
 
 const passport = require("passport");
-const wsfedsaml2 = require("passport-wsfed-saml2").Strategy;
 const ActiveDirectoryStrategy = require("passport-activedirectory");
 
 const session = require("express-session");
 const csp = require('helmet-csp');
 
-const https = require('https');
-
- 
-//dotenv.config(); //Load environmental variables
-
 const app = express(); 
 
 //TODO: Use SSL and password encryption: https://github.com/gheeres/node-activedirectory/issues/155  ,/ 
 //TODO: Get user's profile pic: https://github.com/gheeres/node-activedirectory/issues/152
-
 
 const port = process.env.PORT || 3001; 
 
@@ -83,12 +75,7 @@ const pass = process.env.ADFS_USER_PASSWORD;
 let active_directory_config = { url: process.env.ADFS_SERVER_URL,
   baseDN: process.env.LDAP_BASEDN,
   username: username,
-  password: pass }
-
-let ad_config = {
-  url: process.env.ADFS_SERVER_URL,
-  user: username,
-  pass: pass
+  password: pass 
 }
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -103,7 +90,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 passport.use(new ActiveDirectoryStrategy({
   integrated: false,
@@ -126,23 +112,8 @@ app.use(csp({
 
 //Routes
 app.get('/login', (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
-
-let ad = new ActiveDirectory(active_directory_config);
  
-//ad.user(userName).exists() ? console.log("i exist") : console.log("i do not exist");
-
-// ad.user(userName).isMemberOf("CV_IT"); 
  
-/*
- ad.userExists(username, function(err, exists) {
-  if (err) {
-    console.log('ERROR: ' +JSON.stringify(err));
-    return;
-  }
- 
-  console.log(username + ' exists: ' + exists);
-}); */
-
 //app.options('/login', cors()); // enable pre-flight request for DELETE request
 
 let passportAuthentication_options = {  failWithError: true, 
@@ -235,7 +206,6 @@ app.use((req, res, next) => {
 //   res.setHeader("Content-Security-Policy", "font-src 'self' https://apis.google.com");
 //   res.setHeader("Content-Security-Policy", "img-src 'self' https://apis.google.com");
 // });
-
 
 
 if (process.env.NODE_ENV === 'production') {
