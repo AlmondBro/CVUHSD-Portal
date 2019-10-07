@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 //Import components
-import Header from "./Header.js";
 import PageContent from "./PageContent.js";
 
 
@@ -30,22 +29,21 @@ class App extends Component {
 
   render() {
     return (
-      <ContainerFluid>
-        <Header districtName="CVUHSD" headerTitle="Portal" />
-        <Switch>
-          <Route exact path="/" 
-                  render={ () => {
-                       return (<Redirect to="/login" />);
-                  }
-              } 
-          />
-          <Route path="/login" component={LogIn} />
-          <Route path="/page-content" render={ () => { return <PageContent key="pageContent"/>} } />
-          <Route render={ () => { return <p>404 Not Found</p>} } />
-        
-        </Switch>
-  
-      </ContainerFluid>
+      <Switch>
+        <ContainerFluid>
+          
+            <Route exact path="/" 
+                    render={ () => {
+                        return (<Redirect to="/login" />);
+                    }
+                } 
+            />
+            <Route path="/login" component={LogIn} />
+            <Route path="/page-content" render={ () => { return <PageContent key="pageContent"/>} } />
+            <Route render={ () => { return <p>404 Not Found</p>} } />
+          
+        </ContainerFluid>
+      </Switch>
     );
   }
 }
