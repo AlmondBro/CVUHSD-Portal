@@ -30,7 +30,7 @@ const BlueSection = (props) => {
                             buttonImg={buttonObject.buttonImg} 
                             description={buttonObject.description}
                         />); 
-            }); //return map() functiom
+            }); //return map() function
 
             /* For loop can work here, but it does not return any new values whereas map does: 
                 Source: https://stackoverflow.com/questions/45576223/why-are-for-loops-not-allowed-in-react-jsx
@@ -51,7 +51,7 @@ const BlueSection = (props) => {
            return  (<iframe title="System Statuses"
                             style={ {   align: "center",
                                         height: "400px",
-                                        width: "1000px",
+                                        width: "1200px",
                                         border: "0", 
                                         frameborder: "0"}
                                 } 
@@ -105,8 +105,9 @@ const BlueSection = (props) => {
         vertical-align: middle;
 
         & h3 {
-            font-size: 2em;
+            font-size: 1.7em;
             display: inline;
+            font-family: Lato, sans-serif;
         }
     `; //end sectionHeader
 

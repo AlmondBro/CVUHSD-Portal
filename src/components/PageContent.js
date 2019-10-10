@@ -10,7 +10,7 @@ import { staffPortalButtons } from "./../portalButtons.js";
 let blueSectionInfo_systemStatuses = {
     blueSectionName: "systemStatuses",
     expanded: false,
-    headerTitle: "SystemStatuses",
+    headerTitle: "System Statuses",
     buttonRowID: "systemStatusesButtonRow",
     buttons: "undefined"
 };
@@ -83,8 +83,7 @@ let blueSectionInfo_allLinks = {
     blueSectionName: "allTools",
     expanded: true,
     headerTitle: "ALL LINKS",
-    buttonRowID: "webAdminButtonROw",
-    buttons: "undefined"
+    buttonRowID: "webAdminButtonRow"
 };
 
 let blueSectionInfo_Staff = [
