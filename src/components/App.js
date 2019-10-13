@@ -9,8 +9,10 @@ import styled from 'styled-components';
 
 import {  Redirect } from 'react-router'
 import { Route, Switch } from "react-router-dom";
-import LogIn from './LogIn.js';
 
+//Import pages
+import LogIn from './LogIn.js';
+import NotFound from './NotFound.js';
 
 //TODO: Have /staff.html redirect to /staff
 
@@ -29,8 +31,8 @@ class App extends Component {
 
   render() {
     return (
-      <Switch>
-        <ContainerFluid>
+      <ContainerFluid>
+        <Switch>
           
             <Route exact path="/" 
                     render={ () => {
@@ -40,10 +42,10 @@ class App extends Component {
             />
             <Route path="/login" component={LogIn} />
             <Route path="/page-content" render={ () => { return <PageContent key="pageContent"/>} } />
-            <Route render={ () => { return <p>404 Not Found</p>} } />
+            <Route component={NotFound} />
           
-        </ContainerFluid>
-      </Switch>
+        </Switch>
+      </ContainerFluid>
     );
   }
 }
