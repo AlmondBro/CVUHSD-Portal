@@ -1,5 +1,5 @@
-require('dotenv').config({path: __dirname + '/.env', debug: true}) //Load environmental variables
-
+require('dotenv').config({path: __dirname + './../.env', debug: true}) //Load environmental variables
+//Load environmental variables
 const express = require('express'); 
 const path = require('path');
 const fs = require('fs');
@@ -10,8 +10,6 @@ const cors = require('cors');
 //const ActiveDirectory = require('activedirectory');
 
 const passport = require("passport");
-const ActiveDirectoryStrategy = require("passport-activedirectory");
-const SamlStrategy = require('passport-saml').Strategy;
 
 const session = require("express-session");
 const csp = require('helmet-csp');
@@ -23,19 +21,8 @@ const app = express();
 
 const port = process.env.PORT || 3001; 
 
-// Passport session setup.
-//   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
+require("./passport-config.js"); //require passport configuration
 
-passport.deserializeUser(function(user, done) {
-    done(null, user);
-  
-});
 
 /*
 app.use(cors({
@@ -53,23 +40,6 @@ app.use( (req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-/*
-passport.use(new wsfedsaml2(
-  {
-    path: '/login',
-    realm: 'http://localhost:3000',
-    homeRealm: '', // optionally specify an identity provider to avoid showing the idp selector
-    identityProviderUrl: 'https://sso.centinela.k12.ca.us/adfs/ls/',
-    thumbprints: ["207fed2bcc4c22cbc6fddae071d90a18580d0fed"]
-  },
-  function(profile, done) {
-      if (err) {
-        return done(err);
-      }
-      return done(null, profile);
-  })
-);
-*/
 
 const username = process.env.ADFS_USER_NAME;
 const pass = process.env.ADFS_USER_PASSWORD;
@@ -105,32 +75,6 @@ passport.use(new ActiveDirectoryStrategy({
   });
 }));
 // */
-
-let ADFS_SAML_CONFIG = {
-  entryPoint: 'https://ad.example.net/adfs/ls/',
-  issuer: 'https://your-app.example.net/login/callback',
-  callbackUrl: 'https://your-app.example.net/login/callback',
-  privateCert: fs.readFileSync('./certificates/ADFS_Encryption.der', 'utf-8'),
-  authnContext: 'http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/windows',
-  identifierFormat: null
-};
-
-passport.use(new SamlStrategy(
-  {
-    path: '/login/callback',
-    entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
-    issuer: 'passport-saml'
-  },
-  function(profile, done) {
-    findByEmail(profile.email, function(err, user) {
-      if (err) {
-        return done(err);
-      }
-      return done(null, user);
-    });
-  })
-);
-
 
 /*
 app.use(csp({
