@@ -199,41 +199,7 @@ const NavigationBar = (props) => {
                     </NavMenuIcon>    
                 </label>
                 { /* generateNavBarListItems() */}
-                <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
-                {/* <li><a href="https://portal.centinela.k12.ca.us/staff.html">Staff Portal</a></li> */}
-                <li className="mobile-collapse-links">
-                    <a href="#quickLinks-blueSection">Quick Links</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#standardStaffTools-blueSection">Standard Staff Tools</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#administratorTools-blueSection">Administrative Tools</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#teacherTools-blueSection">Teacher Tools</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#classRoomTools-blueSection">Classroom Tools</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#learningTools-blueSection">Learning Tools</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#digitalTextbooks-blueSection">Digital Textbooks</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#mediaResources-blueSection">Digital Library Resources</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#schoolWebsites-blueSection">School Websites</a>
-                </li>
-                <li>
-                    <a href="student.html" target="_blank">Student Portal</a>
-                </li>
-                <li>
-                    <a href="troubleshooting.html" target="_blank">Troubleshooting</a>
-                </li>
+           
                 <li>
                     <a href="#allTools-blueSection">All Links</a>
                 </li>
