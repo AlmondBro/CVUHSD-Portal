@@ -152,6 +152,36 @@ const NavigationBar = (props) => {
         color: #1e6c93;
     `;
 
+    let NavBarListItem = styled.a`
+        color: #1f6b92;
+        text-decoration: none;
+    `; 
+
+    let NavBarListItem_li = (props) => {
+        return (
+            <li>
+                <NavBarListItem href={props.href}>
+                    {props.title}
+                </NavBarListItem>
+            </li>
+        );
+    };
+
+    let generateNavBarListItems = (listItemsArray) => {
+        return listItemsArray.map(
+            (listItemArrayObject, index) => {
+                return (
+                    <NavBarListItem_li 
+                        key={index} 
+                        href={listItemArrayObject.href}
+                        title={listItemArrayObject.title}
+                    />);
+            }
+        ); //end map()
+    }; //end generateNavBarListItems()
+
+   // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
+
     return (
         <NavBar className="navigation-bar">
             <NavBarImageWrapper className="navigation-bar-image-wrapper">
@@ -168,6 +198,7 @@ const NavigationBar = (props) => {
                         <FirstBar className="bar3"></FirstBar>
                     </NavMenuIcon>    
                 </label>
+                { /* generateNavBarListItems() */}
                 <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
                 {/* <li><a href="https://portal.centinela.k12.ca.us/staff.html">Staff Portal</a></li> */}
                 <li className="mobile-collapse-links">
