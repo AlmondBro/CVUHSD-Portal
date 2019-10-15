@@ -21,8 +21,8 @@ passport.deserializeUser(function(user, done) {
 
 let ADFS_SAML_CONFIG = {
     entryPoint: process.env.ADFS_IDP,
-    issuer: 'acme_tools_com',
-    callbackUrl: 'https://acme_tools.com/adfs/postResponse',
+    issuer: 'https://portal.centinela.k12.ca.us',
+    callbackUrl: process.env.ADFS_IDP,
     privateCert: fs.readFileSync('../certificates/ADFS_Signing.pem', 'utf-8'),
     cert: fs.readFileSync('../certificates/ADFS_Encryption.crt', 'utf-8'),
   // other authn contexts are available e.g. windows single sign-on
