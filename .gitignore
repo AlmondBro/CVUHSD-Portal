@@ -57,6 +57,9 @@ reagent-reactjs/node_modules
 .env
 *.env
 
+#Ignore certificates
+certificates
+
 # misc
 .DS_Store
 .env.local

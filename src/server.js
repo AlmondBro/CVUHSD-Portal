@@ -2,6 +2,7 @@ require('dotenv').config({path: __dirname + '/.env', debug: true}) //Load enviro
 
 const express = require('express'); 
 const path = require('path');
+const fs = require('fs');
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -10,6 +11,7 @@ const cors = require('cors');
 
 const passport = require("passport");
 const ActiveDirectoryStrategy = require("passport-activedirectory");
+const SamlStrategy = require('passport-saml').Strategy;
 
 const session = require("express-session");
 const csp = require('helmet-csp');
@@ -91,6 +93,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+/*
 passport.use(new ActiveDirectoryStrategy({
   integrated: false,
   ldap: active_directory_config
@@ -101,6 +104,33 @@ passport.use(new ActiveDirectoryStrategy({
     return done(null, profile);
   });
 }));
+// */
+
+let ADFS_SAML_CONFIG = {
+  entryPoint: 'https://ad.example.net/adfs/ls/',
+  issuer: 'https://your-app.example.net/login/callback',
+  callbackUrl: 'https://your-app.example.net/login/callback',
+  privateCert: fs.readFileSync('./certificates/ADFS_Encryption.der', 'utf-8'),
+  authnContext: 'http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/windows',
+  identifierFormat: null
+};
+
+passport.use(new SamlStrategy(
+  {
+    path: '/login/callback',
+    entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
+    issuer: 'passport-saml'
+  },
+  function(profile, done) {
+    findByEmail(profile.email, function(err, user) {
+      if (err) {
+        return done(err);
+      }
+      return done(null, user);
+    });
+  })
+);
+
 
 /*
 app.use(csp({
@@ -127,7 +157,7 @@ app.post('/login',
   // wrap passport.authenticate call in a middleware function
   function (req, res, next) {
     // call passport authentication passing the "local" strategy name and a callback function
-    passport.authenticate('ActiveDirectory', passportAuthentication_options, function (error, user, info) {
+    passport.authenticate('saml', passportAuthentication_options, function (error, user, info) {
       // this will execute in any case, even if a passport strategy will find an error
       // log everything to 
       
