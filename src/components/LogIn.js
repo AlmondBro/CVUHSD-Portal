@@ -58,7 +58,7 @@ class LogIn extends Component {
             console.log(response);
             console.log("Front-end response:\t" + JSON.stringify(response) );
             this.setState({logInSuccess: false, message: response.message});
-        }).catch(function(err) {
+        }).catch((err) => {
             this.setState({logInSuccess: false});
             console.log(`Catching error:\t ${err}`);
         });

@@ -21,7 +21,7 @@ const app = express();
 
 const port = process.env.PORT || 3001; 
 
-require("./passport-config.js"); //require passport configuration
+require("./config/passport.js"); //require passport configuration
 
 
 /*
@@ -53,12 +53,12 @@ let active_directory_config = { url: process.env.ADFS_SERVER_URL,
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(session({
-  secret: 'secret',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false, maxAge: 600000 }
-}));
+// app.use(session({
+//   secret: 'secret',
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { secure: false, maxAge: 600000 }
+// }));
 
 app.use(passport.initialize());
 app.use(passport.session());
