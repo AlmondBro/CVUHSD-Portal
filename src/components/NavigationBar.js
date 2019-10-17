@@ -1,7 +1,10 @@
-import React from "react";
+import React from "react"; //Import React 
 
 //Import 3rd-party APIS
 import styled from "styled-components";
+
+import { staff_HeaderLinks } from "./../headerListItems.js"; 
+
 
 const NavigationBar = (props) => {
     let NavBar = styled.nav`
@@ -157,7 +160,7 @@ const NavigationBar = (props) => {
         text-decoration: none;
     `; 
 
-    let NavBarListItem_li = (props) => {
+    let NavBarListItem_Li = (props) => {
         return (
             <li>
                 <NavBarListItem href={props.href}>
@@ -171,7 +174,7 @@ const NavigationBar = (props) => {
         return listItemsArray.map(
             (listItemArrayObject, index) => {
                 return (
-                    <NavBarListItem_li 
+                    <NavBarListItem_Li 
                         key={index} 
                         href={listItemArrayObject.href}
                         title={listItemArrayObject.title}
@@ -198,11 +201,9 @@ const NavigationBar = (props) => {
                         <FirstBar className="bar3"></FirstBar>
                     </NavMenuIcon>    
                 </label>
-                { /* generateNavBarListItems() */}
-           
-                <li>
-                    <a href="#allTools-blueSection">All Links</a>
-                </li>
+
+                { generateNavBarListItems(staff_HeaderLinks) }
+
             </NavBarUL>
         </NavBar>
     );

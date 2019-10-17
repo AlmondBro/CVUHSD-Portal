@@ -1,5 +1,6 @@
 import { staffPortalButtons } from "./portalButtons.js"
 
+//TODO: Add an appear as mobile link property 
 let blueSectionInfo_systemStatuses = {
     blueSectionName: "systemStatuses",
     expanded: false,

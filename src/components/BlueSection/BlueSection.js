@@ -147,14 +147,17 @@ const BlueSection = (props) => {
         double exclamation point to cast null or undefined to false, and register the checked 
         property as part of controlled form component. 
         https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react 
-        https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react
     // */
 
     return (
-        <BlueSectionContainer className="blue-section" id={props.blueSectionName + "blueSection"} >
-            <InputCheckBoxHack type="checkbox" className="checkbox-hack blueSection-collapseToggle" id= {props.blueSectionName + "-collapseToggle"} defaultChecked={!!props.expanded} />
+        <BlueSectionContainer className="blue-section" id={props.blueSectionName + "-blueSection"} >
+            <InputCheckBoxHack 
+                type="checkbox" 
+                className="checkbox-hack blueSection-collapseToggle" 
+                id= {props.blueSectionName + "-collapseToggle"} 
+                defaultChecked={props.expanded} />
             <SectionHeader className="section-header">
-                <h3>{props.headerTitle}</h3>
+                <h3>{props.headerTitle}</h3> 
                 <label htmlFor={props.blueSectionName + "-collapseToggle"}>
                     <OpenColumnButton className="open-column-button"></OpenColumnButton>
                 </label>

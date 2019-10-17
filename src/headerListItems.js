@@ -24,7 +24,7 @@ let teacherTools = {
 };  
 
 let classroomTools = {
-    href: "#classRoomTools-blueSection",
+    href: "#classroomTools-blueSection",
     title: "Classroom Tools",
 }; 
 
