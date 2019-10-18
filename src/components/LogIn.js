@@ -33,7 +33,8 @@ class LogIn extends Component {
             method: 'POST',
             headers: {
                         'Content-Type': 'application/json',
-                        'credentials': 'include'
+                        'credentials': 'include',
+                        'mode': 'no-cors'
                     },
             body: JSON.stringify({username: username, password: password})
         }).then((response) => {
