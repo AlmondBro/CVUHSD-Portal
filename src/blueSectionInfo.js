@@ -6,6 +6,7 @@ let blueSectionInfo_systemStatuses = {
     expanded: false,
     headerTitle: "System Statuses",
     buttonRowID: "systemStatusesButtonRow",
+    showInMobileNav: true,
     buttons: "undefined"
 };
 
@@ -14,6 +15,7 @@ let blueSectionInfo_quickLinks = {
     expanded: true,
     headerTitle: "Quick Links",
     buttonRowID: "quickLinksButtonRow",
+    showInMobileNav: true,
     buttons: staffPortalButtons.quickLinks
 };
 

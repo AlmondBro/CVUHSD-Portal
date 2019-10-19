@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 //Import components
 import PageContent from "./PageContent.js";
 
-
 //Import 3rd-party APIs
 import styled from 'styled-components';
 
