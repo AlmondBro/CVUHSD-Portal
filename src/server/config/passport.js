@@ -3,8 +3,7 @@ require('dotenv').config({path: __dirname + './../.env', debug: true}) //Load en
 const fs = require('fs'),
       passport = require('passport');
       SamlStrategy = require('passport-saml').Strategy;
-
-
+      wsfedsaml2 = require("passport-wsfed-saml2").Strategy;
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -35,6 +34,17 @@ let ADFS_SAML_CONFIG = {
     signatureAlgorithm: 'sha256', //optionally set the signature algorithm for signing requests, valid values are 'sha1' (default), 'sha256', or 'sha512'
     RACComparison: 'exact', // default to exact RequestedAuthnContext Comparison Type
   };
+
+passport.use('wsfed-saml2', new wsfedsaml2({
+    // ADFS RP identifier
+    realm: process.env.ADFS_REALM,
+    identityProviderUrl: process.env.ADFS_IDP,
+    thumbprint: process.env.ADFS_THUMBPRINT //// ADFS token signing certificate
+   // cert: fs.readFileSync(path.resolve(__dirname, "../certificates/ADFS_Signing.crt") )
+  }, function (profile, done) {
+    console.log(profile);
+    return done(null, profile);
+  }));
 
 passport.use(new SamlStrategy(
     ADFS_SAML_CONFIG,
