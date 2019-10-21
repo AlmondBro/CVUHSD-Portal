@@ -4,6 +4,7 @@ const fs = require('fs'),
       passport = require('passport');
       SamlStrategy = require('passport-saml').Strategy;
       wsfedsaml2 = require("passport-wsfed-saml2").Strategy;
+      ActiveDirectoryStrategy = require("passport-activedirectory");
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -57,5 +58,26 @@ passport.use(new SamlStrategy(
         });
     }
 ));
+
+
+const username = process.env.ADFS_USER_NAME;
+const pass = process.env.ADFS_USER_PASSWORD;
+
+let active_directory_config = { url: process.env.ADFS_SERVER_URL,
+  baseDN: process.env.LDAP_BASEDN,
+  username: username,
+  password: pass 
+}
+
+passport.use(new ActiveDirectoryStrategy({
+  integrated: false,
+  ldap: active_directory_config
+}, function (profile, ad, done) {
+  //This function is a verify callback -- strategies require this and the purpose is to find the user that possesses this set of credentials
+  ad.isUserMemberOf(profile._json.dn, 'Domain Users', function (err, isMember) {
+    if (err) return done(err);
+    return done(null, profile);
+  });
+}));
 
 module.exports = passport;

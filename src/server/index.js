@@ -23,7 +23,6 @@ const port = process.env.PORT || 3001;
 
 require("./config/passport.js"); //require passport configuration
 
-
 /*
 app.use(cors({
   'allowedHeaders': ['sessionId', 'Content-Type'],
@@ -41,14 +40,6 @@ app.use( (req, res, next) => {
   next();
 });
 
-const username = process.env.ADFS_USER_NAME;
-const pass = process.env.ADFS_USER_PASSWORD;
-
-let active_directory_config = { url: process.env.ADFS_SERVER_URL,
-  baseDN: process.env.LDAP_BASEDN,
-  username: username,
-  password: pass 
-}
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -62,19 +53,6 @@ app.use(bodyParser.json());
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-/*
-passport.use(new ActiveDirectoryStrategy({
-  integrated: false,
-  ldap: active_directory_config
-}, function (profile, ad, done) {
-  //This function is a verify callback -- strategies require this and the purpose is to find the user that possesses this set of credentials
-  ad.isUserMemberOf(profile._json.dn, 'Domain Users', function (err, isMember) {
-    if (err) return done(err);
-    return done(null, profile);
-  });
-}));
-// */
 
 /*
 app.use(csp({
@@ -101,6 +79,7 @@ app.post('/login',
   // wrap passport.authenticate call in a middleware function
   function (req, res, next) {
     // call passport authentication passing the "local" strategy name and a callback function
+    ////Can use ActiveDirectory, saml, wsfed-saml2 all as authentication strategies 
     passport.authenticate('saml', passportAuthentication_options, function (error, user, info) {
       // this will execute in any case, even if a passport strategy will find an error
       // log everything to 
