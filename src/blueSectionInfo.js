@@ -1,10 +1,12 @@
 import { staffPortalButtons } from "./portalButtons.js"
 
+//TODO: Add an appear as mobile link property 
 let blueSectionInfo_systemStatuses = {
     blueSectionName: "systemStatuses",
     expanded: false,
     headerTitle: "System Statuses",
     buttonRowID: "systemStatusesButtonRow",
+    showInMobileNav: true,
     buttons: "undefined"
 };
 
@@ -13,6 +15,7 @@ let blueSectionInfo_quickLinks = {
     expanded: true,
     headerTitle: "Quick Links",
     buttonRowID: "quickLinksButtonRow",
+    showInMobileNav: true,
     buttons: staffPortalButtons.quickLinks
 };
 

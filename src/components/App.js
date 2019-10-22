@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 //Import components
 import PageContent from "./PageContent.js";
 
-
 //Import 3rd-party APIs
 import styled from 'styled-components';
 
@@ -16,6 +15,8 @@ import NotFound from './NotFound.js';
 
 //TODO: Have /staff.html redirect to /staff
 
+//TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
+//TODO: Make list for student portal
 let ContainerFluid = styled.div`
   padding-left: 0;
   padding-right: 0;
