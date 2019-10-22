@@ -1,4 +1,4 @@
-require('dotenv').config({path: __dirname + '/.env', debug: true}) //Load environmental variables
+require('dotenv').config({path: __dirname + '/../.env', debug: true}) //Load environmental variables
 
 const express = require('express'); 
 const path = require('path');
