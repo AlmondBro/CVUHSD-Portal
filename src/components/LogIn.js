@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 //Import 3rd-party APIs
-
+import { Container } from 'react-bootstrap';
 class LogIn extends Component {
     constructor(props) {
         super(props);
@@ -67,7 +67,7 @@ class LogIn extends Component {
 
     render = () => { 
         return (
-            <div className="container-fluid">
+            <Container fluid="true">
                 <form action="/login" method="post" onSubmit={this.handleSubmit}>
                     <fieldset>
                         <legend><h3>Log In</h3></legend>
@@ -95,7 +95,7 @@ class LogIn extends Component {
                         </p>
                     </fieldset>
                 </form>
-            </div>
+            </Container>
         ); //end return 
     }; //end render()
 }
