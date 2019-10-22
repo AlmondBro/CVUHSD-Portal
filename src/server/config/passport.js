@@ -19,6 +19,15 @@ passport.deserializeUser(function(user, done) {
 });
 
 
+const username = process.env.ADFS_USER_NAME;
+const pass = process.env.ADFS_USER_PASSWORD;
+
+let active_directory_config = { url: process.env.ADFS_SERVER_URL,
+  baseDN: process.env.LDAP_BASEDN,
+  username: username,
+  password: pass 
+}
+
 let ADFS_SAML_CONFIG = {
     //Comments are from docs: https://github.com/bergie/passport-saml#security-and-signatures
     entryPoint: process.env.ADFS_IDP,
@@ -36,20 +45,21 @@ let ADFS_SAML_CONFIG = {
     RACComparison: 'exact', // default to exact RequestedAuthnContext Comparison Type
   };
 
+//Define passport authentication strategies
 passport.use('wsfed-saml2', new wsfedsaml2({
     // ADFS RP identifier
     realm: process.env.ADFS_REALM,
     identityProviderUrl: process.env.ADFS_IDP,
     thumbprint: process.env.ADFS_THUMBPRINT //// ADFS token signing certificate
    // cert: fs.readFileSync(path.resolve(__dirname, "../certificates/ADFS_Signing.crt") )
-  }, function (profile, done) {
+  },  (profile, done) => {
     console.log(profile);
     return done(null, profile);
   }));
 
 passport.use(new SamlStrategy(
     ADFS_SAML_CONFIG,
-    function(profile, done) {
+    (profile, done) => {
         return done(null,
         {
             upn: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn'],
@@ -60,19 +70,10 @@ passport.use(new SamlStrategy(
 ));
 
 
-const username = process.env.ADFS_USER_NAME;
-const pass = process.env.ADFS_USER_PASSWORD;
-
-let active_directory_config = { url: process.env.ADFS_SERVER_URL,
-  baseDN: process.env.LDAP_BASEDN,
-  username: username,
-  password: pass 
-}
-
 passport.use(new ActiveDirectoryStrategy({
   integrated: false,
   ldap: active_directory_config
-}, function (profile, ad, done) {
+},  (profile, ad, done) => {
   //This function is a verify callback -- strategies require this and the purpose is to find the user that possesses this set of credentials
   ad.isUserMemberOf(profile._json.dn, 'Domain Users', function (err, isMember) {
     if (err) return done(err);
