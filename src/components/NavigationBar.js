@@ -1,7 +1,10 @@
-import React from "react";
+import React from "react"; //Import React 
 
 //Import 3rd-party APIS
 import styled from "styled-components";
+
+import { staff_HeaderLinks } from "./../headerListItems.js"; 
+
 
 const NavigationBar = (props) => {
     let NavBar = styled.nav`
@@ -152,6 +155,36 @@ const NavigationBar = (props) => {
         color: #1e6c93;
     `;
 
+    let NavBarListItem = styled.a`
+        color: #1f6b92;
+        text-decoration: none;
+    `; 
+
+    let NavBarListItem_Li = (props) => {
+        return (
+            <li>
+                <NavBarListItem href={props.href}>
+                    {props.title}
+                </NavBarListItem>
+            </li>
+        );
+    };
+
+    let generateNavBarListItems = (listItemsArray) => {
+        return listItemsArray.map(
+            (listItemArrayObject, index) => {
+                return (
+                    <NavBarListItem_Li 
+                        key={index} 
+                        href={listItemArrayObject.href}
+                        title={listItemArrayObject.title}
+                    />);
+            }
+        ); //end map()
+    }; //end generateNavBarListItems()
+
+   // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
+
     return (
         <NavBar className="navigation-bar">
             <NavBarImageWrapper className="navigation-bar-image-wrapper">
@@ -168,44 +201,9 @@ const NavigationBar = (props) => {
                         <FirstBar className="bar3"></FirstBar>
                     </NavMenuIcon>    
                 </label>
-                <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
-                {/* <li><a href="https://portal.centinela.k12.ca.us/staff.html">Staff Portal</a></li> */}
-                <li className="mobile-collapse-links">
-                    <a href="#quickLinks-blueSection">Quick Links</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#standardStaffTools-blueSection">Standard Staff Tools</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#administratorTools-blueSection">Administrative Tools</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#teacherTools-blueSection">Teacher Tools</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#classRoomTools-blueSection">Classroom Tools</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#learningTools-blueSection">Learning Tools</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#digitalTextbooks-blueSection">Digital Textbooks</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#mediaResources-blueSection">Digital Library Resources</a>
-                </li>
-                <li className="mobile-collapse-links">
-                    <a href="#schoolWebsites-blueSection">School Websites</a>
-                </li>
-                <li>
-                    <a href="student.html" target="_blank">Student Portal</a>
-                </li>
-                <li>
-                    <a href="troubleshooting.html" target="_blank">Troubleshooting</a>
-                </li>
-                <li>
-                    <a href="#allTools-blueSection">All Links</a>
-                </li>
+
+                { generateNavBarListItems(staff_HeaderLinks) }
+
             </NavBarUL>
         </NavBar>
     );

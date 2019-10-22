@@ -17,7 +17,7 @@ const PageContent = (props) => {
             return (
                 <BlueSection 
                     blueSectionName={blueSection_Object.blueSectionName}
-                    expanded={ false }
+                    expanded={ blueSection_Object.expanded }
                     headerTitle={blueSection_Object.headerTitle}
                     buttonRowID={blueSection_Object.buttonRowID}
                     buttons={blueSection_Object.buttons}
