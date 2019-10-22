@@ -2,12 +2,9 @@ require('dotenv').config({path: __dirname + './../.env', debug: true}) //Load en
 //Load environmental variables
 const express = require('express'); 
 const path = require('path');
-const fs = require('fs');
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
-//const ActiveDirectory = require('activedirectory');
 
 const passport = require("passport");
 
@@ -77,10 +74,10 @@ let passportAuthentication_options = {  failWithError: true,
 //TODO: Find a way so that if users input with the domain "@cvuhsd.org", they are also authenticated
 app.post('/login',
   // wrap passport.authenticate call in a middleware function
-  function (req, res, next) {
+   (req, res, next) => {
     // call passport authentication passing the "local" strategy name and a callback function
     ////Can use ActiveDirectory, saml, wsfed-saml2 all as authentication strategies 
-    passport.authenticate('saml', passportAuthentication_options, function (error, user, info) {
+    passport.authenticate('saml', passportAuthentication_options,  (error, user, info) => {
       // this will execute in any case, even if a passport strategy will find an error
       // log everything to 
       
@@ -103,7 +100,7 @@ app.post('/login',
       } 
         
       // "Note that when using a custom callback, it becomes the application's responsibility to establish a session (by calling req.login()) and send a response."
-      req.logIn(user, function(err) {
+      req.logIn(user, (err) => {
           if (err) { return next(err); }
           
           res.locals.userInfo = user; //To 'pass a variable' to a middleware, attach it to the response.locals object
@@ -118,13 +115,13 @@ app.post('/login',
   },
 
   // function to call once successfully authenticated
-  function (req, res) {
+   (req, res) => {
     console.log("Login success");
     res.status(200).send({success: true, message : "Logging in...", userInfo: res.locals.userInfo});
   });
 
 // Test endpoint to check whether user is authenticated
-app.get('/isauthenticated', function(req, res) {
+app.get('/isauthenticated', (req, res) => {
   if (req.isAuthenticated()) {
       res.send('Authenticated!')
   } else {
@@ -132,7 +129,7 @@ app.get('/isauthenticated', function(req, res) {
   }
 });
 
-app.get('/get-ip-address', function(req, res) {
+app.get('/get-ip-address', (req, res) => {
   //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
   let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
   console.log("IP:\t" + IP);
