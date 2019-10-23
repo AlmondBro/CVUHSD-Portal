@@ -13,6 +13,7 @@ dist-structure.txt
 #ignore certificate
 *.cer
 *.pfx
+src/certificates
 
 #ignore source maps & production bundle.js
 *.map
@@ -91,3 +92,4 @@ yarn-error.log*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+src/certificates/
