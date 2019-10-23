@@ -24,8 +24,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn : true,
-      containerStyle : {}
+      loggedIn : false,
+      containerStyle : ""
     };
   }
 
@@ -36,8 +36,12 @@ class App extends Component {
   );
   
   StyledContainer = styled(Container)`
-    background-color: ${this.state.containerStyle.backgroundColor}
+    background-color: ${this.state.containerStyle.backgroundColor ? this.state.containerStyle.backgroundColor: "#4076a3"};
   `;
+
+  changeContainerStyle = (styleObject) => {
+    this.setState({containerStyle: styleObject});
+  }; //end changeContainerStyle() function
   
 
   render() {
@@ -51,7 +55,7 @@ class App extends Component {
                     }
                 } 
             />
-            <Route path="/login" component={LogIn} />
+            <Route path="/login" render={ props => <LogIn  />} />
             <Route path="/page-content" render={ () => { return <PageContent key="pageContent"/>} } />
             <Route component={NotFound} />
           
