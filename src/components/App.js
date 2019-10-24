@@ -38,7 +38,7 @@ class App extends Component {
   );
   
   StyledContainer = styled(Container)`
-    background-color: ${props => props.backgroundColor };
+    background-color: ${props => props.backgroundcolor };
   `;
 
   changeContainerStyle = (styleObject) => {
@@ -46,10 +46,10 @@ class App extends Component {
   }; //end changeContainerStyle() function
   
 
-  render() {
+  render = () =>{
     return (
       <Container fluid={true} 
-                 backgroundColor={ this.state.containerStyle["background-color"] }
+                 backgroundcolor={ this.state.containerStyle["background-color"] }
       >
         <Switch>
           
@@ -59,7 +59,7 @@ class App extends Component {
                     }
                 } 
             />
-            <Route path="/login" render={ props => <LogIn changeContainerStyle={this.changeContainerStyle}  />} />
+            <Route path="/login" render={ props => <LogIn changeContainerStyle={this.updatePageTitle} /> } />
             <Route path="/page-content" render={ () => { return <PageContent key="pageContent"/>} } />
             <Route component={NotFound} />
           
