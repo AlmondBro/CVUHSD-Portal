@@ -59,6 +59,8 @@ reagent-reactjs/node_modules
 
 #Ignore certificates
 certificates
+certificates/
+/certificates
 
 # misc
 .DS_Store
