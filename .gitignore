@@ -13,6 +13,9 @@ dist-structure.txt
 #ignore certificate
 *.cer
 *.pfx
+src/certificates
+/certificates
+certificates
 
 #ignore source maps & production bundle.js
 *.map
