@@ -13,6 +13,9 @@ dist-structure.txt
 #ignore certificate
 *.cer
 *.pfx
+src/certificates
+/certificates
+certificates
 
 #ignore source maps & production bundle.js
 *.map
@@ -55,6 +58,10 @@ reagent-reactjs/node_modules
 
 #ignore environment variables
 .env
+*.env
+
+#Ignore certificates folder
+certificates/*
 
 # misc
 .DS_Store
@@ -66,3 +73,28 @@ reagent-reactjs/node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+src/certificates/

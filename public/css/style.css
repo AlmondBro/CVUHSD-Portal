@@ -1,91 +1,20 @@
-body {
-    font-family: Lato, sans-serif;
-    font-size: 16px;
-    background-color: #f4f7f9;
-    /* background-color: #def1fb; */
-    /* background-image: url('../images/nature-blurred.jpg'); */
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-.container-fluid {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.navigation-bar-image-wrapper {
-    margin-top: 5px;
-}
-
-#navbar-logo {
-    height: 100px;
-    /* Was 50px */
-    width: auto;
-}
-
-.navigation-bar-header {
-    position: relative;
-    width: 100%;
-    /* Bottom three BG-color and margin bottom rules, and border-bottom were not here before */
-    /* background-color: #f4f7f9; */
-    margin-bottom: 20px;
-    /* border-bottom: 1px solid #1e6c93; */
-    /* background-color: white; */
-    line-height: 1.0em;
-    padding: 6px 0;
-    z-index: 2;
-    /* Same as font size to vertically align an
-    element with float to its parent */
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f4f7f9+0,2989d8+0,f4f7f9+0,ffffff+100 */
-    background: #f4f7f9;
-    /* Old browsers */
-    background: -moz-linear-gradient(top, #f4f7f9 0%, #2989d8 0%, #f4f7f9 0%, #ffffff 100%);
-    /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #f4f7f9 0%, #2989d8 0%, #f4f7f9 0%, #ffffff 100%);
-    /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #f4f7f9 0%, #2989d8 0%, #f4f7f9 0%, #ffffff 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f4f7f9', endColorstr='#ffffff', GradientType=0);
-    /* IE6-9 */
-}
-
 .navigation-bar-wrapper {
     float: left;
 }
 
-.navigation-bar-ul {
-    position: absolute;
-    top: 50%;
-    margin-top: -0.5em;
-    /*-1/2 of line-height */
-    right: 0px;
-    padding-right: 2.5%;
-}
+/*
+body inline:
+style="font-family: Lato, sans-serif;
+                font-size: 16px;
+                background-color: #f4f7f9;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;"
 
-.navigation-bar,
-.navigation-bar ul li {
-    display: inline-block;
-}
-
-.navigation-bar ul li {
-    margin: 0 15px;
-    font-size: 1.2em;
-}
-
+*/
 
 /* .navigation-bar ul li a {} */
-
-.navigation-bar>ul li.mobile-collapse-links {
-    display: none;
-}
-
-#navbar-logo {
-    margin-left: 50%;
-    margin-top: 8px;
-}
-
 #home-icon {
     margin-right: 8px;
 }
@@ -149,15 +78,6 @@ h2 {
     display: inline;
 }
 
-
-.statusEmbed {
-    align: center;
-    height: 400px;
-    width: 1000px;
-    border: 0; 
-    frameborder: 0;
-}
-
 #teacherToolsButtonRow a button img {
     position: relative;
 }
@@ -174,7 +94,7 @@ h2 {
 #standardStaffToolsButtonRow,
 #administratorToolsButtonRow,
 #teacherToolsButtonRow,
-#classroomProgramsButtonRow,
+#classroomToolsButtonRow,
 #webAdminButtonRow,
 #learningToolsButtonRow,
 #digitalTextbooksButtonRow,
@@ -194,7 +114,7 @@ h2 {
 #standardStaffTools-collapseToggle:checked~div#standardStaffToolsButtonRow,
 #administratorTools-collapseToggle:checked~div#administratorToolsButtonRow,
 #teacherTools-collapseToggle:checked~div#teacherToolsButtonRow,
-#classroomPrograms-collapseToggle:checked~div#classroomProgramsButtonRow,
+#classroomTools-collapseToggle:checked~div#classroomToolsButtonRow,
 #learningTools-collapseToggle:checked~div#learningToolsButtonRow,
 #digitalTextbooks-collapseToggle:checked~div#digitalTextbooksButtonRow,
 #mediaResources-collapseToggle:checked~div#mediaResourcesButtonRow,
@@ -205,7 +125,7 @@ h2 {
     height: 100%;
 }
 
-#webAdmin-collapseToggle:checked~div#webAdminButtonRow {
+#allTools-collapseToggle:checked~div#webAdminButtonRow {
     margin: 0.5% auto;
     height: 100%;
 }
@@ -216,8 +136,8 @@ h2 {
 #standardStaffTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #administratorTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #teacherTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
-#classroomPrograms-collapseToggle:checked+div.section-header label>div.open-column-button::after,
-#webAdmin-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#classroomTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
+#allTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #learningTools-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #digitalTextbooks-collapseToggle:checked+div.section-header label>div.open-column-button::after,
 #mediaResources-collapseToggle:checked+div.section-header label>div.open-column-button::after,
@@ -228,7 +148,7 @@ h2 {
     /* was 029BB or 02297  */
 }
 
-#webAdmin-collapseToggle:checked~div.admin-links {
+#allTools-collapseToggle:checked~div.admin-links {
     /* Old rules: */
     /* margin: 1.5% auto;
     height: 100%;
@@ -306,64 +226,9 @@ h2 {
 
 
 /* Menu Bar */
-
-.nav-menu-icon {
-    display: none;
-}
-
 .checkbox-hack {
     display: none;
 }
-
-.bar1,
-.bar2,
-.bar3 {
-    width: 35px;
-    height: 5px;
-    background-color: #1e6c93;
-    margin: 6px auto;
-    transition: 0.4s;
-    color: #1e6c93
-}
-
-
-/* Rotate First Bar */
-
-#menu-toggle:checked~label .nav-menu-icon .bar1 {
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-    transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-
-/* Fade out second bar */
-
-#menu-toggle:checked~label .nav-menu-icon .bar2 {
-    opacity: 0;
-}
-
-
-/*Rotate last bar */
-
-#menu-toggle:checked~label .nav-menu-icon .bar3 {
-    -webkit-transform: rotate(45deg) translate(-8px, -8px);
-    transform: rotate(45deg) translate(-8px, -8px);
-}
-
-@media only screen and (min-width: 1268px) {
-    .navigation-bar-image-wrapper::after {
-        content: 'Centinela Valley Union High School District';
-        display: inline;
-        color: #1e6c93;
-        font-size: 1.3em;
-        position: absolute;
-        bottom: 52px;
-        left: 220px;
-        /*180px is for Chrome, 220px for Firefox*/
-        font-weight: bold;
-    }
-}
-
-
 /* Was 585px with smaller logo and font */
 
 
@@ -374,60 +239,15 @@ h2 {
         margin-top: 100px;
         /*Used to be 170px */
     }
-    .navigation-bar {
-        display: inline;
-    }
+    
     .navigation-bar-header {
         display: inline-block;
     }
-    .navigation-bar-image-wrapper {
-        display: inline;
-    }
-    .nav-menu-icon {
-        display: block;
-        cursor: pointer
-    }
-    #navbar-logo {
-        display: inline;
-        vertical-align: middle;
-        margin-left: 25%;
-        position: relative;
-        z-index: 2;
-    }
+ 
     #home-icon {
         color: rgb(21, 73, 99);
     }
-    .navigation-bar ul {
-        position: relative;
-        bottom: 60px;
-        left: 15%;
-        margin-bottom: -52px;
-        z-index: 1;
-        max-height: 320px;
-        overflow-y: auto;
-        /*Used to be -25px, now it's -50px */
-        /*margin-bottom Used to be -10px */
-    }
-    .navigation-bar ul li {
-        display: none;
-        margin: auto;
-    }
-    ul.navigation-bar-ul>li~li::before {
-        content: "•";
-        margin-right: 8px;
-        color: rgb(21, 73, 99);
-    }
-    #menu-toggle:checked~li {
-        /*margin: 0 60px; */
-        display: block;
-        border: 0;
-        border-radius: 0;
-        animation: fadeIn 0.8s ease-in-out;
-        padding: 15px 0;
-    }
-    body>div>header.navigation-bar-header>nav>ul>li:nth-child(3) {
-        margin-top: 55px;
-    }
+ 
     #arrow-link {
         display: block;
         background-color: #1e6c93;
@@ -755,41 +575,4 @@ p.tut-descr a.tutRef {
     background-color: #1E6C93;
 }
 
-.tooltip {
-    display: block;
-    /* visibility: hidden; */
-    width: 210px;
-    background-color: black;
-    color: white;
-    text-align: center;
-    border-radius: 6px;
-    padding: 0.55em;
-    position: absolute;
-    z-index: 1;
-    left: 47%;
-    margin-left: -60px;
-    opacity: 0;
-}
-
-.tooltip::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent black transparent;
-    -webkit-transition: opacity 1s ease-in-out;
-    transition: opacity 1s ease-in-out;
-}
-
-#addToHomeScreenButton {
-    display: none;
-}
-
-#addToHomeScreenButton:hover + .tooltip {
-    /* visibility: visible; */
-    opacity: 1;
-}
 
