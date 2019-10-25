@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import styled from 'styled-components';
+
+
 class LogIn extends Component {
     constructor(props) {
         super(props);
@@ -70,6 +73,15 @@ class LogIn extends Component {
         // })
       }; //end componentDidMount
 
+    SubmitButton = styled('button')`
+        font-family: Century Gothic;
+        border-radius: 0px;
+        border: 0px;
+        padding: 0.5em 1em;
+        background-color: #336186;
+        color: white;
+    `;
+
     render = () => { 
         return (
             <form action="/login" method="post" onSubmit={this.handleSubmit}>
@@ -94,7 +106,7 @@ class LogIn extends Component {
                         />
                     </p>
                     <p className="form-buttons-container">
-                        <button type="submit">Submit</button>
+                        <this.SubmitButton type="submit">Submit</this.SubmitButton>
                         <span>{"\t" + this.state.message}</span>
                     </p>
                 </fieldset>
