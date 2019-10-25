@@ -82,9 +82,24 @@ class LogIn extends Component {
         color: white;
     `;
 
+      Form = styled('form')`
+        max-width: 300px;
+        margin: 20px auto;
+        text-align: center;
+        background-color: #182c3d;
+        color: white;
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        border-radius: 0.2em;
+        border: 2px solid #1f6b92;
+      `
+
     render = () => { 
         return (
-            <form action="/login" method="post" onSubmit={this.handleSubmit}>
+            <this.Form action="/login" method="post" onSubmit={this.handleSubmit}>
                 <fieldset>
                     <legend><h3>Log In</h3></legend>
                     <p className="cvuhsd-username-container">
@@ -110,7 +125,7 @@ class LogIn extends Component {
                         <span>{"\t" + this.state.message}</span>
                     </p>
                 </fieldset>
-            </form>
+            </this.Form>
         ); //end return 
     }; //end render()
 }
