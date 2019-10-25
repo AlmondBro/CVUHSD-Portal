@@ -5,6 +5,7 @@ import PageContent from "./PageContent.js";
 
 //Import 3rd-party APIs
 import styled from 'styled-components';
+import { Container } from 'react-bootstrap';
 
 import {  Redirect } from 'react-router'
 import { Route, Switch } from "react-router-dom";
@@ -17,22 +18,39 @@ import NotFound from './NotFound.js';
 
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
-let ContainerFluid = styled.div`
-  padding-left: 0;
-  padding-right: 0;
-`;
+
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn : true
+      loggedIn : false,
+      containerStyle : {
+        "background-color": "red"
+      }
     };
   }
 
-  render() {
+  Container = ({className, children, fluid}) => (
+    <Container className={className} fluid={fluid}>
+      { children }
+    </Container>
+  );
+  
+  StyledContainer = styled(Container)`
+    background-color: ${props => props.backgroundcolor };
+  `;
+
+  changeContainerStyle = (styleObject) => {
+    this.setState({containerStyle: styleObject});
+  }; //end changeContainerStyle() function
+  
+
+  render = () =>{
     return (
-      <ContainerFluid>
+      <Container fluid={true} 
+                 backgroundcolor={ this.state.containerStyle["background-color"] }
+      >
         <Switch>
           
             <Route exact path="/" 
@@ -41,12 +59,12 @@ class App extends Component {
                     }
                 } 
             />
-            <Route path="/login" component={LogIn} />
+            <Route path="/login" render={ props => <LogIn changeContainerStyle={this.updatePageTitle} /> } />
             <Route path="/page-content" render={ () => { return <PageContent key="pageContent"/>} } />
             <Route component={NotFound} />
           
         </Switch>
-      </ContainerFluid>
+      </Container>
     );
   }
 }

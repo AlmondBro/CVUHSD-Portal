@@ -1,6 +1,4 @@
-import React, { Component } from "react";
-
-//Import 3rd-party APIs
+import React, { Component } from 'react';
 
 class LogIn extends Component {
     constructor(props) {
@@ -33,7 +31,8 @@ class LogIn extends Component {
             method: 'POST',
             headers: {
                         'Content-Type': 'application/json',
-                        'credentials': 'include'
+                        'credentials': 'include',
+                        'mode': 'no-cors'
                     },
             body: JSON.stringify({username: username, password: password})
         }).then((response) => {
@@ -64,37 +63,42 @@ class LogIn extends Component {
         });
     };
 
+    componentWillMount = (props) => {
+        console.log("Login component props:\t" + JSON.stringify(props) );
+        // props.changeContainerStyle({
+        //   "backgroundColor": "red"
+        // })
+      }; //end componentDidMount
+
     render = () => { 
         return (
-            <div className="container-fluid">
-                <form action="/login" method="post" onSubmit={this.handleSubmit}>
-                    <fieldset>
-                        <legend><h3>Log In</h3></legend>
-                        <p className="cvuhsd-username-container">
-                            <label htmlFor="username">Username:</label>
-                            <input 
-                                type="text" 
-                                name="username" 
-                                onChange={this.handleInputChange}
-                                value={this.state.username}
-                            />
-                        </p>
-                        <p className="cvuhsd-password-container">
-                            <label htmlFor="password">Password:</label>
-                            <input 
-                                type="password" 
-                                name="password" 
-                                onChange={this.handleInputChange}
-                                value={this.state.password}
-                            />
-                        </p>
-                        <p className="form-buttons-container">
-                            <button type="submit">Submit</button>
-                            <span>{"\t" + this.state.message}</span>
-                        </p>
-                    </fieldset>
-                </form>
-            </div>
+            <form action="/login" method="post" onSubmit={this.handleSubmit}>
+                <fieldset>
+                    <legend><h3>Log In</h3></legend>
+                    <p className="cvuhsd-username-container">
+                        <label htmlFor="username">Username:</label>
+                        <input 
+                            type="text" 
+                            name="username" 
+                            onChange={this.handleInputChange}
+                            value={this.state.username}
+                        />
+                    </p>
+                    <p className="cvuhsd-password-container">
+                        <label htmlFor="password">Password:</label>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            onChange={this.handleInputChange}
+                            value={this.state.password}
+                        />
+                    </p>
+                    <p className="form-buttons-container">
+                        <button type="submit">Submit</button>
+                        <span>{"\t" + this.state.message}</span>
+                    </p>
+                </fieldset>
+            </form>
         ); //end return 
     }; //end render()
 }

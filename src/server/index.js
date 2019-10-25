@@ -1,15 +1,12 @@
-require('dotenv').config({path: __dirname + '/../.env', debug: true}) //Load environmental variables
-
+require('dotenv').config({path: __dirname + './../.env', debug: true}) //Load environmental variables
+//Load environmental variables
 const express = require('express'); 
 const path = require('path');
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-//const ActiveDirectory = require('activedirectory');
-
 const passport = require("passport");
-const ActiveDirectoryStrategy = require("passport-activedirectory");
 
 const session = require("express-session");
 const csp = require('helmet-csp');
@@ -21,19 +18,7 @@ const app = express();
 
 const port = process.env.PORT || 3001; 
 
-// Passport session setup.
-//   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-    done(null, user);
-  
-});
+require("./config/passport.js"); //require passport configuration
 
 /*
 app.use(cors({
@@ -51,56 +36,20 @@ app.use( (req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-/*
-passport.use(new wsfedsaml2(
-  {
-    path: '/login',
-    realm: 'http://localhost:3000',
-    homeRealm: '', // optionally specify an identity provider to avoid showing the idp selector
-    identityProviderUrl: 'https://sso.centinela.k12.ca.us/adfs/ls/',
-    thumbprints: ["207fed2bcc4c22cbc6fddae071d90a18580d0fed"]
-  },
-  function(profile, done) {
-      if (err) {
-        return done(err);
-      }
-      return done(null, profile);
-  })
-);
-*/
 
-const username = process.env.ADFS_USER_NAME;
-const pass = process.env.ADFS_USER_PASSWORD;
-
-let active_directory_config = { url: process.env.ADFS_SERVER_URL,
-  baseDN: process.env.LDAP_BASEDN,
-  username: username,
-  password: pass 
-}
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(session({
-  secret: 'secret',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false, maxAge: 600000 }
-}));
+// app.use(session({
+//   secret: 'secret',
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { secure: false, maxAge: 600000 }
+// }));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-passport.use(new ActiveDirectoryStrategy({
-  integrated: false,
-  ldap: active_directory_config
-}, function (profile, ad, done) {
-  //This function is a verify callback -- strategies require this and the purpose is to find the user that possesses this set of credentials
-  ad.isUserMemberOf(profile._json.dn, 'Domain Users', function (err, isMember) {
-    if (err) return done(err);
-    return done(null, profile);
-  });
-}));
 
 /*
 app.use(csp({
@@ -125,9 +74,10 @@ let passportAuthentication_options = {  failWithError: true,
 //TODO: Find a way so that if users input with the domain "@cvuhsd.org", they are also authenticated
 app.post('/login',
   // wrap passport.authenticate call in a middleware function
-  function (req, res, next) {
+   (req, res, next) => {
     // call passport authentication passing the "local" strategy name and a callback function
-    passport.authenticate('ActiveDirectory', passportAuthentication_options, function (error, user, info) {
+    ////Can use ActiveDirectory, saml, wsfed-saml2 all as authentication strategies 
+    passport.authenticate('saml', passportAuthentication_options,  (error, user, info) => {
       // this will execute in any case, even if a passport strategy will find an error
       // log everything to 
       
@@ -150,7 +100,7 @@ app.post('/login',
       } 
         
       // "Note that when using a custom callback, it becomes the application's responsibility to establish a session (by calling req.login()) and send a response."
-      req.logIn(user, function(err) {
+      req.logIn(user, (err) => {
           if (err) { return next(err); }
           
           res.locals.userInfo = user; //To 'pass a variable' to a middleware, attach it to the response.locals object
@@ -165,13 +115,13 @@ app.post('/login',
   },
 
   // function to call once successfully authenticated
-  function (req, res) {
+   (req, res) => {
     console.log("Login success");
     res.status(200).send({success: true, message : "Logging in...", userInfo: res.locals.userInfo});
   });
 
 // Test endpoint to check whether user is authenticated
-app.get('/isauthenticated', function(req, res) {
+app.get('/isauthenticated', (req, res) => {
   if (req.isAuthenticated()) {
       res.send('Authenticated!')
   } else {
@@ -179,7 +129,7 @@ app.get('/isauthenticated', function(req, res) {
   }
 });
 
-app.get('/get-ip-address', function(req, res) {
+app.get('/get-ip-address', (req, res) => {
   //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
   let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
   console.log("IP:\t" + IP);
