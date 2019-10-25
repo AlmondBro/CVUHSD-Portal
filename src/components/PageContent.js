@@ -5,7 +5,7 @@ import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header.js";
 
 //Import list of buttons
-import { blueSectionInfo_Staff } from "./../blueSectionInfo.js";
+import { blueSectionInfo_Staff } from "./../objectFiles/blueSectionInfo.js";
 
 let testProps = {
     blueSection_objectsArray: blueSectionInfo_Staff

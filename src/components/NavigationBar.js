@@ -3,7 +3,7 @@ import React from "react"; //Import React
 //Import 3rd-party APIS
 import styled from "styled-components";
 
-import { staff_HeaderLinks } from "./../headerListItems.js"; 
+import { staff_HeaderLinks } from "./../objectFiles/headerListItems.js"; 
 
 
 const NavigationBar = (props) => {
