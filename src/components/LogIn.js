@@ -63,6 +63,13 @@ class LogIn extends Component {
         });
     };
 
+    componentWillMount = (props) => {
+        console.log("Login component props:\t" + JSON.stringify(props) );
+        // props.changeContainerStyle({
+        //   "backgroundColor": "red"
+        // })
+      }; //end componentDidMount
+
     render = () => { 
         return (
             <form action="/login" method="post" onSubmit={this.handleSubmit}>
