@@ -215,11 +215,11 @@ class LogIn extends Component {
                 console.log("Success!!!");
                 console.log((response));
 
-                setTimeout(() => {
+                setTimeout((response) => {
                     //browserHistory.push("/page-content");
                     this.setState({logInSuccess: true});
-                }, 3000);
-                return response;
+                    return response;
+                }, 5000);
             }
 
             console.log(response);
