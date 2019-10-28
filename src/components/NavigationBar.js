@@ -160,7 +160,7 @@ const NavigationBar = (props) => {
         text-decoration: none;
     `; 
 
-    let NavBarListItem_Li = (props) => {
+    let NavBarListItemLi = (props) => {
         return (
             <li>
                 <NavBarListItem href={props.href}>
@@ -174,7 +174,7 @@ const NavigationBar = (props) => {
         return listItemsArray.map(
             (listItemArrayObject, index) => {
                 return (
-                    <NavBarListItem_Li 
+                    <NavBarListItemLi 
                         key={index} 
                         href={listItemArrayObject.href}
                         title={listItemArrayObject.title}

@@ -62,6 +62,7 @@ reagent-reactjs/node_modules
 
 #Ignore certificates folder
 certificates/*
+/certificates
 
 #Ignore certificates
 *.crt

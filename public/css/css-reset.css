@@ -1,12 +1,38 @@
 /* Custom addition */
-html,
+html {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+  }
+  
 body,
 #root {
-	position: relative;
-	height: 100%;
-	margin: 0px;
-	padding: 0px;
+	display: flex;
+	flex: 1;/* no need anymore to deal with height/width */
+	flex-direction: column;
 }
+
+/* .input-icons i { 
+	position: absolute; 
+} 
+  
+.input-icons { 
+	width: 100%; 
+	margin-bottom: 10px; 
+} 
+  
+.icon { 
+	padding: 10px; 
+	min-width: 40px; 
+} 
+  
+.input-field { 
+	width: 100%; 
+	padding: 10px; 
+	text-align: center; 
+}  */
+
+
 
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
