@@ -281,18 +281,23 @@ class LogIn extends Component {
             <Footer>
                 <ul>
                     <li>
-                       <a href="https://www.centinela.k12.ca.us/" >
+                       <a href="https://www.centinela.k12.ca.us/" target="_blank">
                         CVUHSD Home
                        </a>
                     </li>
                     <li>
-                       <a href="https://portal.centinela.k12.ca.us/student.html" >
+                       <a href="https://portal.centinela.k12.ca.us/student.html" target="_blank" >
                         Student Portal
                        </a>
                     </li>
                     <li>
-                       <a href="http://portal.centinela.k12.ca.us/troubleshooting.html" >
+                       <a href="http://portal.centinela.k12.ca.us/troubleshooting.html" target="_blank" >
                         Troubleshooting
+                       </a>
+                    </li>
+                    <li>
+                       <a href="http://helpdesk.centinela.k12.ca.us/" target="_blank" >
+                        Helpdesk
                        </a>
                     </li>
                 </ul>
