@@ -55,6 +55,7 @@ let FormInput = styled('input')`
 `;
 
 let FormInputLabel = styled('label')`
+    cursor: pointer;
     background-color: #eeeeee;
     color: #336186;
     font-size: 1.38em;
@@ -64,6 +65,13 @@ let FormInputLabel = styled('label')`
     margin-top: 2px;
     border-right: 1px solid #182c3d;
     box-shadow: none;
+    z-index: 1;
+    transition: 0.5s;
+
+    &:hover {
+        color: #4785b7;
+        background-color: white;
+    }
 `
 
 let SubmitButton = styled('button')`
@@ -75,6 +83,11 @@ let SubmitButton = styled('button')`
     padding: 0.5em 1em;
     background-color: #336186;
     color: white;
+    transition: 0.5s;
+
+    &:hover, &:active, &:focus  {
+        background-color: #3b709a;
+    }
 `;
 
 let PortalLogo = styled('img')`
@@ -261,18 +274,20 @@ class LogIn extends Component {
                             className="input-field"
                             type="text" 
                             name="username" 
+                            id="username"
                             onChange={this.handleInputChange}
                             value={this.state.username}
                             placeholder="CVUHSD Username"
                         />
                     </p>
                     <p className="cvuhsd-password-container input-icons">
-                        <FormInputLabel htmlFor="username">
+                        <FormInputLabel htmlFor="password">
                             <FontAwesomeIcon icon={lock} className="icon"/> 
                         </FormInputLabel>
                         <FormInput 
                             type="password" 
                             name="password" 
+                            id="password"
                             onChange={this.handleInputChange}
                             value={this.state.password}
                             placeholder="CVUHSD Password"
