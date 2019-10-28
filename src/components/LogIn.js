@@ -13,7 +13,7 @@ let Form = styled('form')`
     text-align: center;
     background-color: #182c3d;
     color: white;
-    padding: 0px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,6 +27,11 @@ let FormHeader = styled('h3')`
     /* background-color: #213e56; */
     border-bottom: 2px solid white;
     padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
 `;
 
 let FormInput = styled('input')`
@@ -78,6 +83,12 @@ let PortalLogo = styled('img')`
     align-items: center;
 `;
 
+let CVUHSDLogo = styled('img')`
+    max-width: 70px;
+    display: inline-flex;
+    margin-right: 37px;
+`;
+
 let ResultButton = styled('span')`
     display: flex;
     margin: 0 auto;
@@ -93,10 +104,59 @@ let ResultButton = styled('span')`
     border-radius: 100px;
 `;
 
+let FormHeaderText = styled('p')`
+    display: flex;                                                                                                                                                                                                                                                                                                                      
+    align-self: center;
+`;
+
 let ResultMessage = styled('span')`
     font-size: 0.8em;
     color: white;
     font-family: "Montserrat", sans-serif;
+`;
+
+let Footer = styled('footer')`
+    display: flex;
+    position: fixed;
+    width: 100%;
+    top: 95%;
+    color: white;
+    background-color: #182c3d;
+    border-top: 1px solid white;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 5px;
+
+    & ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    & ul li a {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        color: white;
+        text-decoration: none;
+        margin-left: 10px;
+    }
+
+
+    & ul li {
+        color: white; 
+    }
+
+    & ul li a:hover {
+        text-decoration: underline;
+    }
+
+    & ul li a::before {
+        content: "•";
+        margin: 0 5px;
+    }
 `;
 
 class LogIn extends Component {
@@ -163,7 +223,7 @@ class LogIn extends Component {
         });
     };
 
-    componentWillMount = (props) => {
+    componentDidMount = (props) => {
         console.log("Login component props:\t" + JSON.stringify(props) );
         // props.changeContainerStyle({
         //   "backgroundColor": "red"
@@ -175,7 +235,12 @@ class LogIn extends Component {
             <PortalLogo src="./images/CV-600x600-portal.png" alt="CVUHSD Portal"  />,
             <Form action="/login" method="post" onSubmit={this.handleSubmit}>
                 <fieldset>
-                    <legend><FormHeader>Log In</FormHeader></legend>
+                    <legend>
+                        <FormHeader>
+                            <CVUHSDLogo src="./images/CV-600x600.png" alt="CVUHSD" />
+                            <FormHeaderText>Login</FormHeaderText>
+                        </FormHeader>
+                    </legend>
                     <p className="cvuhsd-username-container input-icons">
                         <FormInputLabel htmlFor="username">
                             <FontAwesomeIcon icon={user} className="icon"/> 
@@ -212,7 +277,26 @@ class LogIn extends Component {
                         <ResultMessage>{"\t" + this.state.message}</ResultMessage>
                     </p>
                 </fieldset>
-            </Form>
+            </Form>,
+            <Footer>
+                <ul>
+                    <li>
+                       <a href="https://www.centinela.k12.ca.us/" >
+                        CVUHSD Home
+                       </a>
+                    </li>
+                    <li>
+                       <a href="https://portal.centinela.k12.ca.us/student.html" >
+                        Student Portal
+                       </a>
+                    </li>
+                    <li>
+                       <a href="http://portal.centinela.k12.ca.us/troubleshooting.html" >
+                        Troubleshooting
+                       </a>
+                    </li>
+                </ul>
+            </Footer>
         ]); //end return 
     }; //end render()
 }
