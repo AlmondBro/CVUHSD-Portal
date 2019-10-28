@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import isDev from 'isdev';
 
 //TODO: Upon click in result button, clear the form data and remove message -- set loginsuccess to null
+//TODO: Create function that fetches the IP Address
 
 let Form = styled('form')`
     /* font-family: "Montserrat", sans-serif; */
@@ -178,6 +179,14 @@ let Footer = styled('footer')`
     }
 `;
 
+let IPAddress = styled('p')`
+    color: white;
+    text-align: center;
+
+    & span {
+        font-weight: bolder;
+    }
+`;
 class LogIn extends Component {
     constructor(props) {
         super(props);
@@ -312,7 +321,7 @@ class LogIn extends Component {
                     </p>
                 </fieldset>
             </Form>,
-            <p>IP Address: {this.state.IP_Address || "Could not get IP"} </p>,
+            <IPAddress>IP Address: <span>{this.state.IP_Address || "Could not get IP"}</span> </IPAddress>,
             <Footer>
                 <ul>
                     <li>
