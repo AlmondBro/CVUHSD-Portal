@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 
+import {  Redirect } from 'react-router'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faUser as user, faLock as lock } from '@fortawesome/free-solid-svg-icons';
 
 import styled from 'styled-components';
+
 
 let Form = styled('form')`
     /* font-family: "Montserrat", sans-serif; */
@@ -211,6 +214,11 @@ class LogIn extends Component {
              
                 console.log("Success!!!");
                 console.log((response));
+
+                setTimeout(() => {
+                    //browserHistory.push("/page-content");
+                    this.setState({logInSuccess: true});
+                }, 3000);
                 return response;
             }
 
@@ -231,6 +239,10 @@ class LogIn extends Component {
       }; //end componentDidMount
 
     render = () => { 
+        if (this.state.logInSuccess === true) {
+            return (<Redirect to="/page-content" />);
+        }
+
         return ([
             <PortalLogo src="./images/CV-600x600-portal.png" alt="CVUHSD Portal"  />,
             <Form action="/login" method="post" onSubmit={this.handleSubmit}>
@@ -281,22 +293,31 @@ class LogIn extends Component {
             <Footer>
                 <ul>
                     <li>
-                       <a href="https://www.centinela.k12.ca.us/" target="_blank">
+                       <a href="https://www.centinela.k12.ca.us/" 
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                         CVUHSD Home
                        </a>
                     </li>
                     <li>
-                       <a href="https://portal.centinela.k12.ca.us/student.html" target="_blank" >
+                       <a href="https://portal.centinela.k12.ca.us/student.html" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
                         Student Portal
                        </a>
                     </li>
                     <li>
-                       <a href="http://portal.centinela.k12.ca.us/troubleshooting.html" target="_blank" >
+                       <a href="http://portal.centinela.k12.ca.us/troubleshooting.html" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
                         Troubleshooting
                        </a>
                     </li>
                     <li>
-                       <a href="http://helpdesk.centinela.k12.ca.us/" target="_blank" >
+                       <a href="http://helpdesk.centinela.k12.ca.us/" 
+                            target="_blank" 
+                            rel="noopener noreferrer">
                         Helpdesk
                        </a>
                     </li>
