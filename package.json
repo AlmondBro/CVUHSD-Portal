@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "helmet-csp": "^2.9.4",
+    "isdev": "^1.0.1",
     "passport": "^0.4.0",
     "passport-activedirectory": "^1.0.4",
     "passport-saml": "^1.2.0",

@@ -1,5 +1,9 @@
 require('dotenv').config({path: __dirname + './../.env', debug: true}) //Load environmental variables
+
+var isDev = require("isDev");
 //Load environmental variables
+
+//TODO: Change all requires() to imports
 const express = require('express'); 
 const path = require('path');
 
@@ -59,8 +63,11 @@ app.use(csp({
 }));
 */
 
+//Need to use absolute paths relative to where the web.config file is when using Express in IISNode. 
+// If not using url rewrite, specifiy extension
+let logIn_URL = `${isDev ? "" : "/testsite/server/index.js" }/login`
 //Routes
-app.get('/login', (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
+app.get(logIn_URL, (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
  
  
 //app.options('/login', cors()); // enable pre-flight request for DELETE request
@@ -72,7 +79,7 @@ let passportAuthentication_options = {  failWithError: true,
                                  }
 
 //TODO: Find a way so that if users input with the domain "@cvuhsd.org", they are also authenticated
-app.post('/login',
+app.post(logIn_URL,
   // wrap passport.authenticate call in a middleware function
    (req, res, next) => {
     // call passport authentication passing the "local" strategy name and a callback function
@@ -121,7 +128,8 @@ app.post('/login',
   });
 
 // Test endpoint to check whether user is authenticated
-app.get('/isauthenticated', (req, res) => {
+let isAuth_URL = `${isDev ? "" : "/testsite/server/index.js" }/isauthenticated`
+app.get(isAuth_URL, (req, res) => {
   if (req.isAuthenticated()) {
       res.send('Authenticated!')
   } else {
@@ -129,7 +137,8 @@ app.get('/isauthenticated', (req, res) => {
   }
 });
 
-app.get('/get-ip-address', (req, res) => {
+let getIP_URL = `${isDev ? "" : "/testsite/server/index.js" }/get-ip-address`
+app.get(getIP_URL, (req, res) => {
   //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
   let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
   console.log("IP:\t" + IP);

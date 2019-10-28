@@ -8,6 +8,9 @@ import { faUser as user, faLock as lock } from '@fortawesome/free-solid-svg-icon
 
 import styled from 'styled-components';
 
+import isDev from 'isdev';
+
+//TODO: Upon click in result button, clear the form data and remove message -- set loginsuccess to null
 
 let Form = styled('form')`
     /* font-family: "Montserrat", sans-serif; */
@@ -182,7 +185,8 @@ class LogIn extends Component {
             logInSuccess: null,
             username: "",
             password: "",
-            message: "Enter username & password to login"
+            message: "Enter username & password to login",
+            IP_Address: ""
         } //end state object
         console.log("Props:\t" + JSON.stringify(this.props) );
     }; //end constructor
@@ -203,7 +207,9 @@ class LogIn extends Component {
 
         let { username, password} = this.state;
 
-        fetch("/login", {
+        let logIn_URL = `${isDev ? "" : "/testsite/server/index.js" }/login`
+
+        fetch(logIn_URL, {
             method: 'POST',
             headers: {
                         'Content-Type': 'application/json',
@@ -246,6 +252,7 @@ class LogIn extends Component {
 
     componentDidMount = (props) => {
         console.log("Login component props:\t" + JSON.stringify(props) );
+        document.title = "CVUHSD | Portal Login"
         // props.changeContainerStyle({
         //   "backgroundColor": "red"
         // });
@@ -305,6 +312,7 @@ class LogIn extends Component {
                     </p>
                 </fieldset>
             </Form>,
+            <p>IP Address: {this.state.IP_Address || "Could not get IP"} </p>,
             <Footer>
                 <ul>
                     <li>
@@ -324,8 +332,8 @@ class LogIn extends Component {
                     </li>
                     <li>
                        <a href="http://portal.centinela.k12.ca.us/troubleshooting.html" 
-                       target="_blank" 
-                       rel="noopener noreferrer">
+                          target="_blank" 
+                          rel="noopener noreferrer">
                         Troubleshooting
                        </a>
                     </li>
