@@ -204,9 +204,9 @@ class LogIn extends Component {
                     <p className="form-buttons-container">
                         <SubmitButton type="submit">Submit</SubmitButton>
                         { this.state.logInSuccess === null ? "" : 
-                            (   this.state.logInSuccess == true ? 
+                            (   this.state.logInSuccess === true ? 
                                 <ResultButton>&#10003;</ResultButton> :  
-                                <ResultButton>&#x274E;</ResultButton>
+                                <ResultButton>&#215;</ResultButton>
                             )
                         }
                         <ResultMessage>{"\t" + this.state.message}</ResultMessage>
