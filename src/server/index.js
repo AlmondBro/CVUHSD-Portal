@@ -15,6 +15,8 @@ const passport = require("passport");
 const session = require("express-session");
 const csp = require('helmet-csp');
 
+const requestIp = require('request-ip'); 
+
 const app = express(); 
 
 //TODO: Use SSL and password encryption: https://github.com/gheeres/node-activedirectory/issues/155  ,/ 
@@ -51,6 +53,8 @@ app.use(bodyParser.json());
 //     saveUninitialized: false,
 //     cookie: { secure: false, maxAge: 600000 }
 // }));
+
+app.use(requestIp.mw())
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -137,12 +141,13 @@ app.get(isAuth_URL, (req, res) => {
   }
 });
 
-let getIP_URL = `${isDev ? "" : "/testsite/server/index.js" }/get-ip-address`
+let getIP_URL = `${isDev ? "" : "/testsite/server/index.js" }/getIP`
 app.get(getIP_URL, (req, res) => {
   //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
-  let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
+  //let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
+  const IP = req.clientIp;
   console.log("IP:\t" + IP);
-  res.send(IP);
+  res.end(IP);
 });
 
 
