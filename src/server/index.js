@@ -67,9 +67,16 @@ app.use(csp({
 }));
 */
 
+let aboutIISNode_URL = `${isDev ? "/server" : ""}/about-IIS-Node`
+
+app.get(aboutIISNode_URL,  (req, res)  =>{
+	res.send('Hello, world! [helloworld sample; iisnode version is ' 
+		 + process.env.IISNODE_VERSION + ', node version is ' + process.version + ']' + result); 
+}); 
+
 //Need to use absolute paths relative to where the web.config file is when using Express in IISNode. 
 // If not using url rewrite, specifiy extension
-let logIn_URL = `${isDev ? "" : "/testsite/server/index.js" }/login`
+let logIn_URL = `${isDev ? "" : "/server" }/login`
 //Routes
 app.get(logIn_URL, (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
  
@@ -132,7 +139,7 @@ app.post(logIn_URL,
   });
 
 // Test endpoint to check whether user is authenticated
-let isAuth_URL = `${isDev ? "" : "/testsite/server/index.js" }/isauthenticated`
+let isAuth_URL = `${isDev ? "" : "/server" }/isauthenticated`
 app.get(isAuth_URL, (req, res) => {
   if (req.isAuthenticated()) {
       res.send('Authenticated!')
@@ -141,7 +148,7 @@ app.get(isAuth_URL, (req, res) => {
   }
 });
 
-let getIP_URL = `${isDev ? "" : "/testsite/server/index.js" }/getIP`
+let getIP_URL = `${isDev ? "" : "/server" }/getIP`
 app.get(getIP_URL, (req, res) => {
   //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
   //let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
