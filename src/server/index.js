@@ -67,16 +67,21 @@ app.use(csp({
 }));
 */
 
-let aboutIISNode_URL = `${isDev ? "/server" : ""}/about-IIS-Node`
-
-app.get(aboutIISNode_URL,  (req, res)  =>{
-	res.send('Hello, world! [helloworld sample; iisnode version is ' 
-		 + process.env.IISNODE_VERSION + ', node version is ' + process.version + ']' + result); 
-}); 
 
 //Need to use absolute paths relative to where the web.config file is when using Express in IISNode. 
 // If not using url rewrite, specifiy extension
+
+let aboutIISNode_URL = `${isDev ? "" : "/server"}/about-IIS-Node`
+
+//Routes
+app.get(aboutIISNode_URL,  (req, res)  =>{
+	res.send('Hello, world! [helloworld sample; iisnode version is ' 
+     + process.env.IISNODE_VERSION + ', node version is ' + process.version + ']'
+     + '\n' + 'isDev:\t' + isDev); 
+}); 
+
 let logIn_URL = `${isDev ? "" : "/server" }/login`
+
 //Routes
 app.get(logIn_URL, (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
  
