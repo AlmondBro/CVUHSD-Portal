@@ -187,6 +187,9 @@ let IPAddress = styled('p')`
         font-weight: bolder;
     }
 `;
+
+isDev = false;
+
 class LogIn extends Component {
     constructor(props) {
         super(props);
@@ -217,6 +220,8 @@ class LogIn extends Component {
         let { username, password} = this.state;
 
         let logIn_URL = `${isDev ? "" : "/server" }/login`
+
+        //let isDev = false;
 
         fetch(logIn_URL, {
             method: 'POST',
