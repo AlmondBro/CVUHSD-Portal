@@ -1,9 +1,7 @@
 require('dotenv').config({path: __dirname + './../.env', debug: true}) //Load environmental variables
 
-var isDev = require("isDev");
-//Load environmental variables
+var isDev = require("isDev"); //Load environmental variables
 
-//TODO: Change all requires() to imports
 const express = require('express'); 
 const path = require('path');
 
@@ -19,9 +17,12 @@ const requestIp = require('request-ip');
 
 const app = express(); 
 
+//TODO: Change all requires() to imports
+//TODO: Add script if possible to add firefox certificate? 
 //TODO: Use SSL and password encryption: https://github.com/gheeres/node-activedirectory/issues/155  ,/ 
 //TODO: Get user's profile pic: https://github.com/gheeres/node-activedirectory/issues/152
-
+//TODO: Add footer link to change password
+//TODO: Have helpdesk call link
 const port = process.env.PORT || 3001; 
 
 require("./config/passport.js"); //require passport configuration
