@@ -216,7 +216,7 @@ class LogIn extends Component {
 
         let { username, password} = this.state;
 
-        let logIn_URL = `${isDev ? "" : "/testsite/server/index.js" }/login`
+        let logIn_URL = `${isDev ? "" : "/server" }/login`
 
         fetch(logIn_URL, {
             method: 'POST',

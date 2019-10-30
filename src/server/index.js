@@ -23,6 +23,9 @@ const app = express();
 //TODO: Get user's profile pic: https://github.com/gheeres/node-activedirectory/issues/152
 //TODO: Add footer link to change password
 //TODO: Have helpdesk call link
+//TODO: Create protected routes
+//TODO: Create student portal
+
 const port = process.env.PORT || 3001; 
 
 require("./config/passport.js"); //require passport configuration
