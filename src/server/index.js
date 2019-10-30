@@ -75,9 +75,9 @@ let aboutIISNode_URL = `${isDev ? "" : "/server"}/about-IIS-Node`
 
 //Routes
 app.get(aboutIISNode_URL,  (req, res)  =>{
-	res.send('Hello, world! [helloworld sample; iisnode version is ' 
-     + process.env.IISNODE_VERSION + ', node version is ' + process.version + ']'
-     + '\n' + 'isDev:\t' + isDev); 
+  res.send(`IISNode version:\t ${process.env.IISNODE_VERSION || "Not on IIS"} 
+            \n NodeJS version:\t ${process.version}
+            \n isDev:\t ${isDev}`); 
 }); 
 
 let logIn_URL = `${isDev ? "" : "/server" }/login`
