@@ -235,13 +235,13 @@ class LogIn extends Component {
             body: JSON.stringify({username: username, password: password})
         }).then((response) => {
             if (response.status >= 400) {
-                if ( (response.status === 401) && (!username && !password)) {
+                if ( (response.status === 401) && (!username || !password)) {
                     console.log("Block 2");
                     console.log("Response object:\t" + JSON.stringify(response) ); //a response does not appear to be a
                     console.log(response);
-                    /*this.setState({ logInSuccess: false, 
+                    this.setState({ logInSuccess: false, 
                                     message: "Please supply both a username and a password"}
-                                ); */
+                                ); 
                     //return response.json();
                     return;
                 } else {
@@ -254,8 +254,8 @@ class LogIn extends Component {
                         message: (`Server Response Error:\t ${response.status} `) 
                                     + response.statusText
                     });
-                    //return response.json();
-                    return;
+                    return response.json();
+                    //return;
                     //throw new Error("Bad response from server");
                 } //end else-statement
             } else {
@@ -266,7 +266,6 @@ class LogIn extends Component {
                 //return;
                 return response.json();
             }
-          
           //return response;
         }).then((response) => {
             if ( undefsafe(response, 'success') === true){
@@ -298,15 +297,16 @@ class LogIn extends Component {
 
     componentDidMount = (props) => {
         console.log("Login component props:\t" + JSON.stringify(props) );
-        document.title = "CVUHSD | Portal Login"
         // props.changeContainerStyle({
         //   "backgroundColor": "red"
         // });
       }; //end componentDidMount
 
     render = () => { 
+        document.title = "CVUHSD | Portal Login"
         if (this.state.logInSuccess === true) {
-            return (<Redirect to="/page-content" />);
+           // return (<Redirect to="/page-content" />)
+           console.log("Success - correct password & username....!!");
         }
 
         return ([
