@@ -80,19 +80,29 @@ let FormInputLabel = styled('label')`
     }
 `
 
-let SubmitButton = styled('button')`
-    display: block;
-    margin: 5px auto;
+let FormButton = styled('button')`
+    display: inline-block;
+    margin: 5px 3px;
     font-family: "Montserrat", sans-serif;
     border-radius: 5px;
+    width: 80px;
     border: 0px;
-    padding: 0.5em 1em;
+    padding: 0.5em;
     background-color: #336186;
     color: white;
     transition: 0.5s;
+    text-align: center;
 
     &:hover, &:active, &:focus  {
         background-color: #3b709a;
+    }
+`;
+
+let ResetButton = styled(FormButton)`
+    background-color: #757575;
+
+    &:hover {
+        background-color: #adadad;  
     }
 `;
 
@@ -117,13 +127,14 @@ let ResultButton = styled('span')`
     flex-direction: row;
     justify-content: center;
     font-size: 1.5em;
-    margin-top: 0.8em;
+    margin-top: 0.3em;
     margin-bottom: 10px;
     background-color: white;
     max-width: 35px;
     color: #336186;
     font-weight: bolder;
     border-radius: 100px;
+    text-align: center;
 `;
 
 let FormHeaderText = styled('p')`
@@ -132,6 +143,7 @@ let FormHeaderText = styled('p')`
 `;
 
 let ResultMessage = styled('span')`
+    display: block;
     font-size: 0.8em;
     color: white;
     font-family: "Montserrat", sans-serif;
@@ -350,10 +362,30 @@ class LogIn extends Component {
                          {/*  &#10003; -- checkmark 
                             &#215; -- close
                             //TODO: Need to find HTML entities
+                            //TODO: Add a form reset
+                             onClick={
+                                        this.setState({
+                                            logInSuccess: null,
+                                            username: "",
+                                            password: ""
+                                        })
+                                    }
                         */}
-                        <SubmitButton type="submit">Submit</SubmitButton>
+                        <FormButton type="submit">Submit</FormButton>
                         { this.state.logInSuccess === null ? "" : 
-                            ( <ResultButton>{this.state.logInSuccess === true ? "✓" : "×"}</ResultButton> )
+                            (  <ResetButton
+                                type="reset"
+                               
+                                >
+                                    Reset
+                                </ResetButton>  
+                            )
+                        }
+                       
+                        { this.state.logInSuccess === null ? "" : 
+                            (   <ResultButton>
+                                    {this.state.logInSuccess === true ? "✓" : "×"}
+                                </ResultButton> )
                         }
                         <ResultMessage>{"\t" + this.state.message}</ResultMessage>
                     </p>
