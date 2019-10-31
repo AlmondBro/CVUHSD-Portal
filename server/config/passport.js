@@ -1,11 +1,12 @@
-require('dotenv').config({path: __dirname + './../.env', debug: false}) //Load environmental variables
+require('dotenv').config({path: __dirname + './../../.env', debug: false}) //Load environmental variables
 
 //TODO: Fix serialize errors upon improper authentication
 
 const fs = require('fs'),
-      passport = require('passport');
-      SamlStrategy = require('passport-saml').Strategy;
-      wsfedsaml2 = require("passport-wsfed-saml2").Strategy;
+      path = require('path');
+      passport = require('passport'),
+      SamlStrategy = require('passport-saml').Strategy,
+      wsfedsaml2 = require("passport-wsfed-saml2").Strategy,
       ActiveDirectoryStrategy = require("passport-activedirectory");
 
 // Passport session setup.
@@ -85,8 +86,8 @@ passport.use('wsfed-saml2', new wsfedsaml2({
     // ADFS RP identifier
     realm: process.env.ADFS_REALM,
     identityProviderUrl: process.env.ADFS_IDP,
-    thumbprint: process.env.ADFS_THUMBPRINT //// ADFS token signing certificate
-   // cert: fs.readFileSync(path.resolve(__dirname, "../certificates/ADFS_Signing.crt") )
+    thumbprints: [ process.env.ADFS_THUMBPRINT ], //// ADFS token signing certificate
+     cert: fs.readFileSync(path.resolve(__dirname, "./../../certificates/ADFS_Signing.crt") )
   },  (profile, done) => {
     console.log(profile);
     return done(null, profile);

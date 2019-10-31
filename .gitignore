@@ -71,7 +71,10 @@ certificates/*
 
 #Ignore IIS configs
 *.config
-s
+
+#Ignore static HTML folder file
+static-files/
+
 # misc
 .DS_Store
 .env.local

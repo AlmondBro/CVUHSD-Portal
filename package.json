@@ -43,7 +43,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "server": "nodemon src/server/index.js --inspect",
+    "server": "nodemon server/index.js --inspect",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm start\""
