@@ -347,12 +347,13 @@ class LogIn extends Component {
                         />
                     </p>
                     <p className="form-buttons-container">
+                         {/*  &#10003; -- checkmark 
+                            &#215; -- close
+                            //TODO: Need to find HTML entities
+                        */}
                         <SubmitButton type="submit">Submit</SubmitButton>
                         { this.state.logInSuccess === null ? "" : 
-                            (   this.state.logInSuccess === true ? 
-                                <ResultButton>&#10003;</ResultButton> :  
-                                <ResultButton>&#215;</ResultButton>
-                            )
+                            ( <ResultButton>{this.state.logInSuccess === true ? "✓" : "×"}</ResultButton> )
                         }
                         <ResultMessage>{"\t" + this.state.message}</ResultMessage>
                     </p>
