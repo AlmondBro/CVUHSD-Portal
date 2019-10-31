@@ -8,6 +8,8 @@ import { faUser as user, faLock as lock } from '@fortawesome/free-solid-svg-icon
 
 import styled from 'styled-components';
 
+import undefsafe from 'undefsafe';
+
 import isDev from 'isdev';
 
 //TODO: Upon click in result button, clear the form data and remove message -- set loginsuccess to null
@@ -188,7 +190,6 @@ let IPAddress = styled('p')`
     }
 `;
 
-isDev = false;
 
 class LogIn extends Component {
     constructor(props) {
@@ -222,42 +223,73 @@ class LogIn extends Component {
         let logIn_URL = `${isDev ? "" : "/server" }/login`
 
         //let isDev = false;
+        let headers = {
+            'Content-Type': 'application/json',
+            'credentials': 'include',
+            'mode': 'no-cors'
+        };
 
         fetch(logIn_URL, {
             method: 'POST',
-            headers: {
-                        'Content-Type': 'application/json',
-                        'credentials': 'include',
-                        'mode': 'no-cors'
-                    },
+            headers: headers,
             body: JSON.stringify({username: username, password: password})
         }).then((response) => {
             if (response.status >= 400) {
-                console.log("Error & Response:\t" + JSON.stringify(response));
+                if ( (response.status === 401) && (!username && !password)) {
+                    console.log("Block 2");
+                    console.log("Response object:\t" + JSON.stringify(response) ); //a response does not appear to be a
+                    console.log(response);
+                    /*this.setState({ logInSuccess: false, 
+                                    message: "Please supply both a username and a password"}
+                                ); */
+                    //return response.json();
+                    return;
+                } else {
+                    console.log("Block 1");
+                    console.log("Error & Response:\t" + JSON.stringify(response));
+                    console.log("Response:\t" + JSON.stringify(response) ); //a response does not appear to be a
+                    console.log(response);
+                    
+                    this.setState({ logInSuccess: false, 
+                        message: (`Server Response Error:\t ${response.status} `) 
+                                    + response.statusText
+                    });
+                    //return response.json();
+                    return;
+                    //throw new Error("Bad response from server");
+                } //end else-statement
+            } else {
+                console.log("Block 3");
+                console.log("Response object:\t" + JSON.stringify(response) ); //a response does not appear to be a
+                console.log(response);
                 this.setState({logInSuccess: false, message: response.message});
-                //throw new Error("Bad response from server");
+                //return;
+                return response.json();
             }
-            console.log("Response:\t" + JSON.stringify(response) ); //a response does not appear to be a
-            console.log(response);
-          return response.json();
+          
           //return response;
         }).then((response) => {
-            if (response.success === true){
-               this.setState({logInSuccess: true, message: response.message});  
-             
+            if ( undefsafe(response, 'success') === true){
+                console.log("Block 4");
                 console.log("Success!!!");
                 console.log((response));
+
+                this.setState({  logInSuccess: true, 
+                    message: response.message
+                });  
 
                 setTimeout((response) => {
                     //browserHistory.push("/page-content");
                     this.setState({logInSuccess: true});
                     return response;
                 }, 5000);
+            } else {
+                console.log("Block 5");
+                console.log(response);
+                console.log("Front-end response:\t" + JSON.stringify(response) );
+                let message = undefsafe(response, 'message') || "Please supply both a username and a password"
+                this.setState({logInSuccess: false, message: message});
             }
-
-            console.log(response);
-            console.log("Front-end response:\t" + JSON.stringify(response) );
-            this.setState({logInSuccess: false, message: response.message});
         }).catch((err) => {
             this.setState({logInSuccess: false});
             console.log(`Catching error:\t ${err}`);

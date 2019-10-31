@@ -1,4 +1,6 @@
-require('dotenv').config({path: __dirname + './../.env', debug: true}) //Load environmental variables
+require('dotenv').config({path: __dirname + './../.env', debug: false}) //Load environmental variables
+
+//TODO: Fix serialize errors upon improper authentication
 
 const fs = require('fs'),
       passport = require('passport');
@@ -11,13 +13,46 @@ const fs = require('fs'),
 //   serialize users into and deserialize users out of the session.  Typically,
 //   this will be as simple as storing the user ID when serializing, and finding
 //   the user by ID when deserializing.
+
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.id);
 });
 passport.deserializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.id);
 });
 
+/*
+  passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  // console.log(`id: ${id}`);
+  User.findById(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch((error) => {
+      console.log(`Error: ${error}`);
+    });
+});
+*/
+
+/*
+  Here an working but still lazy way to use sessions and still "serialisize" the values.
+
+var user_cache = {};
+
+passport.serializeUser(function(user, next) {
+  let id = user._id;
+  user_cache[id] = user;
+  next(null, id);
+});
+
+passport.deserializeUser(function(id, next) {
+  next(null, user_cache[id]);
+});
+*/
 
 const username = process.env.ADFS_USER_NAME;
 const pass = process.env.ADFS_USER_PASSWORD;
