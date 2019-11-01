@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
 import {  Redirect } from 'react-router'
+
+import ReactLoading from 'react-loading';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -15,6 +16,7 @@ import isDev from 'isdev';
 
 //TODO: Upon click in result button, clear the form data and remove message -- set loginsuccess to null
 //TODO: Create function that fetches the IP Address
+//TODO: Create reset-password functionality
 
 let Form = styled('form')`
     /* font-family: "Montserrat", sans-serif; */
@@ -198,7 +200,9 @@ let Footer = styled('footer')`
     }
 `;
 
-let IPAddress = styled('p')`
+let IPAddress = styled('div')`
+    position: relative;
+    display: inline-block;
     color: white;
     text-align: center;
 
@@ -206,6 +210,28 @@ let IPAddress = styled('p')`
         font-weight: bolder;
     }
 `;
+
+let IPLoadingContainer = styled('span')`
+    display: inline-block;
+    position: relative;
+    margin-left: 5px;
+`;
+
+let StyledLoadingContainer = styled('span')`
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 8px auto;
+    z-index: 1;
+`;
+
+const LoadingSpinner = ({ type, color, height, width}) => (
+    <StyledLoadingContainer>
+        <ReactLoading type={type} color={color} height={height} width={width} />
+    </StyledLoadingContainer>  
+);
 
 
 class LogIn extends Component {
@@ -216,7 +242,8 @@ class LogIn extends Component {
             username: "",
             password: "",
             message: "Enter username & password to login",
-            IP_Address: ""
+            isLoading: false,
+            ipAddress: ""
         } //end state object
         console.log("Props:\t" + JSON.stringify(this.props) );
     }; //end constructor
@@ -239,6 +266,8 @@ class LogIn extends Component {
 
         let logIn_URL = `${isDev ? "" : "/server" }/login`
 
+        this.setState({isLoading: true, message: "Loading..."});
+
         //let isDev = false;
         let headers = {
             'Content-Type': 'application/json',
@@ -257,6 +286,7 @@ class LogIn extends Component {
                     console.log("Response object:\t" + JSON.stringify(response) ); //a response does not appear to be a
                     console.log(response);
                     this.setState({ logInSuccess: false, 
+                                    isLoading: false,
                                     message: "Please supply both a username and a password"}
                                 ); 
                     //return response.json();
@@ -268,8 +298,9 @@ class LogIn extends Component {
                     console.log(response);
                     
                     this.setState({ logInSuccess: false, 
-                        message: (`Server Response Error:\t ${response.status} `) 
-                                    + response.statusText
+                                    isLoading: false,
+                                    message: (`Server Response Error:\t ${response.status} `) 
+                                                + response.statusText
                     });
                     return response.json();
                     //return;
@@ -279,7 +310,7 @@ class LogIn extends Component {
                 console.log("Block 3");
                 console.log("Response object:\t" + JSON.stringify(response) ); //a response does not appear to be a
                 console.log(response);
-                this.setState({logInSuccess: false, message: response.message});
+                this.setState({logInSuccess: false, message: response.message, isLoading: false});
                 //return;
                 return response.json();
             }
@@ -290,8 +321,10 @@ class LogIn extends Component {
                 console.log("Success!!!");
                 console.log((response));
 
-                this.setState({  logInSuccess: true, 
-                    message: response.message
+                this.setState({  
+                                isLoading: false,
+                                logInSuccess: true, 
+                                message: response.message
                 });  
 
                 setTimeout((response) => {
@@ -304,11 +337,12 @@ class LogIn extends Component {
                 console.log(response);
                 console.log("Front-end response:\t" + JSON.stringify(response) );
                 let message = undefsafe(response, 'message') || "Please supply both a username and a password"
-                this.setState({logInSuccess: false, message: message});
+                this.setState({logInSuccess: false, message: message, isLoading: false});
             }
         }).catch((err) => {
             this.setState(
                     {
+                        isLoading: false,
                         logInSuccess: false,
                         message: `Error: ${err}`
                     }
@@ -318,16 +352,17 @@ class LogIn extends Component {
     };
 
     resetButtonListener = (event) => {
-        if (event.target.id == 'reset-button') {
+        if (event.target.id === 'reset-button') {
             this.setState({
                 logInSuccess: null,
+                isLoading: false,
                 username: "",
                 password: "",
                 message: "Enter username & password to login"
             });
         } //end if-statement
 
-        if (event.target.id == 'result-button') {
+        if (event.target.id === 'result-button') {
             this.setState({
                 logInSuccess: null,
                 username: "",
@@ -337,12 +372,42 @@ class LogIn extends Component {
         } //end if-statement
     }; //end resetButtonListener()
 
+    
+    getIPAddress = (props) => {
+        let corsProxy = 'https://cors-anywhere.herokuapp.com/';
+        let request_URL = 'https://api.ipify.org?format=json'
+        let fetchURL = isDev ? corsProxy + request_URL : request_URL;
+
+        let ipHeaders = {
+            'Content-Type': 'text'
+        };
+
+        fetch(fetchURL, {
+            method: 'GET',
+            headers: ipHeaders
+        }).then((response) => { 
+            console.log("GetIP Block 1");
+            console.log("Response:\t" + JSON.stringify(response));
+            return response.json();
+        }).then( (response) => {
+            console.log("GetIP Block 2");
+            console.log("Response:\t" + JSON.stringify(response));
+            this.setState({ipAddress: `${response.ip}`});
+        }).catch( (error) => {
+            console.log("GetIP Block 3");
+            console.log("Error");
+            this.setState({ ipAddress: `${error}`});
+        });  
+    }; //end getIPAddress()
+
     componentDidMount = (props) => {
         console.log("Login component props:\t" + JSON.stringify(props) );
         // props.changeContainerStyle({
         //   "backgroundColor": "red"
         // });
         
+        this.getIPAddress();
+
         /*
             Adding event handlers to HTML Nodes/React components that do not yet exist:
             https://stackoverflow.com/questions/44820394/fire-event-listener-on-element-not-rendered-in-react
@@ -421,7 +486,13 @@ class LogIn extends Component {
                                 </ResetButton>  
                             )
                         }
-                       
+                        {   this.state.isLoading ?
+                                <LoadingSpinner 
+                                    type={"spin"}
+                                    height={'30px'} width={'30px'} 
+                                    color={'#1f6b92'}
+                                /> : "" 
+                        }
                         { this.state.logInSuccess === null ? "" : 
                             (   <ResultButton id="result-button" title="Reset form"> 
                                     {this.state.logInSuccess === true ? "✓" : "×"}
@@ -431,7 +502,19 @@ class LogIn extends Component {
                     </p>
                 </fieldset>
             </Form>,
-            <IPAddress>IP Address: <span>{this.state.IP_Address || "Could not get IP"}</span> </IPAddress>,
+            <IPAddress>
+                IP Address: 
+                        <IPLoadingContainer>
+                        {   this.state.ipAddress ? 
+                            this.state.ipAddress :
+                            <ReactLoading 
+                                type={"cubes"}
+                                height={'30px'} width={'30px'} 
+                                color={'white'}
+                            /> 
+                        }
+                        </IPLoadingContainer> 
+            </IPAddress>,
             <Footer>
                 <ul>
                     <li>
