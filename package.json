@@ -12,6 +12,7 @@
   "bugs": {
     "url": "https://github.com/JuanDavidLopez95/CVUHSD-Portal/issues"
   },
+  "homepage": "./build",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",

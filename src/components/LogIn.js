@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 import {  Redirect } from 'react-router'
 
@@ -312,12 +313,32 @@ class LogIn extends Component {
         });
     };
 
+    resetButtonListener = (event) => {
+        if (event.target.id == 'reset-button') {
+            this.setState({
+                logInSuccess: null,
+                username: "",
+                password: ""
+            });
+        }
+    }; //end resetButtonListener()
+
     componentDidMount = (props) => {
         console.log("Login component props:\t" + JSON.stringify(props) );
         // props.changeContainerStyle({
         //   "backgroundColor": "red"
         // });
-      }; //end componentDidMount
+        
+        /*
+            Adding event handlers to HTML Nodes/React components that do not yet exist:
+            https://stackoverflow.com/questions/44820394/fire-event-listener-on-element-not-rendered-in-react
+            // */
+        document.addEventListener('click', this.resetButtonListener);
+    }; //end componentDidMount()
+
+    componentWillUnmount = () => {
+        document.removeEventListener('click', this.resetButtonListener);
+    };
 
     render = () => { 
         document.title = "CVUHSD | Portal Login"
@@ -327,12 +348,12 @@ class LogIn extends Component {
         }
 
         return ([
-            <PortalLogo src="./images/CV-600x600-portal.png" alt="CVUHSD Portal"  />,
+            <PortalLogo src="/images/CV-600x600-portal.png" alt="CVUHSD Portal"  />,
             <Form action="/login" method="post" onSubmit={this.handleSubmit}>
                 <fieldset>
                     <legend>
                         <FormHeader>
-                            <CVUHSDLogo src="./images/CV-600x600.png" alt="CVUHSD" />
+                            <CVUHSDLogo src="/images/CV-600x600.png" alt="CVUHSD" />
                             <FormHeaderText>Login</FormHeaderText>
                         </FormHeader>
                     </legend>
@@ -378,9 +399,8 @@ class LogIn extends Component {
                         */}
                         <FormButton type="submit">Submit</FormButton>
                         { this.state.logInSuccess === null ? "" : 
-                            (  <ResetButton
-                                type="reset"
-                               
+                            (  <ResetButton id="reset-button"
+                                            type="reset"
                                 >
                                     Reset
                                 </ResetButton>  
