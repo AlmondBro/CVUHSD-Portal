@@ -302,7 +302,12 @@ class LogIn extends Component {
                 this.setState({logInSuccess: false, message: message});
             }
         }).catch((err) => {
-            this.setState({logInSuccess: false});
+            this.setState(
+                    {
+                        logInSuccess: false,
+                        message: `Error: ${err}`
+                    }
+            );
             console.log(`Catching error:\t ${err}`);
         });
     };
