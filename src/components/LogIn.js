@@ -124,10 +124,14 @@ let CVUHSDLogo = styled('img')`
 
 let ResultButton = styled('span')`
     display: flex;
-    margin: 0 auto;
     flex-direction: row;
     justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    cursor: pointer;
     font-size: 1.5em;
+    margin: 0 auto;
     margin-top: 0.3em;
     margin-bottom: 10px;
     background-color: white;
@@ -318,9 +322,19 @@ class LogIn extends Component {
             this.setState({
                 logInSuccess: null,
                 username: "",
-                password: ""
+                password: "",
+                message: "Enter username & password to login"
             });
-        }
+        } //end if-statement
+
+        if (event.target.id == 'result-button') {
+            this.setState({
+                logInSuccess: null,
+                username: "",
+                password: "",
+                message: "Enter username & password to login"
+            });
+        } //end if-statement
     }; //end resetButtonListener()
 
     componentDidMount = (props) => {
@@ -401,6 +415,7 @@ class LogIn extends Component {
                         { this.state.logInSuccess === null ? "" : 
                             (  <ResetButton id="reset-button"
                                             type="reset"
+                                            title="Reset form"
                                 >
                                     Reset
                                 </ResetButton>  
@@ -408,7 +423,7 @@ class LogIn extends Component {
                         }
                        
                         { this.state.logInSuccess === null ? "" : 
-                            (   <ResultButton>
+                            (   <ResultButton id="result-button" title="Reset form"> 
                                     {this.state.logInSuccess === true ? "✓" : "×"}
                                 </ResultButton> )
                         }
