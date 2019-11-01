@@ -61,7 +61,8 @@ const pass = process.env.ADFS_USER_PASSWORD;
 let active_directory_config = { url: process.env.ADFS_SERVER_URL,
   baseDN: process.env.LDAP_BASEDN,
   username: username,
-  password: pass 
+  password: pass,
+  passReqToCallback: true 
 }
 
 let ADFS_SAML_CONFIG = {

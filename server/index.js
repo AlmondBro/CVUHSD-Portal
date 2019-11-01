@@ -113,12 +113,13 @@ app.post(logIn_URL,
       console.log("User:\t" + JSON.stringify(user) );
       console.log("Info:\t" + info);
 
+      console.log(`\nUser password:\t ${req.body.password} \n Username:\t ${req.body.username}`);
      // let statusCode = /InvalidCredentialsError/.test(error.stack) || "";
       // || ( (statusCode == "401") || (statusCode == "500") )
       if (error) {
         console.log("invalid credentials error:\t" + error);
         //res.status(401).send(error);
-        res.json({"success" : false, "message" : "Invalid password"});
+        res.json({"success" : false, "message" : "Invalid password", "user": user});
       } else if (!user) {
         console.log("else if !user");        
        // res.status(401).send(info);
@@ -130,7 +131,8 @@ app.post(logIn_URL,
       req.logIn(user, (err) => {
           if (err) { return next(err); }
           
-          res.locals.userInfo = user; //To 'pass a variable' to a middleware, attach it to the response.locals object
+          let userInfo = {...user["_json"], ...user["name"]};
+          res.locals.userInfo = userInfo; //To 'pass a variable' to a middleware, attach it to the response.locals object
           console.log("Logged in successfully -- Calling next() -- go to next middleware");
           
          // return done(null, user); //causes error
