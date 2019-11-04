@@ -397,7 +397,6 @@ class LogIn extends Component {
        /* props.changeContainerStyle({
             "backgroundColor": "red"
         }); */
-        props.test("Ammoooor");
         
         this.getIPAddress();
 
