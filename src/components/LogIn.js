@@ -352,7 +352,7 @@ class LogIn extends Component {
     };
 
     resetButtonListener = (event) => {
-        if (event.target.id === 'reset-button') {
+        if (event.target.id === 'reset-button' || event.target.id === 'result-button') {
             this.setState({
                 logInSuccess: null,
                 isLoading: false,
@@ -362,14 +362,6 @@ class LogIn extends Component {
             });
         } //end if-statement
 
-        if (event.target.id === 'result-button') {
-            this.setState({
-                logInSuccess: null,
-                username: "",
-                password: "",
-                message: "Enter username & password to login"
-            });
-        } //end if-statement
     }; //end resetButtonListener()
 
     
@@ -402,9 +394,10 @@ class LogIn extends Component {
 
     componentDidMount = (props) => {
         console.log("Login component props:\t" + JSON.stringify(props) );
-        // props.changeContainerStyle({
-        //   "backgroundColor": "red"
-        // });
+       /* props.changeContainerStyle({
+            "backgroundColor": "red"
+        }); */
+        props.test("Ammoooor");
         
         this.getIPAddress();
 

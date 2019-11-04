@@ -19,70 +19,73 @@ import NotFound from './NotFound.js';
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
 
+let ModifiedContainer = ({className, children, fluid}) => (
+  <Container className={className} fluid={fluid}>
+    { children }
+  </Container>
+);
+
+let StyledContainer = styled(ModifiedContainer)`
+  display: flex;
+  flex-direction: column;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#4177a3+0,182c3d+100 */
+  background: #4177a3; /* Old browsers */
+  background: -moz-linear-gradient(top,  #4177a3 0%, #182c3d 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #4177a3 0%,#182c3d 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #4177a3 0%,#182c3d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+  background-image: url("./images/district-office-blueBG.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4177a3', endColorstr='#182c3d',GradientType=0 ); /* IE6-9 */
+
+  height: 100%;
+  && { /*Overrode class style */
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+`;
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loggedIn: false,
-     /* containerStyle: {
+     containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
-      } */
+      } 
     }; //end state object
     console.log("Props:\t" + JSON.stringify(this.props) );
   } //end constructor
 
-  Container = ({className, children, fluid}) => (
-    <Container className={className} fluid={fluid}>
-      { children }
-    </Container>
-  );
-  
-  StyledContainer = styled(Container)`
-      display: flex;
-      flex-direction: column;
-    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#4177a3+0,182c3d+100 */
-      background: #4177a3; /* Old browsers */
-      background: -moz-linear-gradient(top,  #4177a3 0%, #182c3d 100%); /* FF3.6-15 */
-      background: -webkit-linear-gradient(top,  #4177a3 0%,#182c3d 100%); /* Chrome10-25,Safari5.1-6 */
-      background: linear-gradient(to bottom,  #4177a3 0%,#182c3d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-      
-      background-image: url("./images/district-office-blueBG.jpg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4177a3', endColorstr='#182c3d',GradientType=0 ); /* IE6-9 */
-
-      height: 100%;
-      && { /*Overrode class style */
-        padding-left: 0px;
-        padding-right: 0px;
-      }
-  `;
-
-  /*
   changeContainerStyle = (styleObject) => {
     this.setState({containerStyle: styleObject});
   }; //end changeContainerStyle() function
-  */
+  
+  test = (text) => {
+    console.log("Text:\t" + text);
+  }; //end test()
 
   render = () =>{
     return (
-      <this.StyledContainer fluid={true}>
+      <StyledContainer fluid={true}>
         <Switch>
           
-            <Route exact path="/" 
+            <Route exact path={"/" || "/staff.html" || "/student.html"}
                     render={ () => {
                         return (<Redirect to="/login" />);
                     }
                 } 
             />
-            <Route path="/login" render={ () => <LogIn changeContainerStyle={this.changeContainerStyle} /> } />
-            <Route path="/page-content" render={ () => { return <PageContent key="pageContent"/>} } />
+            <Route path="/login" 
+                  render={ (props) => <LogIn {...props} changeContainerStyle={this.changeContainerStyle} test={this.test} /> } />
+            <Route path="/page-content" 
+                  render={ (props) => <PageContent {...props} changeContainerStyle={this.changeContainerStyle} test={this.test} /> } />
             <Route component={NotFound} />
           
         </Switch>
-      </this.StyledContainer>
+      </StyledContainer>
     );
   }
 }
