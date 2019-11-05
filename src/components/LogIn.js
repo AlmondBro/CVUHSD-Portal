@@ -239,6 +239,7 @@ class LogIn extends Component {
         super(props);
         this.state = {
             logInSuccess: null,
+            isStudent: true,
             username: "",
             password: "",
             message: "Enter username & password to login",
@@ -416,8 +417,8 @@ class LogIn extends Component {
     render = () => { 
         document.title = "CVUHSD | Portal Login"
         if (this.state.logInSuccess === true) {
-           return (<Redirect to="/page-content" />)
            console.log("Success - correct password & username....!!");
+           return (<Redirect to="/page-content" />);
         }
 
         return ([
