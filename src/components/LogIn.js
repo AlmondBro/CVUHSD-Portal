@@ -321,15 +321,17 @@ class LogIn extends Component {
                 console.log("Success!!!");
                 console.log((response));
 
+                //had loginsuccess true in here
                 this.setState({  
-                                isLoading: false,
-                                logInSuccess: true, 
+                                isLoading: false, 
                                 message: response.message
                 });  
 
+                //TODO: Conditionally render an isStudent variable
                 setTimeout((response) => {
                     //browserHistory.push("/page-content");
-                    this.setState({logInSuccess: true});
+                    this.setState({logInSuccess: true, 
+                                    isLoading: false});
                     return response;
                 }, 5000);
             } else {
@@ -414,7 +416,7 @@ class LogIn extends Component {
     render = () => { 
         document.title = "CVUHSD | Portal Login"
         if (this.state.logInSuccess === true) {
-           // return (<Redirect to="/page-content" />)
+           return (<Redirect to="/page-content" />)
            console.log("Success - correct password & username....!!");
         }
 
