@@ -13,6 +13,9 @@ const passport = require("passport");
 const session = require("express-session");
 const csp = require('helmet-csp');
 
+const sslRootCAs = require('ssl-root-cas/latest')
+
+
 const requestIp = require('request-ip'); 
 
 const app = express(); 
@@ -41,6 +44,7 @@ app.use(cors({
 app.use(cors());
 app.options('*', cors()) // include before other routes
 
+
 app.use( (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -48,6 +52,15 @@ app.use( (req, res, next) => {
 });
 
 
+const CVUHSD_CertificatePath = ('../certificates/ssl-cvuhsd.cer');
+const ADFS_CertificatePath = ('../certificates/ssl-cvuhsd.cer');
+
+//Inject certificates
+sslRootCAs.inject() 
+          .addFile(__dirname + CVUHSD_CertificatePath)
+          .addFile(__dirname + ADFS_CertificatePath)
+          ;
+  
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
