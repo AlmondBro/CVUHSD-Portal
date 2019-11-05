@@ -288,7 +288,8 @@ class LogIn extends Component {
                     console.log(response);
                     this.setState({ logInSuccess: false, 
                                     isLoading: false,
-                                    message: "Please supply both a username and a password"}
+                                    message: "Please supply both a username and a password"
+                                    }
                                 ); 
                     //return response.json();
                     return;
