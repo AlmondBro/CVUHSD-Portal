@@ -63,10 +63,6 @@ class App extends Component {
     this.setState({containerStyle: styleObject});
   }; //end changeContainerStyle() function
   
-  test = (text) => {
-    console.log("Text:\t" + text);
-  }; //end test()
-
   render = () =>{
     return (
       <StyledContainer fluid={true}>
@@ -79,9 +75,9 @@ class App extends Component {
                 } 
             />
             <Route path="/login" 
-                  render={ (props) => <LogIn {...props} changeContainerStyle={this.changeContainerStyle} test={this.test} /> } />
+                  render={ (props) => <LogIn {...props} changeContainerStyle={this.changeContainerStyle} /> } />
             <Route path="/page-content" 
-                  render={ (props) => <PageContent {...props} changeContainerStyle={this.changeContainerStyle} test={this.test} /> } />
+                  render={ (props) => <PageContent {...props} changeContainerStyle={this.changeContainerStyle}  /> } />
             <Route component={NotFound} />
           
         </Switch>
