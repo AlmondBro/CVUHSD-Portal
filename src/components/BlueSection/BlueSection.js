@@ -134,10 +134,12 @@ const BlueSection = (props) => {
     `; //end openColumnButton
 
     let ButtonRow = styled.div`
-        margin: 3.5% auto;
-
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
         height: 0;
-        margin: 0;
+        margin: 0 auto;
         transition: height, margin 0.5s;
     `;
 
