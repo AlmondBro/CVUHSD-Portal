@@ -77,7 +77,7 @@ class App extends Component {
             <Route path="/login" 
                   render={ (props) => <LogIn {...props} changeContainerStyle={this.changeContainerStyle} /> } />
             <Route path="/page-content" 
-                  render={ (props) => <PageContent {...props} changeContainerStyle={this.changeContainerStyle}  /> } />
+                  render={ (props) => <PageContent {...props} changeContainerStyle={this.changeContainerStyle} /> } />
             <Route component={NotFound} />
           
         </Switch>
