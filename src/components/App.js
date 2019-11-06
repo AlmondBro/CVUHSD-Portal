@@ -5,6 +5,8 @@ import PageContent from "./PageContent.js";
 
 //Import 3rd-party APIs
 import styled from 'styled-components';
+import css from 'styled-components';
+
 import { Container } from 'react-bootstrap';
 
 import {  Redirect } from 'react-router'
@@ -45,6 +47,10 @@ let StyledContainer = styled(ModifiedContainer)`
     padding-left: 0px;
     padding-right: 0px;
   }
+
+  ${props => props.styledContainer && css`
+      {props.styledContainer}
+    `}
 `;
 
 class App extends Component {
@@ -63,9 +69,9 @@ class App extends Component {
     this.setState({containerStyle: styleObject});
   }; //end changeContainerStyle() function
   
-  render = () =>{
+  render = () => {
     return (
-      <StyledContainer fluid={true} style={this.state.containerStyle}>
+      <StyledContainer fluid={true} containerStyle={this.state.containerStyle} style={this.state.containerStyle} >
         <Switch>
           
             <Route exact path={"/" || "/staff.html" || "/student.html"}

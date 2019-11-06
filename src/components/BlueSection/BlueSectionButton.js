@@ -7,7 +7,7 @@ const BlueSectionButton = (props) => {
             rel="noopener noreferrer"
         >
             <button>
-                <img className="img-responsive" 
+                <img className="img-fluid" 
                      href={props.buttonLink} 
                      src={"./images/buttons/"+ props.buttonImg} 
                      alt={props.description} 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
@@ -7,12 +7,17 @@ import Header from "./Header.js";
 //Import list of buttons
 import { blueSectionInfo_Staff } from "./../objectFiles/blueSectionInfo.js";
 
-let testProps = {
-    blueSection_objectsArray: blueSectionInfo_Staff
-}
+class PageContent extends Component {
+    constructor(props) {
+        super(props);
+        console.log("PageContent Props:\t" + JSON.stringify(this.props) );
+      } //end constructor
 
-const PageContent = (props) => {
-    let generateBlueSections = (props) => {
+      testProps = {
+        blueSection_objectsArray: blueSectionInfo_Staff
+    };
+    
+      generateBlueSections = (props) => {
         return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
             return (
                 <BlueSection 
@@ -26,13 +31,20 @@ const PageContent = (props) => {
             );
         });
     };
+    
+    componentDidMount = (props) => {
+        this.props.changeContainerStyle({"background": "red !important", "background-image": "none" });
+    };
+    
+      render = () => {
+        return ([
+            <Header districtName="CVUHSD" headerTitle="Portal" fullName={this.props.location.state.fullName || "CVUHSD User"} />,
+            <div className="page-content">
+                { this.generateBlueSections(this.testProps)}
+            </div>
+        ]);
+      }; //end render()
+} //end PageContent class
 
-    return ([
-        <Header districtName="CVUHSD" headerTitle="Portal" fullName={props.location.state.fullName || "CVUHSD User"} />,
-        <div className="page-content">
-            { generateBlueSections(testProps)}
-        </div>
-    ]);
-}; 
 
 export default PageContent;

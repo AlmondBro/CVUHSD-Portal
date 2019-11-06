@@ -402,9 +402,9 @@ class LogIn extends Component {
 
     componentDidMount = (props) => {
         console.log("Login component props:\t" + JSON.stringify(props) );
-        this.props.changeContainerStyle({
+        /*this.props.changeContainerStyle({
             "backgroundImage": "none"
-        }); 
+        }); */
     
         this.getIPAddress();
 
