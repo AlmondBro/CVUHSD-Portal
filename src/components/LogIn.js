@@ -239,6 +239,7 @@ class LogIn extends Component {
         super(props);
         this.state = {
             logInSuccess: null,
+            isStudent: true,
             username: "",
             password: "",
             message: "Enter username & password to login",
@@ -287,7 +288,8 @@ class LogIn extends Component {
                     console.log(response);
                     this.setState({ logInSuccess: false, 
                                     isLoading: false,
-                                    message: "Please supply both a username and a password"}
+                                    message: "Please supply both a username and a password"
+                                    }
                                 ); 
                     //return response.json();
                     return;
@@ -322,18 +324,17 @@ class LogIn extends Component {
                 console.log((response));
 
                 //had loginsuccess true in here
-                this.setState({  
-                                isLoading: false, 
+                this.setState({ logInSuccess: true,  
                                 message: response.message
                 });  
 
                 //TODO: Conditionally render an isStudent variable
                 setTimeout((response) => {
                     //browserHistory.push("/page-content");
-                    this.setState({logInSuccess: true, 
-                                    isLoading: false});
+                    console.log("Initiating timeout...");
+                    this.setState({ isLoading: false });
                     return response;
-                }, 5000);
+                }, 10000);
             } else {
                 console.log("Block 5");
                 console.log(response);
@@ -416,8 +417,9 @@ class LogIn extends Component {
     render = () => { 
         document.title = "CVUHSD | Portal Login"
         if (this.state.logInSuccess === true) {
-           return (<Redirect to="/page-content" />)
            console.log("Success - correct password & username....!!");
+          // return (<Redirect to="/page-content" />);
+          //return 1;
         }
 
         return ([

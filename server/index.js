@@ -1,6 +1,6 @@
-require('dotenv').config({path: __dirname + './../.env', debug: true}) //Load environmental variables
+require('dotenv').config({path: __dirname + './../.env', debug: false}) //Load environmental variables
 
-var isDev = require("isDev"); //Load environmental variables
+const isDev = require("isDev"); //Load environmental variables
 
 const express = require('express'); 
 const path = require('path');
@@ -11,7 +11,13 @@ const cors = require('cors');
 const passport = require("passport");
 
 const session = require("express-session");
-const csp = require('helmet-csp');
+
+const helmet = require('helmet');
+//const csp = require('helmet-csp');
+
+//const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
+
+const sslRootCAs = require('ssl-root-cas/latest');
 
 const requestIp = require('request-ip'); 
 
@@ -38,8 +44,13 @@ app.use(cors({
   'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
   'preflightContinue': false
 })); */
+
+app.use(helmet());
+//app.use(csp()); //Content Security Policy helps prevent unwanted content being injected into your webpages; this can mitigate cross-site scripting (XSS) vulnerabilities, malicious frames, unwanted trackers, and more
+
 app.use(cors());
 app.options('*', cors()) // include before other routes
+
 
 app.use( (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -47,6 +58,17 @@ app.use( (req, res, next) => {
   next();
 });
 
+
+const CVUHSD_CertificatePath = ('./../certificates/ssl-cvuhsd.cer');
+const ADFS_CertificatePath = ('./../certificates/ssl-cvuhsd.cer');
+
+//Inject certificates
+sslRootCAs.inject() 
+          .addFile(__dirname + CVUHSD_CertificatePath)
+          .addFile(__dirname + ADFS_CertificatePath)
+          ;
+  
+//app.use(rateLimiterRedisMiddleware);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
