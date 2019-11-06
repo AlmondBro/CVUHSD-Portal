@@ -52,6 +52,8 @@ let DashboardHeaderContainer = styled.div`
 `//end DashboardHeaderContainer
 
 let DashboardHeader = styled.header`
+    position: relative;
+    z-index: -1;
     padding: 15px 0;
     border-radius: 5px;
     background-color: white;

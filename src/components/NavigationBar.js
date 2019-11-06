@@ -55,8 +55,8 @@ const NavigationBar = (props) => {
             } 
         }
 
-        @media only screen and (min-width: 1268px) { 
-            &::after {
+        @media only screen and (min-width: 1000px) { 
+          &::after {
                 content: 'Centinela Valley Union High School District';
                 display: inline;
                 color: #1e6c93;
@@ -64,9 +64,9 @@ const NavigationBar = (props) => {
                 position: absolute;
                 bottom: 52px;
                 left: 220px;
-                /*180px is for Chrome, 220px for Firefox*/
+    
                 font-weight: bold;
-            }
+            } 
         }
     `; //end navBarImageWrapper
 
@@ -173,12 +173,12 @@ const NavigationBar = (props) => {
     let generateNavBarListItems = (listItemsArray) => {
         return listItemsArray.map(
             (listItemArrayObject, index) => {
-                return (
+                return ( listItemArrayObject.navShow === true ?
                     <NavBarListItemLi 
                         key={index} 
                         href={listItemArrayObject.href}
                         title={listItemArrayObject.title}
-                    />);
+                    />: null);
             }
         ); //end map()
     }; //end generateNavBarListItems()
