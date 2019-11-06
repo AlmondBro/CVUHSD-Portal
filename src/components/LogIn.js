@@ -242,6 +242,8 @@ class LogIn extends Component {
             isStudent: true,
             username: "",
             password: "",
+            firstName: "",
+            lastName: "",
             message: "Enter username & password to login",
             isLoading: false,
             ipAddress: ""
@@ -325,8 +327,11 @@ class LogIn extends Component {
 
                 //had loginsuccess true in here
                 this.setState({ logInSuccess: true,  
-                                message: response.message
-                });  
+                                message: response.message,
+                                firstName: response.userInfo["givenName"],
+                                lastName: response.userInfo["sn"]
+                             }
+                );  
 
                 //TODO: Conditionally render an isStudent variable
                 setTimeout((response) => {
@@ -418,7 +423,12 @@ class LogIn extends Component {
         document.title = "CVUHSD | Portal Login"
         if (this.state.logInSuccess === true) {
            console.log("Success - correct password & username....!!");
-          // return (<Redirect to="/page-content" />);
+            return (<Redirect to={ {
+                                    pathname: "/page-content",
+                                    state: { fullName: `${this.state.firstName}\t ${this.state.lastName}` }
+                                   }
+                    } 
+                    />);
           //return 1;
         }
 

@@ -130,9 +130,12 @@ app.post(logIn_URL,
       // this will execute in any case, even if a passport strategy will find an error
       // log everything to 
       
+      let userInfo = {...user["_json"], ...user["name"]};
+      res.locals.userInfo = userInfo; //To 'pass a variable' to a middleware, attach it to the response.locals object
+
       console.log("\n------------------");
       console.log("Error:\t" + error);
-      console.log("User:\t" + JSON.stringify(user) );
+      console.log("User:\t" + JSON.stringify(userInfo) );
       console.log("Info:\t" + info);
 
       console.log(`\nUser password:\t ${req.body.password} \n Username:\t ${req.body.username}`);

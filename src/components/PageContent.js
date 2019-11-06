@@ -28,7 +28,7 @@ const PageContent = (props) => {
     };
 
     return ([
-        <Header districtName="CVUHSD" headerTitle="Portal" />,
+        <Header districtName="CVUHSD" headerTitle="Portal" fullName={props.location.state.fullName || "CVUHSD User"} />,
         <div className="page-content">
             { generateBlueSections(testProps)}
         </div>

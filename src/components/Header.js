@@ -6,6 +6,8 @@ import NavigationBar from "./NavigationBar.js";
 //Import 3rd-party APIs
 import styled from "styled-components";
 
+import greeting from 'greeting';
+
 let NavigationBarHeader = styled.header`
         position: relative;
         width: 100%;
@@ -117,6 +119,21 @@ let ToolTip = styled.div`
     }
 `; //end ToolTip
 
+let Greeting = styled("h3")`
+    font-size: 1.5em;
+    margin: 8px 10px;
+    padding: 5px;
+
+    & span {
+        font-style: italic;
+        font-weight: 800;
+    }
+
+    & span span {
+        font-size: 1.75em;
+    }
+`; //end Greeting
+
 const Header = (props) => {
     return ([
         <NavigationBarHeader>
@@ -127,6 +144,7 @@ const Header = (props) => {
             <DashboardHeader>
                 <h1><strong>{props.districtName || "District"}</strong></h1>
                 <h2>{props.headerTitle|| "Portal"}</h2>
+                <Greeting>{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
                 <AddToHomeScreenButton id="addToHomeScreenButton">Add to Home Screen</AddToHomeScreenButton>
                 <ToolTip className="tooltip" id="addToHomeScreenTooltip">
                     <p>
