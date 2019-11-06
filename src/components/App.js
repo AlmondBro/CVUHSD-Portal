@@ -31,14 +31,14 @@ let StyledContainer = styled(ModifiedContainer)`
   display: flex;
   flex-direction: column;
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#4177a3+0,182c3d+100 */
-  background: #4177a3; /* Old browsers */
-  background: -moz-linear-gradient(top,  #4177a3 0%, #182c3d 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  #4177a3 0%,#182c3d 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  #4177a3 0%,#182c3d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  /* background: #4177a3;  Old browsers */
+  /*  background: -moz-linear-gradient(top,  #4177a3 0%, #182c3d 100%); FF3.6-15 */
+  /* background: -webkit-linear-gradient(top,  #4177a3 0%,#182c3d 100%);  Chrome10-25,Safari5.1-6 */
+  /* background: linear-gradient(to bottom,  #4177a3 0%,#182c3d 100%);  W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 
-  background-image: url("./images/district-office-blueBG.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-image: ${props => props.containerStyle["background-image"] || `url("./images/district-office-blueBG.jpg")` };
+  background-repeat: ${props => props.containerStyle["background-repeat"] || `no-repeat` };
+  background-size: ${props => props.containerStyle["background-size"] || `cover` };
 
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4177a3', endColorstr='#182c3d',GradientType=0 ); /* IE6-9 */
 
@@ -48,9 +48,12 @@ let StyledContainer = styled(ModifiedContainer)`
     padding-right: 0px;
   }
 
-  ${props => props.styledContainer && css`
+  &&& {
+    ${props => props.styledContainer && css`
       {props.styledContainer}
     `}
+  }
+ 
 `;
 
 class App extends Component {
@@ -71,7 +74,7 @@ class App extends Component {
   
   render = () => {
     return (
-      <StyledContainer fluid={true} containerStyle={this.state.containerStyle} style={this.state.containerStyle} >
+      <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <Switch>
           
             <Route exact path={"/" || "/staff.html" || "/student.html"}
