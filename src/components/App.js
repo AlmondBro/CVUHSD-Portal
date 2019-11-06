@@ -65,7 +65,7 @@ class App extends Component {
   
   render = () =>{
     return (
-      <StyledContainer fluid={true}>
+      <StyledContainer fluid={true} style={this.state.containerStyle}>
         <Switch>
           
             <Route exact path={"/" || "/staff.html" || "/student.html"}

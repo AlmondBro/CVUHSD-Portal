@@ -397,7 +397,7 @@ class LogIn extends Component {
     componentDidMount = (props) => {
         console.log("Login component props:\t" + JSON.stringify(props) );
         this.props.changeContainerStyle({
-            "backgroundColor": "red"
+            "backgroundImage": "none"
         }); 
     
         this.getIPAddress();
