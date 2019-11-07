@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { staff_HeaderLinks } from "./../objectFiles/headerListItems.js"; 
 
+import isDev from 'isdev';
 
 const NavigationBar = (props) => {
     let NavBar = styled.nav`
@@ -195,9 +196,33 @@ const NavigationBar = (props) => {
         ); //end map()
     }; //end generateNavBarListItems()
 
-    let logOut = () => {
+    let logOut = (props) => {
+        // let corsProxy = 'https://cors-anywhere.herokuapp.com/';
+         let logOut_URL = `${isDev ? "" : "/server" }/login`
+         //let fetchURL = isDev ? corsProxy + request_URL : request_URL;
+ 
+         let ipHeaders = {
+             'Content-Type': 'text'
+         };
+ 
+         fetch(logOut_URL, {
+             method: 'GET',
+             headers: ipHeaders
+         }).then((response) => { 
+             console.log("GetIP Block 1");
+             console.log("Response:\t" + JSON.stringify(response));
+             return response.json();
+         }).then( (response) => {
+             console.log("GetIP Block 2");
+             console.log("Response:\t" + JSON.stringify(response));
+             this.setState({logInSuccess: `${!response.logOutSuccess}`});
+         }).catch( (error) => {
+             console.log("GetIP Block 3");
+             console.log(`Error:\t ${error}`);
+         });  
+     }; //end getIPAddress()
 
-    };
+
 
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
 
@@ -219,7 +244,7 @@ const NavigationBar = (props) => {
                 </label>
 
                 { generateNavBarListItems(staff_HeaderLinks) }
-                <LogOutButton>Logout</LogOutButton>
+                <LogOutButton onClick={logOut}>Logout</LogOutButton>
             </NavBarUL>
         </NavBar>
     );

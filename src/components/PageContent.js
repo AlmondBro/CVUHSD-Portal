@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import {  Redirect } from 'react-router'
+
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header.js";
@@ -7,6 +9,7 @@ import Header from "./Header.js";
 //Import list of buttons
 import { blueSectionInfo_Staff } from "./../objectFiles/blueSectionInfo.js";
 
+import isDev from 'isdev';
 import undefsafe from 'undefsafe';
 
 //TODO: Save passed props from <Rediret> into state.
@@ -14,9 +17,11 @@ class PageContent extends Component {
     constructor(props) {
         super(props);
         console.log("PageContent Props:\t" + JSON.stringify(this.props) );
+
         this.state = {
             fullName : undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
-            logInSuccess : null
+            logInSuccess :  undefsafe(this.props.location.state, "logInSuccess"),
+            isStudent: undefsafe(this.props.location.state, "isStudent") || false
 
         }; //end state{} object
       } //end constructor
@@ -39,18 +44,20 @@ class PageContent extends Component {
             );
         });
     };
+
     
     componentDidMount = (props) => {
         this.props.changeContainerStyle({"background": "red !important", "background-image": "none" });
     };
     
       render = () => {
-        return ([
+       return this.state.logInSuccess ? 
+        ([
             <Header districtName="CVUHSD" headerTitle="Portal" fullName={ undefsafe(this.state, "fullName")|| "CVUHSD User"} />,
             <div className="page-content">
                 { this.generateBlueSections(this.testProps)}
             </div>
-        ]);
+        ]) : (<Redirect to="/login" />);
       }; //end render()
 } //end PageContent class
 

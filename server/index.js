@@ -114,7 +114,7 @@ app.get(logIn_URL, (req, res, next) => { res.send({success: true}); console.log(
 
 app.get(logOut_URL, (req, res, next) => {
   req.logout();
-  res.redirect('/');
+  res.status(200).send({logOutSuccess: true, message : "Logging Out in...", userInfo: res.locals.userInfo});
 });
  
 //app.options('/login', cors()); // enable pre-flight request for DELETE request
@@ -122,8 +122,7 @@ app.get(logOut_URL, (req, res, next) => {
 let passportAuthentication_options = {  failWithError: true, 
                                         session: true,
                                         failureFlash: true 
-       
-                                 }
+                                    }
 
 //TODO: Find a way so that if users input with the domain "@cvuhsd.org", they are also authenticated
 app.post(logIn_URL,

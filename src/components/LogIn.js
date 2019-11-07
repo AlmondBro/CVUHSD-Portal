@@ -425,7 +425,7 @@ class LogIn extends Component {
            console.log("Success - correct password & username....!!");
             return (<Redirect to={ {
                                     pathname: "/page-content",
-                                    state: { fullName: `${this.state.firstName}\t ${this.state.lastName}` }
+                                    state: { fullName: `${this.state.firstName}\t ${this.state.lastName}`, logInSuccess: true }
                                    }
                     } 
                     />);
