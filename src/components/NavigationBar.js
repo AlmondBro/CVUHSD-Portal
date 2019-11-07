@@ -160,6 +160,18 @@ const NavigationBar = (props) => {
         text-decoration: none;
     `; 
 
+    let LogOutButton = styled("button")`
+        color: white;
+        background-color: #1e6c93;
+        padding: 0.5em 0.7em;
+        border: 0px;
+        border-radius: 3px;
+
+        &:hover {
+            background-color: #3b709a;
+        }
+    `; //end LogOut Button
+
     let NavBarListItemLi = (props) => {
         return (
             <li>
@@ -183,6 +195,10 @@ const NavigationBar = (props) => {
         ); //end map()
     }; //end generateNavBarListItems()
 
+    let logOut = () => {
+
+    };
+
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
 
     return (
@@ -203,7 +219,7 @@ const NavigationBar = (props) => {
                 </label>
 
                 { generateNavBarListItems(staff_HeaderLinks) }
-
+                <LogOutButton>Logout</LogOutButton>
             </NavBarUL>
         </NavBar>
     );

@@ -7,10 +7,18 @@ import Header from "./Header.js";
 //Import list of buttons
 import { blueSectionInfo_Staff } from "./../objectFiles/blueSectionInfo.js";
 
+import undefsafe from 'undefsafe';
+
+//TODO: Save passed props from <Rediret> into state.
 class PageContent extends Component {
     constructor(props) {
         super(props);
         console.log("PageContent Props:\t" + JSON.stringify(this.props) );
+        this.state = {
+            fullName : undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
+            logInSuccess : null
+
+        }; //end state{} object
       } //end constructor
 
       testProps = {
@@ -38,7 +46,7 @@ class PageContent extends Component {
     
       render = () => {
         return ([
-            <Header districtName="CVUHSD" headerTitle="Portal" fullName={this.props.location.state.fullName || "CVUHSD User"} />,
+            <Header districtName="CVUHSD" headerTitle="Portal" fullName={ undefsafe(this.state, "fullName")|| "CVUHSD User"} />,
             <div className="page-content">
                 { this.generateBlueSections(this.testProps)}
             </div>

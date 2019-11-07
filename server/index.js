@@ -107,10 +107,15 @@ app.get(aboutIISNode_URL,  (req, res)  =>{
 }); 
 
 let logIn_URL = `${isDev ? "" : "/server" }/login`
+let logOut_URL = `${isDev ? "" : "/server" }/logout`
 
 //Routes
 app.get(logIn_URL, (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
- 
+
+app.get(logOut_URL, (req, res, next) => {
+  req.logout();
+  res.redirect('/');
+});
  
 //app.options('/login', cors()); // enable pre-flight request for DELETE request
 
