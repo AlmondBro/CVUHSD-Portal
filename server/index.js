@@ -112,7 +112,8 @@ let logOut_URL = `${isDev ? "" : "/server" }/logout`
 //Routes
 app.get(logIn_URL, (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
 
-app.get(logOut_URL, (req, res, next) => {
+app.get(logOut_URL, (req, res, err) => {
+  console.log("Error:\t" + err);
   req.logout();
   res.status(200).send({logOutSuccess: true, message : "Logging Out in...", userInfo: res.locals.userInfo});
 });
