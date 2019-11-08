@@ -114,8 +114,27 @@ app.get(logIn_URL, (req, res, next) => { res.send({success: true}); console.log(
 
 app.get(logOut_URL, (req, res, err) => {
   console.log("Error:\t" + err);
-  req.logout();
-  res.status(200).send({logOutSuccess: true, message : "Logging Out in...", userInfo: res.locals.userInfo});
+
+  if (req.user || req.isAuthenticated()) {
+    req.session.destroy(
+      (err) => {
+        if (!err) {
+            res.status(200).clearCookie('connect.sid', {path: '/'}).json({status: "Lpgout success"});
+        } else {
+            // handle error case...
+        } //end else-statement
+      } //code snippet courtesy of https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
+    );
+    req.logOut();
+    res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //status 401 is logged out
+  } //end if-statement
+  
+  if ( (!(req.user)) || req.isUnauthenticated()) {
+    console.log("Already logged out");
+  } 
+  
+  console.log("Neither logged in nor out");
+  
 });
  
 //app.options('/login', cors()); // enable pre-flight request for DELETE request

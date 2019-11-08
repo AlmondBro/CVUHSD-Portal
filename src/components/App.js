@@ -60,7 +60,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+     loggedIn: false,
      containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
@@ -71,22 +71,26 @@ class App extends Component {
   changeContainerStyle = (styleObject) => {
     this.setState({containerStyle: styleObject});
   }; //end changeContainerStyle() function
+
+  modifyLogInStatus = (trueOrFalse) => {
+    this.setState({loggedIn: trueOrFalse});
+  }
   
   render = () => {
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <Switch>
           
-            <Route exact path={"/" || "/staff.html" || "/student.html"}
+            <Route exact path={"/" || "/login" || "/staff.html" || "/student.html"}
                     render={ () => {
                         return (<Redirect to="/login" />);
                     }
                 } 
             />
             <Route path="/login" 
-                  render={ (props) => <LogIn {...props} changeContainerStyle={this.changeContainerStyle} /> } />
+                  render={ (props) => <LogIn {...props} modifyLogInStatus={ this.modifyLogInStatus } changeContainerStyle={this.changeContainerStyle} change /> } />
             <Route path="/page-content" 
-                  render={ (props) => <PageContent {...props} changeContainerStyle={this.changeContainerStyle} /> } />
+                  render={ (props) => <PageContent {...props}  modifyLogInStatus={this.modifyLogInStatus} changeContainerStyle={this.changeContainerStyle} /> } />
             <Route component={NotFound} />
           
         </Switch>
