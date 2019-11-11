@@ -158,7 +158,7 @@ app.post(logIn_URL,
       if (error) {
         console.log("invalid credentials error:\t" + error);
         //res.status(401).send(error);
-        res.json({"success" : false, "message" : JSON.stringify(error) || "Invalid password", "user": user});
+        res.json({"success" : false, "message" : "Invalid password", "user": user});
       } else if (!user) {
         console.log("else if !user");        
        // res.status(401).send(info);

@@ -215,14 +215,13 @@ const NavigationBar = (props) => {
          }).then( (response) => {
              console.log("GetIP Block 2");
              console.log("Response:\t" + JSON.stringify(response));
-             this.setState({logInSuccess: `${!response.logOutSuccess}`});
+             props.modifyLogInStatus(false);
+             //this.setState({logInSuccess: `${!response.logOutSuccess}`});
          }).catch( (error) => {
              console.log("GetIP Block 3");
              console.log(`Error:\t ${error}`);
          });  
      }; //end getIPAddress()
-
-
 
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
 

@@ -88,11 +88,19 @@ class App extends Component {
                 } 
             />
             <Route path="/login" 
-                  render={ (props) => <LogIn {...props} modifyLogInStatus={ this.modifyLogInStatus } changeContainerStyle={this.changeContainerStyle} change /> } />
+                  render={ (props) => <LogIn  {...props} 
+                                              modifyLogInStatus={ this.modifyLogInStatus } 
+                                              changeContainerStyle={this.changeContainerStyle} 
+                                        /> 
+                          } 
+            />
             <Route path="/page-content" 
-                  render={ (props) => <PageContent {...props}  modifyLogInStatus={this.modifyLogInStatus} changeContainerStyle={this.changeContainerStyle} /> } />
-            <Route component={NotFound} />
-          
+                  render={ (props) => <PageContent {...props}  
+                                                  modifyLogInStatus={this.modifyLogInStatus} 
+                                                  changeContainerStyle={this.changeContainerStyle} 
+                                      /> } 
+            />
+            <Route component={NotFound} />   
         </Switch>
       </StyledContainer>
     );

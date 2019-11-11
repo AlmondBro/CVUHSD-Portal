@@ -11,6 +11,7 @@ import { blueSectionInfo_Staff } from "./../objectFiles/blueSectionInfo.js";
 
 import isDev from 'isdev';
 import undefsafe from 'undefsafe';
+import { thisExpression } from "@babel/types";
 
 //TODO: Save passed props from <Rediret> into state.
 class PageContent extends Component {
@@ -29,6 +30,10 @@ class PageContent extends Component {
       testProps = {
         blueSection_objectsArray: blueSectionInfo_Staff
     };
+
+    modifyLogInStatus = (trueOrFalse) => {
+        this.props.location.state.modifyLogInStatus(trueOrFalse);
+    }; //end modifyLogInStatus()
     
       generateBlueSections = (props) => {
         return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
@@ -53,11 +58,15 @@ class PageContent extends Component {
       render = () => {
        return this.state.logInSuccess ? 
         ([
-            <Header districtName="CVUHSD" headerTitle="Portal" fullName={ undefsafe(this.state, "fullName")|| "CVUHSD User"} />,
+            <Header districtName="CVUHSD" 
+                    headerTitle="Portal" 
+                    fullName={ undefsafe(this.state, "fullName")|| "CVUHSD User"} 
+                    modifyLogInStatus={ this.modifyLogInStatus }
+            />,
             <div className="page-content">
                 { this.generateBlueSections(this.testProps)}
             </div>
-        ]) : (<Redirect to="/login" />);
+        ]) : (<Redirect to="/login" />); //A protected route
       }; //end render()
 } //end PageContent class
 

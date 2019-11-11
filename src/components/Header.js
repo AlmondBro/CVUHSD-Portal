@@ -139,7 +139,7 @@ let Greeting = styled("h3")`
 const Header = (props) => {
     return ([
         <NavigationBarHeader>
-            <NavigationBar />
+            <NavigationBar  modifyLogInStatus={props.modifyLogInStatus} />
         </NavigationBarHeader>,
 
         <DashboardHeaderContainer id="back-to-top">
