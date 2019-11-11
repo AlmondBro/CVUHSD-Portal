@@ -85,18 +85,8 @@ app.use(requestIp.mw())
 app.use(passport.initialize());
 app.use(passport.session());
 
-/*
-app.use(csp({
-  directives: {
-    imgSrc: [`'self'`, `imgur.com`]
-  }
-}));
-*/
-
-
 //Need to use absolute paths relative to where the web.config file is when using Express in IISNode. 
 // If not using url rewrite, specifiy extension
-
 let aboutIISNode_URL = `${isDev ? "" : "/server"}/about-IIS-Node`
 
 //Routes
@@ -168,7 +158,7 @@ app.post(logIn_URL,
       if (error) {
         console.log("invalid credentials error:\t" + error);
         //res.status(401).send(error);
-        res.json({"success" : false, "message" : "Invalid password", "user": user});
+        res.json({"success" : false, "message" : JSON.stringify(error) || "Invalid password", "user": user});
       } else if (!user) {
         console.log("else if !user");        
        // res.status(401).send(info);

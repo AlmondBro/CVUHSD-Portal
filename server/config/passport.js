@@ -1,4 +1,3 @@
-require('dotenv').config({path: __dirname + './../../.env', debug: false}) //Load environmental variables
 
 //TODO: Fix serialize errors upon improper authentication
 
@@ -8,6 +7,7 @@ const fs = require('fs'),
       SamlStrategy = require('passport-saml').Strategy,
       wsfedsaml2 = require("passport-wsfed-saml2").Strategy,
       ActiveDirectoryStrategy = require("passport-activedirectory");
+      require('dotenv').config({path: path.join(__dirname, './../../.env'), debug: true}) //Load environmental variables
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -58,7 +58,8 @@ passport.deserializeUser(function(id, next) {
 const username = process.env.ADFS_USER_NAME;
 const pass = process.env.ADFS_USER_PASSWORD;
 
-let active_directory_config = { url: process.env.ADFS_SERVER_URL,
+let active_directory_config = { 
+  url: process.env.ADFS_SERVER_URL,
   baseDN: process.env.LDAP_BASEDN,
   username: username,
   password: pass,
@@ -71,7 +72,7 @@ let ADFS_SAML_CONFIG = {
     entryPoint: process.env.ADFS_IDP,
     issuer: 'https://portal.centinela.k12.ca.us', //issuer string to supply to identity provider
     callbackUrl: process.env.ADFS_IDP, //full callbackUrl (overrides path/protocol if supplied)
-    privateCert: fs.readFileSync(path.join(__dirname, '/../../certificates/ADFS_Signing.pem'), 'utf-8'), //Authentication requests sent by Passport-SAML can be signed using RSA-SHA1. To sign them you need to provide a private key in the PEM format via the privateCert configuration key. The certificate should start with -----BEGIN PRIVATE KEY----- on its own line and end with -----END PRIVATE KEY----- on its own line.
+    //privateCert: fs.readFileSync(path.join(__dirname, '/../../certificates/ADFS_Signing.pem'), 'utf-8'), //Authentication requests sent by Passport-SAML can be signed using RSA-SHA1. To sign them you need to provide a private key in the PEM format via the privateCert configuration key. The certificate should start with -----BEGIN PRIVATE KEY----- on its own line and end with -----END PRIVATE KEY----- on its own line.
     cert: [process.env.ADFS_SIGNING_CERT], //the IDP's public signing certificate used to validate the signatures of the incoming SAML Responses
   // other authn contexts are available e.g. windows single sign-on
     authnContext: 'http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/password',
@@ -112,7 +113,7 @@ passport.use(new ActiveDirectoryStrategy({
   ldap: active_directory_config
 },  (profile, ad, done) => {
   //This function is a verify callback -- strategies require this and the purpose is to find the user that possesses this set of credentials
-  ad.isUserMemberOf(profile._json.dn, 'Domain Users', function (err, isMember) {
+  ad.isUserMemberOf(profile._json.dn, 'Domain Users', (err, isMember) => {
     if (err) return done(err);
     return done(null, profile);
   });
