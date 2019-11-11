@@ -196,7 +196,7 @@ const NavigationBar = (props) => {
         ); //end map()
     }; //end generateNavBarListItems()
 
-    let logOut = (props) => {
+    let logOut = () => {
         // let corsProxy = 'https://cors-anywhere.herokuapp.com/';
          let logOut_URL = `${isDev ? "" : "/server" }/login`
          //let fetchURL = isDev ? corsProxy + request_URL : request_URL;
