@@ -331,14 +331,14 @@ class LogIn extends Component {
                 console.log("Success!!!");
                 console.log((response));
 
-                //had loginsuccess true in here
-                this.modifyLogInStatus(true);
-
                 this.setState({ message: response.message,
                                 firstName: response.userInfo["givenName"],
                                 lastName: response.userInfo["sn"]
                              }
                 );  
+
+                this.modifyLogInStatus(true); //Set loggedIn to true after populating the first and last name, for a true login renders the portal buttons page
+
 
                 //TODO: Conditionally render an isStudent variable
                 setTimeout((response) => {
