@@ -18,7 +18,7 @@ class PageContent extends Component {
     constructor(props) {
         super(props);
         console.log("PageContent Props:\t" + JSON.stringify(this.props) );
-
+        this.modifyLogInStatus =  this.props.location.state.modifyLogInStatus;
         this.state = {
             fullName : undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
             logInSuccess :  undefsafe(this.props.location.state, "logInSuccess"),
@@ -30,10 +30,6 @@ class PageContent extends Component {
       testProps = {
         blueSection_objectsArray: blueSectionInfo_Staff
     };
-
-    modifyLogInStatus = (trueOrFalse) => {
-        this.props.location.state.modifyLogInStatus(trueOrFalse);
-    }; //end modifyLogInStatus()
     
       generateBlueSections = (props) => {
         return props.blueSection_objectsArray.map( (blueSection_Object, index) => {

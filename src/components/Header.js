@@ -137,7 +137,7 @@ let Greeting = styled("h3")`
 `; //end Greeting
 
 const Header = ( { modifyLogInStatus, ...props }) => {
-    console.log("Header props:\t" + props)
+    console.log("Header props:\t" + JSON.stringify(props) );
     return ([
         <NavigationBarHeader>
             <NavigationBar 
