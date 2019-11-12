@@ -14,7 +14,7 @@ import undefsafe from 'undefsafe';
 
 import isDev from 'isdev';
 
-//TODO: Upon click in result button, clear the form data and remove message -- set loginsuccess to null
+//TODO: Upon click in result button, clear the form data and remove message -- set loggedIn to null
 //TODO: Create function that fetches the IP Address
 //TODO: Create reset-password functionality
 
@@ -238,7 +238,6 @@ class LogIn extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            logInSuccess: null,
             isStudent: true,
             username: "",
             password: "",
@@ -250,6 +249,9 @@ class LogIn extends Component {
         } //end state object
         console.log("Props:\t" + JSON.stringify(this.props) );
     }; //end constructor
+
+
+    modifyLogInStatus = this.props.modifyLogInStatus;
 
     handleInputChange = (event) => {
         const target = event.target;
@@ -288,8 +290,9 @@ class LogIn extends Component {
                     console.log("Block 2");
                     console.log("Response object:\t" + JSON.stringify(response) ); //a response does not appear to be a
                     console.log(response);
-                    this.setState({ logInSuccess: false, 
-                                    isLoading: false,
+
+                    this.modifyLogInStatus(false);
+                    this.setState({ isLoading: false,
                                     message: "Please supply both a username and a password"
                                     }
                                 ); 
@@ -301,11 +304,12 @@ class LogIn extends Component {
                     console.log("Response:\t" + JSON.stringify(response) ); //a response does not appear to be a
                     console.log(response);
                     
-                    this.setState({ logInSuccess: false, 
-                                    isLoading: false,
+                    this.modifyLogInStatus(false);
+                    this.setState({ isLoading: false,
                                     message: (`Server Response Error:\t ${response.status} `) 
                                                 + response.statusText
-                    });
+                                }
+                    );
                     return response.json();
                     //return;
                     //throw new Error("Bad response from server");
@@ -314,7 +318,9 @@ class LogIn extends Component {
                 console.log("Block 3");
                 console.log("Response object:\t" + JSON.stringify(response) ); //a response does not appear to be a
                 console.log(response);
-                this.setState({logInSuccess: false, message: response.message, isLoading: false});
+
+                this.modifyLogInStatus(false);
+                this.setState({ message: response.message,isLoading: false });
                 //return;
                 return response.json();
             }
@@ -326,8 +332,9 @@ class LogIn extends Component {
                 console.log((response));
 
                 //had loginsuccess true in here
-                this.setState({ logInSuccess: true,  
-                                message: response.message,
+                this.modifyLogInStatus(true);
+
+                this.setState({ message: response.message,
                                 firstName: response.userInfo["givenName"],
                                 lastName: response.userInfo["sn"]
                              }
@@ -345,13 +352,15 @@ class LogIn extends Component {
                 console.log(response);
                 console.log("Front-end response:\t" + JSON.stringify(response) );
                 let message = undefsafe(response, 'message') || "Please supply both a username and a password"
-                this.setState({logInSuccess: false, message: message, isLoading: false});
+                
+                this.modifyLogInStatus(false);
+                this.setState({message: message, isLoading: false});
             }
         }).catch((err) => {
+            this.modifyLogInStatus(false);
             this.setState(
                     {
                         isLoading: false,
-                        logInSuccess: false,
                         message: `Error: ${err}`
                     }
             );
@@ -361,8 +370,8 @@ class LogIn extends Component {
 
     resetButtonListener = (event) => {
         if (event.target.id === 'reset-button' || event.target.id === 'result-button') {
+            this.modifyLogInStatus(null);
             this.setState({
-                logInSuccess: null,
                 isLoading: false,
                 username: "",
                 password: "",
@@ -421,8 +430,9 @@ class LogIn extends Component {
 
     render = () => { 
         document.title = "CVUHSD | Portal Login"
-        if (this.state.logInSuccess === true) {
+        if (this.props.loggedIn === true) {
            console.log("Success - correct password & username....!!");
+            this.modifyLogInStatus(true);
             return (<Redirect to={ {
                                     pathname: "/page-content",
                                     state: { fullName: `${this.state.firstName}\t ${this.state.lastName}`, logInSuccess: true }
@@ -470,20 +480,14 @@ class LogIn extends Component {
                         />
                     </p>
                     <p className="form-buttons-container">
-                         {/*  &#10003; -- checkmark 
+                         {
+                            /*  &#10003; -- checkmark 
                             &#215; -- close
                             //TODO: Need to find HTML entities
-                            //TODO: Add a form reset
-                             onClick={
-                                        this.setState({
-                                            logInSuccess: null,
-                                            username: "",
-                                            password: ""
-                                        })
-                                    }
-                        */}
+                            */
+                        }
                         <FormButton type="submit">Submit</FormButton>
-                        { this.state.logInSuccess === null ? "" : 
+                        { this.props.loggedIn === null ? "" : 
                             (  <ResetButton id="reset-button"
                                             type="reset"
                                             title="Reset form"
@@ -499,9 +503,9 @@ class LogIn extends Component {
                                     color={'#1f6b92'}
                                 /> : "" 
                         }
-                        { this.state.logInSuccess === null ? "" : 
+                        { this.props.loggedIn === null ? "" : 
                             (   <ResultButton id="result-button" title="Reset form"> 
-                                    {this.state.logInSuccess === true ? "✓" : "×"}
+                                    {this.props.loggedIn === true ? "✓" : "×"}
                                 </ResultButton> )
                         }
                         <ResultMessage>{"\t" + this.state.message}</ResultMessage>

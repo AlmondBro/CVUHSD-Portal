@@ -60,7 +60,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     loggedIn: false,
+     loggedIn: null,
      containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
@@ -89,13 +89,15 @@ class App extends Component {
             />
             <Route path="/login" 
                   render={ (props) => <LogIn  {...props} 
+                                              loggedIn={ this.state.loggedIn}
                                               modifyLogInStatus={ this.modifyLogInStatus } 
                                               changeContainerStyle={this.changeContainerStyle} 
                                         /> 
                           } 
             />
             <Route path="/page-content" 
-                  render={ (props) => <PageContent  {...props}  
+                  render={ (props) => <PageContent  {...props} 
+                                                    loggedIn={ this.state.loggedIn}
                                                     modifyLogInStatus={this.modifyLogInStatus} 
                                                     changeContainerStyle={this.changeContainerStyle} 
                                       /> } 
