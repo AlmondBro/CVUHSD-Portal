@@ -124,7 +124,7 @@ class App extends Component {
 
 
   componentDidMount = () => {
-    //this.isAuthenticated();
+    this.isAuthenticated();
   };
 
   render = () => {
