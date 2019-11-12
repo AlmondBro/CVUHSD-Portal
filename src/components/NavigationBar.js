@@ -7,7 +7,7 @@ import { staff_HeaderLinks } from "./../objectFiles/headerListItems.js";
 
 import isDev from 'isdev';
 
-const NavigationBar = (props) => {
+const NavigationBar = ({modifyLogInStatus, ...props}) => {
     let NavBar = styled.nav`
         display: inline-block;
 
@@ -197,7 +197,9 @@ const NavigationBar = (props) => {
     }; //end generateNavBarListItems()
 
     let logOut = () => {
-        // let corsProxy = 'https://cors-anywhere.herokuapp.com/';
+        console.log(props);
+        console.log("Props:\t" + JSON.stringify(props));
+         // let corsProxy = 'https://cors-anywhere.herokuapp.com/';
          let logOut_URL = `${isDev ? "" : "/server" }/login`
          //let fetchURL = isDev ? corsProxy + request_URL : request_URL;
  
@@ -207,7 +209,7 @@ const NavigationBar = (props) => {
  
          fetch(logOut_URL, {
              method: 'GET',
-             headers: ipHeaders
+             //headers: ipHeaders
          }).then((response) => { 
              console.log("GetIP Block 1");
              console.log("Response:\t" + JSON.stringify(response));
@@ -215,7 +217,7 @@ const NavigationBar = (props) => {
          }).then( (response) => {
              console.log("GetIP Block 2");
              console.log("Response:\t" + JSON.stringify(response));
-             props.modifyLogInStatus(false);
+             modifyLogInStatus(false);
              //this.setState({logInSuccess: `${!response.logOutSuccess}`});
          }).catch( (error) => {
              console.log("GetIP Block 3");

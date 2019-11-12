@@ -136,10 +136,13 @@ let Greeting = styled("h3")`
     }
 `; //end Greeting
 
-const Header = (props) => {
+const Header = ( { modifyLogInStatus, ...props }) => {
+    console.log("Header props:\t" + props)
     return ([
         <NavigationBarHeader>
-            <NavigationBar  modifyLogInStatus={props.modifyLogInStatus} />
+            <NavigationBar 
+                modifyLogInStatus={modifyLogInStatus} 
+            />
         </NavigationBarHeader>,
 
         <DashboardHeaderContainer id="back-to-top">
