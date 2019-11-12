@@ -115,8 +115,8 @@ class App extends Component {
     }).then((response) => {
         console.log("Jeff is cool!! And buff!!!");
         console.log("Response:!!\t" + JSON.stringify(response) );
-
-        this.modifyLogInStatus(response["Authenticated"]);
+        response.Authenticated ? this.modifyLogInStatus(true) : this.modifyLogInStatus(null);
+        ;
     }).catch((err) => {
         console.log(`Catching error:\t ${err}`);
     });
