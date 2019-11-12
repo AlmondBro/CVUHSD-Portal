@@ -48,7 +48,7 @@ class PageContent extends Component {
 
     
     componentDidMount = (props) => {
-        this.props.changeContainerStyle({"background": "red !important", "background-image": "none" });
+        this.props.changeContainerStyle({"background-image": "none" });
     };
     
       render = () => {

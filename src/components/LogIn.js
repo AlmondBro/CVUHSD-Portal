@@ -422,6 +422,8 @@ class LogIn extends Component {
             https://stackoverflow.com/questions/44820394/fire-event-listener-on-element-not-rendered-in-react
             // */
         document.addEventListener('click', this.resetButtonListener);
+
+        this.props.changeContainerStyle({"background-image": `url("./images/district-office-blueBG.jpg")` });        
     }; //end componentDidMount()
 
     componentWillUnmount = () => {
