@@ -250,7 +250,6 @@ class LogIn extends Component {
         console.log("Props:\t" + JSON.stringify(this.props) );
     }; //end constructor
 
-
     modifyLogInStatus = this.props.modifyLogInStatus;
 
     handleInputChange = (event) => {
@@ -424,6 +423,7 @@ class LogIn extends Component {
         document.addEventListener('click', this.resetButtonListener);
 
         this.props.changeContainerStyle({"background-image": `url("./images/district-office-blueBG.jpg")` });        
+        this.modifyLogInStatus(null);
     }; //end componentDidMount()
 
     componentWillUnmount = () => {
