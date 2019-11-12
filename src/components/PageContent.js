@@ -54,9 +54,9 @@ class PageContent extends Component {
         this.props.changeContainerStyle({"background-image": "none" });
     };
     
-      render = () => {
-       return this.props.loggedIn ? 
-        ([
+    render = () => {
+       return (
+           [
             <Header districtName="CVUHSD" 
                     headerTitle="Portal" 
                     fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
@@ -65,8 +65,9 @@ class PageContent extends Component {
             <div className="page-content">
                 { this.generateBlueSections(this.testProps)}
             </div>
-        ]) : (<Redirect to="/login" />); //A protected route
-      }; //end render()
+            ]
+        );
+    }; //end render()
 } //end PageContent class
 
 

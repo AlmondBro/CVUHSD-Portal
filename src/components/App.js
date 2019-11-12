@@ -19,6 +19,8 @@ import { Route, Switch } from "react-router-dom";
 import LogIn from './LogIn.js';
 import NotFound from './NotFound.js';
 
+import { PrivateRoute } from "./PrivateRoute.js";
+
 //TODO: Have /staff.html redirect to /staff
 
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
@@ -150,16 +152,15 @@ class App extends Component {
                                         /> 
                           } 
             />
-            <Route path="/page-content" 
-                  render={ (props) => <PageContent  {...props} 
-                                                    loggedIn={ this.state.loggedIn}
-                                                    fullName={this.state.fullName}
-                                                    isStudent={this.state.isStudent}
-                                                    modifyLogInStatus={this.modifyLogInStatus} 
-                                                    modifyStudentStatus={this.modifyStudentStatus}
-                                                    modifyFullName={this.modifyFullName}
-                                                    changeContainerStyle={this.changeContainerStyle} 
-                                      /> } 
+            <PrivateRoute path="/page-content" 
+                          loggedIn={this.state.loggedIn}
+                          fullName={this.state.fullName}
+                          isStudent={this.state.isStudent}
+                          modifyLogInStatus={this.modifyLogInStatus} 
+                          modifyStudentStatus={this.modifyStudentStatus}
+                          modifyFullName={this.modifyFullName}
+                          changeContainerStyle={this.changeContainerStyle} 
+                          component={ PageContent} 
             />
             <Route component={NotFound} />   
         </Switch>
