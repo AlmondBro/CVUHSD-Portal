@@ -73,6 +73,7 @@ class App extends Component {
   }; //end changeContainerStyle() function
 
   modifyLogInStatus = (trueOrFalse) => {
+    console.log("modifyLogInStatus() from App.js");
     this.setState({loggedIn: trueOrFalse});
   }
   

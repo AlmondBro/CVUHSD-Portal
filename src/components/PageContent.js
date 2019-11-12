@@ -18,10 +18,10 @@ class PageContent extends Component {
     constructor(props) {
         super(props);
         console.log("PageContent Props:\t" + JSON.stringify(this.props) );
-        this.modifyLogInStatus =  this.props.location.state.modifyLogInStatus;
+        this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
         this.state = {
             fullName : undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
-            logInSuccess :  undefsafe(this.props.location.state, "logInSuccess"),
+            logInSuccess :  this.props.loggedIn || undefsafe(this.props.location.state, "logInSuccess"),
             isStudent: undefsafe(this.props.location.state, "isStudent") || false
 
         }; //end state{} object
@@ -52,7 +52,7 @@ class PageContent extends Component {
     };
     
       render = () => {
-       return this.state.logInSuccess ? 
+       return this.props.loggedIn ? 
         ([
             <Header districtName="CVUHSD" 
                     headerTitle="Portal" 
