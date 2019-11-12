@@ -61,6 +61,8 @@ class App extends Component {
     super(props);
     this.state = {
      loggedIn: null,
+     fullName: "",
+     isStudent: null,
      containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
@@ -75,7 +77,17 @@ class App extends Component {
   modifyLogInStatus = (trueOrFalse) => {
     console.log("modifyLogInStatus() from App.js");
     this.setState({loggedIn: trueOrFalse});
-  }
+  }; //end modifyLogInStatus()
+
+  modifyStudentStatus = (trueOrFalse) => {
+    console.log("modifyStudentStatus() from App.js");
+    this.setState({isStudent: trueOrFalse});  
+  }; //end modifyFullName()
+
+  modifyFullName = (newName) => {
+    console.log("modifyFullName() from App.js");
+    this.setState({fullName: newName});  
+  }; //end modifyFullName()
   
   render = () => {
     return (
@@ -91,7 +103,9 @@ class App extends Component {
             <Route path="/login" 
                   render={ (props) => <LogIn  {...props} 
                                               loggedIn={ this.state.loggedIn}
-                                              modifyLogInStatus={ this.modifyLogInStatus } 
+                                              modifyLogInStatus={this.modifyLogInStatus} 
+                                              modifyStudentStatus={this.modifyStudentStatus}
+                                              modifyFullName={this.modifyFullName}
                                               changeContainerStyle={this.changeContainerStyle} 
                                         /> 
                           } 
@@ -100,6 +114,8 @@ class App extends Component {
                   render={ (props) => <PageContent  {...props} 
                                                     loggedIn={ this.state.loggedIn}
                                                     modifyLogInStatus={this.modifyLogInStatus} 
+                                                    modifyStudentStatus={this.modifyStudentStatus}
+                                                    modifyFullName={this.modifyFullName}
                                                     changeContainerStyle={this.changeContainerStyle} 
                                       /> } 
             />
