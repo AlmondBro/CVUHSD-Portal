@@ -1,6 +1,6 @@
-require('dotenv').config({path: __dirname + './../.env', debug: true}) //Load environmental variables
+require('dotenv').config({path: __dirname + './../.env', debug: false}) //Load environmental variables
 
-var isDev = require("isDev"); //Load environmental variables
+const isDev = require("isDev"); //Load environmental variables
 
 const express = require('express'); 
 const path = require('path');
@@ -11,7 +11,13 @@ const cors = require('cors');
 const passport = require("passport");
 
 const session = require("express-session");
-const csp = require('helmet-csp');
+
+const helmet = require('helmet');
+//const csp = require('helmet-csp');
+
+//const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
+
+const sslRootCAs = require('ssl-root-cas/latest');
 
 const requestIp = require('request-ip'); 
 
@@ -38,8 +44,13 @@ app.use(cors({
   'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
   'preflightContinue': false
 })); */
+
+app.use(helmet());
+//app.use(csp()); //Content Security Policy helps prevent unwanted content being injected into your webpages; this can mitigate cross-site scripting (XSS) vulnerabilities, malicious frames, unwanted trackers, and more
+
 app.use(cors());
 app.options('*', cors()) // include before other routes
+
 
 app.use( (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -47,6 +58,17 @@ app.use( (req, res, next) => {
   next();
 });
 
+
+const CVUHSD_CertificatePath = ('./../certificates/ssl-cvuhsd.cer');
+const ADFS_CertificatePath = ('./../certificates/ssl-cvuhsd.cer');
+
+//Inject certificates
+sslRootCAs.inject() 
+          .addFile(__dirname + CVUHSD_CertificatePath)
+          .addFile(__dirname + ADFS_CertificatePath)
+          ;
+  
+//app.use(rateLimiterRedisMiddleware);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -63,18 +85,8 @@ app.use(requestIp.mw())
 app.use(passport.initialize());
 app.use(passport.session());
 
-/*
-app.use(csp({
-  directives: {
-    imgSrc: [`'self'`, `imgur.com`]
-  }
-}));
-*/
-
-
 //Need to use absolute paths relative to where the web.config file is when using Express in IISNode. 
 // If not using url rewrite, specifiy extension
-
 let aboutIISNode_URL = `${isDev ? "" : "/server"}/about-IIS-Node`
 
 //Routes
@@ -85,18 +97,42 @@ app.get(aboutIISNode_URL,  (req, res)  =>{
 }); 
 
 let logIn_URL = `${isDev ? "" : "/server" }/login`
+let logOut_URL = `${isDev ? "" : "/server" }/logout`
 
 //Routes
 app.get(logIn_URL, (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
- 
+
+app.get(logOut_URL, (req, res, err) => {
+  console.log("Error:\t" + err);
+
+  if (req.user || req.isAuthenticated()) {
+    req.session.destroy(
+      (err) => {
+        if (!err) {
+            res.status(200).clearCookie('connect.sid', {path: '/'}).json({status: "Lpgout success"});
+        } else {
+            // handle error case...
+        } //end else-statement
+      } //code snippet courtesy of https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
+    );
+    req.logOut();
+    res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //status 401 is logged out
+  } //end if-statement
+  
+  if ( (!(req.user)) || req.isUnauthenticated()) {
+    console.log("Already logged out");
+  } 
+  
+  console.log("Neither logged in nor out");
+  
+});
  
 //app.options('/login', cors()); // enable pre-flight request for DELETE request
 
 let passportAuthentication_options = {  failWithError: true, 
                                         session: true,
                                         failureFlash: true 
-       
-                                 }
+                                    }
 
 //TODO: Find a way so that if users input with the domain "@cvuhsd.org", they are also authenticated
 app.post(logIn_URL,
@@ -108,17 +144,21 @@ app.post(logIn_URL,
       // this will execute in any case, even if a passport strategy will find an error
       // log everything to 
       
+     // let userInfo = {...user["_json"], ...user["name"]};
+     // res.locals.userInfo = userInfo; //To 'pass a variable' to a middleware, attach it to the response.locals object
+      //console.log("User:\t" + JSON.stringify(userInfo) );
       console.log("\n------------------");
       console.log("Error:\t" + error);
-      console.log("User:\t" + JSON.stringify(user) );
+    
       console.log("Info:\t" + info);
 
+      console.log(`\nUser password:\t ${req.body.password} \n Username:\t ${req.body.username}`);
      // let statusCode = /InvalidCredentialsError/.test(error.stack) || "";
       // || ( (statusCode == "401") || (statusCode == "500") )
       if (error) {
         console.log("invalid credentials error:\t" + error);
         //res.status(401).send(error);
-        res.json({"success" : false, "message" : "Invalid password"});
+        res.json({"success" : false, "message" : "Invalid password", "user": user});
       } else if (!user) {
         console.log("else if !user");        
        // res.status(401).send(info);
@@ -130,7 +170,8 @@ app.post(logIn_URL,
       req.logIn(user, (err) => {
           if (err) { return next(err); }
           
-          res.locals.userInfo = user; //To 'pass a variable' to a middleware, attach it to the response.locals object
+          let userInfo = {...user["_json"], ...user["name"]};
+          res.locals.userInfo = userInfo; //To 'pass a variable' to a middleware, attach it to the response.locals object
           console.log("Logged in successfully -- Calling next() -- go to next middleware");
           
          // return done(null, user); //causes error

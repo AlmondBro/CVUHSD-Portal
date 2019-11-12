@@ -1,6 +1,7 @@
 let CVUHSD_HomeLink = {
     href: "https://www.centinela.k12.ca.us/",
-    title: "CVUHSD Home"
+    title: "CVUHSD Home",
+    navShow: true
 };  
 
 let quickLinks = {
@@ -45,7 +46,8 @@ let schoolWebsites = {
 
 let allTools = {
     href: "#allTools-blueSection",
-    title: "All Links"
+    title: "All Links",
+    navShow: true
 };
 
 let staff_HeaderLinks = [
