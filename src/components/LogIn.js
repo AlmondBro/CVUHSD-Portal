@@ -432,7 +432,6 @@ class LogIn extends Component {
         document.title = "CVUHSD | Portal Login"
         if (this.props.loggedIn === true) {
            console.log("Success - correct password & username....!!");
-            this.modifyLogInStatus(true);
             return (<Redirect to={ {
                                     pathname: "/page-content",
                                     state: { fullName: `${this.state.firstName}\t ${this.state.lastName}`, logInSuccess: true }
