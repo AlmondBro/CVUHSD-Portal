@@ -209,7 +209,9 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
          };
  
          fetch(logOut_URL, {
-             method: 'GET',
+            method: 'GET',
+            credentials: 'include',
+            mode: 'no-cors'
              //headers: ipHeaders
          }).then((response) => { 
              console.log("GetIP Block 1");

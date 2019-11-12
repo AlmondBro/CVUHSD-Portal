@@ -249,12 +249,13 @@ class LogIn extends Component {
             ipAddress: ""
         }; //end state object
 
+        
+        this.modifyLogInStatus = this.props.modifyLogInStatus;
         this.modifyStudentStatus = this.props.modifyStudentStatus;
         this.modifyFullName = this.props.modifyFullName;
         console.log("Props:\t" + JSON.stringify(this.props) );
     }; //end constructor
 
-    modifyLogInStatus = this.props.modifyLogInStatus;
 
     handleInputChange = (event) => {
         const target = event.target;
