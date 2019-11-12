@@ -18,11 +18,14 @@ class PageContent extends Component {
     constructor(props) {
         super(props);
         console.log("PageContent Props:\t" + JSON.stringify(this.props) );
-        this.modifyLogInStatus =  this.props.location.state.modifyLogInStatus;
+        this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
+        this.modifyStudentStatus = this.props.modifyStudentStatus;
+        this.modifyFullName = this.props.modifyFullName;
+
         this.state = {
-            fullName : undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
-            logInSuccess :  undefsafe(this.props.location.state, "logInSuccess"),
-            isStudent: undefsafe(this.props.location.state, "isStudent") || false
+            fullName : this.props.fullName || undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
+            logInSuccess :  this.props.loggedIn || undefsafe(this.props.location.state, "logInSuccess"),
+            isStudent: this.props.isStudent || undefsafe(this.props.location.state, "isStudent") || false
 
         }; //end state{} object
       } //end constructor
@@ -48,15 +51,15 @@ class PageContent extends Component {
 
     
     componentDidMount = (props) => {
-        this.props.changeContainerStyle({"background": "red !important", "background-image": "none" });
+        this.props.changeContainerStyle({"background-image": "none" });
     };
     
       render = () => {
-       return this.state.logInSuccess ? 
+       return this.props.loggedIn ? 
         ([
             <Header districtName="CVUHSD" 
                     headerTitle="Portal" 
-                    fullName={ undefsafe(this.state, "fullName")|| "CVUHSD User"} 
+                    fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
                     modifyLogInStatus={ this.modifyLogInStatus }
             />,
             <div className="page-content">

@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 //Import components
 import PageContent from "./PageContent.js";
 
+
+import isDev from 'isdev';
+
 //Import 3rd-party APIs
 import styled from 'styled-components';
 import css from 'styled-components';
@@ -61,6 +64,8 @@ class App extends Component {
     super(props);
     this.state = {
      loggedIn: null,
+     fullName: "",
+     isStudent: null,
      containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
@@ -73,15 +78,61 @@ class App extends Component {
   }; //end changeContainerStyle() function
 
   modifyLogInStatus = (trueOrFalse) => {
+    console.log("modifyLogInStatus() from App.js");
     this.setState({loggedIn: trueOrFalse});
-  }
+  }; //end modifyLogInStatus()
+
+  modifyStudentStatus = (trueOrFalse) => {
+    console.log("modifyStudentStatus() from App.js");
+    this.setState({isStudent: trueOrFalse});  
+  }; //end modifyFullName()
+
+  modifyFullName = (newName) => {
+    console.log("modifyFullName() from App.js");
+    this.setState({fullName: newName});  
+  }; //end modifyFullName()
   
+  isAuthenticated = () => {
+    //event.preventDefault();
+    console.log("Checking if authenticated...");
+
+    let logIn_URL = `${isDev ? "" : "/server" }/isloggedin`
+
+    this.setState({isLoading: true, message: "Loading..."});
+
+    //let isDev = false;
+    let headers = {
+        'Content-Type': 'application/json',
+        'credentials': 'include',
+        'mode': 'no-cors'
+    };
+
+    fetch(logIn_URL, {
+        method: 'GET',
+        headers: headers,
+    }).then((response) => {
+        return response.json();
+    }).then((response) => {
+        console.log("Jeff is cool!! And buff!!!");
+        console.log("Response:!!\t" + JSON.stringify(response) );
+        response.Authenticated ? this.modifyLogInStatus(true) : this.modifyLogInStatus(null);
+        ;
+    }).catch((err) => {
+        console.log(`Catching error:\t ${err}`);
+    });
+};
+
+
+  componentDidMount = () => {
+    this.isAuthenticated();
+  };
+
   render = () => {
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <Switch>
           
-            <Route exact path={"/" || "/login" || "/staff.html" || "/student.html"}
+            <Route exact path={"/" || "/staff.html" || "/student.html"}
                     render={ () => {
                         return (<Redirect to="/login" />);
                     }
@@ -90,7 +141,11 @@ class App extends Component {
             <Route path="/login" 
                   render={ (props) => <LogIn  {...props} 
                                               loggedIn={ this.state.loggedIn}
-                                              modifyLogInStatus={ this.modifyLogInStatus } 
+                                              fullName={this.state.fullName}
+                                              isStudent={this.state.isStudent}
+                                              modifyLogInStatus={this.modifyLogInStatus} 
+                                              modifyStudentStatus={this.modifyStudentStatus}
+                                              modifyFullName={this.modifyFullName}
                                               changeContainerStyle={this.changeContainerStyle} 
                                         /> 
                           } 
@@ -98,7 +153,11 @@ class App extends Component {
             <Route path="/page-content" 
                   render={ (props) => <PageContent  {...props} 
                                                     loggedIn={ this.state.loggedIn}
+                                                    fullName={this.state.fullName}
+                                                    isStudent={this.state.isStudent}
                                                     modifyLogInStatus={this.modifyLogInStatus} 
+                                                    modifyStudentStatus={this.modifyStudentStatus}
+                                                    modifyFullName={this.modifyFullName}
                                                     changeContainerStyle={this.changeContainerStyle} 
                                       /> } 
             />

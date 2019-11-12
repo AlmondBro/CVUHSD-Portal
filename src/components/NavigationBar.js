@@ -197,6 +197,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     }; //end generateNavBarListItems()
 
     let logOut = () => {
+        console.log("Logging out...button clicked\n\n\n");
         console.log(props);
         console.log("Props:\t" + JSON.stringify(props));
          // let corsProxy = 'https://cors-anywhere.herokuapp.com/';
@@ -217,6 +218,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
          }).then( (response) => {
              console.log("GetIP Block 2");
              console.log("Response:\t" + JSON.stringify(response));
+             console.log("Logging out");
              modifyLogInStatus(false);
              //this.setState({logInSuccess: `${!response.logOutSuccess}`});
          }).catch( (error) => {
