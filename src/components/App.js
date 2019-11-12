@@ -19,7 +19,7 @@ import { Route, Switch } from "react-router-dom";
 import LogIn from './LogIn.js';
 import NotFound from './NotFound.js';
 
-import { PrivateRoute } from "./PrivateRoute.js";
+import PrivateRoute from "./PrivateRoute.js";
 
 //TODO: Have /staff.html redirect to /staff
 
