@@ -73,12 +73,12 @@ sslRootCAs.inject()
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// app.use(session({
-//   secret: 'secret',
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: { secure: false, maxAge: 600000 }
-// }));
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false, maxAge: 600000 }
+}));
 
 app.use(requestIp.mw())
 
@@ -109,12 +109,12 @@ app.get(logOut_URL, (req, res, err) => {
     req.session.destroy(
       (err) => {
         if (!err) {
-            res.status(200).clearCookie('connect.sid', {path: '/'}).json({status: "Lpgout success"});
+            res.clearCookie('connect.sid', {path: '/'}).json({status: "Logout success"});
         } else {
             // handle error case...
         } //end else-statement
       } //code snippet courtesy of https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
-    );
+    );//end req.session.code()
     req.logOut();
     res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //status 401 is logged out
   } //end if-statement
@@ -191,12 +191,12 @@ app.post(logIn_URL,
 // Test endpoint to check whether user is authenticated
 let isAuth_URL = `${isDev ? "" : "/server" }/isloggedin`
 app.get(isAuth_URL, (req, res) => {
-  if (req.isAuthenticated()) {
+  if (req.user) {
       console.log("Currently Authenticated");
-      res.send('Authenticated!')
+      res.json({"Authenticated": true});
   } else {
     console.log("Currently Not Authenticated");
-    res.send('Not authenticated!')
+    res.json({"Authenticated": false});
   }
 });
 

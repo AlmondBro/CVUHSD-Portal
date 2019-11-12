@@ -237,6 +237,7 @@ const LoadingSpinner = ({ type, color, height, width}) => (
 class LogIn extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             isStudent: true,
             username: "",
@@ -246,10 +247,12 @@ class LogIn extends Component {
             message: "Enter username & password to login",
             isLoading: false,
             ipAddress: ""
-        } //end state object
+        }; //end state object
+
+        this.modifyStudentStatus = this.props.modifyStudentStatus;
+        this.modifyFullName = this.props.modifyFullName;
         console.log("Props:\t" + JSON.stringify(this.props) );
     }; //end constructor
-
 
     modifyLogInStatus = this.props.modifyLogInStatus;
 
@@ -331,11 +334,8 @@ class LogIn extends Component {
                 console.log("Success!!!");
                 console.log((response));
 
-                this.setState({ message: response.message,
-                                firstName: response.userInfo["givenName"],
-                                lastName: response.userInfo["sn"]
-                             }
-                );  
+                this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["sn"]);
+                this.setState({ message: response.message });  
 
                 this.modifyLogInStatus(true); //Set loggedIn to true after populating the first and last name, for a true login renders the portal buttons page
 
@@ -422,6 +422,9 @@ class LogIn extends Component {
             https://stackoverflow.com/questions/44820394/fire-event-listener-on-element-not-rendered-in-react
             // */
         document.addEventListener('click', this.resetButtonListener);
+
+        this.props.changeContainerStyle({"background-image": `url("./images/district-office-blueBG.jpg")` });        
+        this.modifyLogInStatus(null);
     }; //end componentDidMount()
 
     componentWillUnmount = () => {
