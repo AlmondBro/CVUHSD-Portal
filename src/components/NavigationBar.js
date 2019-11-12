@@ -5,8 +5,9 @@ import styled from "styled-components";
 
 import { staff_HeaderLinks } from "./../objectFiles/headerListItems.js"; 
 
+import isDev from 'isdev';
 
-const NavigationBar = (props) => {
+const NavigationBar = ({modifyLogInStatus, ...props}) => {
     let NavBar = styled.nav`
         display: inline-block;
 
@@ -160,6 +161,18 @@ const NavigationBar = (props) => {
         text-decoration: none;
     `; 
 
+    let LogOutButton = styled("button")`
+        color: white;
+        background-color: #1e6c93;
+        padding: 0.5em 0.7em;
+        border: 0px;
+        border-radius: 3px;
+
+        &:hover {
+            background-color: #3b709a;
+        }
+    `; //end LogOut Button
+
     let NavBarListItemLi = (props) => {
         return (
             <li>
@@ -183,6 +196,35 @@ const NavigationBar = (props) => {
         ); //end map()
     }; //end generateNavBarListItems()
 
+    let logOut = () => {
+        console.log(props);
+        console.log("Props:\t" + JSON.stringify(props));
+         // let corsProxy = 'https://cors-anywhere.herokuapp.com/';
+         let logOut_URL = `${isDev ? "" : "/server" }/login`
+         //let fetchURL = isDev ? corsProxy + request_URL : request_URL;
+ 
+         let ipHeaders = {
+             'Content-Type': 'text'
+         };
+ 
+         fetch(logOut_URL, {
+             method: 'GET',
+             //headers: ipHeaders
+         }).then((response) => { 
+             console.log("GetIP Block 1");
+             console.log("Response:\t" + JSON.stringify(response));
+             return response.json();
+         }).then( (response) => {
+             console.log("GetIP Block 2");
+             console.log("Response:\t" + JSON.stringify(response));
+             modifyLogInStatus(false);
+             //this.setState({logInSuccess: `${!response.logOutSuccess}`});
+         }).catch( (error) => {
+             console.log("GetIP Block 3");
+             console.log(`Error:\t ${error}`);
+         });  
+     }; //end getIPAddress()
+
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
 
     return (
@@ -203,7 +245,7 @@ const NavigationBar = (props) => {
                 </label>
 
                 { generateNavBarListItems(staff_HeaderLinks) }
-
+                <LogOutButton onClick={logOut}>Logout</LogOutButton>
             </NavBarUL>
         </NavBar>
     );

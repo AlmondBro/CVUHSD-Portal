@@ -85,18 +85,8 @@ app.use(requestIp.mw())
 app.use(passport.initialize());
 app.use(passport.session());
 
-/*
-app.use(csp({
-  directives: {
-    imgSrc: [`'self'`, `imgur.com`]
-  }
-}));
-*/
-
-
 //Need to use absolute paths relative to where the web.config file is when using Express in IISNode. 
 // If not using url rewrite, specifiy extension
-
 let aboutIISNode_URL = `${isDev ? "" : "/server"}/about-IIS-Node`
 
 //Routes
@@ -107,18 +97,42 @@ app.get(aboutIISNode_URL,  (req, res)  =>{
 }); 
 
 let logIn_URL = `${isDev ? "" : "/server" }/login`
+let logOut_URL = `${isDev ? "" : "/server" }/logout`
 
 //Routes
 app.get(logIn_URL, (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
- 
+
+app.get(logOut_URL, (req, res, err) => {
+  console.log("Error:\t" + err);
+
+  if (req.user || req.isAuthenticated()) {
+    req.session.destroy(
+      (err) => {
+        if (!err) {
+            res.status(200).clearCookie('connect.sid', {path: '/'}).json({status: "Lpgout success"});
+        } else {
+            // handle error case...
+        } //end else-statement
+      } //code snippet courtesy of https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
+    );
+    req.logOut();
+    res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //status 401 is logged out
+  } //end if-statement
+  
+  if ( (!(req.user)) || req.isUnauthenticated()) {
+    console.log("Already logged out");
+  } 
+  
+  console.log("Neither logged in nor out");
+  
+});
  
 //app.options('/login', cors()); // enable pre-flight request for DELETE request
 
 let passportAuthentication_options = {  failWithError: true, 
                                         session: true,
                                         failureFlash: true 
-       
-                                 }
+                                    }
 
 //TODO: Find a way so that if users input with the domain "@cvuhsd.org", they are also authenticated
 app.post(logIn_URL,

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import {  Redirect } from 'react-router'
+
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header.js";
@@ -7,10 +9,22 @@ import Header from "./Header.js";
 //Import list of buttons
 import { blueSectionInfo_Staff } from "./../objectFiles/blueSectionInfo.js";
 
+import isDev from 'isdev';
+import undefsafe from 'undefsafe';
+import { thisExpression } from "@babel/types";
+
+//TODO: Save passed props from <Rediret> into state.
 class PageContent extends Component {
     constructor(props) {
         super(props);
         console.log("PageContent Props:\t" + JSON.stringify(this.props) );
+        this.modifyLogInStatus =  this.props.location.state.modifyLogInStatus;
+        this.state = {
+            fullName : undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
+            logInSuccess :  undefsafe(this.props.location.state, "logInSuccess"),
+            isStudent: undefsafe(this.props.location.state, "isStudent") || false
+
+        }; //end state{} object
       } //end constructor
 
       testProps = {
@@ -31,18 +45,24 @@ class PageContent extends Component {
             );
         });
     };
+
     
     componentDidMount = (props) => {
         this.props.changeContainerStyle({"background": "red !important", "background-image": "none" });
     };
     
       render = () => {
-        return ([
-            <Header districtName="CVUHSD" headerTitle="Portal" fullName={this.props.location.state.fullName || "CVUHSD User"} />,
+       return this.state.logInSuccess ? 
+        ([
+            <Header districtName="CVUHSD" 
+                    headerTitle="Portal" 
+                    fullName={ undefsafe(this.state, "fullName")|| "CVUHSD User"} 
+                    modifyLogInStatus={ this.modifyLogInStatus }
+            />,
             <div className="page-content">
                 { this.generateBlueSections(this.testProps)}
             </div>
-        ]);
+        ]) : (<Redirect to="/login" />); //A protected route
       }; //end render()
 } //end PageContent class
 
