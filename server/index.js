@@ -77,6 +77,7 @@ app.use(session({
   secret: 'secret',
   resave: false,
   saveUninitialized: false,
+  key: 'express.sid',
   cookie: { secure: false, maxAge: 600000 }
 }));
 
@@ -109,9 +110,12 @@ app.get(logOut_URL, (req, res, err) => {
     req.session.destroy(
       (err) => {
         if (!err) {
-            res.clearCookie('connect.sid', {path: '/'}).json({status: "Logout success"});
+            console.log("Clear cookie...");
+            //res.clearCookie('express.sid', {path: '/'}).json({status: "Logout success"});
+            rescookie("express.sid", "", { expires: new Date() });
         } else {
-            // handle error case...
+            // handle error case
+            console.log(" Destroy Cookie error");
         } //end else-statement
       } //code snippet courtesy of https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
     );//end req.session.code()
