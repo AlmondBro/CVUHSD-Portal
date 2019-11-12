@@ -60,7 +60,7 @@ const BlueSection = (props) => {
         } else if (props.buttonRowID === "webAdminButtonRow") {
             return (
                     <iframe title="All Links Google Sheets"
-                            class="google-sheet" 
+                            className="google-sheet" 
                             src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSOPMzFTLmTXsOzY172KN_3IaJqeO9bLPl_3TIgc_bBQiWEanznykV6cEiPBuV9WUHEnL2vesphHEWZ/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
                     >
                     </iframe>);
@@ -134,10 +134,12 @@ const BlueSection = (props) => {
     `; //end openColumnButton
 
     let ButtonRow = styled.div`
-        margin: 3.5% auto;
-
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
         height: 0;
-        margin: 0;
+        margin: 0 auto;
         transition: height, margin 0.5s;
     `;
 

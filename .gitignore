@@ -62,6 +62,18 @@ reagent-reactjs/node_modules
 
 #Ignore certificates folder
 certificates/*
+/certificates
+
+#Ignore certificates
+*.crt
+*.der
+*.pem
+
+#Ignore IIS configs
+*.config
+
+#Ignore static HTML folder file
+static-files/
 
 # misc
 .DS_Store
