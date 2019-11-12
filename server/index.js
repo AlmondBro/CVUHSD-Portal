@@ -191,12 +191,12 @@ app.post(logIn_URL,
 // Test endpoint to check whether user is authenticated
 let isAuth_URL = `${isDev ? "" : "/server" }/isloggedin`
 app.get(isAuth_URL, (req, res) => {
-  if (req.isAuthenticated()) {
+  if (req.user) {
       console.log("Currently Authenticated");
-      res.send('Authenticated!')
+      res.json({"Authenticated": true});
   } else {
     console.log("Currently Not Authenticated");
-    res.send('Not authenticated!')
+    res.json({"Authenticated": false});
   }
 });
 

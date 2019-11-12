@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 //Import components
 import PageContent from "./PageContent.js";
 
+
+import isDev from 'isdev';
+
 //Import 3rd-party APIs
 import styled from 'styled-components';
 import css from 'styled-components';
@@ -89,12 +92,47 @@ class App extends Component {
     this.setState({fullName: newName});  
   }; //end modifyFullName()
   
+  isAuthenticated = () => {
+    //event.preventDefault();
+    console.log("Checking if authenticated...");
+
+    let logIn_URL = `${isDev ? "" : "/server" }/isloggedin`
+
+    this.setState({isLoading: true, message: "Loading..."});
+
+    //let isDev = false;
+    let headers = {
+        'Content-Type': 'application/json',
+        'credentials': 'include',
+        'mode': 'no-cors'
+    };
+
+    fetch(logIn_URL, {
+        method: 'GET',
+        headers: headers,
+    }).then((response) => {
+        return response.json();
+    }).then((response) => {
+        console.log("Jeff is cool!! And buff!!!");
+        console.log("Response:!!\t" + JSON.stringify(response) );
+
+        this.modifyLogInStatus(response["Authenticated"]);
+    }).catch((err) => {
+        console.log(`Catching error:\t ${err}`);
+    });
+};
+
+
+  componentDidMount = () => {
+    //this.isAuthenticated();
+  };
+
   render = () => {
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <Switch>
           
-            <Route exact path={"/" || "/login" || "/staff.html" || "/student.html"}
+            <Route exact path={"/" || "/staff.html" || "/student.html"}
                     render={ () => {
                         return (<Redirect to="/login" />);
                     }
