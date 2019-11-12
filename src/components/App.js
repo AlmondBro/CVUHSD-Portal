@@ -103,6 +103,8 @@ class App extends Component {
             <Route path="/login" 
                   render={ (props) => <LogIn  {...props} 
                                               loggedIn={ this.state.loggedIn}
+                                              fullName={this.state.fullName}
+                                              isStudent={this.state.isStudent}
                                               modifyLogInStatus={this.modifyLogInStatus} 
                                               modifyStudentStatus={this.modifyStudentStatus}
                                               modifyFullName={this.modifyFullName}
@@ -113,6 +115,8 @@ class App extends Component {
             <Route path="/page-content" 
                   render={ (props) => <PageContent  {...props} 
                                                     loggedIn={ this.state.loggedIn}
+                                                    fullName={this.state.fullName}
+                                                    isStudent={this.state.isStudent}
                                                     modifyLogInStatus={this.modifyLogInStatus} 
                                                     modifyStudentStatus={this.modifyStudentStatus}
                                                     modifyFullName={this.modifyFullName}

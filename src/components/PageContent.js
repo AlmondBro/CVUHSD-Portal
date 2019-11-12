@@ -19,10 +19,13 @@ class PageContent extends Component {
         super(props);
         console.log("PageContent Props:\t" + JSON.stringify(this.props) );
         this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
+        this.modifyStudentStatus = this.props.modifyStudentStatus;
+        this.modifyFullName = this.props.modifyFullName;
+
         this.state = {
-            fullName : undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
+            fullName : this.props.fullName || undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
             logInSuccess :  this.props.loggedIn || undefsafe(this.props.location.state, "logInSuccess"),
-            isStudent: undefsafe(this.props.location.state, "isStudent") || false
+            isStudent: this.props.isStudent || undefsafe(this.props.location.state, "isStudent") || false
 
         }; //end state{} object
       } //end constructor
@@ -56,7 +59,7 @@ class PageContent extends Component {
         ([
             <Header districtName="CVUHSD" 
                     headerTitle="Portal" 
-                    fullName={ undefsafe(this.state, "fullName")|| "CVUHSD User"} 
+                    fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
                     modifyLogInStatus={ this.modifyLogInStatus }
             />,
             <div className="page-content">

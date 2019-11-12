@@ -237,6 +237,7 @@ const LoadingSpinner = ({ type, color, height, width}) => (
 class LogIn extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             isStudent: true,
             username: "",
@@ -246,7 +247,10 @@ class LogIn extends Component {
             message: "Enter username & password to login",
             isLoading: false,
             ipAddress: ""
-        } //end state object
+        }; //end state object
+
+        this.modifyStudentStatus = this.props.modifyStudentStatus;
+        this.modifyFullName = this.props.modifyFullName;
         console.log("Props:\t" + JSON.stringify(this.props) );
     }; //end constructor
 
@@ -330,11 +334,8 @@ class LogIn extends Component {
                 console.log("Success!!!");
                 console.log((response));
 
-                this.setState({ message: response.message,
-                                firstName: response.userInfo["givenName"],
-                                lastName: response.userInfo["sn"]
-                             }
-                );  
+                this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["sn"]);
+                this.setState({ message: response.message });  
 
                 this.modifyLogInStatus(true); //Set loggedIn to true after populating the first and last name, for a true login renders the portal buttons page
 
