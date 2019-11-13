@@ -111,8 +111,8 @@ app.get(logOut_URL, (req, res, err) => {
       (err) => {
         if (!err) {
             console.log("Clear cookie...");
-            //res.clearCookie('express.sid', {path: '/'}).json({status: "Logout success"});
-            rescookie("express.sid", "", { expires: new Date() });
+            res.cookie("express.sid", "", { expires: new Date() });
+            res.clearCookie('express.sid', {path: '/'}).json({status: "Logout success"});
         } else {
             // handle error case
             console.log(" Destroy Cookie error");
