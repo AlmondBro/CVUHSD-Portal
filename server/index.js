@@ -52,12 +52,13 @@ app.use(cors());
 app.options('*', cors()) // include before other routes
 
 
+/*
 app.use( (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
+*/
 
 const CVUHSD_CertificatePath = ('./../certificates/ssl-cvuhsd.cer');
 const ADFS_CertificatePath = ('./../certificates/ssl-cvuhsd.cer');
@@ -101,10 +102,10 @@ let logIn_URL = `${isDev ? "" : "/server" }/login`
 let logOut_URL = `${isDev ? "" : "/server" }/logout`
 
 //Routes
-app.get(logIn_URL, (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
+app.get(logIn_URL, (req, res) => { res.send({success: true}); console.log("Login"); } ); 
 
-app.get(logOut_URL, (req, res, err) => {
-  console.log("Error:\t" + err);
+app.get(logOut_URL, (req, res, next) => {
+  console.log("Log Out Next:\t" + next); //TODO: See if this is really the next() function or an error
 
   if (req.user || req.isAuthenticated()) {
     req.session.destroy(
