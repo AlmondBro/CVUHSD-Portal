@@ -22,6 +22,7 @@ const sslRootCAs = require('ssl-root-cas/latest');
 const requestIp = require('request-ip'); 
 
 const uuidv1 = require('uuid/v1'); //uuID based of timestamp
+const uuidv4 = require('uuid/v4'); //Random uuID
 
 const app = express(); 
 
@@ -77,7 +78,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(session({
-  secret: 'secret',
+  secret: uuidv4(),
   resave: false,
   saveUninitialized: false,
   key: uuidv1(),
