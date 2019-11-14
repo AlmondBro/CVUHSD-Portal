@@ -104,32 +104,34 @@ let logOut_URL = `${isDev ? "" : "/server" }/logout`
 //Routes
 app.get(logIn_URL, (req, res) => { res.send({success: true}); console.log("Login"); } ); 
 
-app.get(logOut_URL, (req, res, next) => {
+app.post(logOut_URL, (req, res, next) => {
   console.log("Log Out Next:\t" + next); //TODO: See if this is really the next() function or an error
 
   if (req.user || req.isAuthenticated()) {
+    console.log("Req-session, before logging out:\t" + JSON.stringify(req.session) );
     req.session.destroy(
       (err) => {
         if (!err) {
             console.log("Clear cookie...");
             //res.cookie("express.sid", "", { expires: new Date() });
            // res.clearCookie('express.sid', {path: '/'}).json({status: "Logout success"});
-        } else {
+           req.logOut();
+           res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //status 401 is logged out
+           console.log("Req-session, after logging out:\t" + JSON.stringify(req.session) )          
+          } else {
             // handle error case
             console.log(" Destroy Cookie error");
         } //end else-statement
       } //code snippet courtesy of https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
     );//end req.session.code()
-    req.logOut();
-    res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //status 401 is logged out
+
   } //end if-statement
   
   if ( (!(req.user)) || req.isUnauthenticated()) {
     console.log("Already logged out");
-  } 
-  
-  console.log("Neither logged in nor out");
-  
+  } else {
+    console.log("Neither logged in nor out");
+  }
 });
  
 //app.options('/login', cors()); // enable pre-flight request for DELETE request

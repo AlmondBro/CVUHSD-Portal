@@ -209,7 +209,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
          };
  
          fetch(logOut_URL, {
-            method: 'GET',
+            method: 'POST',
             credentials: 'include',
             mode: 'no-cors'
              //headers: ipHeaders
