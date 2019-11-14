@@ -21,6 +21,8 @@ const sslRootCAs = require('ssl-root-cas/latest');
 
 const requestIp = require('request-ip'); 
 
+const uuidv1 = require('uuid/v1'); //uuID based of timestamp
+
 const app = express(); 
 
 //TODO: Change all requires() to imports
@@ -78,8 +80,8 @@ app.use(session({
   secret: 'secret',
   resave: false,
   saveUninitialized: false,
-  key: 'express.sid',
-  cookie: { secure: false, maxAge: 600000 }
+  key: uuidv1(),
+  cookie: { secure: isDev ? false : true, maxAge: 604800000 }
 }));
 
 app.use(requestIp.mw())
