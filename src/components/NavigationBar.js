@@ -201,7 +201,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         console.log(props);
         console.log("Props:\t" + JSON.stringify(props));
          // let corsProxy = 'https://cors-anywhere.herokuapp.com/';
-         let logOut_URL = `${isDev ? "" : "/server" }/login`
+         let logOut_URL = `${isDev ? "" : "/server" }/logout`
          //let fetchURL = isDev ? corsProxy + request_URL : request_URL;
  
          let ipHeaders = {
@@ -209,7 +209,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
          };
  
          fetch(logOut_URL, {
-            method: 'GET',
+            method: 'POST',
             credentials: 'include',
             mode: 'no-cors'
              //headers: ipHeaders
