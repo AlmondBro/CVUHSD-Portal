@@ -133,14 +133,16 @@ class App extends Component {
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <Switch>
-          
-            <Route exact path={"/" || "/staff.html" || "/student.html"}
+            { // Update routes to use server subdirectory in production
+              //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
+            }
+            <Route exact path={`${process.env.PUBLIC_URL}/` || `${process.env.PUBLIC_URL}/staff.html` || `${process.env.PUBLIC_URL}/student.html`}
                     render={ () => {
-                        return (<Redirect to="/login" />);
+                        return (<Redirect to={`${process.env.PUBLIC_URL}/login`} />);
                     }
                 } 
             />
-            <Route path="/login" 
+            <Route path={`${process.env.PUBLIC_URL}/login`} 
                   render={ (props) => <LogIn  {...props} 
                                               loggedIn={ this.state.loggedIn}
                                               fullName={this.state.fullName}
@@ -152,7 +154,7 @@ class App extends Component {
                                         /> 
                           } 
             />
-            <PrivateRoute path="/page-content" 
+            <PrivateRoute path={`${process.env.PUBLIC_URL}/page-content`}
                           loggedIn={this.state.loggedIn}
                           fullName={this.state.fullName}
                           isStudent={this.state.isStudent}
