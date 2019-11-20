@@ -196,7 +196,14 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         ); //end map()
     }; //end generateNavBarListItems()
 
+    //TODO: Remove in final production build -- only here to mimic successful login.
+    let nullFunction = () => {
+        return null;
+    }; //end nullFunction()
+
     let logOut = () => {
+        let allowAuth = true;
+
         console.log("Logging out...button clicked\n\n\n");
         console.log(props);
         console.log("Props:\t" + JSON.stringify(props));
@@ -227,6 +234,9 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
              console.log("GetIP Block 3");
              console.log(`Error:\t ${error}`);
          });  
+
+         return isDev ? (allowAuth ? modifyLogInStatus(false): nullFunction()) : nullFunction();
+
      }; //end getIPAddress()
 
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
