@@ -269,6 +269,8 @@ class LogIn extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        let allowAuth = true;
+
         console.log("Submitting...");
 
         let { username, password} = this.state;
@@ -276,6 +278,11 @@ class LogIn extends Component {
         let logIn_URL = `${isDev ? "" : "/server" }/login`
 
         this.setState({isLoading: true, message: "Loading..."});
+
+        //TODO: Remove in final production build -- only here to mimic successful login.
+        let nullFunction = () => {
+            return null;
+        }; //end nullFunction()
 
         //let isDev = false;
         let headers = {
@@ -333,10 +340,10 @@ class LogIn extends Component {
             if ( undefsafe(response, 'success') === true){
                 console.log("Block 4");
                 console.log("Success!!!");
-                console.log((response));
+                console.log(`Success response: ${JSON.stringify(response)}`);
 
                 this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["sn"]);
-                this.setState({ message: response.message });  
+                this.setState({ message: response.message});  
 
                 this.modifyLogInStatus(true); //Set loggedIn to true after populating the first and last name, for a true login renders the portal buttons page
 
@@ -353,9 +360,10 @@ class LogIn extends Component {
                 console.log(response);
                 console.log("Front-end response:\t" + JSON.stringify(response) );
                 let message = undefsafe(response, 'message') || "Please supply both a username and a password"
-                
-                this.modifyLogInStatus(false);
+                            
                 this.setState({message: message, isLoading: false});
+
+                return isDev ? (allowAuth ? this.modifyLogInStatus(allowAuth) : 0) : nullFunction(); //TODO: Set to true in production or dev in work computer
             }
         }).catch((err) => {
             this.modifyLogInStatus(false);

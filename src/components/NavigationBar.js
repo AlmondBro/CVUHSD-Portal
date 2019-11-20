@@ -196,12 +196,19 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         ); //end map()
     }; //end generateNavBarListItems()
 
+    //TODO: Remove in final production build -- only here to mimic successful login.
+    let nullFunction = () => {
+        return null;
+    }; //end nullFunction()
+
     let logOut = () => {
+        let allowAuth = true;
+
         console.log("Logging out...button clicked\n\n\n");
         console.log(props);
         console.log("Props:\t" + JSON.stringify(props));
          // let corsProxy = 'https://cors-anywhere.herokuapp.com/';
-         let logOut_URL = `${isDev ? "" : "/server" }/login`
+         let logOut_URL = `${isDev ? "" : "/server" }/logout`
          //let fetchURL = isDev ? corsProxy + request_URL : request_URL;
  
          let ipHeaders = {
@@ -209,7 +216,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
          };
  
          fetch(logOut_URL, {
-            method: 'GET',
+            method: 'POST',
             credentials: 'include',
             mode: 'no-cors'
              //headers: ipHeaders
@@ -227,6 +234,9 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
              console.log("GetIP Block 3");
              console.log(`Error:\t ${error}`);
          });  
+
+         return isDev ? (allowAuth ? modifyLogInStatus(false): nullFunction()) : nullFunction();
+
      }; //end getIPAddress()
 
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>

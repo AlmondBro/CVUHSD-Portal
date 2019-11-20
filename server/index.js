@@ -21,6 +21,9 @@ const sslRootCAs = require('ssl-root-cas/latest');
 
 const requestIp = require('request-ip'); 
 
+const uuidv1 = require('uuid/v1'); //uuID based of timestamp
+const uuidv4 = require('uuid/v4'); //Random uuID
+
 const app = express(); 
 
 //TODO: Change all requires() to imports
@@ -52,12 +55,13 @@ app.use(cors());
 app.options('*', cors()) // include before other routes
 
 
+/*
 app.use( (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
+*/
 
 const CVUHSD_CertificatePath = ('./../certificates/ssl-cvuhsd.cer');
 const ADFS_CertificatePath = ('./../certificates/ssl-cvuhsd.cer');
@@ -74,11 +78,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(session({
-  secret: 'secret',
+  secret: uuidv4(),
   resave: false,
   saveUninitialized: false,
-  key: 'express.sid',
-  cookie: { secure: false, maxAge: 600000 }
+  key: uuidv1(),
+  cookie: { secure: isDev ? false : true, maxAge: 604800000 }
 }));
 
 app.use(requestIp.mw())
@@ -101,34 +105,36 @@ let logIn_URL = `${isDev ? "" : "/server" }/login`
 let logOut_URL = `${isDev ? "" : "/server" }/logout`
 
 //Routes
-app.get(logIn_URL, (req, res, next) => { res.send({success: true}); console.log("Login"); } ); 
+app.get(logIn_URL, (req, res) => { res.send({success: true}); console.log("Login"); } ); 
 
-app.get(logOut_URL, (req, res, err) => {
-  console.log("Error:\t" + err);
+app.post(logOut_URL, (req, res, next) => {
+  console.log("Log Out Next:\t" + next); //TODO: See if this is really the next() function or an error
 
   if (req.user || req.isAuthenticated()) {
+    console.log("Req-session, before logging out:\t" + JSON.stringify(req.session) );
     req.session.destroy(
       (err) => {
         if (!err) {
             console.log("Clear cookie...");
-            //res.clearCookie('express.sid', {path: '/'}).json({status: "Logout success"});
-            rescookie("express.sid", "", { expires: new Date() });
-        } else {
+            //res.cookie("express.sid", "", { expires: new Date() });
+           // res.clearCookie('express.sid', {path: '/'}).json({status: "Logout success"});
+           req.logOut();
+           res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //status 401 is logged out
+           console.log("Req-session, after logging out:\t" + JSON.stringify(req.session) )          
+          } else {
             // handle error case
             console.log(" Destroy Cookie error");
         } //end else-statement
       } //code snippet courtesy of https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
     );//end req.session.code()
-    req.logOut();
-    res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //status 401 is logged out
+
   } //end if-statement
   
   if ( (!(req.user)) || req.isUnauthenticated()) {
     console.log("Already logged out");
-  } 
-  
-  console.log("Neither logged in nor out");
-  
+  } else {
+    console.log("Neither logged in nor out");
+  }
 });
  
 //app.options('/login', cors()); // enable pre-flight request for DELETE request
