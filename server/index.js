@@ -112,13 +112,15 @@ app.post(logOut_URL, (req, res, next) => {
 
   if (req.user || req.isAuthenticated()) {
     console.log("Req-session, before logging out:\t" + JSON.stringify(req.session) );
+    //Destroy cookie: https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
+    req.logout();
     req.session.destroy(
       (err) => {
         if (!err) {
             console.log("Clear cookie...");
             //res.cookie("express.sid", "", { expires: new Date() });
            // res.clearCookie('express.sid', {path: '/'}).json({status: "Logout success"});
-           req.logOut();
+           //req.logOut(); Logout used to be here
            res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //status 401 is logged out
            console.log("Req-session, after logging out:\t" + JSON.stringify(req.session) )          
           } else {
