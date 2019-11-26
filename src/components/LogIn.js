@@ -269,7 +269,7 @@ class LogIn extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        let allowAuth = true;
+        let allowAuth = false;
 
         console.log("Submitting...");
 
@@ -442,7 +442,8 @@ class LogIn extends Component {
 
     render = () => { 
         document.title = "CVUHSD | Portal Login"
-        if (this.props.loggedIn === true) {
+       
+      if (this.props.loggedIn === true) {
            console.log("Success - correct password & username....!!");
             return (<Redirect to={ {
                                     pathname: "/page-content",
@@ -451,7 +452,13 @@ class LogIn extends Component {
                     } 
                     />);
           //return 1;
-        }
+        } 
+     /*
+     //No longer need this code block as the privateRoute component takes care of redirecting if not logged in.
+        if (this.props.loggedIn === true) {
+            return this.props.history.push("/page-content");
+            //return (<div>Hi</div>);
+        } // */
 
         return ([
             <PortalLogo src="/images/CV-600x600-portal.png" alt="CVUHSD Portal"  />,
