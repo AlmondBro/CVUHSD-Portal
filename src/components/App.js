@@ -106,7 +106,7 @@ class App extends Component {
     let headers = {
         'Content-Type': 'application/json',
         'credentials': 'include',
-        'mode': 'no-cors'
+        'Access-Control-Allow-Origin': '*',
     };
 
     fetch(logIn_URL, {
@@ -118,7 +118,6 @@ class App extends Component {
         console.log("Jeff is cool!! And buff!!!");
         console.log("Response:!!\t" + JSON.stringify(response) );
         response.Authenticated ? this.modifyLogInStatus(true) : this.modifyLogInStatus(null);
-        ;
     }).catch((err) => {
         console.log(`Catching error:\t ${err}`);
     });
@@ -129,20 +128,24 @@ class App extends Component {
     this.isAuthenticated();
   };
 
+ 
+
   render = () => {
+    let publicURL = ""
+    //process.env.PUBLIC_URL;
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <Switch>
             { // Update routes to use server subdirectory in production
               //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
             }
-            <Route exact path={`${process.env.PUBLIC_URL}/` || `${process.env.PUBLIC_URL}/staff.html` || `${process.env.PUBLIC_URL}/student.html`}
+            <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
                     render={ () => {
-                        return (<Redirect to={`${process.env.PUBLIC_URL}/login`} />);
+                        return (<Redirect to={`${publicURL}/login`} />);
                     }
                 } 
             />
-            <Route path={`${process.env.PUBLIC_URL}/login`} 
+            <Route path={`${publicURL}/login`} 
                   render={ (props) => <LogIn  {...props} 
                                               loggedIn={ this.state.loggedIn}
                                               fullName={this.state.fullName}
@@ -154,7 +157,7 @@ class App extends Component {
                                         /> 
                           } 
             />
-            <PrivateRoute path={`${process.env.PUBLIC_URL}/page-content`}
+            <PrivateRoute path={`${publicURL}/page-content`}
                           loggedIn={this.state.loggedIn}
                           fullName={this.state.fullName}
                           isStudent={this.state.isStudent}
