@@ -108,7 +108,7 @@ let logOut_URL = `${isDev ? "" : "/server" }/logout`
 app.get(logIn_URL, (req, res) => { res.send({success: true}); console.log("Login"); } ); 
 
 app.post(logOut_URL, (req, res, next) => {
-  console.log("Log Out Next:\t" + next); //TODO: See if this is really the next() function or an error
+  //console.log("Log Out Next:\t" + next); //TODO: See if this is really the next() function or an error
 
   if (req.user || req.isAuthenticated()) {
     console.log("Req-session, before logging out:\t" + JSON.stringify(req.session) );
@@ -146,6 +146,35 @@ let passportAuthentication_options = {  failWithError: true,
                                         failureFlash: true 
                                     }
 
+//The following is a function that parses the string value from the 'dn' category and extracts the key value pairs
+let getSite = (dnString) => {
+  let site = "CVUHSD";
+  let dnKeyValueObject = {}; //Initialize key-value object. Will contain the OUs
+
+  let keyValuePairsArray = dnString.toString().split(',', 3);
+  let splitPair = [];
+
+  keyValuePairsArray.forEach((pair, index) => {
+    //TODO: Try to fix below error, if possible
+    let i = 0; //Mimic for loop since apparently the index variable from Array.forEach() breaks everything. 
+    console.log("Pair:\t" + pair + "\nIndex:\t" + index);
+    splitPair = pair.split('=');
+
+    dnKeyValueObject[splitPair[i]] = splitPair[i+1];
+    i++
+  });
+
+  console.log("\n\ndnString:\t" + dnString + "\ndnString Type of:\t" + typeof(dnString) + "\ndnStringisArray:\t" + Array.isArray(keyValuePairsArray));
+  console.log("\nkeyValuePairs:\t" + keyValuePairsArray + "\nkeyValuePairs Type of:\t" + typeof(keyValuePairsArray) + "\nkeyValuePairsIsArray:\t" + Array.isArray(keyValuePairsArray)  );
+  console.log("\nSplit Pair:\t" + splitPair + "\nType of:\t" + typeof(splitPair) + "\n\n");
+
+  console.log("\ndnKeyValueObject\t" + dnKeyValueObject );
+  console.dir(dnKeyValueObject);
+
+  site = dnKeyValueObject["OU"];
+  return site;
+}; 
+
 //TODO: Find a way so that if users input with the domain "@cvuhsd.org", they are also authenticated
 app.post(logIn_URL,
   // wrap passport.authenticate call in a middleware function
@@ -156,7 +185,7 @@ app.post(logIn_URL,
       // this will execute in any case, even if a passport strategy will find an error
       // log everything to 
       
-     // let userInfo = {...user["_json"], ...user["name"]};
+      //let userInfo = {...user["_json"], ...user["name"]};
      // res.locals.userInfo = userInfo; //To 'pass a variable' to a middleware, attach it to the response.locals object
       //console.log("User:\t" + JSON.stringify(userInfo) );
       console.log("\n------------------");
@@ -183,6 +212,26 @@ app.post(logIn_URL,
           if (err) { return next(err); }
           
           let userInfo = {...user["_json"], ...user["name"]};
+
+          let site = getSite(userInfo["dn"]);
+
+          console.log("site:\t" + (site) );
+          console.log("\n\nRaw user info:\t" + (user) );
+          console.dir(user);
+        
+          //userInfo = {...user["_json"], ...user["name"], ...{"site": site} };
+
+          //More condensed userInfo with only necessary attributes
+          userInfo = { 
+                      ...{"title" : user["_json"].title },
+                      ...{"displayName" : user["_json"].displayName }, 
+                      ...{"givenName" : user["name"].givenName },
+                      ...{"familyName" : user["name"].familyName }, 
+                      ...{"emails": user["emails"][0].value},
+                      ...{"cvuhsd-email" : user["_json"].description },
+                      ...{"site": site} 
+                    };
+
           res.locals.userInfo = userInfo; //To 'pass a variable' to a middleware, attach it to the response.locals object
           console.log("Logged in successfully -- Calling next() -- go to next middleware");
           

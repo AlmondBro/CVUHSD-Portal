@@ -17,6 +17,7 @@ import isDev from 'isdev';
 //TODO: Upon click in result button, clear the form data and remove message -- set loggedIn to null
 //TODO: Create function that fetches the IP Address
 //TODO: Create reset-password functionality
+//TODO: Save the app state to local storage or use redux 
 
 let Form = styled('form')`
     /* font-family: "Montserrat", sans-serif; */
@@ -269,7 +270,7 @@ class LogIn extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        let allowAuth = true;
+        let allowAuth = false;
 
         console.log("Submitting...");
 
@@ -341,8 +342,9 @@ class LogIn extends Component {
                 console.log("Block 4");
                 console.log("Success!!!");
                 console.log(`Success response: ${JSON.stringify(response)}`);
-
-                this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["sn"]);
+                console.dir(response);
+                
+                this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["familyName"]);
                 this.setState({ message: response.message});  
 
                 this.modifyLogInStatus(true); //Set loggedIn to true after populating the first and last name, for a true login renders the portal buttons page
@@ -442,7 +444,8 @@ class LogIn extends Component {
 
     render = () => { 
         document.title = "CVUHSD | Portal Login"
-        if (this.props.loggedIn === true) {
+       
+      if (this.props.loggedIn === true) {
            console.log("Success - correct password & username....!!");
             return (<Redirect to={ {
                                     pathname: "/page-content",
@@ -451,7 +454,13 @@ class LogIn extends Component {
                     } 
                     />);
           //return 1;
-        }
+        } 
+     /*
+     //No longer need this code block as the privateRoute component takes care of redirecting if not logged in.
+        if (this.props.loggedIn === true) {
+            return this.props.history.push("/page-content");
+            //return (<div>Hi</div>);
+        } // */
 
         return ([
             <PortalLogo src="/images/CV-600x600-portal.png" alt="CVUHSD Portal"  />,
