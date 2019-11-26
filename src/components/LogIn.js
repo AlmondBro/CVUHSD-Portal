@@ -288,7 +288,7 @@ class LogIn extends Component {
         let headers = {
             'Content-Type': 'application/json',
             'credentials': 'include',
-            'mode': 'no-cors'
+            'Access-Control-Allow-Origin': '*'
         };
 
         fetch(logIn_URL, {
