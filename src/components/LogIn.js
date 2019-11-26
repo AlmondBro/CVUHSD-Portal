@@ -342,8 +342,9 @@ class LogIn extends Component {
                 console.log("Block 4");
                 console.log("Success!!!");
                 console.log(`Success response: ${JSON.stringify(response)}`);
-
-                this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["sn"]);
+                console.dir(response);
+                
+                this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["familyName"]);
                 this.setState({ message: response.message});  
 
                 this.modifyLogInStatus(true); //Set loggedIn to true after populating the first and last name, for a true login renders the portal buttons page
