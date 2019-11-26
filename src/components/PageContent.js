@@ -21,7 +21,9 @@ class PageContent extends Component {
         this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
         this.modifyStudentStatus = this.props.modifyStudentStatus;
         this.modifyFullName = this.props.modifyFullName;
-
+        this.modifyTitle = this.props.modifyTitle;
+        this.modifySite = this.props.modifySite;
+        
         this.state = {
             fullName : this.props.fullName || undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
             logInSuccess :  this.props.loggedIn || undefsafe(this.props.location.state, "logInSuccess"),
@@ -60,7 +62,12 @@ class PageContent extends Component {
             <Header districtName="CVUHSD" 
                     headerTitle="Portal" 
                     fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
+                    title={this.props.title}
+                    site={this.props.site}
+
                     modifyLogInStatus={ this.modifyLogInStatus }
+                    modifyTitle={this.modifyTitle}
+                    modifySite={this.modifySite}
             />,
             <div className="page-content">
                 { this.generateBlueSections(this.testProps)}

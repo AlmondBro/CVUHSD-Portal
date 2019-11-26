@@ -136,8 +136,13 @@ let Greeting = styled("h3")`
     }
 `; //end Greeting
 
+let PositionGreeting = styled(Greeting)`
+    font-size: 1.05em;
+`; //end PositionGreeting
+
 const Header = ( { modifyLogInStatus, ...props }) => {
     console.log("Header props:\t" + JSON.stringify(props) );
+
     return ([
         <NavigationBarHeader>
             <NavigationBar 
@@ -150,6 +155,7 @@ const Header = ( { modifyLogInStatus, ...props }) => {
                 <h1><strong>{props.districtName || "District"}</strong></h1>
                 <h2>{props.headerTitle|| "Portal"}</h2>
                 <Greeting>{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
+                <PositionGreeting><span>{props.title || "CVUHSD User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
                 <AddToHomeScreenButton id="addToHomeScreenButton">Add to Home Screen</AddToHomeScreenButton>
                 <ToolTip className="tooltip" id="addToHomeScreenTooltip">
                     <p>
