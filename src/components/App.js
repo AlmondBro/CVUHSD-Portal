@@ -66,8 +66,23 @@ class App extends Component {
     super(props);
     this.state = {
      loggedIn: null,
-     fullName: "",
+
+    userInfo: {
+        firstName: "",
+        lastName: "",
+        title: "",
+        site: "",
+        email: "",
+        isStudent: null
+    },
+
+    firstName: "",
+    lastName: "",
+    title: "",
+    site: "",
+
      isStudent: null,
+
      containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
@@ -93,7 +108,17 @@ class App extends Component {
     console.log("modifyFullName() from App.js");
     this.setState({fullName: newName});  
   }; //end modifyFullName()
-  
+
+  modifyTitle = (newTitle) => {
+    console.log("modifyTitle() from App.js");
+    this.setState({title: newTitle});  
+  }; //end modifyFullName()
+
+  modifySite = (newSite) => {
+    console.log("modifySite() from App.js");
+    this.setState({site: newSite});  
+  }; //end modifyFullName()
+
   isAuthenticated = () => {
     //event.preventDefault();
     console.log("Checking if authenticated...");
@@ -131,8 +156,7 @@ class App extends Component {
  
 
   render = () => {
-    let publicURL = ""
-    //process.env.PUBLIC_URL;
+    let publicURL = ""; //process.env.PUBLIC_URL;
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <Switch>
@@ -153,6 +177,8 @@ class App extends Component {
                                               modifyLogInStatus={this.modifyLogInStatus} 
                                               modifyStudentStatus={this.modifyStudentStatus}
                                               modifyFullName={this.modifyFullName}
+                                              modifyTitle={this.modifyTitle}
+                                              modifySite={this.modifySite}
                                               changeContainerStyle={this.changeContainerStyle} 
                                         /> 
                           } 
@@ -161,9 +187,13 @@ class App extends Component {
                           loggedIn={this.state.loggedIn}
                           fullName={this.state.fullName}
                           isStudent={this.state.isStudent}
+                          title={this.state.title}
+                          site={this.state.site}
                           modifyLogInStatus={this.modifyLogInStatus} 
                           modifyStudentStatus={this.modifyStudentStatus}
                           modifyFullName={this.modifyFullName}
+                          modifyTitle={this.modifyTitle}
+                          modifySite={this.modifySite}
                           changeContainerStyle={this.changeContainerStyle} 
                           component={ PageContent} 
             />

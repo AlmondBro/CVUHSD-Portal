@@ -243,8 +243,18 @@ class LogIn extends Component {
             isStudent: true,
             username: "",
             password: "",
+            userInfo: {
+                firstName: "",
+                lastName: "",
+                title: "",
+                site: ""
+            },
+
             firstName: "",
             lastName: "",
+            title: "",
+            site: "",
+
             message: "Enter username & password to login",
             isLoading: false,
             ipAddress: ""
@@ -254,6 +264,9 @@ class LogIn extends Component {
         this.modifyLogInStatus = this.props.modifyLogInStatus;
         this.modifyStudentStatus = this.props.modifyStudentStatus;
         this.modifyFullName = this.props.modifyFullName;
+        this.modifyTitle = this.props.modifyTitle;
+        this.modifySite = this.props.modifySite;
+        
         console.log("Props:\t" + JSON.stringify(this.props) );
     }; //end constructor
 
@@ -345,6 +358,9 @@ class LogIn extends Component {
                 console.dir(response);
                 
                 this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["familyName"]);
+                this.modifyTitle(response.userInfo["title"]);
+                this.modifySite(response.userInfo["site"]);
+
                 this.setState({ message: response.message});  
 
                 this.modifyLogInStatus(true); //Set loggedIn to true after populating the first and last name, for a true login renders the portal buttons page
