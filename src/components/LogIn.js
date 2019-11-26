@@ -17,6 +17,7 @@ import isDev from 'isdev';
 //TODO: Upon click in result button, clear the form data and remove message -- set loggedIn to null
 //TODO: Create function that fetches the IP Address
 //TODO: Create reset-password functionality
+//TODO: Save the app state to local storage or use redux 
 
 let Form = styled('form')`
     /* font-family: "Montserrat", sans-serif; */
