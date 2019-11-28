@@ -96,4 +96,17 @@ let blueSectionInfo_Staff = [
     blueSectionInfo_allLinks
 ];
 
+let blueSectionInfo_Student = [
+    blueSectionInfo_systemStatuses,
+    blueSectionInfo_quickLinks,
+    blueSectionInfo_standardStaffTools,
+    blueSectionInfo_administratorTools,
+    blueSectionInfo_teacherTools,  
+    blueSectionInfo_learningTools,
+    blueSectionInfo_classRoomTools,
+    blueSectionInfo_digitalTextbooks,
+    blueSectionInfo_schoolWebsites,
+    blueSectionInfo_allLinks
+];
+
 export { blueSectionInfo_Staff };

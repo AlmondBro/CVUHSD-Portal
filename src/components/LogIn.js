@@ -283,7 +283,7 @@ class LogIn extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        let allowAuth = false;
+        let allowAuth = true;
 
         console.log("Submitting...");
 
@@ -381,6 +381,7 @@ class LogIn extends Component {
                             
                 this.setState({message: message, isLoading: false});
 
+                isDev ? (allowAuth ? this.modifyTitle("student") : nullFunction()) : nullFunction();
                 return isDev ? (allowAuth ? this.modifyLogInStatus(allowAuth) : 0) : nullFunction(); //TODO: Set to true in production or dev in work computer
             }
         }).catch((err) => {
@@ -461,14 +462,22 @@ class LogIn extends Component {
     render = () => { 
         document.title = "CVUHSD | Portal Login"
        
-      if (this.props.loggedIn === true) {
-           console.log("Success - correct password & username....!!");
-            return (<Redirect to={ {
+    //TODO: Conditionally generate pathName to match student or staff
+    //TODO: Find out if props.location.state is really necessary
+    if (this.props.loggedIn === true) {
+        console.log("Success - correct password & username....!!");
+        return (<Redirect to={ 
+                                {
                                     pathname: "/page-content",
-                                    state: { fullName: `${this.state.firstName}\t ${this.state.lastName}`, logInSuccess: true }
-                                   }
+                                    state: { 
+                                            fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
+                                            logInSuccess: true,
+                                            title: this.props.title,
+                                            site: this.props.site
+                                        }
+                                }
                     } 
-                    />);
+                />);
           //return 1;
         } 
      /*

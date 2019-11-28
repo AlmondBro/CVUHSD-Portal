@@ -97,8 +97,13 @@ const BlueSection = (props) => {
     `; //end CheckboxHack
 
     let SectionHeader = styled.div`
-        background-color: rgb(30, 108, 147);
+        background-color: ${ props => 
+            (props.title === ("student") ) ? 
+                "rgb(147, 30, 30)": "rgb(30, 108, 147)"
+        };
+
         /* A nice green: rgb(30, 147, 44) */
+
         color: white;
         text-align: center;
         padding: 15px 0;
@@ -125,7 +130,10 @@ const BlueSection = (props) => {
         /*  padding: 5px 10px 10px 10px; */
         border-radius: 100%;
         background-color: white;
-        color: #1e6c93;
+        color: ${ props => 
+            (props.title === ("student") ) ? 
+                "rgb(147, 30, 30)": "rgb(30, 108, 147)"
+        };
 
         &&::after {
             content: '+';
@@ -157,14 +165,25 @@ const BlueSection = (props) => {
                 type="checkbox" 
                 className="checkbox-hack blueSection-collapseToggle" 
                 id= {props.blueSectionName + "-collapseToggle"} 
-                defaultChecked={props.expanded} />
-            <SectionHeader className="section-header">
+                defaultChecked={props.expanded} 
+
+                title={props.title}
+            />
+            <SectionHeader 
+                className="section-header" 
+                title={props.title}
+            >
                 <h3>{props.headerTitle}</h3> 
                 <label htmlFor={props.blueSectionName + "-collapseToggle"}>
-                    <OpenColumnButton className="open-column-button"></OpenColumnButton>
+                    <OpenColumnButton   className="open-column-button" 
+                                        title={props.title}
+                    ></OpenColumnButton>
                 </label>
             </SectionHeader>
-            <ButtonRow className="row button-row" id={props.buttonRowID}>
+            <ButtonRow  className="row button-row" 
+                        id={props.buttonRowID} 
+                        title={props.title}
+            >
             {
                 generateBlueSectionButtons()
             }
