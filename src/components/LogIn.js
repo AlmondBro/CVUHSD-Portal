@@ -381,7 +381,7 @@ class LogIn extends Component {
                             
                 this.setState({message: message, isLoading: false});
 
-                isDev ? (allowAuth ? this.modifyTitle("student") : nullFunction()) : nullFunction();
+                isDev ? (allowAuth ? this.modifyTitle("staff") : nullFunction()) : nullFunction();
                 return isDev ? (allowAuth ? this.modifyLogInStatus(allowAuth) : 0) : nullFunction(); //TODO: Set to true in production or dev in work computer
             }
         }).catch((err) => {

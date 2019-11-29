@@ -32,16 +32,18 @@ class PageContent extends Component {
             fullName : this.props.fullName || undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
             logInSuccess :  this.props.loggedIn || undefsafe(this.props.location.state, "logInSuccess"),
             isStudent: this.props.isStudent || undefsafe(this.props.location.state, "isStudent") || false,
-            title: this.props.title || undefsafe(this.props.location.state, "title") || "student",
+            title: this.props.title|| undefsafe(this.props.location.state, "title") || "student",
             site: this.props.site || undefsafe(this.props.location.state, "site") || "student"
         }; //end state{} object
+
       } //end constructor
 
-      testProps = {
+    blueSection_objectsArrayProps = {
         blueSection_objectsArray: (this.title === "student") ? redSectionInfo_Student : blueSectionInfo_Staff
     };
     
       generateBlueSections = (props) => {
+        console.log("Page content this.title:\t" + this.title);
         return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
             return (
                 <BlueSection 
@@ -65,19 +67,19 @@ class PageContent extends Component {
     render = () => {
        return (
            [
-            <Header districtName="CVUHSD" 
-                    headerTitle="Portal" 
-                    fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
-                    title={this.props.title}
-                    site={this.props.site}
+                <Header districtName="CVUHSD" 
+                        headerTitle="Portal" 
+                        fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
+                        title={this.props.title}
+                        site={this.props.site}
 
-                    modifyLogInStatus={ this.modifyLogInStatus }
-                    modifyTitle={this.modifyTitle}
-                    modifySite={this.modifySite}
-            />,
-            <div className="page-content">
-                { this.generateBlueSections(this.testProps)}
-            </div>
+                        modifyLogInStatus={ this.modifyLogInStatus }
+                        modifyTitle={this.modifyTitle}
+                        modifySite={this.modifySite}
+                />,
+                <div className="page-content">
+                    { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
+                </div>
             ]
         );
     }; //end render()

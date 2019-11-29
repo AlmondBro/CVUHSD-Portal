@@ -191,7 +191,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         &:hover {
             background-color: ${ props => 
                                 (props.title === ("student") ) ? 
-                                    "#BD2222": "#3B709A"
+                                    "#BD2222": "#2588b9"
                             };
         }
     `; //end LogOut Button

@@ -105,12 +105,12 @@ let redSectionInfo_quickLinks = {
     buttons: studentPortalButtons.quickLinks
 };
 
-let redSectionInfo_standardStaffTools = {
+let redSectionInfo_standardStudentTools = {
     blueSectionName: "standardStaffTools",
     expanded: false,
     headerTitle: "Standard Staff Tools",
     buttonRowID: "standardStaffToolsButtonRow",
-    buttons: studentPortalButtons.standardStaffTools
+    buttons: studentPortalButtons.standardStudentTools
 };
 
 let redSectionInfo_classRoomTools = {
@@ -154,7 +154,7 @@ let redSectionInfo_allLinks = {
 
 let redSectionInfo_Student = [
     redSectionInfo_quickLinks,
-    redSectionInfo_standardStaffTools,
+    redSectionInfo_standardStudentTools,
     redSectionInfo_classRoomTools,
     redSectionInfo_learningTools,
     redSectionInfo_digitalTextbooks,
