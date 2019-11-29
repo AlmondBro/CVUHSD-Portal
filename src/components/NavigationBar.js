@@ -186,10 +186,12 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         border: 0px;
         border-radius: 3px;
 
+        transition: background-color 0.5s;
+
         &:hover {
             background-color: ${ props => 
                                 (props.title === ("student") ) ? 
-                                    "#A01C1C": "#3B709A"
+                                    "#BD2222": "#3B709A"
                             };
         }
     `; //end LogOut Button

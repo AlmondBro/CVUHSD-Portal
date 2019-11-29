@@ -1,4 +1,4 @@
-import { staffPortalButtons } from "./portalButtons.js"
+import { staffPortalButtons, studentPortalButtons } from "./portalButtons.js"
 
 //TODO: Add an appear as mobile link property 
 let blueSectionInfo_systemStatuses = {
@@ -96,17 +96,70 @@ let blueSectionInfo_Staff = [
     blueSectionInfo_allLinks
 ];
 
-let blueSectionInfo_Student = [
-    blueSectionInfo_systemStatuses,
-    blueSectionInfo_quickLinks,
-    blueSectionInfo_standardStaffTools,
-    blueSectionInfo_administratorTools,
-    blueSectionInfo_teacherTools,  
-    blueSectionInfo_learningTools,
-    blueSectionInfo_classRoomTools,
-    blueSectionInfo_digitalTextbooks,
-    blueSectionInfo_schoolWebsites,
-    blueSectionInfo_allLinks
+let redSectionInfo_quickLinks = {
+    blueSectionName: "quickLinks",
+    expanded: true,
+    headerTitle: "Quick Links",
+    buttonRowID: "quickLinksButtonRow",
+    showInMobileNav: "",
+    buttons: studentPortalButtons.quickLinks
+};
+
+let redSectionInfo_standardStaffTools = {
+    blueSectionName: "standardStaffTools",
+    expanded: false,
+    headerTitle: "Standard Staff Tools",
+    buttonRowID: "standardStaffToolsButtonRow",
+    buttons: studentPortalButtons.standardStaffTools
+};
+
+let redSectionInfo_classRoomTools = {
+    blueSectionName: "classroomTools",
+    expanded: false,
+    headerTitle: "Classroom Tools",
+    buttonRowID: "classroomToolsButtonRow",
+    buttons: studentPortalButtons.classroomTools
+};
+
+let redSectionInfo_learningTools = {
+    blueSectionName: "learningTools",
+    expanded: false,
+    headerTitle: "Learning Tools",
+    buttonRowID: "learningToolsButtonRow",
+    buttons: studentPortalButtons.learningTools
+};
+
+let redSectionInfo_digitalTextbooks = {
+    blueSectionName: "digitalTextbooks",
+    expanded: false,
+    headerTitle: "Digital Textbooks",
+    buttonRowID: "digitalTextbooksButtonRow",
+    buttons: studentPortalButtons.digitalTextbooks
+};
+
+let redSectionInfo_schoolWebsites = {
+    blueSectionName: "schoolWebsites",
+    expanded: false,
+    headerTitle: "School Websites",
+    buttonRowID: "schoolWebsitesButtonRow",
+    buttons: studentPortalButtons.schoolWebsites
+};
+
+let redSectionInfo_allLinks = {
+    blueSectionName: "allTools",
+    expanded: true,
+    headerTitle: "ALL LINKS",
+    buttonRowID: "webAdminButtonRow"
+};
+
+let redSectionInfo_Student = [
+    redSectionInfo_quickLinks,
+    redSectionInfo_standardStaffTools,
+    redSectionInfo_classRoomTools,
+    redSectionInfo_learningTools,
+    redSectionInfo_digitalTextbooks,
+    redSectionInfo_schoolWebsites, 
+    redSectionInfo_allLinks
 ];
 
-export { blueSectionInfo_Staff };
+export { blueSectionInfo_Staff, redSectionInfo_Student };

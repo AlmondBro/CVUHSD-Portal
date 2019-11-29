@@ -94,7 +94,7 @@ let FormButton = styled('button')`
     padding: 0.5em;
     background-color: #336186;
     color: white;
-    transition: 0.5s;
+    transition: background-color 0.5s;
     text-align: center;
 
     &:hover, &:active, &:focus  {

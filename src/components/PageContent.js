@@ -7,7 +7,7 @@ import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header.js";
 
 //Import list of buttons
-import { blueSectionInfo_Staff , blueSectionInfo_Student} from "./../objectFiles/blueSectionInfo.js";
+import { blueSectionInfo_Staff , redSectionInfo_Student} from "./../objectFiles/blueSectionInfo.js";
 
 import isDev from 'isdev';
 import undefsafe from 'undefsafe';
@@ -38,7 +38,7 @@ class PageContent extends Component {
       } //end constructor
 
       testProps = {
-        blueSection_objectsArray: (this.title === "student") ? blueSectionInfo_Student : blueSectionInfo_Staff
+        blueSection_objectsArray: (this.title === "student") ? redSectionInfo_Student : blueSectionInfo_Staff
     };
     
       generateBlueSections = (props) => {
