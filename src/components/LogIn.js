@@ -283,7 +283,7 @@ class LogIn extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        let allowAuth = true;
+        let allowAuth = false;
 
         console.log("Submitting...");
 
@@ -359,7 +359,7 @@ class LogIn extends Component {
                 
                 //Set attributes from user ActiveDirectory information retrieved from the server upon successful login
                 this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["familyName"]);
-                this.modifyTitle(response.userInfo["title"]);
+                this.modifyTitle(response.userInfo["title"].toString().toLowerCase());
                 this.modifySite(response.userInfo["site"]);
 
                 this.setState({ message: response.message});  
@@ -382,8 +382,8 @@ class LogIn extends Component {
                             
                 this.setState({message: message, isLoading: false});
 
-                isDev ? (allowAuth ? this.modifyTitle("staff") : nullFunction()) : nullFunction();
-                return isDev ? (allowAuth ? this.modifyLogInStatus(allowAuth) : 0) : nullFunction(); //TODO: Set to true in production or dev in work computer
+                (isDev && allowAuth) ? this.modifyTitle("staff") : nullFunction();
+                (isDev && allowAuth) ? this.modifyLogInStatus(allowAuth): nullFunction(); //TODO: Set to true in production or dev in work computer
             }
         }).catch((err) => {
             this.modifyLogInStatus(false);

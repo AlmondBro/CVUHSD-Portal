@@ -166,19 +166,21 @@ let PositionGreeting = styled(Greeting)`
     font-size: 1.05em;
 `; //end PositionGreeting
 
-const Header = ( { modifyLogInStatus, ...props }) => {
+const Header = ( { modifyLogInStatus,...props }) => {
     console.log("Header props:\t" + JSON.stringify(props) );
 
+    let title = props.title;
+
     return ([
-        <NavigationBarHeader title={props.title}>
-            <NavigationBar title={props.title}
+        <NavigationBarHeader title={ title }>
+            <NavigationBar title={ title }
                 modifyLogInStatus={modifyLogInStatus} 
             />
         </NavigationBarHeader>,
 
         <DashboardHeaderContainer id="back-to-top">
             <DashboardHeader>
-                <PortalHeaderText title={props.title}>
+                <PortalHeaderText title={ title }>
                     <strong>
                         {props.districtName || "District"}
                         <span>
@@ -188,9 +190,9 @@ const Header = ( { modifyLogInStatus, ...props }) => {
                         </span>
                     </strong>
                 </PortalHeaderText>
-                <Greeting title={props.title}>{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
-                <PositionGreeting title={props.title}><span>{props.title || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
-                <AddToHomeScreenButton id="addToHomeScreenButton" title={props.title}>Add to Home Screen</AddToHomeScreenButton>
+                <Greeting title={ title }>{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
+                <PositionGreeting title={ title }><span>{props.title || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
+                <AddToHomeScreenButton id="addToHomeScreenButton" title={title}>Add to Home Screen</AddToHomeScreenButton>
                 <ToolTip className="tooltip" id="addToHomeScreenTooltip">
                     <p>
                         Create a shortcut to the portal app on your desktop. 

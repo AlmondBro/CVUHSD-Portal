@@ -170,6 +170,7 @@ class App extends Component {
                                               loggedIn={ this.state.loggedIn}
                                               fullName={this.state.fullName}
                                               isStudent={this.state.isStudent}
+                                              title={this.state.title}
                                               modifyLogInStatus={this.modifyLogInStatus} 
                                               modifyStudentStatus={this.modifyStudentStatus}
                                               modifyFullName={this.modifyFullName}
