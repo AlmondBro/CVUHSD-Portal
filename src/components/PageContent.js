@@ -46,7 +46,7 @@ class PageContent extends Component {
                     buttonRowID={blueSection_Object.buttonRowID}
                     buttons={blueSection_Object.buttons}
                     key={index}
-                    title={this.title}
+                    title={this.title || "student"}
                 />
             );
         });
@@ -73,7 +73,7 @@ class PageContent extends Component {
                 <Header districtName="CVUHSD" 
                         headerTitle="Portal" 
                         fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
-                        title={this.props.title}
+                        title={this.title}
                         site={this.props.site}
 
                         modifyLogInStatus={ this.modifyLogInStatus }

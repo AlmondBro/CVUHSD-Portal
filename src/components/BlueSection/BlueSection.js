@@ -173,10 +173,11 @@ const BlueSection = (props) => {
             />
             <SectionHeader 
                 className="section-header" 
+                title={props.title}
             >
                 <h3>{props.headerTitle}</h3> 
                 <label htmlFor={props.blueSectionName + "-collapseToggle"}>
-                    <OpenColumnButton   className="open-column-button" 
+                    <OpenColumnButton   className="open-column-button"  title={props.title}
                     >
                         
                     </OpenColumnButton>
@@ -184,6 +185,7 @@ const BlueSection = (props) => {
             </SectionHeader>
             <ButtonRow  className="row button-row" 
                         id={props.buttonRowID} 
+                        title={props.title}
             >
             {
                 generateBlueSectionButtons()
