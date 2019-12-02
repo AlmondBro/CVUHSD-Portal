@@ -67,7 +67,7 @@ const BlueSection = (props) => {
         }//end else-statement
     }; //end generateBlueSectionButtons()
 
-    let BlueSectionContainer = styled.section`
+    let BlueSectionContainer = styled("section")`
         position: relative;
         text-align: center;
         overflow: hidden;
@@ -79,15 +79,19 @@ const BlueSection = (props) => {
         }
     `; //end BlueSection
 
-    let InputCheckBoxHack = styled.input`
+    let InputCheckBoxHack = styled("input")`
         display: none;
 
         &:checked+div.blue-section-innerContainer>div.section-content {
             display: table;
         }
 
-        &:checked+div.blue-section-innerContainer>div.section-header label>div.open-column-button::after {
+        &:checked+div.section-header label>div.open-column-button::after {
                 content: '-';
+        }
+
+        &+div.section-header label>div.open-column-button::after {
+                content: '+';
         }
 
         &:checked~div#${props.buttonRowID} {
@@ -96,7 +100,7 @@ const BlueSection = (props) => {
         }
     `; //end CheckboxHack
 
-    let SectionHeader = styled.div`
+    let SectionHeader = styled("div")`
         background-color: ${ props => 
             (props.title === ("student") ) ? 
                 "rgb(147, 30, 30)": "rgb(30, 108, 147)"
@@ -116,7 +120,7 @@ const BlueSection = (props) => {
         }
     `; //end sectionHeader
 
-    let OpenColumnButton = styled.div`
+    let OpenColumnButton = styled("div")`
         cursor: pointer;
         border: 0;
         background: transparent;
@@ -135,13 +139,13 @@ const BlueSection = (props) => {
                 "rgb(147, 30, 30)": "rgb(30, 108, 147)"
         };
 
-        &&::after {
+        &::before, &::after {
             content: '+';
             /* \02295' */ 
         }
     `; //end openColumnButton
 
-    let ButtonRow = styled.div`
+    let ButtonRow = styled("div")`
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -166,23 +170,20 @@ const BlueSection = (props) => {
                 className="checkbox-hack blueSection-collapseToggle" 
                 id= {props.blueSectionName + "-collapseToggle"} 
                 defaultChecked={props.expanded} 
-
-                title={props.title}
             />
             <SectionHeader 
                 className="section-header" 
-                title={props.title}
             >
                 <h3>{props.headerTitle}</h3> 
                 <label htmlFor={props.blueSectionName + "-collapseToggle"}>
                     <OpenColumnButton   className="open-column-button" 
-                                        title={props.title}
-                    ></OpenColumnButton>
+                    >
+                        
+                    </OpenColumnButton>
                 </label>
             </SectionHeader>
             <ButtonRow  className="row button-row" 
                         id={props.buttonRowID} 
-                        title={props.title}
             >
             {
                 generateBlueSectionButtons()
