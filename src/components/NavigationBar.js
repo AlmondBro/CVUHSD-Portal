@@ -228,7 +228,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     }; //end nullFunction()
 
     let logOut = () => {
-        let allowAuth = true;
+        let allowAuth = false;
 
         console.log("Logging out...button clicked\n\n\n");
         console.log(props);
@@ -254,14 +254,14 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
              console.log("GetIP Block 2");
              console.log("Response:\t" + JSON.stringify(response));
              console.log("Logging out");
-             modifyLogInStatus(false);
+             modifyLogInStatus(null);
              //this.setState({logInSuccess: `${!response.logOutSuccess}`});
          }).catch( (error) => {
              console.log("GetIP Block 3");
              console.log(`Error:\t ${error}`);
          });  
 
-         return isDev ? (allowAuth ? modifyLogInStatus(false): nullFunction()) : nullFunction();
+         return (isDev && allowAuth) ? modifyLogInStatus(null): nullFunction(); 
 
      }; //end getIPAddress()
 
