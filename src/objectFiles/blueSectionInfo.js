@@ -68,12 +68,29 @@ let blueSectionInfo_digitalTextbooks = {
     buttons: staffPortalButtons.digitalTextbooks
 };
 
+
+let blueSectionInfo_digitalLibraryResources = {
+    blueSectionName: "digitalLibraryResources",
+    expanded: false,
+    headerTitle: "Digital Library Resources",
+    buttonRowID: "digitalLibraryResourcesButtonRow",
+    buttons: staffPortalButtons.digitalLibraryResources
+};
+
 let blueSectionInfo_schoolWebsites = {
     blueSectionName: "schoolWebsites",
     expanded: false,
     headerTitle: "School Websites",
     buttonRowID: "schoolWebsitesButtonRow",
     buttons: staffPortalButtons.schoolWebsites
+};
+
+let blueSectionInfo_resourcesAndTraining = {
+    blueSectionName: "resourcesAndTraining ",
+    expanded: false,
+    headerTitle: "RESOURCES AND TRAINING",
+    buttonRowID: "resourcesAndTrainingButtonRow",
+    buttons: staffPortalButtons.resourcesAndTraining
 };
 
 let blueSectionInfo_allLinks = {
@@ -89,10 +106,12 @@ let blueSectionInfo_Staff = [
     blueSectionInfo_standardStaffTools,
     blueSectionInfo_administratorTools,
     blueSectionInfo_teacherTools,  
-    blueSectionInfo_learningTools,
     blueSectionInfo_classRoomTools,
+    blueSectionInfo_learningTools,
     blueSectionInfo_digitalTextbooks,
+    blueSectionInfo_digitalLibraryResources,
     blueSectionInfo_schoolWebsites,
+    blueSectionInfo_resourcesAndTraining,
     blueSectionInfo_allLinks
 ];
 
@@ -108,7 +127,7 @@ let redSectionInfo_quickLinks = {
 let redSectionInfo_standardStudentTools = {
     blueSectionName: "standardStaffTools",
     expanded: false,
-    headerTitle: "Standard Staff Tools",
+    headerTitle: "Standard Student Tools",
     buttonRowID: "standardStaffToolsButtonRow",
     buttons: studentPortalButtons.standardStudentTools
 };

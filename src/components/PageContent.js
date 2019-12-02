@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import {  Redirect } from 'react-router'
-
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header.js";
@@ -21,13 +19,13 @@ class PageContent extends Component {
         this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
         this.modifyStudentStatus = this.props.modifyStudentStatus;
 
-        //TODO: Remove these attributes
         this.modifyFullName = this.props.modifyFullName;
-        this.modifyTitle = this.props.modifyTitle;
-        this.modifySite = this.props.modifySite;
         
         this.title = this.props.title;
+        
+        this.blueSection_objectsArrayProps = {};
 
+        //TODO: Remove these attributes
         this.state = {
             fullName : this.props.fullName || undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
             logInSuccess :  this.props.loggedIn || undefsafe(this.props.location.state, "logInSuccess"),
@@ -37,13 +35,8 @@ class PageContent extends Component {
         }; //end state{} object
 
       } //end constructor
-
-    blueSection_objectsArrayProps = {
-        blueSection_objectsArray: (this.title === "student") ? redSectionInfo_Student : blueSectionInfo_Staff
-    };
     
       generateBlueSections = (props) => {
-        console.log("Page content this.title:\t" + this.title);
         return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
             return (
                 <BlueSection 
@@ -59,12 +52,22 @@ class PageContent extends Component {
         });
     };
 
-    
     componentDidMount = (props) => {
         this.props.changeContainerStyle({"background-image": "none" });
+        console.log("Page content this.title:\t" + this.title);
+
     };
     
     render = () => {
+        let sectionInfoObject;
+
+        sectionInfoObject = (this.title == "student") ? 
+                                    redSectionInfo_Student : blueSectionInfo_Staff;
+        
+        this.blueSection_objectsArrayProps = {
+            blueSection_objectsArray: sectionInfoObject
+        };
+
        return (
            [
                 <Header districtName="CVUHSD" 

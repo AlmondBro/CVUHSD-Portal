@@ -357,6 +357,7 @@ class LogIn extends Component {
                 console.log(`Success response: ${JSON.stringify(response)}`);
                 console.dir(response);
                 
+                //Set attributes from user ActiveDirectory information retrieved from the server upon successful login
                 this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["familyName"]);
                 this.modifyTitle(response.userInfo["title"]);
                 this.modifySite(response.userInfo["site"]);

@@ -270,8 +270,14 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     return (
         <NavBar title={props.title} className="navigation-bar">
             <NavBarImageWrapper title={props.title} className="navigation-bar-image-wrapper">
-                <a title={props.title} href="http://portal.centinela.k12.ca.us" className="navbar-logo-link">
-                    <NavBarLogo title={props.title} className="img-responsive" id="navbar-logo" href="#" src="/images/CV-600x600-portal.png" />
+                <a href="http://portal.centinela.k12.ca.us" 
+                   className="navbar-logo-link"
+                >
+                    <NavBarLogo title={props.title} 
+                                className="img-responsive" 
+                                id="navbar-logo" 
+                                href="#" 
+                                src={ ( props.title === "student" ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
                 </a>
             </NavBarImageWrapper>
             <NavBarUL title={props.title} className="navigation-bar-ul">
