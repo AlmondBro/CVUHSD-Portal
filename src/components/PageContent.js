@@ -1,40 +1,40 @@
 import React, { Component } from "react";
 
-import {  Redirect } from 'react-router'
-
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header.js";
 
 //Import list of buttons
-import { blueSectionInfo_Staff } from "./../objectFiles/blueSectionInfo.js";
+import { blueSectionInfo_Staff , redSectionInfo_Student} from "./../objectFiles/blueSectionInfo.js";
 
 import isDev from 'isdev';
 import undefsafe from 'undefsafe';
-import { thisExpression } from "@babel/types";
 
 //TODO: Save passed props from <Rediret> into state.
 class PageContent extends Component {
     constructor(props) {
         super(props);
         console.log("PageContent Props:\t" + JSON.stringify(this.props) );
+        
         this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
         this.modifyStudentStatus = this.props.modifyStudentStatus;
+
         this.modifyFullName = this.props.modifyFullName;
-        this.modifyTitle = this.props.modifyTitle;
-        this.modifySite = this.props.modifySite;
         
+        this.title = this.props.title;
+        
+        this.blueSection_objectsArrayProps = {};
+
+        //TODO: Remove these attributes
         this.state = {
             fullName : this.props.fullName || undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
             logInSuccess :  this.props.loggedIn || undefsafe(this.props.location.state, "logInSuccess"),
-            isStudent: this.props.isStudent || undefsafe(this.props.location.state, "isStudent") || false
-
+            isStudent: this.props.isStudent || undefsafe(this.props.location.state, "isStudent") || false,
+            title: this.props.title|| undefsafe(this.props.location.state, "title") || "student",
+            site: this.props.site || undefsafe(this.props.location.state, "site") || "student"
         }; //end state{} object
-      } //end constructor
 
-      testProps = {
-        blueSection_objectsArray: blueSectionInfo_Staff
-    };
+      } //end constructor
     
       generateBlueSections = (props) => {
         return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
@@ -46,32 +46,43 @@ class PageContent extends Component {
                     buttonRowID={blueSection_Object.buttonRowID}
                     buttons={blueSection_Object.buttons}
                     key={index}
+                    title={this.title}
                 />
             );
         });
     };
 
-    
     componentDidMount = (props) => {
         this.props.changeContainerStyle({"background-image": "none" });
+        console.log("Page content this.title:\t" + this.title);
+
     };
     
     render = () => {
+        let sectionInfoObject;
+
+        sectionInfoObject = (this.title == "student") ? 
+                                    redSectionInfo_Student : blueSectionInfo_Staff;
+        
+        this.blueSection_objectsArrayProps = {
+            blueSection_objectsArray: sectionInfoObject
+        };
+
        return (
            [
-            <Header districtName="CVUHSD" 
-                    headerTitle="Portal" 
-                    fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
-                    title={this.props.title}
-                    site={this.props.site}
+                <Header districtName="CVUHSD" 
+                        headerTitle="Portal" 
+                        fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
+                        title={this.props.title}
+                        site={this.props.site}
 
-                    modifyLogInStatus={ this.modifyLogInStatus }
-                    modifyTitle={this.modifyTitle}
-                    modifySite={this.modifySite}
-            />,
-            <div className="page-content">
-                { this.generateBlueSections(this.testProps)}
-            </div>
+                        modifyLogInStatus={ this.modifyLogInStatus }
+                        modifyTitle={this.modifyTitle}
+                        modifySite={this.modifySite}
+                />,
+                <div className="page-content">
+                    { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
+                </div>
             ]
         );
     }; //end render()

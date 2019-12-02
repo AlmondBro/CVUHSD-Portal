@@ -60,7 +60,10 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
           &::after {
                 content: 'Centinela Valley Union High School District';
                 display: inline;
-                color: #1e6c93;
+                color: ${ props => 
+                            (props.title === ("student") ) ? 
+                                "#931E1D": "#1E6C93"
+                        };
                 font-size: 1.3em;
                 position: absolute;
                 bottom: 52px;
@@ -100,7 +103,9 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
             &&>li~li::before {
                 content: "•";
                 margin-right: 8px;
-                color: rgb(21, 73, 99);
+                color: ${ props => (props.title === "student") ? 
+                           "#931E1D" : "#154963"
+                };
             }
         }
     `; //end NavBarUL
@@ -150,33 +155,53 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     let FirstBar = styled.div`
         width: 35px;
         height: 5px;
-        background-color: #1e6c93;
         margin: 6px auto;
         transition: 0.4s;
-        color: #1e6c93;
+
+        background-color: ${ props => 
+                                (props.title === ("student") ) ? 
+                                    "#931E1D": "#1E6C93"
+                            };
+        color: ${ props => 
+                                (props.title === ("student") ) ? 
+                                    "#931E1D": "#1E6C93"
+                            };
     `;
 
     let NavBarListItem = styled.a`
-        color: #1f6b92;
+        color: ${ props => 
+                    (props.title === ("student") ) ? 
+                        "#A01C1C": "#3B709A"
+                };
         text-decoration: none;
     `; 
 
     let LogOutButton = styled("button")`
         color: white;
-        background-color: #1e6c93;
+        background-color: ${ props => 
+                                (props.title === ("student") ) ? 
+                                    "#931E1D": "#1E6C93"
+                            };
         padding: 0.5em 0.7em;
         border: 0px;
         border-radius: 3px;
 
+        transition: background-color 0.5s;
+
         &:hover {
-            background-color: #3b709a;
+            background-color: ${ props => 
+                                (props.title === ("student") ) ? 
+                                    "#BD2222": "#2588b9"
+                            };
         }
     `; //end LogOut Button
 
     let NavBarListItemLi = (props) => {
         return (
             <li>
-                <NavBarListItem href={props.href}>
+                <NavBarListItem href={props.href} 
+                                title={props.districtPosition}
+                >
                     {props.title}
                 </NavBarListItem>
             </li>
@@ -191,6 +216,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                         key={index} 
                         href={listItemArrayObject.href}
                         title={listItemArrayObject.title}
+                        districtPosition={props.title}
                     />: null);
             }
         ); //end map()
@@ -242,24 +268,30 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
 
     return (
-        <NavBar className="navigation-bar">
-            <NavBarImageWrapper className="navigation-bar-image-wrapper">
-                <a className="navbar-logo-link" href="http://portal.centinela.k12.ca.us">
-                    <NavBarLogo className="img-responsive" id="navbar-logo" href="#" src="/images/CV-600x600-portal.png" />
+        <NavBar title={props.title} className="navigation-bar">
+            <NavBarImageWrapper title={props.title} className="navigation-bar-image-wrapper">
+                <a href="http://portal.centinela.k12.ca.us" 
+                   className="navbar-logo-link"
+                >
+                    <NavBarLogo title={props.title} 
+                                className="img-responsive" 
+                                id="navbar-logo" 
+                                href="#" 
+                                src={ ( props.title === "student" ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
                 </a>
             </NavBarImageWrapper>
-            <NavBarUL className="navigation-bar-ul">
-                <MenuToggle type="checkbox" id="menu-toggle" />
+            <NavBarUL title={props.title} className="navigation-bar-ul">
+                <MenuToggle title={props.title} type="checkbox" id="menu-toggle" />
                 <label id="nav-menu-icon-label" htmlFor="menu-toggle">
-                    <NavMenuIcon className="nav-menu-icon">
-                        <FirstBar className="bar1"></FirstBar>
-                        <FirstBar className="bar2"></FirstBar>
-                        <FirstBar className="bar3"></FirstBar>
+                    <NavMenuIcon title={props.title} className="nav-menu-icon">
+                        <FirstBar title={props.title} className="bar1"></FirstBar>
+                        <FirstBar title={props.title} className="bar2"></FirstBar>
+                        <FirstBar title={props.title} className="bar3"></FirstBar>
                     </NavMenuIcon>    
                 </label>
 
                 { generateNavBarListItems(staff_HeaderLinks) }
-                <LogOutButton onClick={logOut}>Logout</LogOutButton>
+                <LogOutButton title={props.title} onClick={logOut}>Logout</LogOutButton>
             </NavBarUL>
         </NavBar>
     );

@@ -3,7 +3,8 @@ import React from "react"; //Import React since JSX is being used
 import styled from "styled-components";
 let StyledButton = styled("button")`
     transition: transform .2s, margin .2s; 
-
+    max-width: 300px;
+    
     &:hover, &:active, &:focus {
         transform: scale(1.1);
         margin: 0.5em 0.2em;

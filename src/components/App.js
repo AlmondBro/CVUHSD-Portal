@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 //Import components
 import PageContent from "./PageContent.js";
 
-
 import isDev from 'isdev';
 
 //Import 3rd-party APIs
@@ -148,12 +147,9 @@ class App extends Component {
     });
 };
 
-
   componentDidMount = () => {
     this.isAuthenticated();
   };
-
- 
 
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;

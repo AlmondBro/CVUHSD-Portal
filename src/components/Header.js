@@ -37,7 +37,10 @@ let NavigationBarHeader = styled.header`
         position: fixed;
         /* Bottom two BG-color and border-bottom were not here before */
         background: #f4f7f9;
-        border-bottom: 5px solid #1e6c93;
+        border-bottom: ${ props => 
+                            (props.title === ("student") ) ? 
+                                "5px solid #931E1D": "5px solid #1E6C93"
+                        };
     }
 
     @media only screen and (max-width: 833px) {
@@ -57,7 +60,10 @@ let DashboardHeader = styled.header`
     padding: 15px 0;
     border-radius: 5px;
     background-color: white;
-    color: rgb(30, 108, 147);
+    color:  ${ props => 
+                (props.title === ("student") ) ? 
+                    "#931E1D": "#1E6C93"
+            };
     /* margin: 2.5% auto; */
     /* Was 3.5% */
     text-align: center;
@@ -79,6 +85,11 @@ let AddToHomeScreenButton = styled.button`
     display: none;
     position: relative;
     /* display: inline-block; */
+
+    background-color: ${ props => 
+                            (props.title === ("student") ) ? 
+                                "#931E1D": "#1E6C93"
+                        };
     color: white;
     border: 0;
     font-size: 1.3em;
@@ -121,10 +132,25 @@ let ToolTip = styled.div`
     }
 `; //end ToolTip
 
+let PortalHeaderText = styled("h1")`
+    display: inline-block;
+    text-align: center;
+    color: ${ props => 
+                (props.title === ("student") ) ? 
+                    "#931E1D": "#1E6C93"
+        };
+    
+`;
+
 let Greeting = styled("h3")`
     font-size: 1.5em;
-    margin: 8px 10px;
+    margin: 4px 10px;
     padding: 5px;
+
+    color:  ${ props => 
+                (props.title === ("student") ) ? 
+                    "#931E1D": "#1E6C93"
+            };
 
     & span {
         font-style: italic;
@@ -144,19 +170,27 @@ const Header = ( { modifyLogInStatus, ...props }) => {
     console.log("Header props:\t" + JSON.stringify(props) );
 
     return ([
-        <NavigationBarHeader>
-            <NavigationBar 
+        <NavigationBarHeader title={props.title}>
+            <NavigationBar title={props.title}
                 modifyLogInStatus={modifyLogInStatus} 
             />
         </NavigationBarHeader>,
 
         <DashboardHeaderContainer id="back-to-top">
             <DashboardHeader>
-                <h1><strong>{props.districtName || "District"}</strong></h1>
-                <h2>{props.headerTitle|| "Portal"}</h2>
-                <Greeting>{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
-                <PositionGreeting><span>{props.title || "CVUHSD User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
-                <AddToHomeScreenButton id="addToHomeScreenButton">Add to Home Screen</AddToHomeScreenButton>
+                <PortalHeaderText title={props.title}>
+                    <strong>
+                        {props.districtName || "District"}
+                        <span>
+                            <h2>
+                                {props.headerTitle|| "Portal"}
+                            </h2>
+                        </span>
+                    </strong>
+                </PortalHeaderText>
+                <Greeting title={props.title}>{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
+                <PositionGreeting title={props.title}><span>{props.title || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
+                <AddToHomeScreenButton id="addToHomeScreenButton" title={props.title}>Add to Home Screen</AddToHomeScreenButton>
                 <ToolTip className="tooltip" id="addToHomeScreenTooltip">
                     <p>
                         Create a shortcut to the portal app on your desktop. 

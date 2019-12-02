@@ -126,7 +126,20 @@ let staffPortalButtons = {
             buttonLink: "https://www.californiacolleges.edu/#/user-login",
             buttonImg: "ccgi-logo.png",
             description: "California College Guidance Initiative"
-        }
+        },
+
+        clever_button : { 
+            buttonLink: "https://www.clever.com/in/cvuhsd",
+            buttonImg: "Clever_Button_Bevel.png",
+            description: "Clever Portal",
+            deepLink: "clever://",
+            appLink_config : {
+                appName: "clever-drive",
+                appStoreId: "507874739",
+                appStoreLocale: "us",
+                playStoreId: "com.google.android.apps.docs"
+            }
+        },
     }, //end quickLinks
 
     standardStaffTools : {
@@ -251,10 +264,24 @@ let staffPortalButtons = {
 
     teacherTools : {
         //TODO: Find Frontline Education Deep Link!!
-        frontLine_button : {
+        /*frontLine_button : {
             buttonLink: "https://login.frontlineeducation.com/login?signin=dc20373fccea7afc2e324f7ceec30775&productId=ABSMGMT&clientId=ABSMGMT#/login",
             buttonImg: "aesop.png",
             description: "Frontline (Absence Management/Subfinder)",
+            deepLink: "frontline-technologies://",
+            appLink_config : {
+                appName: "frontline-education",
+                appStoreId: "1160398526",
+                appStoreLocale: "us",
+                playStoreId: "com.frontline.frontlinemobile"
+            }
+        }, */
+
+        //TODO: Find deepLink & appLink_config if there is a SmartFind app
+        smartFind_button : {
+            buttonLink: "https://centinela.eschoolsolutions.com/",
+            buttonImg: "unified-talent.png",
+            description: "SmartFind Absence Reporting & Subs",
             deepLink: "frontline-technologies://",
             appLink_config : {
                 appName: "frontline-education",
@@ -631,6 +658,36 @@ let staffPortalButtons = {
             buttonImg: "Edlio-LZ.png",
             description: "Edlio Website Administraton - Leuzinger High School"
         }
+    },
+
+    resourcesAndTraining: {
+        //TODO: Need to find deep link and app if it exists
+        lunchTechBytes_Button : {
+            buttonLink: "http://bit.ly/LunchTechBytesList",
+            buttonImg: "LunchTechBytes_Button_Bevel.png",
+            description: "Lunch Tech Bytes",
+            deepLink : "canvas-teacher://",
+            appLink_config : {
+                appName: "canvas-teacher",
+                appStoreId: "1257834464",
+                appStoreLocale: "us",
+                playStoreId: "com.instructure.teacher"
+            }
+        },
+
+        //TODO: Need to find deep link and app if it exists
+        techitOut_Button : {
+            buttonLink: "https://docs.google.com/document/d/1f4D4dwLN4UxhEOR52Yrdgr8M9yEMAz6fFoqD7-HI9b0/edit?usp=sharing",
+            buttonImg: "TechItOut_Button.png",
+            description: "Tech It Out",
+            deepLink : "canvas-teacher://",
+            appLink_config : {
+                appName: "canvas-teacher",
+                appStoreId: "1257834464",
+                appStoreLocale: "us",
+                playStoreId: "com.instructure.teacher"
+            }
+        },
     }
 }; //end staffPortalButtons
 

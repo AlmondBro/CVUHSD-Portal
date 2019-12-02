@@ -94,7 +94,7 @@ let FormButton = styled('button')`
     padding: 0.5em;
     background-color: #336186;
     color: white;
-    transition: 0.5s;
+    transition: background-color 0.5s;
     text-align: center;
 
     &:hover, &:active, &:focus  {
@@ -283,7 +283,7 @@ class LogIn extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        let allowAuth = false;
+        let allowAuth = true;
 
         console.log("Submitting...");
 
@@ -357,6 +357,7 @@ class LogIn extends Component {
                 console.log(`Success response: ${JSON.stringify(response)}`);
                 console.dir(response);
                 
+                //Set attributes from user ActiveDirectory information retrieved from the server upon successful login
                 this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["familyName"]);
                 this.modifyTitle(response.userInfo["title"]);
                 this.modifySite(response.userInfo["site"]);
@@ -381,6 +382,7 @@ class LogIn extends Component {
                             
                 this.setState({message: message, isLoading: false});
 
+                isDev ? (allowAuth ? this.modifyTitle("staff") : nullFunction()) : nullFunction();
                 return isDev ? (allowAuth ? this.modifyLogInStatus(allowAuth) : 0) : nullFunction(); //TODO: Set to true in production or dev in work computer
             }
         }).catch((err) => {
@@ -461,14 +463,22 @@ class LogIn extends Component {
     render = () => { 
         document.title = "CVUHSD | Portal Login"
        
-      if (this.props.loggedIn === true) {
-           console.log("Success - correct password & username....!!");
-            return (<Redirect to={ {
+    //TODO: Conditionally generate pathName to match student or staff
+    //TODO: Find out if props.location.state is really necessary
+    if (this.props.loggedIn === true) {
+        console.log("Success - correct password & username....!!");
+        return (<Redirect to={ 
+                                {
                                     pathname: "/page-content",
-                                    state: { fullName: `${this.state.firstName}\t ${this.state.lastName}`, logInSuccess: true }
-                                   }
+                                    state: { 
+                                            fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
+                                            logInSuccess: true,
+                                            title: this.props.title,
+                                            site: this.props.site
+                                        }
+                                }
                     } 
-                    />);
+                />);
           //return 1;
         } 
      /*
