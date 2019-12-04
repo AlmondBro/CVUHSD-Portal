@@ -1,28 +1,30 @@
-require('dotenv').config({path: __dirname + './../.env', debug: false}) //Load environmental variables
+require("dotenv")
+  .config({ path: __dirname + "./../.env", 
+            debug: false}); //Load environmental variables
 
 const isDev = require("isDev"); //Load environmental variables
 
-const express = require('express'); 
-const path = require('path');
+const express = require("express"); 
+const path = require("path");
 
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const passport = require("passport");
 
 const session = require("express-session");
 
-const helmet = require('helmet');
+const helmet = require("helmet");
 //const csp = require('helmet-csp');
 
 //const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 
-const sslRootCAs = require('ssl-root-cas/latest');
+const sslRootCAs = require("ssl-root-cas/latest");
 
-const requestIp = require('request-ip'); 
+const requestIp = require("request-ip"); 
 
-const uuidv1 = require('uuid/v1'); //uuID based of timestamp
-const uuidv4 = require('uuid/v4'); //Random uuID
+const uuidv1 = require("uuid/v1"); //uuID based of timestamp
+const uuidv4 = require("uuid/v4"); //Random uuID
 
 const app = express(); 
 
@@ -49,7 +51,10 @@ app.use(cors({
 })); */
 
 app.use(helmet());
-//app.use(csp()); //Content Security Policy helps prevent unwanted content being injected into your webpages; this can mitigate cross-site scripting (XSS) vulnerabilities, malicious frames, unwanted trackers, and more
+//app.use(csp()); 
+//Content Security Policy helps prevent unwanted content being injected into your webpages; 
+//this can mitigate cross-site scripting (XSS) vulnerabilities,
+// malicious frames, unwanted trackers, and more
 
 app.use(cors());
 app.options('*', cors()) // include before other routes
@@ -63,14 +68,13 @@ app.use( (req, res, next) => {
 });
 */
 
-const CVUHSD_CertificatePath = ('./../certificates/ssl-cvuhsd.cer');
-const ADFS_CertificatePath = ('./../certificates/ssl-cvuhsd.cer');
+const CVUHSD_CertificatePath = ("./../certificates/ssl-cvuhsd.cer");
+const ADFS_CertificatePath = ("./../certificates/ssl-cvuhsd.cer");
 
 //Inject certificates
-sslRootCAs.inject() 
+sslRootCAs.inject()
           .addFile(__dirname + CVUHSD_CertificatePath)
-          .addFile(__dirname + ADFS_CertificatePath)
-          ;
+          .addFile(__dirname + ADFS_CertificatePath);
   
 //app.use(rateLimiterRedisMiddleware);
 
@@ -92,17 +96,17 @@ app.use(passport.session());
 
 //Need to use absolute paths relative to where the web.config file is when using Express in IISNode. 
 // If not using url rewrite, specifiy extension
-let aboutIISNode_URL = `${isDev ? "" : "/server"}/about-IIS-Node`
+let aboutIISNode_URL = `${isDev ? "" : "/server"}/about-IIS-Node`;
 
 //Routes
 app.get(aboutIISNode_URL,  (req, res)  =>{
-  res.send(`IISNode version:\t ${process.env.IISNODE_VERSION || "Not on IIS"} 
+  res.send(`IISNode version:\t ${process.env.IISNODE_VERSION} 
             \n NodeJS version:\t ${process.version}
             \n isDev:\t ${isDev}`); 
 }); 
 
-let logIn_URL = `${isDev ? "" : "/server" }/login`
-let logOut_URL = `${isDev ? "" : "/server" }/logout`
+let logIn_URL = `${isDev ? "" : "/server" }/login`;
+let logOut_URL = `${isDev ? "" : "/server" }/logout`;
 
 //Routes
 app.get(logIn_URL, (req, res) => { res.send({success: true}); console.log("Login"); } ); 

@@ -20,6 +20,8 @@ import NotFound from './NotFound.js';
 
 import PrivateRoute from "./PrivateRoute.js";
 
+import SimpleStorage, { clearStorage, resetParentState } from "react-simple-storage";
+
 //TODO: Have /staff.html redirect to /staff
 
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
@@ -66,6 +68,7 @@ class App extends Component {
     this.state = {
      loggedIn: null,
 
+     //TODO: Eliminate redudant fullName and first/lastName from state
     userInfo: {
         firstName: "",
         lastName: "",
@@ -77,6 +80,7 @@ class App extends Component {
 
     firstName: "",
     lastName: "",
+    fullName: "",
     title: "",
     site: "",
 
@@ -86,6 +90,9 @@ class App extends Component {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
     }; //end state object
+
+    // store the component's initial state to reset it
+    this.initialState = this.state;
     console.log("Props:\t" + JSON.stringify(this.props) );
   } //end constructor
 
@@ -117,6 +124,13 @@ class App extends Component {
     console.log("modifySite() from App.js");
     this.setState({site: newSite});  
   }; //end modifyFullName()
+
+
+  //TODO: Pass this function down to the logOut() function
+  clearState = () => {
+    //clearStorage("PortalStorage");
+    resetParentState(this, this.initialState);
+  };
 
   isAuthenticated = () => {
     //event.preventDefault();
@@ -155,6 +169,7 @@ class App extends Component {
     let publicURL = ""; //process.env.PUBLIC_URL;
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
+        <SimpleStorage parent={this} prefix={"PortalStorage"} />
         <Switch>
             { // Update routes to use server subdirectory in production
               //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
