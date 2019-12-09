@@ -4,7 +4,9 @@ require("dotenv")
 
 const isDev = require("isDev"); //Load environmental variables
 
+const cookieSession = require("cookie-session");
 const express = require("express"); 
+
 const path = require("path");
 
 const bodyParser = require("body-parser");
@@ -81,6 +83,23 @@ sslRootCAs.inject()
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//TODO: Use cookieSession to use as a client-side memory store since connect.session() MemoryStore is not designed for production
+//Cookie-ssession stores data on the client while expression-session stores on the server. 
+
+//Source: https://stackoverflow.com/questions/10760620/using-memorystore-in-production/37022764#37022764
+//https://stackoverflow.com/questions/44882535/warning-connect-session-memorystore-is-not-designed-for-a-production-environm/44884800#44884800
+//https://stackoverflow.com/questions/44882535/warning-connect-session-memorystore-is-not-designed-for-a-production-environm/44884800#44884800
+
+app.use(cookieSession({
+  name: 'session',
+  keys: [/* secret keys */],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
+
+
+/*
 app.use(session({
   secret: uuidv4(),
   resave: false,
@@ -88,6 +107,7 @@ app.use(session({
   key: uuidv1(),
   cookie: { secure: isDev ? false : true, maxAge: 604800000 }
 }));
+*/
 
 app.use(requestIp.mw())
 
