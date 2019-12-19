@@ -84,17 +84,21 @@ let ADFS_SAML_CONFIG = {
     RACComparison: 'exact', // default to exact RequestedAuthnContext Comparison Type
   };
 
-//Define passport authentication strategies
-passport.use('wsfed-saml2', new wsfedsaml2({
+  let WSFED_SAML2_CONFIG = {
     // ADFS RP identifier
     realm: process.env.ADFS_REALM,
     identityProviderUrl: process.env.ADFS_IDP,
     thumbprints: [ process.env.ADFS_THUMBPRINT ], //// ADFS token signing certificate
     cert: fs.readFileSync(path.resolve(__dirname, "./../../certificates/ADFS_Signing.crt") )
-  },  (profile, done) => {
-    console.log(profile);
-    return done(null, profile);
-  }));
+};
+
+//Define passport authentication strategies
+passport.use('wsfed-saml2', new wsfedsaml2(
+                  WSFED_SAML2_CONFIG,  
+                  (profile, done) => {
+                  console.log(profile);
+                  return done(null, profile);
+}));
 
 passport.use(new SamlStrategy(
     ADFS_SAML_CONFIG,
