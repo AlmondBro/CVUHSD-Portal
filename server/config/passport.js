@@ -71,7 +71,7 @@ let ADFS_SAML_CONFIG = {
     //Comments are from docs: https://github.com/bergie/passport-saml#security-and-signatures
     entryPoint: process.env.ADFS_IDP,
     issuer: 'https://portal.centinela.k12.ca.us', //issuer string to supply to identity provider
-    callbackUrl: process.env.ADFS_IDP, //full callbackUrl (overrides path/protocol if supplied)
+    callbackUrl: "http://localhost:3000/login", //full callbackUrl (overrides path/protocol if supplied)
     //privateCert: fs.readFileSync(path.join(__dirname, '/../../certificates/ADFS_Signing.pem'), 'utf-8'), //Authentication requests sent by Passport-SAML can be signed using RSA-SHA1. To sign them you need to provide a private key in the PEM format via the privateCert configuration key. The certificate should start with -----BEGIN PRIVATE KEY----- on its own line and end with -----END PRIVATE KEY----- on its own line.
     cert: [process.env.ADFS_SIGNING_CERT], //the IDP's public signing certificate used to validate the signatures of the incoming SAML Responses
   // other authn contexts are available e.g. windows single sign-on
