@@ -185,7 +185,7 @@ app.post(logIn_URL,
    (req, res, next) => {
     // call passport authentication passing the "local" strategy name and a callback function
     ////Can use ActiveDirectory, saml, wsfed-saml2 all as authentication strategies 
-    passport.authenticate('saml', passportAuthentication_options,  (error, user, info) => {
+    passport.authenticate('ActiveDirectory', passportAuthentication_options,  (error, user, info) => {
       // this will execute in any case, even if a passport strategy will find an error
       // log everything to 
       
