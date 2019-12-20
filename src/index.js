@@ -14,7 +14,8 @@ import isDev from 'isdev';
     you’ll want to set this to the sub-directory. A properly formatted basename should have \
     a leading slash, but no trailing slash.
 */
-let baseName = isDev ? '' : '/build'; 
+let subDirectory = false;
+let baseName = isDev ? '' : (subDirectory ? '/build' : ''); 
 
 ReactDOM.render(
     <Router basename={baseName}>

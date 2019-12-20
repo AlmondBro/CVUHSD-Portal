@@ -71,7 +71,7 @@ let ADFS_SAML_CONFIG = {
     //Comments are from docs: https://github.com/bergie/passport-saml#security-and-signatures
     entryPoint: process.env.ADFS_IDP,
     issuer: 'https://portal.centinela.k12.ca.us', //issuer string to supply to identity provider
-    callbackUrl: process.env.ADFS_IDP, //full callbackUrl (overrides path/protocol if supplied)
+    callbackUrl: "http://localhost:3000/login", //full callbackUrl (overrides path/protocol if supplied)
     //privateCert: fs.readFileSync(path.join(__dirname, '/../../certificates/ADFS_Signing.pem'), 'utf-8'), //Authentication requests sent by Passport-SAML can be signed using RSA-SHA1. To sign them you need to provide a private key in the PEM format via the privateCert configuration key. The certificate should start with -----BEGIN PRIVATE KEY----- on its own line and end with -----END PRIVATE KEY----- on its own line.
     cert: [process.env.ADFS_SIGNING_CERT], //the IDP's public signing certificate used to validate the signatures of the incoming SAML Responses
   // other authn contexts are available e.g. windows single sign-on
@@ -84,17 +84,21 @@ let ADFS_SAML_CONFIG = {
     RACComparison: 'exact', // default to exact RequestedAuthnContext Comparison Type
   };
 
-//Define passport authentication strategies
-passport.use('wsfed-saml2', new wsfedsaml2({
+  let WSFED_SAML2_CONFIG = {
     // ADFS RP identifier
     realm: process.env.ADFS_REALM,
     identityProviderUrl: process.env.ADFS_IDP,
     thumbprints: [ process.env.ADFS_THUMBPRINT ], //// ADFS token signing certificate
     cert: fs.readFileSync(path.resolve(__dirname, "./../../certificates/ADFS_Signing.crt") )
-  },  (profile, done) => {
-    console.log(profile);
-    return done(null, profile);
-  }));
+};
+
+//Define passport authentication strategies
+passport.use('wsfed-saml2', new wsfedsaml2(
+                  WSFED_SAML2_CONFIG,  
+                  (profile, done) => {
+                  console.log(profile);
+                  return done(null, profile);
+}));
 
 passport.use(new SamlStrategy(
     ADFS_SAML_CONFIG,
