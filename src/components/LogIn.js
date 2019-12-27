@@ -291,7 +291,7 @@ class LogIn extends Component {
 
         let userName, emailDomain;
 
-        let userCheck = false;
+        let userCheck, validDomain = false;
 
         let userName_length = lowerCase_Username.length;
 
@@ -344,10 +344,20 @@ class LogIn extends Component {
                     emailDomain = lowerCase_Username.substring(index, userName_length); 
                     if ( (emailDomain !== "@cvuhsd.org") || (emailDomain !==  "@centinela.k12.ca.us") ) {
                         this.modifyLogInStatus(false);
-                        this.setState({isLoading: false, message: "Please enter a valid CVUHSD email."})
+                        this.setState({isLoading: false, message: "Please enter a valid CVUHSD email. Not a personal e-mail."})
                         userCheck = false;
                     } //end inner-if
+                    if ((emailDomain === "@cvuhsd.org") || (emailDomain ===  "@centinela.k12.ca.us")) {
+                        this.setState({isLoading: false, message: "Success -- valid CVUHSD email."})
+                        //userCheck = true;
+                        validDomain = true;
+                    }
                 } //end outer-if
+                else {
+                    this.modifyLogInStatus(false);
+                    this.setState({isLoading: false, message: "Please enter a valid CVUHSD email."})
+                    userCheck = false;
+                }
             } //end for statement 
         };
 
@@ -356,7 +366,7 @@ class LogIn extends Component {
         } //end if-statement
   
         console.log("emailDomain:\t" + emailDomain);
-        return userCheck;
+        return validDomain;
     };
 
     handleSubmit = (event) => {
