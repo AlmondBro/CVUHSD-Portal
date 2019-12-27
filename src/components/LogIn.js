@@ -289,11 +289,41 @@ class LogIn extends Component {
 
         let lowerCase_Username = username.toLowerCase();
 
-        let userName, emailDomain, userCheck;
+        let userName, emailDomain;
+
+        let userCheck = false;
 
         let userName_length = lowerCase_Username.length;
 
-        if (!isEmpty(userName)) {
+        console.log(`Is empty:\t ${isEmpty(" ")} ${isEmpty(userName)}`);
+
+        console.log(`Is empty username and password:\t ${isEmpty(username)} ${isEmpty(password)}`);
+
+        if (isEmpty(username) && isEmpty(password)) {
+            this.modifyLogInStatus(false);
+            console.log("Username and password are empty");
+            this.setState({isLoading: false, message: "Please enter a username and password."})
+            userCheck = false;
+        }
+
+        else if (isEmpty(password) && !isEmpty(username) ) {
+            this.modifyLogInStatus(false);
+            console.log("Just password is empty.");
+            this.setState({isLoading: false, message: "Please enter a password."})
+            userCheck = false;
+        }
+
+        else if (!isEmpty(password) && isEmpty(username) ) {
+            this.modifyLogInStatus(false);
+            console.log("Just username is empty.");
+            this.setState({isLoading: false, message: "Please enter a username."})
+            userCheck = false;
+        } else {
+            userCheck = true;
+        }
+
+        /*
+        if (isEmpty(username)) {
             this.modifyLogInStatus(false);
             this.setState({isLoading: false, message: "Please enter a username."})
             userCheck = false;
@@ -304,25 +334,27 @@ class LogIn extends Component {
             this.setState({isLoading: false, message: "Please enter a password."})
             userCheck = false;
         }
+        */
 
-        if (isEmpty(userName) && isEmpty(password)) {
-            this.modifyLogInStatus(false);
-            this.setState({isLoading: false, message: "Please enter a username and password."})
-            userCheck = false;
-        }
+        let domainCheck = () => {
+            for (let index = 0; index < userName_length; index++) {
+                let individualCharacter = lowerCase_Username.charAt(index);
+                
+                if (individualCharacter === "@") {
+                    emailDomain = lowerCase_Username.substring(index, userName_length); 
+                    if ( (emailDomain !== "@cvuhsd.org") || (emailDomain !==  "@centinela.k12.ca.us") ) {
+                        this.modifyLogInStatus(false);
+                        this.setState({isLoading: false, message: "Please enter a valid CVUHSD email."})
+                        userCheck = false;
+                    } //end inner-if
+                } //end outer-if
+            } //end for statement 
+        };
 
-        for (let index = 0; index < userName_length; index++) {
-            let individualCharacter = lowerCase_Username.charAt(index);
-            
-            if (individualCharacter === "@") {
-                emailDomain = lowerCase_Username.substring(index, userName_length); 
-                if ( (emailDomain !== "@cvuhsd.org") || (emailDomain !==  "@centinela.k12.ca.us") ) {
-                    this.modifyLogInStatus(false);
-                    this.setState({isLoading: false, message: "Please enter a valid CVUHSD email."})
-                    userCheck = false;
-                }
-            }
-        }
+        if (userCheck === true) {
+            domainCheck();
+        } //end if-statement
+  
         console.log("emailDomain:\t" + emailDomain);
         return userCheck;
     };
