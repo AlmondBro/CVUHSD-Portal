@@ -268,6 +268,8 @@ class LogIn extends Component {
         this.modifyFullName = this.props.modifyFullName;
         this.modifyTitle = this.props.modifyTitle;
         this.modifySite = this.props.modifySite;
+
+        this.user_name_only = ""; 
         
         console.log("Props:\t" + JSON.stringify(this.props) );
     }; //end constructor
@@ -284,7 +286,7 @@ class LogIn extends Component {
     };
 
     validUser = () => {
-        console.log("checkUser()");
+        console.log("checkUser() username");
         let { username, password} = this.state;
 
         let lowerCase_Username = username.toLowerCase();
@@ -322,35 +324,33 @@ class LogIn extends Component {
             userCheck = true;
         }
 
-        /*
-        if (isEmpty(username)) {
-            this.modifyLogInStatus(false);
-            this.setState({isLoading: false, message: "Please enter a username."})
-            userCheck = false;
-        }
-
-        if (isEmpty(password)) {
-            this.modifyLogInStatus(false);
-            this.setState({isLoading: false, message: "Please enter a password."})
-            userCheck = false;
-        }
-        */
 
         let domainCheck = () => {
+            //May not need for loop, refer to here: 
+            // https://stackoverflow.com/questions/39583549/how-do-i-have-javascript-get-a-substring-before-a-character
             for (let index = 0; index < userName_length; index++) {
                 let individualCharacter = lowerCase_Username.charAt(index);
                 
                 if (individualCharacter === "@") {
                     emailDomain = lowerCase_Username.substring(index, userName_length); 
+                    this.user_name_only = lowerCase_Username.split("@")[0]; //Splits string into array using the "@" as a delimiter. Get the first element in the array.
+
+                    console.log("this.user_name_only: (from outermost if)\t" + this.user_name_only);
+
                     if ( (emailDomain !== "@cvuhsd.org") || (emailDomain !==  "@centinela.k12.ca.us") ) {
                         this.modifyLogInStatus(false);
                         this.setState({isLoading: false, message: "Please enter a valid CVUHSD email. Not a personal e-mail."})
                         userCheck = false;
                     } //end inner-if
                     if ((emailDomain === "@cvuhsd.org") || (emailDomain ===  "@centinela.k12.ca.us")) {
-                        this.setState({isLoading: false, message: "Success -- valid CVUHSD email."})
                         //userCheck = true;
                         validDomain = true;
+                        this.setState(
+                            {
+                                isLoading: false, 
+                                message: "Success -- valid CVUHSD email."
+                            }
+                        );
                     }
                 } //end outer-if
                 else {
@@ -395,11 +395,15 @@ class LogIn extends Component {
                 'Access-Control-Allow-Origin': '*',
                 'Cache-Control': 'no-cache'
             };
-
+            
+            //this.setState({username: this.state.usernameOnly});
+            console.log(`this.user_name_only (from connect to server): ${this.user_name_only}`);
+            console.log(`Username: ${this.state.username}`);
+            
             fetch(logIn_URL, {
                 method: 'POST',
                 headers: headers,
-                body: JSON.stringify({username: username, password: password})
+                body: JSON.stringify({username: this.user_name_only, password: password})
             }).then((response) => {
                 if (response.status >= 400) {
                     if ( (response.status === 401) && (!username || !password)) {
@@ -436,7 +440,7 @@ class LogIn extends Component {
                     console.log(response);
 
                     this.modifyLogInStatus(false);
-                    this.setState({ message: response.message,isLoading: false });
+                    this.setState({ message: response.message || "Success! Logging in...", isLoading: false });
                     //return;
                     return response.json();
                 }
@@ -453,17 +457,19 @@ class LogIn extends Component {
                     this.modifyTitle(response.userInfo["title"].toString().toLowerCase());
                     this.modifySite(response.userInfo["site"]);
 
-                    this.setState({ message: response.message});  
+                    this.setState({ message: response.message, isLoading: false});  
 
                     this.modifyLogInStatus(true); //Set loggedIn to true after populating the first and last name, for a true login renders the portal buttons page
 
                     //TODO: Conditionally render an isStudent variable
+                    /*
                     setTimeout((response) => {
                         //browserHistory.push("/page-content");
                         console.log("Initiating timeout...");
                         this.setState({ isLoading: false });
                         return response;
                     }, 10000);
+                    */
                 } else {
                     console.log("Block 5");
                     console.log(response);
@@ -488,6 +494,7 @@ class LogIn extends Component {
         };
 
         if (this.validUser() === false ) {
+            //connectToServer();
             return; 
         } else {
             connectToServer();
