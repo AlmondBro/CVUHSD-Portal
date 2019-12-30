@@ -16,10 +16,10 @@ import isDev from 'isdev';
 
 import { isEmpty } from "./../utilityFunctions.js";
 
-//TODO: Upon click in result button, clear the form data and remove message -- set loggedIn to null
 //TODO: Create function that fetches the IP Address
 //TODO: Create reset-password functionality
 //TODO: Save the app state to local storage or use redux 
+//TODO: Add modal that appears on the login page after a user logs out
 
 let Form = styled('form')`
     /* font-family: "Montserrat", sans-serif; */
