@@ -141,7 +141,7 @@ app.post(logOut_URL, (req, res, next) => {
   //console.log("Log Out Next:\t" + next); //TODO: See if this is really the next() function or an error
 
   if (req.user || req.isAuthenticated()) {
-    console.log("Req-session, before logging out:\t" + JSON.stringify(req.session) );
+    console.log("\n\nReq-session, before logging out:\t" + JSON.stringify(req.session) );
     //Destroy cookie: https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
     req.logout();
     req.session = null; //Destroy session

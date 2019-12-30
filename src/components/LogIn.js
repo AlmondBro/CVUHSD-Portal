@@ -611,6 +611,7 @@ class LogIn extends Component {
                             type="text" 
                             name="username" 
                             id="username"
+                            title="username"
                             onChange={this.handleInputChange}
                             value={this.state.username}
                             placeholder="CVUHSD Username"
@@ -624,6 +625,7 @@ class LogIn extends Component {
                             type="password" 
                             name="password" 
                             id="password"
+                            title="password"
                             onChange={this.handleInputChange}
                             value={this.state.password}
                             placeholder="CVUHSD Password"
@@ -636,7 +638,7 @@ class LogIn extends Component {
                             //TODO: Need to find HTML entities
                             */
                         }
-                        <FormButton type="submit">Submit</FormButton>
+                        <FormButton type="submit" title="Log In">Submit</FormButton>
                         { this.props.loggedIn === null ? "" : 
                             (  <ResetButton id="reset-button"
                                             type="reset"
