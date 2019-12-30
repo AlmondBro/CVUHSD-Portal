@@ -28,6 +28,8 @@ const requestIp = require("request-ip");
 const uuidv1 = require("uuid/v1"); //uuID based of timestamp
 const uuidv4 = require("uuid/v4"); //Random uuID
 
+const undefsafe = require("undefsafe");
+
 const app = express(); 
 
 //TODO: Change all requires() to imports
@@ -36,8 +38,7 @@ const app = express();
 //TODO: Get user's profile pic: https://github.com/gheeres/node-activedirectory/issues/152
 //TODO: Add footer link to change password
 //TODO: Have helpdesk call link
-//TODO: Create protected routes
-//TODO: Create student portal
+
 
 const port = process.env.PORT || 3001; 
 
@@ -90,13 +91,18 @@ app.use(bodyParser.json());
 //https://stackoverflow.com/questions/44882535/warning-connect-session-memorystore-is-not-designed-for-a-production-environm/44884800#44884800
 //https://stackoverflow.com/questions/44882535/warning-connect-session-memorystore-is-not-designed-for-a-production-environm/44884800#44884800
 
-app.use(cookieSession({
-  name: 'session',
-  keys: [/* secret keys */],
+let username;
 
+let cookieSession_config = {
+  name: "cvuhsd-portal-" + uuidv1(),
+  keys: [ uuidv1() + uuidv4(), uuidv1() + uuidv4() ],
+  secret: uuidv4(),
   // Cookie Options
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
-}));
+  maxAge: 604800000, // 7 days
+  secure: isDev ? false : true
+};
+
+app.use(cookieSession(cookieSession_config));
 
 
 /*
@@ -138,6 +144,11 @@ app.post(logOut_URL, (req, res, next) => {
     console.log("Req-session, before logging out:\t" + JSON.stringify(req.session) );
     //Destroy cookie: https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
     req.logout();
+    req.session = null; //Destroy session
+
+    //res.clearCookie('express.sid', {path: '/'}).json({status: "Logout success"});
+    res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //Send message to front-end to log out. Status 401 is logged out or unauthorized.
+    /* /req.session.destroy only works when expression-session is used
     req.session.destroy(
       (err) => {
         if (!err) {
@@ -153,11 +164,12 @@ app.post(logOut_URL, (req, res, next) => {
         } //end else-statement
       } //code snippet courtesy of https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
     );//end req.session.code()
-
+      */
   } //end if-statement
   
   if ( (!(req.user)) || req.isUnauthenticated()) {
     console.log("Already logged out");
+    console.log("\n\nPassport.session, after logging out:\t" + JSON.stringify(passport.session) ); 
   } else {
     console.log("Neither logged in nor out");
   }
@@ -212,6 +224,8 @@ app.post(logIn_URL,
       //let userInfo = {...user["_json"], ...user["name"]};
      // res.locals.userInfo = userInfo; //To 'pass a variable' to a middleware, attach it to the response.locals object
       //console.log("User:\t" + JSON.stringify(userInfo) );
+
+      username = req.body.username;
       console.log("\n------------------");
       console.log("Error:\t" + error);
     
@@ -257,8 +271,9 @@ app.post(logIn_URL,
                     };
 
           res.locals.userInfo = userInfo; //To 'pass a variable' to a middleware, attach it to the response.locals object
-          console.log("Logged in successfully -- Calling next() -- go to next middleware");
+          req.session.userInfo = res.locals.userInfo; //Add userInfo object to the session
           
+          console.log("Logged in successfully -- Calling next() -- go to next middleware");
          // return done(null, user); //causes error
           next(); //pass to next function in middleware
       });
