@@ -153,7 +153,7 @@ class App extends Component {
     }).then((response) => {
         return response.json();
     }).then((response) => {
-        console.log("Jeff is cool!! And buff!!!");
+        console.log("App.js fetch block 1");
         console.log("Response:!!\t" + JSON.stringify(response) );
         response.Authenticated ? this.modifyLogInStatus(true) : this.modifyLogInStatus(null);
     }).catch((err) => {

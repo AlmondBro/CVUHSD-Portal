@@ -14,6 +14,8 @@ import undefsafe from 'undefsafe';
 
 import isDev from 'isdev';
 
+import { isEmpty } from "./../utilityFunctions.js";
+
 //TODO: Upon click in result button, clear the form data and remove message -- set loggedIn to null
 //TODO: Create function that fetches the IP Address
 //TODO: Create reset-password functionality
@@ -266,6 +268,8 @@ class LogIn extends Component {
         this.modifyFullName = this.props.modifyFullName;
         this.modifyTitle = this.props.modifyTitle;
         this.modifySite = this.props.modifySite;
+
+        this.user_name_only = ""; 
         
         console.log("Props:\t" + JSON.stringify(this.props) );
     }; //end constructor
@@ -281,6 +285,90 @@ class LogIn extends Component {
         });
     };
 
+    validUser = () => {
+        console.log("checkUser() username");
+        let { username, password} = this.state;
+
+        let lowerCase_Username = username.toLowerCase();
+
+        let userName, emailDomain;
+
+        let userCheck, validDomain = false;
+
+        let userName_length = lowerCase_Username.length;
+
+        console.log(`Is empty:\t ${isEmpty(" ")} ${isEmpty(userName)}`);
+
+        console.log(`Is empty username and password:\t ${isEmpty(username)} ${isEmpty(password)}`);
+
+        if (isEmpty(username) && isEmpty(password)) {
+            this.modifyLogInStatus(false);
+            console.log("Username and password are empty");
+            this.setState({isLoading: false, message: "Please enter a username and password."})
+            userCheck = false;
+        }
+
+        else if (isEmpty(password) && !isEmpty(username) ) {
+            this.modifyLogInStatus(false);
+            console.log("Just password is empty.");
+            this.setState({isLoading: false, message: "Please enter a password."})
+            userCheck = false;
+        }
+
+        else if (!isEmpty(password) && isEmpty(username) ) {
+            this.modifyLogInStatus(false);
+            console.log("Just username is empty.");
+            this.setState({isLoading: false, message: "Please enter a username."})
+            userCheck = false;
+        } else {
+            userCheck = true;
+        }
+
+
+        let domainCheck = () => {
+            //May not need for loop, refer to here: 
+            // https://stackoverflow.com/questions/39583549/how-do-i-have-javascript-get-a-substring-before-a-character
+            for (let index = 0; index < userName_length; index++) {
+                let individualCharacter = lowerCase_Username.charAt(index);
+                
+                if (individualCharacter === "@") {
+                    emailDomain = lowerCase_Username.substring(index, userName_length); 
+                    this.user_name_only = lowerCase_Username.split("@")[0]; //Splits string into array using the "@" as a delimiter. Get the first element in the array.
+
+                    console.log("this.user_name_only: (from outermost if)\t" + this.user_name_only);
+
+                    if ( (emailDomain !== "@cvuhsd.org") || (emailDomain !==  "@centinela.k12.ca.us") ) {
+                        this.modifyLogInStatus(false);
+                        this.setState({isLoading: false, message: "Please enter a valid CVUHSD email. Not a personal e-mail."})
+                        userCheck = false;
+                    } //end inner-if
+                    if ((emailDomain === "@cvuhsd.org") || (emailDomain ===  "@centinela.k12.ca.us")) {
+                        //userCheck = true;
+                        validDomain = true;
+                        this.setState(
+                            {
+                                isLoading: false, 
+                                message: "Success -- valid CVUHSD email."
+                            }
+                        );
+                    }
+                } //end outer-if
+                else {
+                    this.modifyLogInStatus(false);
+                    this.setState({isLoading: false, message: "Please enter a valid CVUHSD email."})
+                    userCheck = false;
+                }
+            } //end for statement 
+        };
+
+        if (userCheck === true) {
+            domainCheck();
+        } //end if-statement
+  
+        console.log("emailDomain:\t" + emailDomain);
+        return validDomain;
+    };
+
     handleSubmit = (event) => {
         event.preventDefault();
         let allowAuth = false;
@@ -289,114 +377,129 @@ class LogIn extends Component {
 
         let { username, password} = this.state;
 
-        let logIn_URL = `${isDev ? "" : "/server" }/login`
+        let connectToServer = () => {
+                
+            let logIn_URL = `${isDev ? "" : "/server" }/login`
 
-        this.setState({isLoading: true, message: "Loading..."});
+            this.setState({isLoading: true, message: "Loading..."});
 
-        //TODO: Remove in final production build -- only here to mimic successful login.
-        let nullFunction = () => {
-            return null;
-        }; //end nullFunction()
+            //TODO: Remove in final production build -- only here to mimic successful login.
+            let nullFunction = () => {
+                return null;
+            }; //end nullFunction()
 
-        //let isDev = false;
-        let headers = {
-            'Content-Type': 'application/json',
-            'credentials': 'include',
-            'Access-Control-Allow-Origin': '*',
-            'Cache-Control': 'no-cache'
-        };
+            //let isDev = false;
+            let headers = {
+                'Content-Type': 'application/json',
+                'credentials': 'include',
+                'Access-Control-Allow-Origin': '*',
+                'Cache-Control': 'no-cache'
+            };
+            
+            //this.setState({username: this.state.usernameOnly});
+            console.log(`this.user_name_only (from connect to server): ${this.user_name_only}`);
+            console.log(`Username: ${this.state.username}`);
+            
+            fetch(logIn_URL, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({username: this.user_name_only, password: password})
+            }).then((response) => {
+                if (response.status >= 400) {
+                    if ( (response.status === 401) && (!username || !password)) {
+                        console.log("Block 2");
+                        console.log("Response object:\t" + JSON.stringify(response) ); //a response does not appear to be a
+                        console.log(response);
 
-        fetch(logIn_URL, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({username: username, password: password})
-        }).then((response) => {
-            if (response.status >= 400) {
-                if ( (response.status === 401) && (!username || !password)) {
-                    console.log("Block 2");
+                        this.modifyLogInStatus(false);
+                        this.setState({ isLoading: false,
+                                        message: "Please supply both a username and a password"
+                                        }
+                                    ); 
+                        //return response.json();
+                        return;
+                    } else {
+                        console.log("Block 1");
+                        console.log("Error & Response:\t" + JSON.stringify(response));
+                        console.log("Response:\t" + JSON.stringify(response) ); //a response does not appear to be a
+                        console.log(response);
+                        
+                        this.modifyLogInStatus(false);
+                        this.setState({ isLoading: false,
+                                        message: (`Server Response Error:\t ${response.status} `) 
+                                                    + response.statusText
+                                    }
+                        );
+                        return response.json();
+                        //return;
+                        //throw new Error("Bad response from server");
+                    } //end else-statement
+                } else {
+                    console.log("Block 3");
                     console.log("Response object:\t" + JSON.stringify(response) ); //a response does not appear to be a
                     console.log(response);
 
                     this.modifyLogInStatus(false);
-                    this.setState({ isLoading: false,
-                                    message: "Please supply both a username and a password"
-                                    }
-                                ); 
-                    //return response.json();
-                    return;
-                } else {
-                    console.log("Block 1");
-                    console.log("Error & Response:\t" + JSON.stringify(response));
-                    console.log("Response:\t" + JSON.stringify(response) ); //a response does not appear to be a
-                    console.log(response);
-                    
-                    this.modifyLogInStatus(false);
-                    this.setState({ isLoading: false,
-                                    message: (`Server Response Error:\t ${response.status} `) 
-                                                + response.statusText
-                                }
-                    );
-                    return response.json();
+                    this.setState({ message: response.message || "Success! Logging in...", isLoading: false });
                     //return;
-                    //throw new Error("Bad response from server");
-                } //end else-statement
-            } else {
-                console.log("Block 3");
-                console.log("Response object:\t" + JSON.stringify(response) ); //a response does not appear to be a
-                console.log(response);
+                    return response.json();
+                }
+            //return response;
+            }).then((response) => {
+                if ( undefsafe(response, 'success') === true){
+                    console.log("Block 4");
+                    console.log("Success!!!");
+                    console.log(`Success response: ${JSON.stringify(response)}`);
+                    console.dir(response);
+                    
+                    //Set attributes from user ActiveDirectory information retrieved from the server upon successful login
+                    this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["familyName"]);
+                    this.modifyTitle(response.userInfo["title"].toString().toLowerCase());
+                    this.modifySite(response.userInfo["site"]);
 
+                    this.setState({ message: response.message, isLoading: false});  
+
+                    this.modifyLogInStatus(true); //Set loggedIn to true after populating the first and last name, for a true login renders the portal buttons page
+
+                    //TODO: Conditionally render an isStudent variable
+                    /*
+                    setTimeout((response) => {
+                        //browserHistory.push("/page-content");
+                        console.log("Initiating timeout...");
+                        this.setState({ isLoading: false });
+                        return response;
+                    }, 10000);
+                    */
+                } else {
+                    console.log("Block 5");
+                    console.log(response);
+                    console.log("Front-end response:\t" + JSON.stringify(response) );
+                    let message = undefsafe(response, 'message') || "Please supply both a username and a password"
+                                
+                    this.setState({message: message, isLoading: false});
+
+                    (isDev && allowAuth) ? this.modifyTitle("staff") : nullFunction();
+                    (isDev && allowAuth) ? this.modifyLogInStatus(allowAuth): nullFunction(); //TODO: Set to true in production or dev in work computer
+                }
+            }).catch((err) => {
                 this.modifyLogInStatus(false);
-                this.setState({ message: response.message,isLoading: false });
-                //return;
-                return response.json();
-            }
-          //return response;
-        }).then((response) => {
-            if ( undefsafe(response, 'success') === true){
-                console.log("Block 4");
-                console.log("Success!!!");
-                console.log(`Success response: ${JSON.stringify(response)}`);
-                console.dir(response);
-                
-                //Set attributes from user ActiveDirectory information retrieved from the server upon successful login
-                this.modifyFullName(response.userInfo["givenName"] + " " + response.userInfo["familyName"]);
-                this.modifyTitle(response.userInfo["title"].toString().toLowerCase());
-                this.modifySite(response.userInfo["site"]);
+                this.setState(
+                        {
+                            isLoading: false,
+                            message: `Error: ${err}`
+                        }
+                );
+                console.log(`Catching error:\t ${err}`);
+            });
+        };
 
-                this.setState({ message: response.message});  
-
-                this.modifyLogInStatus(true); //Set loggedIn to true after populating the first and last name, for a true login renders the portal buttons page
-
-
-                //TODO: Conditionally render an isStudent variable
-                setTimeout((response) => {
-                    //browserHistory.push("/page-content");
-                    console.log("Initiating timeout...");
-                    this.setState({ isLoading: false });
-                    return response;
-                }, 10000);
-            } else {
-                console.log("Block 5");
-                console.log(response);
-                console.log("Front-end response:\t" + JSON.stringify(response) );
-                let message = undefsafe(response, 'message') || "Please supply both a username and a password"
-                            
-                this.setState({message: message, isLoading: false});
-
-                (isDev && allowAuth) ? this.modifyTitle("staff") : nullFunction();
-                (isDev && allowAuth) ? this.modifyLogInStatus(allowAuth): nullFunction(); //TODO: Set to true in production or dev in work computer
-            }
-        }).catch((err) => {
-            this.modifyLogInStatus(false);
-            this.setState(
-                    {
-                        isLoading: false,
-                        message: `Error: ${err}`
-                    }
-            );
-            console.log(`Catching error:\t ${err}`);
-        });
-    };
+        if (this.validUser() === false ) {
+            //connectToServer();
+            return; 
+        } else {
+            connectToServer();
+        } //end else statement
+    }; 
 
     resetButtonListener = (event) => {
         if (event.target.id === 'reset-button' || event.target.id === 'result-button') {
