@@ -10,7 +10,8 @@ import { blueSectionInfo_Staff , redSectionInfo_Student} from "./../objectFiles/
 import isDev from 'isdev';
 import undefsafe from 'undefsafe';
 
-//TODO: Save passed props from <Rediret> into state.
+//TODO: Save passed props from <Redirect> into state.
+//TODO: Enlarge the All links embedded google sheet
 class PageContent extends Component {
     constructor(props) {
         super(props);
