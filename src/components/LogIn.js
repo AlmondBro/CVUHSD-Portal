@@ -20,6 +20,7 @@ import { isEmpty } from "./../utilityFunctions.js";
 //TODO: Create reset-password functionality
 //TODO: Save the app state to local storage or use redux 
 //TODO: Add modal that appears on the login page after a user logs out
+//TODO: FInd where the title dialogs with the user district position is appearing
 
 let Form = styled('form')`
     /* font-family: "Montserrat", sans-serif; */

@@ -172,15 +172,15 @@ const Header = ( { modifyLogInStatus,...props }) => {
     let title = props.title;
 
     return ([
-        <NavigationBarHeader title={ title }>
-            <NavigationBar title={ title }
+        <NavigationBarHeader>
+            <NavigationBar
                 modifyLogInStatus={modifyLogInStatus} 
             />
         </NavigationBarHeader>,
 
         <DashboardHeaderContainer id="back-to-top">
             <DashboardHeader>
-                <PortalHeaderText title={ title }>
+                <PortalHeaderText>
                     <strong>
                         {props.districtName || "District"}
                         <span>
@@ -190,8 +190,8 @@ const Header = ( { modifyLogInStatus,...props }) => {
                         </span>
                     </strong>
                 </PortalHeaderText>
-                <Greeting title={ title }>{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
-                <PositionGreeting title={ title }><span>{props.title || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
+                <Greeting>{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
+                <PositionGreeting ><span>{props.title || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
                 <AddToHomeScreenButton id="addToHomeScreenButton" title={title}>Add to Home Screen</AddToHomeScreenButton>
                 <ToolTip className="tooltip" id="addToHomeScreenTooltip">
                     <p>

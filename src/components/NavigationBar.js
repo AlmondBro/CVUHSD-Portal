@@ -168,9 +168,9 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                             };
     `;
 
-    let NavBarListItem = styled.a`
+    let NavBarListItem = styled("a")`
         color: ${ props => 
-                    (props.title === ("student") ) ? 
+                    (props.districtPosition === ("student") ) ? 
                         "#A01C1C": "#3B709A"
                 };
         text-decoration: none;
@@ -200,9 +200,9 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         return (
             <li>
                 <NavBarListItem href={props.href} 
-                                title={props.districtPosition}
+                                districtPosition={props.districtPosition}
                 >
-                    {props.title}
+                    {props.linkName}
                 </NavBarListItem>
             </li>
         );
@@ -215,7 +215,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                     <NavBarListItemLi 
                         key={index} 
                         href={listItemArrayObject.href}
-                        title={listItemArrayObject.title}
+                        linkName={listItemArrayObject.title}
                         districtPosition={props.title}
                     />: null);
             }
@@ -268,30 +268,30 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
 
     return (
-        <NavBar title={props.title} className="navigation-bar">
-            <NavBarImageWrapper title={props.title} className="navigation-bar-image-wrapper">
+        <NavBar className="navigation-bar">
+            <NavBarImageWrapper  className="navigation-bar-image-wrapper">
                 <a href="http://portal.centinela.k12.ca.us" 
                    className="navbar-logo-link"
                 >
-                    <NavBarLogo title={props.title} 
+                    <NavBarLogo 
                                 className="img-responsive" 
                                 id="navbar-logo" 
                                 href="#" 
                                 src={ ( props.title === "student" ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
                 </a>
             </NavBarImageWrapper>
-            <NavBarUL title={props.title} className="navigation-bar-ul">
-                <MenuToggle title={props.title} type="checkbox" id="menu-toggle" />
+            <NavBarUL className="navigation-bar-ul">
+                <MenuToggle type="checkbox" id="menu-toggle" />
                 <label id="nav-menu-icon-label" htmlFor="menu-toggle">
-                    <NavMenuIcon title={props.title} className="nav-menu-icon">
-                        <FirstBar title={props.title} className="bar1"></FirstBar>
-                        <FirstBar title={props.title} className="bar2"></FirstBar>
-                        <FirstBar title={props.title} className="bar3"></FirstBar>
+                    <NavMenuIcon  className="nav-menu-icon">
+                        <FirstBar  className="bar1"></FirstBar>
+                        <FirstBar className="bar2"></FirstBar>
+                        <FirstBar className="bar3"></FirstBar>
                     </NavMenuIcon>    
                 </label>
 
                 { generateNavBarListItems(staff_HeaderLinks) }
-                <LogOutButton title={props.title} onClick={logOut}>Logout</LogOutButton>
+                <LogOutButton title={"Log Out"} onClick={logOut}>Logout</LogOutButton>
             </NavBarUL>
         </NavBar>
     );

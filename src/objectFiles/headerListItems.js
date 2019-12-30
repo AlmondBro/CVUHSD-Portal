@@ -6,42 +6,50 @@ let CVUHSD_HomeLink = {
 
 let quickLinks = {
     href: "#quickLinks-blueSection",
-    title: "Quick Links"
+    title: "Quick Links",
+    navShow: false
 };
 
 let standardStaffTools = {
     href: "#standardStaffTools-blueSection",
-    title: "Standard Staff Tools"
+    title: "Standard Staff Tools",
+    navShow: false
 };
 
 let administrativeTools = {
     href: "#administratorTools-blueSection",
-    title: "Administrative Tools"
+    title: "Administrative Tools",
+    navShow: false
 };
 
 let teacherTools = {
     href: "#teacherTools-blueSection",
-    title: "Teacher Tools"
+    title: "Teacher Tools",
+    navShow: false
 };  
 
 let classroomTools = {
     href: "#classroomTools-blueSection",
     title: "Classroom Tools",
+    navShow: false
 }; 
 
 let learningTools = {
     href: "#learningTools-blueSection",
-    title: "Learning Tools"
+    title: "Learning Tools",
+    navShow: false
 };
 
 let digitalTextbooks = {
     href: "#digitalTextbooks-blueSection",
-    title: "Digital Textbooks"
+    title: "Digital Textbooks",
+    navShow: false
 };  
 
 let schoolWebsites = {
     href: "#schoolWebsites-blueSection",
-    title: "School Websites"
+    title: "School Websites",
+    navShow: false
 };
 
 let allTools = {
