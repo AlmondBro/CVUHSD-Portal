@@ -292,10 +292,10 @@ app.post(logIn_URL,
 let isAuth_URL = `${isDev ? "" : "/server" }/isloggedin`
 app.get(isAuth_URL, (req, res) => {
   if (req.user) {
-      console.log("Currently Authenticated");
+      console.log("\nCurrently Authenticated");
       res.json({"Authenticated": true});
   } else {
-    console.log("Currently Not Authenticated");
+    console.log("\nCurrently Not Authenticated");
     res.json({"Authenticated": false});
   }
 });
