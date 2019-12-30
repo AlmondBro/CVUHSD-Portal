@@ -571,10 +571,26 @@ class LogIn extends Component {
     //TODO: Conditionally generate pathName to match student or staff
     //TODO: Find out if props.location.state is really necessary
     if (this.props.loggedIn === true) {
-        console.log("Success - correct password & username....!!");
-        return (<Redirect to={ 
+        if (this.props.title === "student") {
+            console.log("Success - correct password & username....!!");
+            return (<Redirect to={ 
+                                    {
+                                        pathname: "/student",
+                                        state: { 
+                                                fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
+                                                logInSuccess: true,
+                                                title: this.props.title,
+                                                site: this.props.site
+                                            }
+                                    }
+                        } 
+                    />);
+                //return 1;
+        } else {
+            console.log("Success - correct password & username....!!");
+            return (<Redirect to={ 
                                 {
-                                    pathname: "/page-content",
+                                    pathname: "/staff",
                                     state: { 
                                             fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
                                             logInSuccess: true,
@@ -584,8 +600,10 @@ class LogIn extends Component {
                                 }
                     } 
                 />);
+        } //end else-statement
+        
           //return 1;
-        } 
+    } //end if-statement
      /*
      //No longer need this code block as the privateRoute component takes care of redirecting if not logged in.
         if (this.props.loggedIn === true) {
@@ -669,12 +687,12 @@ class LogIn extends Component {
                 IP Address: 
                         <IPLoadingContainer>
                         {   this.state.ipAddress ? 
-                            this.state.ipAddress :
-                            <ReactLoading 
-                                type={"cubes"}
-                                height={'30px'} width={'30px'} 
-                                color={'white'}
-                            /> 
+                               this.state.ipAddress :
+                                    <ReactLoading 
+                                        type={"cubes"}
+                                        height={'30px'} width={'30px'} 
+                                        color={'white'}
+                                    /> 
                         }
                         </IPLoadingContainer> 
             </IPAddress>,
