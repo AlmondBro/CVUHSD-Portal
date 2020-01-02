@@ -1,5 +1,7 @@
 import React from "react"; //Import React 
 
+import { Link } from "react-router-dom";
+
 //Import 3rd-party APIS
 import styled from "styled-components";
 
@@ -238,9 +240,10 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
          let logOut_URL = `${isDev ? "" : "/server" }/logout`
          //let fetchURL = isDev ? corsProxy + request_URL : request_URL;
  
+         /*
          let ipHeaders = {
              'Content-Type': 'text'
-         };
+         }; */
  
          fetch(logOut_URL, {
             method: 'POST',
@@ -271,15 +274,15 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     return (
         <NavBar className="navigation-bar" districtPosition={props.districtPosition}>
             <NavBarImageWrapper  className="navigation-bar-image-wrapper" districtPosition={props.districtPosition}>
-                <a href="http://portal.centinela.k12.ca.us" 
-                   className="navbar-logo-link"
+                <Link   to="/" 
+                        className="navbar-logo-link"
                 >
                     <NavBarLogo 
                                 className="img-responsive" 
                                 id="navbar-logo" 
                                 href="#" 
                                 src={ ( props.districtPosition === "student" ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
-                </a>
+                </Link>
             </NavBarImageWrapper>
             <NavBarUL className="navigation-bar-ul" districtPosition={props.districtPosition}>
                 <MenuToggle type="checkbox" id="menu-toggle" />

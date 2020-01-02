@@ -7,7 +7,6 @@ import Header from "./Header.js";
 //Import list of buttons
 import { blueSectionInfo_Staff , redSectionInfo_Student} from "./../objectFiles/blueSectionInfo.js";
 
-import isDev from 'isdev';
 import undefsafe from 'undefsafe';
 
 //TODO: Save passed props from <Redirect> into state.
@@ -57,12 +56,17 @@ class PageContent extends Component {
         this.props.changeContainerStyle({"background-image": "none" });
         console.log("Page content this.title:\t" + this.title);
 
+        if (this.props.title === "student") {
+            document.title = "CVUHSD | Student Portal"
+        } else {
+            document.title = "CVUHSD | Staff Portal"
+        }
     };
     
     render = () => {
         let sectionInfoObject;
 
-        sectionInfoObject = (this.title == "student") ? 
+        sectionInfoObject = (this.title === "student") ? 
                                     redSectionInfo_Student : blueSectionInfo_Staff;
         
         this.blueSection_objectsArrayProps = {

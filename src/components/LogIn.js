@@ -22,7 +22,7 @@ import { isEmpty } from "./../utilityFunctions.js";
 //TODO: Add modal that appears on the login page after a user logs out
 //TODO: FInd where the title dialogs with the user district position is appearing
 
-let Form = styled('form')`
+let Form = styled("form")`
     /* font-family: "Montserrat", sans-serif; */
     max-width: 300px;
     margin: 10px auto;
@@ -38,8 +38,8 @@ let Form = styled('form')`
     border: 2px solid #1f6b92;
 `;
 
-let FormHeader = styled('h3')`
-    font-family: 'Montserrat', sans-serif;
+let FormHeader = styled("h3")`
+    font-family: "Montserrat", sans-serif;
     /* background-color: #213e56; */
     border-bottom: 2px solid white;
     padding: 10px;
@@ -50,7 +50,7 @@ let FormHeader = styled('h3')`
     align-items: center;
 `;
 
-let FormInput = styled('input')`
+let FormInput = styled("input")`
     font-family: "Montserrat", sans-serif;
     width: 90%;
     padding: 8px; /*was 8px */
@@ -67,7 +67,7 @@ let FormInput = styled('input')`
 
 `;
 
-let FormInputLabel = styled('label')`
+let FormInputLabel = styled("label")`
     cursor: pointer;
     background-color: #eeeeee;
     color: #336186;
@@ -87,7 +87,7 @@ let FormInputLabel = styled('label')`
     }
 `
 
-let FormButton = styled('button')`
+let FormButton = styled("button")`
     display: inline-block;
     margin: 5px 3px;
     font-family: "Montserrat", sans-serif;
@@ -113,7 +113,7 @@ let ResetButton = styled(FormButton)`
     }
 `;
 
-let PortalLogo = styled('img')`
+let PortalLogo = styled("img")`
     max-width: 150px;
     margin: 10px auto;
     display: flex;
@@ -122,14 +122,14 @@ let PortalLogo = styled('img')`
     align-items: center;
 `;
 
-let CVUHSDLogo = styled('img')`
+let CVUHSDLogo = styled("img")`
     max-width: 70px;
     display: inline-flex;
     margin-right: 37px;
 `;
 
-let ResultButton = styled('span')`
-    display: flex;
+let ResultButton = styled("span")`
+    display: inline-flex;
     flex-direction: row;
     justify-content: center;
     align-content: center;
@@ -140,15 +140,25 @@ let ResultButton = styled('span')`
     margin: 0 auto;
     margin-top: 0.3em;
     margin-bottom: 10px;
-    background-color: white;
+    background-color: ${props => props.loggedIn ? "white" : "red"};
     max-width: 35px;
-    color: #336186;
+    width: 35px;
+    height: 35px;
+    color: ${props => props.loggeInd ? "#336186" : "white"};
     font-weight: bolder;
     border-radius: 100px;
     text-align: center;
 `;
 
-let FormHeaderText = styled('p')`
+let ErrorTextAlert = styled("span")`
+    display: inline-block;
+    color: red;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-left: 10px;
+`;
+
+let FormHeaderText = styled("p")`
     display: flex;                                                                                                                                                                                                                                                                                                                      
     align-self: center;
 `;
@@ -549,6 +559,7 @@ class LogIn extends Component {
             "backgroundImage": "none"
         }); */
     
+        document.title = "CVUHSD | Portal Login"
         this.getIPAddress();
 
         /*
@@ -674,12 +685,24 @@ class LogIn extends Component {
                                     color={'#1f6b92'}
                                 /> : "" 
                         }
-                        { this.props.loggedIn === null ? "" : 
-                            (   <ResultButton id="result-button" title="Reset form"> 
-                                    {this.props.loggedIn === true ? "✓" : "×"}
-                                </ResultButton> )
+                        { (this.props.loggedIn === null) ? null : 
+                            (   <div>
+                                    <ResultButton   id="result-button" 
+                                                title="Reset form" 
+                                                loggedIn={this.props.loggedIn}
+                                    > 
+                                        { this.props.loggedIn ? "✓" : "×"}
+                                    </ResultButton> 
+                                    <ErrorTextAlert>
+                                        { this.props.loggedIn  ? null : "ERROR:"}
+                                    </ErrorTextAlert>
+                                </div>
+                              
+                                
+                            )
+
                         }
-                        <ResultMessage>{"\t" + this.state.message}</ResultMessage>
+                        <ResultMessage loggedIn={this.props.loggedIn}>{"\t" + this.state.message}</ResultMessage>
                     </p>
                 </fieldset>
             </Form>,

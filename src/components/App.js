@@ -20,7 +20,7 @@ import NotFound from './NotFound.js';
 
 import PrivateRoute from "./PrivateRoute.js";
 
-import SimpleStorage, { clearStorage, resetParentState } from "react-simple-storage";
+import SimpleStorage, { resetParentState } from "react-simple-storage";
 
 //TODO: Have /staff.html redirect to /staff
 
@@ -28,6 +28,7 @@ import SimpleStorage, { clearStorage, resetParentState } from "react-simple-stor
 //TODO: Make list for student portal
 //TODO: Fix Dashboard "digial" typon on quick links buttons
 //TODO: Have a different link for the student and staff portals
+//TODO: Eliminate the flashing when going into the login page
 
 let ModifiedContainer = ({className, children, fluid}) => (
   <Container className={className} fluid={fluid}>
