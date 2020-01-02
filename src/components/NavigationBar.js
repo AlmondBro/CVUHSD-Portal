@@ -101,7 +101,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
 
         @media only screen and (max-width: 833px) { 
             &&>li~li::before {
-                content: "•";
+            content: ${props.bulletPointInMobile ? "•" : null };
                 margin-right: 8px;
                 color: ${ props => (props.districtPosition === "student") ? 
                            "#931E1D" : "#154963"
@@ -177,6 +177,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     `; 
 
     let LogOutButton = styled("button")`
+        font-size: 0.9em;
         color: white;
         background-color: ${ props => 
                                 (props.districtPosition === ("student") ) ? 
@@ -199,10 +200,10 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     let NavBarListItemLi = (props) => {
         return (
             <li>
-                <NavBarListItem href={props.href} 
+                <NavBarListItem href={props.href || null} 
                                 districtPosition={props.districtPosition}
                 >
-                    {props.linkName}
+                    {props.linkName || props.children}
                 </NavBarListItem>
             </li>
         );
@@ -291,7 +292,17 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                 </label>
 
                 { generateNavBarListItems(staff_HeaderLinks) }
-                <LogOutButton title={"Log Out"} onClick={logOut} districtPosition={props.districtPosition}>Logout</LogOutButton>
+                <NavBarListItemLi 
+                    bulletPointInMobile={true}
+                >
+                      <LogOutButton   title={"Log Out"} 
+                                onClick={logOut} 
+                                districtPosition={props.districtPosition}
+                    >
+                        Logout
+                    </LogOutButton>
+                </NavBarListItemLi>
+              
             </NavBarUL>
         </NavBar>
     );
