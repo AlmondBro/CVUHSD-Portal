@@ -72,24 +72,24 @@ class App extends Component {
      loggedIn: null,
 
      //TODO: Eliminate redudant fullName and first/lastName from state
-    userInfo: {
-        firstName: "",
-        lastName: "",
-        title: "",
-        site: "",
-        email: "",
-        isStudent: null
-    },
+      userInfo: {
+          firstName: "",
+          lastName: "",
+          title: "",
+          site: "",
+          email: "",
+          isStudent: null
+      },
 
-    firstName: "",
-    lastName: "",
-    fullName: "",
-    title: "",
-    site: "",
+      firstName: "",
+      lastName: "",
+      fullName: "",
+      title: "",
+      site: "",
 
      isStudent: null,
 
-     containerStyle: {
+      containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
     }; //end state object
