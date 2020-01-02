@@ -148,6 +148,7 @@ let ResultButton = styled("span")`
     font-weight: bolder;
     border-radius: 100px;
     text-align: center;
+    max-width: 100%;
 `;
 
 let ErrorTextAlert = styled("span")`
@@ -156,6 +157,7 @@ let ErrorTextAlert = styled("span")`
     font-size: 1.2em;
     font-weight: bold;
     margin-left: 10px;
+    max-width: 100%;
 `;
 
 let FormHeaderText = styled("p")`
@@ -168,6 +170,9 @@ let ResultMessage = styled('span')`
     font-size: 0.8em;
     color: white;
     font-family: "Montserrat", sans-serif;
+
+    max-width: 80%;
+    margin: 0 auto;
 `;
 
 let Footer = styled('footer')`
@@ -698,7 +703,6 @@ class LogIn extends Component {
                                     </ErrorTextAlert>
                                 </div>
                               
-                                
                             )
 
                         }
