@@ -1,11 +1,20 @@
 import React from "react"; //Import React 
 
+import { Link } from "react-router-dom";
+
 //Import 3rd-party APIS
 import styled from "styled-components";
 
-import { staff_HeaderLinks } from "./../objectFiles/headerListItems.js"; 
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { faHome as home, faLock as lock } from '@fortawesome/free-solid-svg-icons';
+
+import { staff_HeaderLinks } from "./../objectFiles/headerListItems.js";
 
 import isDev from 'isdev';
+
+//TODO: Figure out why bullet point is not rendering
 
 const NavigationBar = ({modifyLogInStatus, ...props}) => {
     let NavBar = styled.nav`
@@ -14,14 +23,13 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         & ul li {
             display: inline-block;
             margin: 0 15px;
-            font-size: 1.2em;
         }
 
         &>ul li.mobile-collapse-links {
             display: none;
         }
 
-        @media only screen and (max-width: 833px) {
+        @media only screen and (max-width: 705px) {
             display: inline;
 
             & ul {
@@ -34,6 +42,11 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                 overflow-y: auto;
                 /*Used to be -25px, now it's -50px */
                 /*margin-bottom Used to be -10px */
+                /* Center MenuToggleIcon */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
             }
 
             & ul li {
@@ -50,18 +63,18 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     let NavBarImageWrapper = styled.div`
         margin-top: 5px;
 
-        @media only screen and (max-width: 833px) {
+        @media only screen and (max-width: 705px) {
             .navigation-bar-image-wrapper {
                 display: inline;
             } 
         }
 
-        @media only screen and (min-width: 1000px) { 
+        @media only screen and (min-width: 1185px) { 
           &::after {
                 content: 'Centinela Valley Union High School District';
                 display: inline;
                 color: ${ props => 
-                            (props.title === ("student") ) ? 
+                            (props.districtPosition === ("student") ) ? 
                                 "#931E1D": "#1E6C93"
                         };
                 font-size: 1.3em;
@@ -82,7 +95,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         margin-left: 50%;
         margin-top: 8px;
 
-        @media only screen and (max-width: 833px) { 
+        @media only screen and (max-width: 705px) { 
             display: inline;
             vertical-align: middle;
             margin-left: 25%;
@@ -98,16 +111,6 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         /*-1/2 of line-height */
         right: 0px;
         padding-right: 2.5%;
-
-        @media only screen and (max-width: 833px) { 
-            &&>li~li::before {
-                content: "•";
-                margin-right: 8px;
-                color: ${ props => (props.title === "student") ? 
-                           "#931E1D" : "#154963"
-                };
-            }
-        }
     `; //end NavBarUL
 
     let MenuToggle = styled.input`
@@ -131,7 +134,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
             transform: rotate(45deg) translate(-8px, -8px);
         }
 
-        @media only screen and (max-width: 833px) {
+        @media only screen and (max-width: 705px) {
             &:checked~li {
                 /*margin: 0 60px; */
                 display: block;
@@ -146,7 +149,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     let NavMenuIcon = styled.div`
         display: none;
 
-        @media only screen and (max-width: 833px) {
+        @media only screen and (max-width: 705px) {
             display: block;
             cursor: pointer
         }  
@@ -159,27 +162,28 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         transition: 0.4s;
 
         background-color: ${ props => 
-                                (props.title === ("student") ) ? 
+                                (props.districtPosition === ("student") ) ? 
                                     "#931E1D": "#1E6C93"
                             };
         color: ${ props => 
-                                (props.title === ("student") ) ? 
+                                (props.districtPosition === ("student") ) ? 
                                     "#931E1D": "#1E6C93"
                             };
     `;
 
-    let NavBarListItem = styled.a`
+    let NavBarListItem = styled("a")`
         color: ${ props => 
-                    (props.title === ("student") ) ? 
+                    (props.districtPosition === ("student") ) ? 
                         "#A01C1C": "#3B709A"
                 };
         text-decoration: none;
     `; 
 
     let LogOutButton = styled("button")`
+        font-size: 0.9em;
         color: white;
         background-color: ${ props => 
-                                (props.title === ("student") ) ? 
+                                (props.districtPosition === ("student") ) ? 
                                     "#931E1D": "#1E6C93"
                             };
         padding: 0.5em 0.7em;
@@ -190,21 +194,34 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
 
         &:hover {
             background-color: ${ props => 
-                                (props.title === ("student") ) ? 
+                                (props.districtPosition === ("student") ) ? 
                                     "#BD2222": "#2588b9"
                             };
         }
     `; //end LogOut Button
 
+    let NavBarListItem_Li = styled("li")`
+        font-size: 1.1em;
+        @media only screen and (max-width: 705px) { 
+            &&>li~li::before {
+            content: ${props => props.bulletPointInMobile ? "•" : null };
+                margin-right: 8px;
+                color: ${ props => (props.districtPosition === "student") ? 
+                            "#931E1D" : "#154963"
+                };
+            }
+        }
+    `; 
+
     let NavBarListItemLi = (props) => {
         return (
-            <li>
-                <NavBarListItem href={props.href} 
-                                title={props.districtPosition}
+            <NavBarListItem_Li bulletPointInMobile={props.bulletPointInMobile}>
+                <NavBarListItem href={props.href || null} 
+                                districtPosition={props.districtPosition}
                 >
-                    {props.title}
+                    {props.linkName || props.children}
                 </NavBarListItem>
-            </li>
+            </NavBarListItem_Li>
         );
     };
 
@@ -215,8 +232,9 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                     <NavBarListItemLi 
                         key={index} 
                         href={listItemArrayObject.href}
-                        title={listItemArrayObject.title}
-                        districtPosition={props.title}
+                        linkName={listItemArrayObject.title}
+                        districtPosition={props.districtPosition}
+                        bulletPointInMobile={true}
                     />: null);
             }
         ); //end map()
@@ -237,9 +255,10 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
          let logOut_URL = `${isDev ? "" : "/server" }/logout`
          //let fetchURL = isDev ? corsProxy + request_URL : request_URL;
  
+         /*
          let ipHeaders = {
              'Content-Type': 'text'
-         };
+         }; */
  
          fetch(logOut_URL, {
             method: 'POST',
@@ -268,30 +287,61 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
 
     return (
-        <NavBar title={props.title} className="navigation-bar">
-            <NavBarImageWrapper title={props.title} className="navigation-bar-image-wrapper">
-                <a href="http://portal.centinela.k12.ca.us" 
-                   className="navbar-logo-link"
+        <NavBar className="navigation-bar" districtPosition={props.districtPosition}>
+            <NavBarImageWrapper  className="navigation-bar-image-wrapper" districtPosition={props.districtPosition}>
+                <Link   to="/" 
+                        className="navbar-logo-link"
                 >
-                    <NavBarLogo title={props.title} 
+                    <NavBarLogo 
                                 className="img-responsive" 
                                 id="navbar-logo" 
                                 href="#" 
-                                src={ ( props.title === "student" ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
-                </a>
+                                src={ ( props.districtPosition === "student" ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
+                </Link>
             </NavBarImageWrapper>
-            <NavBarUL title={props.title} className="navigation-bar-ul">
-                <MenuToggle title={props.title} type="checkbox" id="menu-toggle" />
-                <label id="nav-menu-icon-label" htmlFor="menu-toggle">
-                    <NavMenuIcon title={props.title} className="nav-menu-icon">
-                        <FirstBar title={props.title} className="bar1"></FirstBar>
-                        <FirstBar title={props.title} className="bar2"></FirstBar>
-                        <FirstBar title={props.title} className="bar3"></FirstBar>
+            <NavBarUL className="navigation-bar-ul" districtPosition={props.districtPosition}>
+                <MenuToggle type="checkbox" id="menu-toggle" />
+                <label id="nav-menu-icon-label" htmlFor="menu-toggle" >
+                    <NavMenuIcon  className="nav-menu-icon" districtPosition={props.districtPosition}>
+                        <FirstBar  className="bar1" districtPosition={props.districtPosition}></FirstBar>
+                        <FirstBar className="bar2" districtPosition={props.districtPosition}></FirstBar>
+                        <FirstBar className="bar3" districtPosition={props.districtPosition}></FirstBar>
                     </NavMenuIcon>    
                 </label>
+               
+                {(props.districtPosition !== "student") ? ( 
+                    <NavBarListItemLi 
+                        href={"https://www.centinela.k12.ca.us"}
+                        bulletPointInMobile={true}
+                    >
+                        CVUHSD <FontAwesomeIcon icon={home} className="icon"/>
+                    </NavBarListItemLi>)  
+                    : null
+                }
+
+                {(props.districtPosition !== "student") ? ( 
+                    <NavBarListItemLi 
+                        href={"https://www.centinela.k12.ca.us"}
+                        bulletPointInMobile={true}
+                    >
+                        Change Password
+                    </NavBarListItemLi>)  
+                    : null
+                }
 
                 { generateNavBarListItems(staff_HeaderLinks) }
-                <LogOutButton title={props.title} onClick={logOut}>Logout</LogOutButton>
+                
+                <NavBarListItemLi 
+                    bulletPointInMobile={true}
+                >
+                      <LogOutButton   
+                                title={"Log Out"} 
+                                onClick={logOut} 
+                                districtPosition={props.districtPosition}
+                    >
+                        Logout
+                    </LogOutButton>
+                </NavBarListItemLi>
             </NavBarUL>
         </NavBar>
     );

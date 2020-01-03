@@ -16,12 +16,14 @@ import isDev from 'isdev';
 
 import { isEmpty } from "./../utilityFunctions.js";
 
-//TODO: Upon click in result button, clear the form data and remove message -- set loggedIn to null
 //TODO: Create function that fetches the IP Address
 //TODO: Create reset-password functionality
 //TODO: Save the app state to local storage or use redux 
+//TODO: Add modal that appears on the login page after a user logs out
+//TODO: FInd where the title dialogs with the user district position is appearing
+//TODO: Figure out why there is still an "x" button even when you successfully login
 
-let Form = styled('form')`
+let Form = styled("form")`
     /* font-family: "Montserrat", sans-serif; */
     max-width: 300px;
     margin: 10px auto;
@@ -37,8 +39,8 @@ let Form = styled('form')`
     border: 2px solid #1f6b92;
 `;
 
-let FormHeader = styled('h3')`
-    font-family: 'Montserrat', sans-serif;
+let FormHeader = styled("h3")`
+    font-family: "Montserrat", sans-serif;
     /* background-color: #213e56; */
     border-bottom: 2px solid white;
     padding: 10px;
@@ -49,7 +51,7 @@ let FormHeader = styled('h3')`
     align-items: center;
 `;
 
-let FormInput = styled('input')`
+let FormInput = styled("input")`
     font-family: "Montserrat", sans-serif;
     width: 90%;
     padding: 8px; /*was 8px */
@@ -66,7 +68,7 @@ let FormInput = styled('input')`
 
 `;
 
-let FormInputLabel = styled('label')`
+let FormInputLabel = styled("label")`
     cursor: pointer;
     background-color: #eeeeee;
     color: #336186;
@@ -86,7 +88,7 @@ let FormInputLabel = styled('label')`
     }
 `
 
-let FormButton = styled('button')`
+let FormButton = styled("button")`
     display: inline-block;
     margin: 5px 3px;
     font-family: "Montserrat", sans-serif;
@@ -112,7 +114,7 @@ let ResetButton = styled(FormButton)`
     }
 `;
 
-let PortalLogo = styled('img')`
+let PortalLogo = styled("img")`
     max-width: 150px;
     margin: 10px auto;
     display: flex;
@@ -121,14 +123,14 @@ let PortalLogo = styled('img')`
     align-items: center;
 `;
 
-let CVUHSDLogo = styled('img')`
+let CVUHSDLogo = styled("img")`
     max-width: 70px;
     display: inline-flex;
     margin-right: 37px;
 `;
 
-let ResultButton = styled('span')`
-    display: flex;
+let ResultButton = styled("span")`
+    display: inline-flex;
     flex-direction: row;
     justify-content: center;
     align-content: center;
@@ -139,15 +141,27 @@ let ResultButton = styled('span')`
     margin: 0 auto;
     margin-top: 0.3em;
     margin-bottom: 10px;
-    background-color: white;
+    background-color: ${props => props.loggedIn ? "white" : "red"};
     max-width: 35px;
-    color: #336186;
+    width: 35px;
+    height: 35px;
+    color: ${props => props.loggeInd ? "#336186" : "white"};
     font-weight: bolder;
     border-radius: 100px;
     text-align: center;
+    max-width: 100%;
 `;
 
-let FormHeaderText = styled('p')`
+let ErrorTextAlert = styled("span")`
+    display: inline-block;
+    color: red;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-left: 10px;
+    max-width: 100%;
+`;
+
+let FormHeaderText = styled("p")`
     display: flex;                                                                                                                                                                                                                                                                                                                      
     align-self: center;
 `;
@@ -157,6 +171,9 @@ let ResultMessage = styled('span')`
     font-size: 0.8em;
     color: white;
     font-family: "Montserrat", sans-serif;
+
+    max-width: 80%;
+    margin: 0 auto;
 `;
 
 let Footer = styled('footer')`
@@ -548,6 +565,7 @@ class LogIn extends Component {
             "backgroundImage": "none"
         }); */
     
+        document.title = "CVUHSD | Portal Login"
         this.getIPAddress();
 
         /*
@@ -570,10 +588,26 @@ class LogIn extends Component {
     //TODO: Conditionally generate pathName to match student or staff
     //TODO: Find out if props.location.state is really necessary
     if (this.props.loggedIn === true) {
-        console.log("Success - correct password & username....!!");
-        return (<Redirect to={ 
+        if (this.props.title === "student") {
+            console.log("Success - correct password & username....!!");
+            return (<Redirect to={ 
+                                    {
+                                        pathname: "/student",
+                                        state: { 
+                                                fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
+                                                logInSuccess: true,
+                                                title: this.props.title,
+                                                site: this.props.site
+                                            }
+                                    }
+                        } 
+                    />);
+                //return 1;
+        } else {
+            console.log("Success - correct password & username....!!");
+            return (<Redirect to={ 
                                 {
-                                    pathname: "/page-content",
+                                    pathname: "/staff",
                                     state: { 
                                             fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
                                             logInSuccess: true,
@@ -583,8 +617,10 @@ class LogIn extends Component {
                                 }
                     } 
                 />);
+        } //end else-statement
+        
           //return 1;
-        } 
+    } //end if-statement
      /*
      //No longer need this code block as the privateRoute component takes care of redirecting if not logged in.
         if (this.props.loggedIn === true) {
@@ -611,6 +647,7 @@ class LogIn extends Component {
                             type="text" 
                             name="username" 
                             id="username"
+                            title="username"
                             onChange={this.handleInputChange}
                             value={this.state.username}
                             placeholder="CVUHSD Username"
@@ -624,6 +661,7 @@ class LogIn extends Component {
                             type="password" 
                             name="password" 
                             id="password"
+                            title="password"
                             onChange={this.handleInputChange}
                             value={this.state.password}
                             placeholder="CVUHSD Password"
@@ -636,7 +674,7 @@ class LogIn extends Component {
                             //TODO: Need to find HTML entities
                             */
                         }
-                        <FormButton type="submit">Submit</FormButton>
+                        <FormButton type="submit" title="Log In">Submit</FormButton>
                         { this.props.loggedIn === null ? "" : 
                             (  <ResetButton id="reset-button"
                                             type="reset"
@@ -653,12 +691,24 @@ class LogIn extends Component {
                                     color={'#1f6b92'}
                                 /> : "" 
                         }
-                        { this.props.loggedIn === null ? "" : 
-                            (   <ResultButton id="result-button" title="Reset form"> 
-                                    {this.props.loggedIn === true ? "✓" : "×"}
-                                </ResultButton> )
+                        { (this.props.loggedIn === null) ? null : 
+                            (   <div>
+                                    <ResultButton   
+                                        id="result-button" 
+                                        title="Reset form" 
+                                        loggedIn={this.props.loggedIn}
+                                    > 
+                                        { this.props.loggedIn ? "✓" : "×"}
+                                    </ResultButton> 
+                                    <ErrorTextAlert>
+                                        { this.props.loggedIn  ? null : "Error:"}
+                                    </ErrorTextAlert>
+                                </div>
+                              
+                            )
+
                         }
-                        <ResultMessage>{"\t" + this.state.message}</ResultMessage>
+                        <ResultMessage loggedIn={this.props.loggedIn}>{"\t" + this.state.message}</ResultMessage>
                     </p>
                 </fieldset>
             </Form>,
@@ -666,12 +716,12 @@ class LogIn extends Component {
                 IP Address: 
                         <IPLoadingContainer>
                         {   this.state.ipAddress ? 
-                            this.state.ipAddress :
-                            <ReactLoading 
-                                type={"cubes"}
-                                height={'30px'} width={'30px'} 
-                                color={'white'}
-                            /> 
+                               this.state.ipAddress :
+                                    <ReactLoading 
+                                        type={"cubes"}
+                                        height={'30px'} width={'30px'} 
+                                        color={'white'}
+                                    /> 
                         }
                         </IPLoadingContainer> 
             </IPAddress>,

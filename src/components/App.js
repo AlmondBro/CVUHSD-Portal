@@ -20,12 +20,15 @@ import NotFound from './NotFound.js';
 
 import PrivateRoute from "./PrivateRoute.js";
 
-import SimpleStorage, { clearStorage, resetParentState } from "react-simple-storage";
+import SimpleStorage, { resetParentState } from "react-simple-storage";
 
 //TODO: Have /staff.html redirect to /staff
 
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
+//TODO: Fix Dashboard "digial" typon on quick links buttons
+//TODO: Have a different link for the student and staff portals
+//TODO: Eliminate the flashing when going into the login page
 
 let ModifiedContainer = ({className, children, fluid}) => (
   <Container className={className} fluid={fluid}>
@@ -69,24 +72,24 @@ class App extends Component {
      loggedIn: null,
 
      //TODO: Eliminate redudant fullName and first/lastName from state
-    userInfo: {
-        firstName: "",
-        lastName: "",
-        title: "",
-        site: "",
-        email: "",
-        isStudent: null
-    },
+      userInfo: {
+          firstName: "",
+          lastName: "",
+          title: "",
+          site: "",
+          email: "",
+          isStudent: null
+      },
 
-    firstName: "",
-    lastName: "",
-    fullName: "",
-    title: "",
-    site: "",
+      firstName: "",
+      lastName: "",
+      fullName: "",
+      title: "",
+      site: "",
 
      isStudent: null,
 
-     containerStyle: {
+      containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
     }; //end state object
@@ -174,6 +177,7 @@ class App extends Component {
             { // Update routes to use server subdirectory in production
               //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
             }
+            {/* TODO: Add logic to redirect to staff/student if you input .html */}
             <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
                     render={ () => {
                         return (<Redirect to={`${publicURL}/login`} />);
@@ -195,7 +199,22 @@ class App extends Component {
                                         /> 
                           } 
             />
-            <PrivateRoute path={`${publicURL}/page-content`}
+            <PrivateRoute path={`${publicURL}/staff`}
+                          loggedIn={this.state.loggedIn}
+                          fullName={this.state.fullName}
+                          isStudent={this.state.isStudent}
+                          title={this.state.title}
+                          site={this.state.site}
+                          modifyLogInStatus={this.modifyLogInStatus} 
+                          modifyStudentStatus={this.modifyStudentStatus}
+                          modifyFullName={this.modifyFullName}
+                          modifyTitle={this.modifyTitle}
+                          modifySite={this.modifySite}
+                          changeContainerStyle={this.changeContainerStyle} 
+                          component={ PageContent} 
+            />
+
+            <PrivateRoute path={`${publicURL}/student`}
                           loggedIn={this.state.loggedIn}
                           fullName={this.state.fullName}
                           isStudent={this.state.isStudent}
