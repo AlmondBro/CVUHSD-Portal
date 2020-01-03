@@ -8,6 +8,8 @@ import styled from "styled-components";
 
 import greeting from 'greeting';
 
+//TODO: Add little picture on position that reflects the school/site the user is from
+
 let NavigationBarHeader = styled.header`
         position: relative;
         width: 100%;

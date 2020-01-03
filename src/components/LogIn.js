@@ -21,6 +21,7 @@ import { isEmpty } from "./../utilityFunctions.js";
 //TODO: Save the app state to local storage or use redux 
 //TODO: Add modal that appears on the login page after a user logs out
 //TODO: FInd where the title dialogs with the user district position is appearing
+//TODO: Figure out why there is still an "x" button even when you successfully login
 
 let Form = styled("form")`
     /* font-family: "Montserrat", sans-serif; */
@@ -692,14 +693,15 @@ class LogIn extends Component {
                         }
                         { (this.props.loggedIn === null) ? null : 
                             (   <div>
-                                    <ResultButton   id="result-button" 
-                                                title="Reset form" 
-                                                loggedIn={this.props.loggedIn}
+                                    <ResultButton   
+                                        id="result-button" 
+                                        title="Reset form" 
+                                        loggedIn={this.props.loggedIn}
                                     > 
                                         { this.props.loggedIn ? "✓" : "×"}
                                     </ResultButton> 
                                     <ErrorTextAlert>
-                                        { this.props.loggedIn  ? null : "ERROR:"}
+                                        { this.props.loggedIn  ? null : "Error:"}
                                     </ErrorTextAlert>
                                 </div>
                               

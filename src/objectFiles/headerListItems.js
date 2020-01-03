@@ -59,7 +59,7 @@ let allTools = {
 };
 
 let staff_HeaderLinks = [
-    CVUHSD_HomeLink, quickLinks,
+    quickLinks,
     standardStaffTools, administrativeTools,
     teacherTools, classroomTools,
     learningTools, digitalTextbooks,
