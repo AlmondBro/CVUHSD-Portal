@@ -212,6 +212,7 @@ class App extends Component {
                           modifySite={this.modifySite}
                           changeContainerStyle={this.changeContainerStyle} 
                           component={ PageContent} 
+                          renderAsStudent={true}
             />
 
             <PrivateRoute path={`${publicURL}/student`}

@@ -369,7 +369,12 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
 
                 {(props.districtPosition !== "student") ? ( 
                     <NavBarListItemLi 
-                        to={"/student"}
+                        to={
+                            {
+                               pathname: "/student",
+                               state: { renderAsStudent: true } 
+                            }
+                        }
                         bulletPointInMobile={true}
                     >
                         <FontAwesomeIcon icon={student} className="icon"/> Portal 

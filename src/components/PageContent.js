@@ -14,8 +14,7 @@ import undefsafe from 'undefsafe';
 class PageContent extends Component {
     constructor(props) {
         super(props);
-        console.log("PageContent Props:\t" + JSON.stringify(this.props) );
-        
+
         this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
         this.modifyStudentStatus = this.props.modifyStudentStatus;
 
@@ -53,10 +52,12 @@ class PageContent extends Component {
     };
 
     componentDidMount = (props) => {
+        console.log("PageContent Props Location:\t" + JSON.stringify(this.props.location) );
+
         this.props.changeContainerStyle({"background-image": "none" });
         console.log("Page content this.title:\t" + this.title);
 
-        if (this.props.title === "student") {
+        if (this.props.title === "student" || this.props.renderAsStudent === true) {
             document.title = "CVUHSD | Student Portal"
         } else {
             document.title = "CVUHSD | Staff Portal"
@@ -66,7 +67,7 @@ class PageContent extends Component {
     render = () => {
         let sectionInfoObject;
 
-        sectionInfoObject = (this.title === "student") ? 
+        sectionInfoObject = (this.title === "student" || this.props.renderAsStudent === true) ? 
                                     redSectionInfo_Student : blueSectionInfo_Staff;
         
         this.blueSection_objectsArrayProps = {
@@ -84,6 +85,7 @@ class PageContent extends Component {
                         modifyLogInStatus={ this.modifyLogInStatus }
                         modifyTitle={this.modifyTitle}
                         modifySite={this.modifySite}
+                        renderAsStudent={this.props.renderAsStudent}
                 />,
                 <div className="page-content">
                     { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
