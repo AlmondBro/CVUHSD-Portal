@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faHome as home, faLock as lock } from '@fortawesome/free-solid-svg-icons';
+import { faHome as home, faLock as lock, faGraduationCap as student } from '@fortawesome/free-solid-svg-icons';
 
 import { staff_HeaderLinks } from "./../objectFiles/headerListItems.js";
 
@@ -171,6 +171,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                             };
     `;
 
+    //TODO: Move this rule "upward"
     let NavBarListItem = styled("a")`
         color: ${ props => 
                     (props.districtPosition === ("student") ) ? 
@@ -321,7 +322,16 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
 
                 {(props.districtPosition !== "student") ? ( 
                     <NavBarListItemLi 
-                        href={"https://www.centinela.k12.ca.us"}
+                        href={"/student"}
+                        bulletPointInMobile={true}
+                    >
+                        <FontAwesomeIcon icon={student} className="icon"/> Portal 
+                    </NavBarListItemLi>)  
+                    : null
+                }
+
+                {(props.districtPosition !== "student") ? ( 
+                    <NavBarListItemLi 
                         bulletPointInMobile={true}
                     >
                         Change Password
