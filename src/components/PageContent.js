@@ -26,13 +26,13 @@ class PageContent extends Component {
         this.blueSection_objectsArrayProps = {};
 
         //TODO: Remove these attributes
-        this.state = {
-            fullName : this.props.fullName || undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
-            logInSuccess :  this.props.loggedIn || undefsafe(this.props.location.state, "logInSuccess"),
-            isStudent: this.props.isStudent || undefsafe(this.props.location.state, "isStudent") || false,
-            title: this.props.title|| undefsafe(this.props.location.state, "title") || "student",
-            site: this.props.site || undefsafe(this.props.location.state, "site") || "student"
-        }; //end state{} object
+        // this.state = {
+        //     fullName : this.props.fullName || undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
+        //     logInSuccess :  this.props.loggedIn || undefsafe(this.props.location.state, "logInSuccess"),
+        //     isStudent: this.props.isStudent || undefsafe(this.props.location.state, "isStudent") || false,
+        //     title: this.props.title|| undefsafe(this.props.location.state, "title") || "student",
+        //     site: this.props.site || undefsafe(this.props.location.state, "site") || "student"
+        // }; //end state{} object
 
       } //end constructor
     

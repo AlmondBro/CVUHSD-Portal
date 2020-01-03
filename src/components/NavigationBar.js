@@ -201,6 +201,26 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         }
     `; //end LogOut Button
 
+    let NavBarListItem_Link = ({to, children, ...props}) => {
+        return (
+            <Link to={to} {...props}>
+                { children }
+            </Link>
+        );
+    }
+
+    let NavBarListItem_StyledLink = styled(NavBarListItem_Link)`
+        font-size: 1.1em;
+        @media only screen and (max-width: 705px) { 
+            &&>li~li::before {
+            content: ${props => props.bulletPointInMobile ? "•" : null };
+                margin-right: 8px;
+                color: ${ props => (props.districtPosition === "student") ? 
+                            "#931E1D" : "#154963"
+                };
+            }
+        }
+    `;
     let NavBarListItem_Li = styled("li")`
         font-size: 1.1em;
         @media only screen and (max-width: 705px) { 
@@ -213,6 +233,8 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
             }
         }
     `; 
+
+    
 
     let NavBarListItemLi = (props) => {
         return (

@@ -593,12 +593,12 @@ class LogIn extends Component {
             return (<Redirect to={ 
                                     {
                                         pathname: "/student",
-                                        state: { 
-                                                fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
-                                                logInSuccess: true,
-                                                title: this.props.title,
-                                                site: this.props.site
-                                            }
+                                        // state: { 
+                                        //         fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
+                                        //         logInSuccess: true,
+                                        //         title: this.props.title,
+                                        //         site: this.props.site
+                                        //     }
                                     }
                         } 
                     />);
@@ -608,12 +608,12 @@ class LogIn extends Component {
             return (<Redirect to={ 
                                 {
                                     pathname: "/staff",
-                                    state: { 
-                                            fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
-                                            logInSuccess: true,
-                                            title: this.props.title,
-                                            site: this.props.site
-                                        }
+                                    // state: { 
+                                    //         fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
+                                    //         logInSuccess: true,
+                                    //         title: this.props.title,
+                                    //         site: this.props.site
+                                    //     }
                                 }
                     } 
                 />);
