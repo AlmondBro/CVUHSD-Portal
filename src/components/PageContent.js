@@ -24,14 +24,7 @@ class PageContent extends Component {
         
         this.blueSection_objectsArrayProps = {};
 
-        //TODO: Remove these attributes
-        // this.state = {
-        //     fullName : this.props.fullName || undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
-        //     logInSuccess :  this.props.loggedIn || undefsafe(this.props.location.state, "logInSuccess"),
-        //     isStudent: this.props.isStudent || undefsafe(this.props.location.state, "isStudent") || false,
-        //     title: this.props.title|| undefsafe(this.props.location.state, "title") || "student",
-        //     site: this.props.site || undefsafe(this.props.location.state, "site") || "student"
-        // }; //end state{} object
+        this.renderAsStudent = undefsafe(this.props, "renderAsStudent") || undefsafe(props.location, "state", "renderAsStudent") || "";
 
       } //end constructor
     
@@ -46,13 +39,14 @@ class PageContent extends Component {
                     buttons={blueSection_Object.buttons}
                     key={index}
                     title={this.title || "student"}
+                    renderAsStudent={this.renderAsStudent || this.props.location.state.renderAsStudent}
                 />
             );
         });
     };
 
     componentDidMount = (props) => {
-        console.log("PageContent Props Location:\t" + JSON.stringify(this.props.location) );
+        console.log("PageContent Props Location:\t" + JSON.stringify(this.props.location.state.renderAsStudent) );
 
         this.props.changeContainerStyle({"background-image": "none" });
         console.log("Page content this.title:\t" + this.title);
@@ -67,7 +61,7 @@ class PageContent extends Component {
     render = () => {
         let sectionInfoObject;
 
-        sectionInfoObject = (this.title === "student" || this.props.renderAsStudent === true) ? 
+        sectionInfoObject = (this.title === "student" || this.renderAsStudent) ? 
                                     redSectionInfo_Student : blueSectionInfo_Staff;
         
         this.blueSection_objectsArrayProps = {
@@ -85,7 +79,7 @@ class PageContent extends Component {
                         modifyLogInStatus={ this.modifyLogInStatus }
                         modifyTitle={this.modifyTitle}
                         modifySite={this.modifySite}
-                        renderAsStudent={this.props.renderAsStudent}
+                        renderAsStudent={this.renderAsStudent}
                 />,
                 <div className="page-content">
                     { this.generateBlueSections(this.blueSection_objectsArrayProps)} 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {  Redirect } from 'react-router'
+import {  Redirect, withRouter } from 'react-router'
 
 import ReactLoading from 'react-loading';
 
@@ -559,8 +559,8 @@ class LogIn extends Component {
         });  
     }; //end getIPAddress()
 
-    componentDidMount = (props) => {
-        console.log("Login component props:\t" + JSON.stringify(props) );
+    componentDidMount = () => {
+        console.log("Login component props:\t" + JSON.stringify(this.props) );
         /*this.props.changeContainerStyle({
             "backgroundImage": "none"
         }); */
@@ -588,17 +588,11 @@ class LogIn extends Component {
     //TODO: Conditionally generate pathName to match student or staff
     //TODO: Find out if props.location.state is really necessary
     if (this.props.loggedIn === true) {
-        if (this.props.title === "student") {
+        if (this.props.title === "student" || (this.props.location.pathname == "/student")) {
             console.log("Success - correct password & username....!!");
             return (<Redirect to={ 
                                     {
                                         pathname: "/student",
-                                        // state: { 
-                                        //         fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
-                                        //         logInSuccess: true,
-                                        //         title: this.props.title,
-                                        //         site: this.props.site
-                                        //     }
                                     }
                         } 
                     />);
@@ -608,12 +602,6 @@ class LogIn extends Component {
             return (<Redirect to={ 
                                 {
                                     pathname: "/staff",
-                                    // state: { 
-                                    //         fullName: `${this.state.firstName}\t ${this.state.lastName}`, 
-                                    //         logInSuccess: true,
-                                    //         title: this.props.title,
-                                    //         site: this.props.site
-                                    //     }
                                 }
                     } 
                 />);
@@ -762,4 +750,4 @@ class LogIn extends Component {
     }; //end render()
 }
 
-export default LogIn;
+export default withRouter(LogIn);

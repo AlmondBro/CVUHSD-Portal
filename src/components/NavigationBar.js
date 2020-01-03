@@ -74,7 +74,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                 content: 'Centinela Valley Union High School District';
                 display: inline;
                 color: ${ props => 
-                            (props.districtPosition === ("student") ) ? 
+                            (props.districtPosition === ("student") || props.renderAsStudent) ? 
                                 "#931E1D": "#1E6C93"
                         };
                 font-size: 1.3em;
@@ -162,11 +162,11 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         transition: 0.4s;
 
         background-color: ${ props => 
-                                (props.districtPosition === ("student") ) ? 
+                                ( (props.districtPosition === "student") || props.renderAsStudent ) ? 
                                     "#931E1D": "#1E6C93"
                             };
         color: ${ props => 
-                                (props.districtPosition === ("student") ) ? 
+                                ( (props.districtPosition === "student") || props.renderAsStudent ) ? 
                                     "#931E1D": "#1E6C93"
                             };
     `;
@@ -174,7 +174,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     //TODO: Move this rule "upward"
     let NavBarListItem = styled("a")`
         color: ${ props => 
-                    (props.districtPosition === ("student") ) ? 
+                    ( (props.districtPosition === "student") || props.renderAsStudent) ? 
                         "#A01C1C": "#3B709A"
                 };
         text-decoration: none;
@@ -184,7 +184,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         font-size: 0.9em;
         color: white;
         background-color: ${ props => 
-                                (props.districtPosition === ("student") ) ? 
+                                ( (props.districtPosition === "student") || props.renderAsStudent ) ? 
                                     "#931E1D": "#1E6C93"
                             };
         padding: 0.5em 0.7em;
@@ -195,7 +195,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
 
         &:hover {
             background-color: ${ props => 
-                                (props.districtPosition === ("student") ) ? 
+                                ( (props.districtPosition === "student") || props.renderAsStudent) ? 
                                     "#BD2222": "#2588b9"
                             };
         }
@@ -214,7 +214,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     let NavBarListItem_StyledLink = styled(NavBarListItem_Link)`
         font-size: 1.1em;
         color: ${ props => 
-                    (props.districtPosition === ("student") ) ? 
+                    ( (props.districtPosition === "student") || props.renderAsStudent) ? 
                         "#A01C1C": "#3B709A"
                 };
         text-decoration: none;
@@ -223,7 +223,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
             &&>li~li::before {
             content: ${props => props.bulletPointInMobile ? "•" : null };
                 margin-right: 8px;
-                color: ${ props => (props.districtPosition === "student") ? 
+                color: ${ props => ((props.districtPosition === "student") || props.renderAsStudent) ? 
                             "#931E1D" : "#154963"
                 };
             }
@@ -235,7 +235,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
             &&>li~li::before {
             content: ${props => props.bulletPointInMobile ? "•" : null };
                 margin-right: 8px;
-                color: ${ props => (props.districtPosition === "student") ? 
+                color: ${ props => ((props.districtPosition === "student") || props.renderAsStudent) ? 
                             "#931E1D" : "#154963"
                 };
             }
@@ -252,6 +252,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                     linkName={props.LinkName} 
                     bulletPointInMobile={props.bulletPointInMobile}
                     districtPosition={props.districtPosition}
+                    renderAsStudent={props.renderAsStudent}
                 >
                     
                     {props.linkName || props.children}
@@ -260,9 +261,10 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
             );
         } else {
             return (
-                <NavBarListItem_Li bulletPointInMobile={props.bulletPointInMobile}>
+                <NavBarListItem_Li bulletPointInMobile={props.bulletPointInMobile} renderAsStudent={props.renderAsStudent}>
                     <NavBarListItem href={props.href || null} 
                                     districtPosition={props.districtPosition}
+                                    renderAsStudent={props.renderAsStudent}
                     >
                         {props.linkName || props.children}
                     </NavBarListItem>
@@ -282,6 +284,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                         linkName={listItemArrayObject.title}
                         districtPosition={props.districtPosition}
                         bulletPointInMobile={true}
+                        renderAsStudent={props.renderAsStudent}
                     />: null);
             }
         ); //end map()
@@ -335,8 +338,8 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
 
    //TODO: Look at image link. It should redirect to the student or staff portal.
     return (
-        <NavBar className="navigation-bar" districtPosition={props.districtPosition}>
-            <NavBarImageWrapper  className="navigation-bar-image-wrapper" districtPosition={props.districtPosition}>
+        <NavBar className="navigation-bar" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
+            <NavBarImageWrapper  className="navigation-bar-image-wrapper" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
                 <Link   to="/" 
                         className="navbar-logo-link"
                 >
@@ -344,16 +347,16 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                                 className="img-responsive" 
                                 id="navbar-logo" 
                                 href="#" 
-                                src={ ( props.districtPosition === "student" ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
+                                src={ ( (props.districtPosition === "student") || props.renderAsStudent ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
                 </Link>
             </NavBarImageWrapper>
-            <NavBarUL className="navigation-bar-ul" districtPosition={props.districtPosition}>
-                <MenuToggle type="checkbox" id="menu-toggle" />
+            <NavBarUL className="navigation-bar-ul" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
+                <MenuToggle type="checkbox" id="menu-toggle" renderAsStudent={props.renderAsStudent} />
                 <label id="nav-menu-icon-label" htmlFor="menu-toggle" >
-                    <NavMenuIcon  className="nav-menu-icon" districtPosition={props.districtPosition}>
-                        <FirstBar  className="bar1" districtPosition={props.districtPosition}></FirstBar>
-                        <FirstBar className="bar2" districtPosition={props.districtPosition}></FirstBar>
-                        <FirstBar className="bar3" districtPosition={props.districtPosition}></FirstBar>
+                    <NavMenuIcon  className="nav-menu-icon" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
+                        <FirstBar  className="bar1" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}></FirstBar>
+                        <FirstBar className="bar2" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}></FirstBar>
+                        <FirstBar className="bar3" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}></FirstBar>
                     </NavMenuIcon>    
                 </label>
                
@@ -361,6 +364,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                     <NavBarListItemLi 
                         href={"https://www.centinela.k12.ca.us"}
                         bulletPointInMobile={true}
+                        renderAsStudent={props.renderAsStudent}
                     >
                         CVUHSD <FontAwesomeIcon icon={home} className="icon"/>
                     </NavBarListItemLi>)  
@@ -372,9 +376,10 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                         to={
                             {
                                pathname: "/student",
-                               state: { renderAsStudent: true } 
+                               state: { renderAsStudent: "true" } 
                             }
                         }
+                        renderAsStudent={props.renderAsStudent}
                         bulletPointInMobile={true}
                     >
                         <FontAwesomeIcon icon={student} className="icon"/> Portal 
@@ -385,6 +390,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                 {(props.districtPosition !== "student") ? ( 
                     <NavBarListItemLi 
                         bulletPointInMobile={true}
+                        renderAsStudent={props.renderAsStudent}
                     >
                         Change Password
                     </NavBarListItemLi>)  
@@ -395,11 +401,13 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                 
                 <NavBarListItemLi 
                     bulletPointInMobile={true}
+                    renderAsStudent={props.renderAsStudent}
                 >
                       <LogOutButton   
                                 title={"Log Out"} 
                                 onClick={logOut} 
                                 districtPosition={props.districtPosition}
+                                renderAsStudent={props.renderAsStudent}
                     >
                         Logout
                     </LogOutButton>

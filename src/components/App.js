@@ -173,7 +173,7 @@ class App extends Component {
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
-        <Switch>
+        {/* <Switch> */}
             { // Update routes to use server subdirectory in production
               //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
             }
@@ -184,6 +184,18 @@ class App extends Component {
                     }
                 } 
             />
+            {/* <Route path={`${publicURL}/student`}
+                    render={ () => {
+                        return (<Redirect to={`${publicURL}/student`} />);
+                    }
+                } 
+            />
+                <Route path={`${publicURL}/staff`}
+                    render={ () => {
+                        return (<Redirect to={`${publicURL}/staff`} />);
+                    }
+                } 
+            /> */}
             <Route path={`${publicURL}/login`} 
                   render={ (props) => <LogIn  {...props} 
                                               loggedIn={ this.state.loggedIn}
@@ -212,7 +224,7 @@ class App extends Component {
                           modifySite={this.modifySite}
                           changeContainerStyle={this.changeContainerStyle} 
                           component={ PageContent} 
-                          renderAsStudent={true}
+                          // renderAsStudent={true}
             />
 
             <PrivateRoute path={`${publicURL}/student`}
@@ -230,7 +242,7 @@ class App extends Component {
                           component={ PageContent} 
             />
             <Route component={NotFound} />   
-        </Switch>
+        {/* </Switch> */}
       </StyledContainer>
     );
   }
