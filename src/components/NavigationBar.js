@@ -333,6 +333,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
 
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
 
+   //TODO: Look at image link. It should redirect to the student or staff portal.
     return (
         <NavBar className="navigation-bar" districtPosition={props.districtPosition}>
             <NavBarImageWrapper  className="navigation-bar-image-wrapper" districtPosition={props.districtPosition}>
