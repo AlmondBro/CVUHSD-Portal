@@ -203,14 +203,22 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
 
     let NavBarListItem_Link = ({to, children, ...props}) => {
         return (
-            <Link to={to} {...props}>
-                { children }
-            </Link>
+            <li>
+                <Link to={to} {...props}>
+                    { children }
+                </Link>
+            </li> 
         );
     }
 
     let NavBarListItem_StyledLink = styled(NavBarListItem_Link)`
         font-size: 1.1em;
+        color: ${ props => 
+                    (props.districtPosition === ("student") ) ? 
+                        "#A01C1C": "#3B709A"
+                };
+        text-decoration: none;
+
         @media only screen and (max-width: 705px) { 
             &&>li~li::before {
             content: ${props => props.bulletPointInMobile ? "•" : null };
@@ -237,15 +245,31 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     
 
     let NavBarListItemLi = (props) => {
-        return (
-            <NavBarListItem_Li bulletPointInMobile={props.bulletPointInMobile}>
-                <NavBarListItem href={props.href || null} 
-                                districtPosition={props.districtPosition}
+        if (props.to) {
+            return (
+                <NavBarListItem_StyledLink 
+                    to={props.to} 
+                    linkName={props.LinkName} 
+                    bulletPointInMobile={props.bulletPointInMobile}
+                    districtPosition={props.districtPosition}
                 >
+                    
                     {props.linkName || props.children}
-                </NavBarListItem>
-            </NavBarListItem_Li>
-        );
+                    
+                </NavBarListItem_StyledLink>
+            );
+        } else {
+            return (
+                <NavBarListItem_Li bulletPointInMobile={props.bulletPointInMobile}>
+                    <NavBarListItem href={props.href || null} 
+                                    districtPosition={props.districtPosition}
+                    >
+                        {props.linkName || props.children}
+                    </NavBarListItem>
+                </NavBarListItem_Li>
+            );
+        }
+        
     };
 
     let generateNavBarListItems = (listItemsArray) => {
@@ -344,7 +368,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
 
                 {(props.districtPosition !== "student") ? ( 
                     <NavBarListItemLi 
-                        href={"/student"}
+                        to={"/student"}
                         bulletPointInMobile={true}
                     >
                         <FontAwesomeIcon icon={student} className="icon"/> Portal 
