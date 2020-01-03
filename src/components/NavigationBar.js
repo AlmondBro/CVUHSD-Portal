@@ -100,16 +100,6 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         /*-1/2 of line-height */
         right: 0px;
         padding-right: 2.5%;
-
-        @media only screen and (max-width: 833px) { 
-            &&>li~li::before {
-            content: ${props.bulletPointInMobile ? "•" : null };
-                margin-right: 8px;
-                color: ${ props => (props.districtPosition === "student") ? 
-                           "#931E1D" : "#154963"
-                };
-            }
-        }
     `; //end NavBarUL
 
     let MenuToggle = styled.input`
@@ -199,15 +189,27 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         }
     `; //end LogOut Button
 
+    let NavBarListItem_Li = styled("li")`
+        @media only screen and (max-width: 833px) { 
+            &&>li~li::before {
+            content: ${props => props.bulletPointInMobile ? "•" : null };
+                margin-right: 8px;
+                color: ${ props => (props.districtPosition === "student") ? 
+                            "#931E1D" : "#154963"
+                };
+            }
+        }
+    `; 
+
     let NavBarListItemLi = (props) => {
         return (
-            <li>
+            <NavBarListItem_Li bulletPointInMobile={props.bulletPointInMobile}>
                 <NavBarListItem href={props.href || null} 
                                 districtPosition={props.districtPosition}
                 >
                     {props.linkName || props.children}
                 </NavBarListItem>
-            </li>
+            </NavBarListItem_Li>
         );
     };
 
@@ -220,6 +222,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                         href={listItemArrayObject.href}
                         linkName={listItemArrayObject.title}
                         districtPosition={props.districtPosition}
+                        bulletPointInMobile={true}
                     />: null);
             }
         ); //end map()
