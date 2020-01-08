@@ -12,6 +12,10 @@ import { faHome as home, faLock as lock, faGraduationCap as student } from '@for
 
 import { staff_HeaderLinks } from "./../objectFiles/headerListItems.js";
 
+import Tooltip from "rc-tooltip";
+
+import "rc-tooltip/assets/bootstrap.css"; //default tooltip styling
+
 import isDev from 'isdev';
 
 //TODO: Figure out why bullet point is not rendering
@@ -180,7 +184,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         text-decoration: none;
     `; 
 
-    let LogOutButton = styled("button")`
+    let NavBarButton = styled("button")`
         font-size: 0.9em;
         color: white;
         background-color: ${ props => 
@@ -403,14 +407,14 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                     bulletPointInMobile={true}
                     renderAsStudent={props.renderAsStudent}
                 >
-                      <LogOutButton   
+                      <NavBarButton   
                                 title={"Log Out"} 
                                 onClick={logOut} 
                                 districtPosition={props.districtPosition}
                                 renderAsStudent={props.renderAsStudent}
                     >
                         Logout
-                    </LogOutButton>
+                    </NavBarButton>
                 </NavBarListItemLi>
             </NavBarUL>
         </NavBar>
