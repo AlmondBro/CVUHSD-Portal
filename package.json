@@ -33,6 +33,7 @@
     "passport-activedirectory": "^1.0.4",
     "passport-saml": "^1.2.0",
     "passport-wsfed-saml2": "git+https://github.com/auth0/passport-wsfed-saml2.git",
+    "rc-tooltip": "^4.0.0-alpha.3",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.11.0",
