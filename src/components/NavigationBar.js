@@ -281,7 +281,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                 return ( listItemArrayObject.navShow === true ?
                     <NavBarListItemLi 
                         key={index} 
-                        href={listItemArrayObject.href}
+                        to={listItemArrayObject.href}
                         linkName={listItemArrayObject.title}
                         districtPosition={props.districtPosition}
                         bulletPointInMobile={true}
