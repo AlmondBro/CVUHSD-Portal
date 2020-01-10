@@ -10,7 +10,7 @@ import styled from "styled-components";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faHome as home, faLock as lock, faGraduationCap as student, faUser as user } from '@fortawesome/free-solid-svg-icons';
+import { faHome as home, faLock as lock, faGraduationCap as student, faUser as user, faSignOutAlt as signOut, faUndo as undo } from '@fortawesome/free-solid-svg-icons';
 
 import { staff_HeaderLinks } from "./../objectFiles/headerListItems.js";
 
@@ -182,7 +182,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         text-decoration: none;
     `; 
 
-    let LogOutButton = styled("button")`
+    let NavBarButton = styled("button")`
         font-size: 0.9em;
         color: white;
         background-color: ${ props => 
@@ -281,7 +281,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                 return ( listItemArrayObject.navShow === true ?
                     <NavBarListItemLi 
                         key={index} 
-                        to={listItemArrayObject.href}
+                        href={listItemArrayObject.href}
                         linkName={listItemArrayObject.title}
                         districtPosition={props.districtPosition}
                         bulletPointInMobile={true}
@@ -391,30 +391,50 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                     : null
                 }
 
+                { generateNavBarListItems(staff_HeaderLinks) }
+
+                
                 {(props.districtPosition !== "student") ? ( 
                     <NavBarListItemLi 
                         bulletPointInMobile={true}
                         renderAsStudent={props.renderAsStudent}
                     >
-                        Change Password
+                        <NavBarButton   
+                                title={"Change Password"} 
+                                districtPosition={props.districtPosition}
+                                renderAsStudent={props.renderAsStudent}
+                        >
+                            <FontAwesomeIcon 
+                                icon={undo} 
+                                className="fa-stack-2x icon"
+                                
+                            />  
+                           <FontAwesomeIcon 
+                                icon={lock} 
+                                className="fa-stack-1x icon"
+                            />  
+                        </NavBarButton>  
+                                
+                         
                     </NavBarListItemLi>)  
                     : null
                 }
 
-                { generateNavBarListItems(staff_HeaderLinks) }
-                
                 <NavBarListItemLi 
                     bulletPointInMobile={true}
                     renderAsStudent={props.renderAsStudent}
                 >
-                      <LogOutButton   
+                    <NavBarButton   
                                 title={"Log Out"} 
                                 onClick={logOut} 
                                 districtPosition={props.districtPosition}
                                 renderAsStudent={props.renderAsStudent}
                     >
-                        Logout
-                    </LogOutButton>
+                        <FontAwesomeIcon 
+                            icon={signOut} 
+                            className="icon"
+                        /> 
+                    </NavBarButton>
                 </NavBarListItemLi>
             </NavBarUL>
         </NavBar>
