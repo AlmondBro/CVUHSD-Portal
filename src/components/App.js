@@ -173,7 +173,7 @@ class App extends Component {
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
-        {/* <Switch> */}
+        <Switch>
             { // Update routes to use server subdirectory in production
               //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
             }
@@ -242,7 +242,7 @@ class App extends Component {
                           component={ PageContent} 
             />
             <Route component={NotFound} />   
-        {/* </Switch> */}
+        </Switch>
       </StyledContainer>
     );
   }

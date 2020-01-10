@@ -24,7 +24,7 @@ class PageContent extends Component {
         
         this.blueSection_objectsArrayProps = {};
 
-        this.renderAsStudent = undefsafe(this.props, "renderAsStudent") || undefsafe(props.location, "state", "renderAsStudent") || "";
+        this.renderAsStudent = undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
 
       } //end constructor
     
@@ -45,13 +45,13 @@ class PageContent extends Component {
         });
     };
 
-    componentDidMount = (props) => {
-        console.log("PageContent Props Location:\t" + JSON.stringify(this.props.location.state.renderAsStudent) );
+    componentDidMount = () => {
+        console.log("PageContent Props Location:\t" + JSON.stringify(this.props.location) );
 
         this.props.changeContainerStyle({"background-image": "none" });
         console.log("Page content this.title:\t" + this.title);
 
-        if (this.props.title === "student" || this.props.renderAsStudent === true) {
+        if (this.props.title === "student" || this.props.location.state.renderAsStudent === "true") {
             document.title = "CVUHSD | Student Portal"
         } else {
             document.title = "CVUHSD | Staff Portal"
@@ -61,7 +61,7 @@ class PageContent extends Component {
     render = () => {
         let sectionInfoObject;
 
-        sectionInfoObject = (this.title === "student" || this.renderAsStudent) ? 
+        sectionInfoObject = (this.title === "student" || this.props.location.state.renderAsStudent === "true") ? 
                                     redSectionInfo_Student : blueSectionInfo_Staff;
         
         this.blueSection_objectsArrayProps = {
@@ -79,7 +79,7 @@ class PageContent extends Component {
                         modifyLogInStatus={ this.modifyLogInStatus }
                         modifyTitle={this.modifyTitle}
                         modifySite={this.modifySite}
-                        renderAsStudent={this.renderAsStudent}
+                        renderAsStudent={this.props.location.state.renderAsStudent}
                 />,
                 <div className="page-content">
                     { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
