@@ -184,18 +184,6 @@ class App extends Component {
                     }
                 } 
             />
-            {/* <Route path={`${publicURL}/student`}
-                    render={ () => {
-                        return (<Redirect to={`${publicURL}/student`} />);
-                    }
-                } 
-            />
-                <Route path={`${publicURL}/staff`}
-                    render={ () => {
-                        return (<Redirect to={`${publicURL}/staff`} />);
-                    }
-                } 
-            /> */}
             <Route path={`${publicURL}/login`} 
                   render={ (props) => <LogIn  {...props} 
                                               loggedIn={ this.state.loggedIn}
@@ -241,6 +229,18 @@ class App extends Component {
                           changeContainerStyle={this.changeContainerStyle} 
                           component={ PageContent} 
             />
+               <Route path={`${publicURL}/student.html`}
+                    render={ () => {
+                        return (<Redirect to={`${publicURL}/student`} />);
+                    }
+                } 
+            />
+                <Route path={`${publicURL}/staff.html`}
+                    render={ () => {
+                        return (<Redirect to={`${publicURL}/staff`} />);
+                    }
+                } 
+            /> 
             <Route component={NotFound} />   
         </Switch>
       </StyledContainer>

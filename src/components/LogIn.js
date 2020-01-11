@@ -388,7 +388,7 @@ class LogIn extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        let allowAuth = false;
+        let allowAuth = true;
 
         console.log("Submitting...");
 
@@ -456,14 +456,14 @@ class LogIn extends Component {
                     console.log("Response object:\t" + JSON.stringify(response) ); //a response does not appear to be a
                     console.log(response);
 
-                    this.modifyLogInStatus(false);
-                    this.setState({ message: response.message || "Success! Logging in...", isLoading: false });
+                    //this.modifyLogInStatus(true); //TODO was false here. This line was uncommented.
+                    //this.setState({ message: response.message || "Success! Logging in...", isLoading: false });
                     //return;
                     return response.json();
                 }
             //return response;
             }).then((response) => {
-                if ( undefsafe(response, 'success') === true){
+                if ( undefsafe(response, 'success') === true) {
                     console.log("Block 4");
                     console.log("Success!!!");
                     console.log(`Success response: ${JSON.stringify(response)}`);
@@ -686,10 +686,10 @@ class LogIn extends Component {
                                         title="Reset form" 
                                         loggedIn={this.props.loggedIn}
                                     > 
-                                        { this.props.loggedIn ? "✓" : "×"}
+                                        { (this.props.loggedIn) ? "✓" : "×"}
                                     </ResultButton> 
                                     <ErrorTextAlert>
-                                        { this.props.loggedIn  ? null : "Error:"}
+                                        { (this.props.loggedIn)  ? null : "Error:"}
                                     </ErrorTextAlert>
                                 </div>
                               

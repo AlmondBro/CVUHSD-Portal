@@ -1,6 +1,8 @@
 import React from "react"; //Import React 
 
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
+
+import { Redirect } from "react-router";
 
 //Import 3rd-party APIS
 import styled from "styled-components";
@@ -8,7 +10,7 @@ import styled from "styled-components";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faHome as home, faLock as lock, faGraduationCap as student } from '@fortawesome/free-solid-svg-icons';
+import { faHome as home, faLock as lock, faGraduationCap as student, faUser as user, faSignOutAlt as signOut, faUndo as undo } from '@fortawesome/free-solid-svg-icons';
 
 import { staff_HeaderLinks } from "./../objectFiles/headerListItems.js";
 
@@ -64,7 +66,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         }
     `; //end NavBar
 
-    let NavBarImageWrapper = styled.div`
+    let NavBarImageWrapper = styled("div")`
         margin-top: 5px;
 
         @media only screen and (max-width: 705px) {
@@ -246,8 +248,6 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         }
     `; 
 
-    
-
     let NavBarListItemLi = (props) => {
         if (props.to) {
             return (
@@ -257,6 +257,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                     bulletPointInMobile={props.bulletPointInMobile}
                     districtPosition={props.districtPosition}
                     renderAsStudent={props.renderAsStudent}
+                    title={props.title}
                 >
                     
                     {props.linkName || props.children}
@@ -370,6 +371,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                         bulletPointInMobile={true}
                         renderAsStudent={props.renderAsStudent}
                     >
+                        
                         CVUHSD <FontAwesomeIcon icon={home} className="icon"/>
                     </NavBarListItemLi>)  
                     : null
@@ -379,41 +381,63 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                     <NavBarListItemLi 
                         to={
                             {
-                               pathname: "/student",
-                               state: { renderAsStudent: "true" } 
+                               pathname: props.renderAsStudent ? "/staff" : "/student",
+                               state: { renderAsStudent: (props.location.pathname === "/staff") ? "true" : false } 
                             }
                         }
                         renderAsStudent={props.renderAsStudent}
-                        bulletPointInMobile={true}
+                        bulletPointInMobile={true} 
+                        title={(props.location.pathname === "/staff") ? "Student Portal" : "Staff Portal"}                 
                     >
-                        <FontAwesomeIcon icon={student} className="icon"/> Portal 
-                    </NavBarListItemLi>)  
-                    : null
-                }
-
-                {(props.districtPosition !== "student") ? ( 
-                    <NavBarListItemLi 
-                        bulletPointInMobile={true}
-                        renderAsStudent={props.renderAsStudent}
-                    >
-                        Change Password
+                    
+                        <FontAwesomeIcon icon={(props.location.pathname === "/staff") ? student : user} className="icon"/> Portal 
                     </NavBarListItemLi>)  
                     : null
                 }
 
                 { generateNavBarListItems(staff_HeaderLinks) }
+
                 
+                {(props.districtPosition !== "student") ? ( 
+                    <NavBarListItemLi 
+                        bulletPointInMobile={true}
+                        renderAsStudent={props.renderAsStudent}
+                    >
+                        <NavBarButton   
+                                title={"Change Password"} 
+                                districtPosition={props.districtPosition}
+                                renderAsStudent={props.renderAsStudent}
+                        >
+                            <FontAwesomeIcon 
+                                icon={undo} 
+                                className="fa-stack-2x icon"
+                                
+                            />  
+                           <FontAwesomeIcon 
+                                icon={lock} 
+                                className="fa-stack-1x icon"
+                            />  
+                        </NavBarButton>  
+                                
+                         
+                    </NavBarListItemLi>)  
+                    : null
+                }
+
                 <NavBarListItemLi 
                     bulletPointInMobile={true}
                     renderAsStudent={props.renderAsStudent}
                 >
-                      <NavBarButton   
+                    <NavBarButton   
                                 title={"Log Out"} 
                                 onClick={logOut} 
                                 districtPosition={props.districtPosition}
                                 renderAsStudent={props.renderAsStudent}
                     >
-                        Logout
+                        <FontAwesomeIcon 
+                            icon={signOut} 
+                            className="icon"
+                        /> 
                     </NavBarButton>
                 </NavBarListItemLi>
             </NavBarUL>
@@ -421,4 +445,4 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
     );
 }; //end NavigationBar();
 
-export default NavigationBar;
+export default withRouter(NavigationBar);
