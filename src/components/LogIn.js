@@ -145,7 +145,7 @@ let ResultButton = styled("span")`
     max-width: 35px;
     width: 35px;
     height: 35px;
-    color: ${props => props.loggeInd ? "#336186" : "white"};
+    color: ${props => props.loggedIn ? "#336186" : "white"};
     font-weight: bolder;
     border-radius: 100px;
     text-align: center;
@@ -259,6 +259,7 @@ class LogIn extends Component {
         super(props);
         
         this.state = {
+            loggedIn: null,
             isStudent: true,
             username: "",
             password: "",
@@ -280,7 +281,7 @@ class LogIn extends Component {
         }; //end state object
 
         
-        this.modifyLogInStatus = this.props.modifyLogInStatus;
+        //this.modifyLogInStatus = this.props.modifyLogInStatus;
         this.modifyStudentStatus = this.props.modifyStudentStatus;
         this.modifyFullName = this.props.modifyFullName;
         this.modifyTitle = this.props.modifyTitle;
@@ -290,6 +291,18 @@ class LogIn extends Component {
         
         console.log("Props:\t" + JSON.stringify(this.props) );
     }; //end constructor
+
+    //TODO: Find out why it's the props passed down from the central App state are not passed down in time. 
+    modifyLogInStatus = (newStatus) => {
+        this.setState({ loggedIn: newStatus});
+
+        setTimeout((response) => {
+            //browserHistory.push("/page-content");
+            console.log("Initiating timeout...");
+            this.props.modifyLogInStatus(newStatus);
+            return response;
+        }, 800);
+    }; //end modifyLogInStatus
 
 
     handleInputChange = (event) => {
@@ -663,7 +676,7 @@ class LogIn extends Component {
                             */
                         }
                         <FormButton type="submit" title="Log In">Submit</FormButton>
-                        { this.props.loggedIn === null ? "" : 
+                        { this.state.loggedIn === null ? "" : 
                             (  <ResetButton id="reset-button"
                                             type="reset"
                                             title="Reset form"
@@ -679,24 +692,24 @@ class LogIn extends Component {
                                     color={'#1f6b92'}
                                 /> : "" 
                         }
-                        { (this.props.loggedIn === null) ? null : 
+                        { (this.state.loggedIn === null) ? null : 
                             (   <div>
                                     <ResultButton   
                                         id="result-button" 
                                         title="Reset form" 
-                                        loggedIn={this.props.loggedIn}
+                                        loggedIn={this.state.loggedIn}
                                     > 
-                                        { (this.props.loggedIn) ? "✓" : "×"}
+                                        { (this.state.loggedIn) ? "✓" : "×"}
                                     </ResultButton> 
                                     <ErrorTextAlert>
-                                        { (this.props.loggedIn)  ? null : "Error:"}
+                                        { (this.state.loggedIn != false) ? null : "Error:"}
                                     </ErrorTextAlert>
                                 </div>
                               
                             )
 
                         }
-                        <ResultMessage loggedIn={this.props.loggedIn}>{"\t" + this.state.message}</ResultMessage>
+                        <ResultMessage loggedIn={this.state.loggedIn}>{"\t" + this.state.message}</ResultMessage>
                     </p>
                 </fieldset>
             </Form>,
