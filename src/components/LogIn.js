@@ -301,7 +301,7 @@ class LogIn extends Component {
             console.log("Initiating timeout...");
             this.props.modifyLogInStatus(newStatus);
             return response;
-        }, 800);
+        }, 300);
     }; //end modifyLogInStatus
 
 
