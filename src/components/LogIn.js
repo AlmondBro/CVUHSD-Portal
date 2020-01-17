@@ -16,6 +16,8 @@ import isDev from 'isdev';
 
 import { isEmpty } from "./../utilityFunctions.js";
 
+import Footer from "./Footer.js";
+
 //TODO: Create function that fetches the IP Address
 //TODO: Create reset-password functionality
 //TODO: Save the app state to local storage or use redux 
@@ -176,49 +178,6 @@ let ResultMessage = styled('span')`
     margin: 0 auto;
 `;
 
-let Footer = styled('footer')`
-    display: flex;
-    position: fixed;
-    width: 100%;
-    top: 95%;
-    color: white;
-    background-color: #182c3d;
-    border-top: 1px solid white;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 5px;
-
-    & ul {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        text-align: center;
-        width: 100%;
-    }
-
-    & ul li a {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        color: white;
-        text-decoration: none;
-        margin-left: 10px;
-    }
-
-
-    & ul li {
-        color: white; 
-    }
-
-    & ul li a:hover {
-        text-decoration: underline;
-    }
-
-    & ul li a::before {
-        content: "•";
-        margin: 0 5px;
-    }
-`;
 
 let IPAddress = styled('div')`
     position: relative;
@@ -252,7 +211,6 @@ const LoadingSpinner = ({ type, color, height, width}) => (
         <ReactLoading type={type} color={color} height={height} width={width} />
     </StyledLoadingContainer>  
 );
-
 
 class LogIn extends Component {
     constructor(props) {
@@ -726,39 +684,7 @@ class LogIn extends Component {
                         }
                         </IPLoadingContainer> 
             </IPAddress>,
-            <Footer>
-                <ul>
-                    <li>
-                       <a href="https://www.centinela.k12.ca.us/" 
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                        CVUHSD Home
-                       </a>
-                    </li>
-                    <li>
-                       <a href="https://portal.centinela.k12.ca.us/student.html" 
-                       target="_blank" 
-                       rel="noopener noreferrer">
-                        Student Portal
-                       </a>
-                    </li>
-                    <li>
-                       <a href="http://portal.centinela.k12.ca.us/troubleshooting.html" 
-                          target="_blank" 
-                          rel="noopener noreferrer">
-                        Troubleshooting
-                       </a>
-                    </li>
-                    <li>
-                       <a href="http://helpdesk.centinela.k12.ca.us/" 
-                            target="_blank" 
-                            rel="noopener noreferrer">
-                        Helpdesk
-                       </a>
-                    </li>
-                </ul>
-            </Footer>
+           <Footer />
         ]); //end return 
     }; //end render()
 }
