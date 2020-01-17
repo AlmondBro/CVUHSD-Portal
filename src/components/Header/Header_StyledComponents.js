@@ -1,16 +1,9 @@
 import React from "react";
 
-//Import components
-import NavigationBar from "./NavigationBar.js";
-
-//Import 3rd-party APIs
 import styled from "styled-components";
-
-import greeting from 'greeting';
-
 //TODO: Add little picture on position that reflects the school/site the user is from
 
-let NavigationBarHeader = styled.header`
+let NavigationBarHeader = styled("header")`
         position: relative;
         width: 100%;
         /* Bottom three BG-color and margin bottom rules, and border-bottom were not here before */
@@ -51,7 +44,7 @@ let NavigationBarHeader = styled.header`
     }
 `//end NavigationBarHeader
 
-let DashboardHeaderContainer = styled.div`
+let DashboardHeaderContainer = styled("div")`
     /* max-width: 500px; */
     margin: 0px auto;
 `//end DashboardHeaderContainer
@@ -83,7 +76,7 @@ let DashboardHeader = styled.header`
     }
 `//end DashboardHeader
 
-let AddToHomeScreenButton = styled.button`
+let AddToHomeScreenButton = styled("button")`
     display: none;
     position: relative;
     /* display: inline-block; */
@@ -105,7 +98,7 @@ let AddToHomeScreenButton = styled.button`
 }
 ` //end addToHomeScreenButton
 
-let ToolTip = styled.div`
+let ToolTip = styled("div")`
     display: block;
     /* visibility: hidden; */
     width: 210px;
@@ -168,50 +161,4 @@ let PositionGreeting = styled(Greeting)`
     font-size: 1.05em;
 `; //end PositionGreeting
 
-const Header = ( { modifyLogInStatus, renderAsStudent,...props }) => {
-    console.log("Header props:\t" + JSON.stringify(props) );
-
-    let districtPosition = props.title;
-
-    return ([
-        <NavigationBarHeader 
-            districtPosition={districtPosition}
-            renderAsStudent={renderAsStudent} 
-        >
-            <NavigationBar
-                districtPosition={districtPosition}
-                modifyLogInStatus={modifyLogInStatus}
-                renderAsStudent={renderAsStudent}  
-            />
-        </NavigationBarHeader>,
-
-        <DashboardHeaderContainer id="back-to-top" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
-            <DashboardHeader districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
-                <PortalHeaderText districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
-                    <strong>
-                        {props.districtName || "District"}
-                        <span>
-                            <h2>
-                                {props.headerTitle|| "Portal"}
-                            </h2>
-                        </span>
-                    </strong>
-                </PortalHeaderText>
-                <Greeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} >{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
-                <PositionGreeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} ><span>{props.title || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
-                <AddToHomeScreenButton  id="addToHomeScreenButton" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >Add to Home Screen</AddToHomeScreenButton>
-                <ToolTip districtPosition={districtPosition} renderAsStudent={renderAsStudent}  className="tooltip" id="addToHomeScreenTooltip">
-                    <p>
-                        Create a shortcut to the portal app on your desktop. 
-                    </p>
-                    <p>
-                        Be notified when a service such as Destiny is down, and 
-                        conversely when it comes back up.
-                    </p> 
-                </ToolTip>
-            </DashboardHeader>
-        </DashboardHeaderContainer>
-    ]);   
-}; //end Header
-
-export default Header;
+export { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting }

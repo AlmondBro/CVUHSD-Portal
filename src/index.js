@@ -1,13 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/App/App.js";
-import * as serviceWorker from './serviceWorker.js';
 
+import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import isDev from "isdev";
+
+import App from "./components/App/App.js";
+
+import * as serviceWorker from './serviceWorker.js';
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 /*  Basename doc from React Training: 
     The base URL for all locations. If your app is served from a sub-directory on your server, 

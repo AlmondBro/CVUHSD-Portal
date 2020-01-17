@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
-import Header from "./Header.js";
+import Header from "./Header/Header.js";
 
 //Import list of buttons
 import { blueSectionInfo_Staff , redSectionInfo_Student} from "./../objectFiles/blueSectionInfo.js";
