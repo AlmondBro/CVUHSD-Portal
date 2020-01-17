@@ -1,7 +1,7 @@
 import React from "react";
 
 //Import components
-import NavigationBar from "../NavigationBar.js";
+import NavigationBar from "../NavigationBar/NavigationBar.js";
 
 import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, 
         AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting } from "./Header_StyledComponents.js";
