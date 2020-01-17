@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
 
 //Import components
-import PageContent from "./PageContent.js";
+import PageContent from "../PageContent.js";
 
 import isDev from 'isdev';
-
-//Import 3rd-party APIs
-import styled from 'styled-components';
-import css from 'styled-components';
-
-import { Container } from 'react-bootstrap';
 
 import {  Redirect } from 'react-router'
 import { Route, Switch } from "react-router-dom";
 
-//Import pages
-import LogIn from './LogIn.js';
-import NotFound from './NotFound.js';
+//Import styledcomponents
+import { StyledContainer } from "./App_StyledComponents.js";
 
-import PrivateRoute from "./PrivateRoute.js";
+//Import pages
+import LogIn from "./../LogIn/LogIn.js";
+import NotFound from './../NotFound.js';
+
+import PrivateRoute from "./../PrivateRoute.js";
 
 import SimpleStorage, { resetParentState } from "react-simple-storage";
+
 
 //TODO: Have /staff.html redirect to /staff
 
@@ -29,41 +27,6 @@ import SimpleStorage, { resetParentState } from "react-simple-storage";
 //TODO: Fix Dashboard "digial" typon on quick links buttons
 //TODO: Have a different link for the student and staff portals
 //TODO: Eliminate the flashing when going into the login page
-
-let ModifiedContainer = ({className, children, fluid}) => (
-  <Container className={className} fluid={fluid}>
-    { children }
-  </Container>
-);
-
-let StyledContainer = styled(ModifiedContainer)`
-  display: flex;
-  flex-direction: column;
-  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#4177a3+0,182c3d+100 */
-  /* background: #4177a3;  Old browsers */
-  /*  background: -moz-linear-gradient(top,  #4177a3 0%, #182c3d 100%); FF3.6-15 */
-  /* background: -webkit-linear-gradient(top,  #4177a3 0%,#182c3d 100%);  Chrome10-25,Safari5.1-6 */
-  /* background: linear-gradient(to bottom,  #4177a3 0%,#182c3d 100%);  W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-
-  background-image: ${props => props.containerStyle["background-image"] || `url("./images/district-office-blueBG.jpg")` };
-  background-repeat: ${props => props.containerStyle["background-repeat"] || `no-repeat` };
-  background-size: ${props => props.containerStyle["background-size"] || `cover` };
-
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4177a3', endColorstr='#182c3d',GradientType=0 ); /* IE6-9 */
-
-  height: 100%;
-  && { /*Overrode class style */
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-
-  &&& {
-    ${props => props.styledContainer && css`
-      {props.styledContainer}
-    `}
-  }
- 
-`;
 
 class App extends Component {
   constructor(props) {
@@ -212,6 +175,7 @@ class App extends Component {
                           modifySite={this.modifySite}
                           changeContainerStyle={this.changeContainerStyle} 
                           component={ PageContent} 
+                          // renderAsStudent={true}
             />
 
             <PrivateRoute path={`${publicURL}/student`}
@@ -228,6 +192,18 @@ class App extends Component {
                           changeContainerStyle={this.changeContainerStyle} 
                           component={ PageContent} 
             />
+               <Route path={`${publicURL}/student.html`}
+                    render={ () => {
+                        return (<Redirect to={`${publicURL}/student`} />);
+                    }
+                } 
+            />
+                <Route path={`${publicURL}/staff.html`}
+                    render={ () => {
+                        return (<Redirect to={`${publicURL}/staff`} />);
+                    }
+                } 
+            /> 
             <Route component={NotFound} />   
         </Switch>
       </StyledContainer>

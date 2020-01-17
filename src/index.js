@@ -1,13 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App.js';
+import React from "react";
+
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+
+import isDev from "isdev";
+
+import App from "./components/App/App.js";
+
 import * as serviceWorker from './serviceWorker.js';
 
-import { BrowserRouter as Router } from 'react-router-dom';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-import isDev from 'isdev';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 /*  Basename doc from React Training: 
     The base URL for all locations. If your app is served from a sub-directory on your server, 
@@ -15,13 +17,13 @@ import isDev from 'isdev';
     a leading slash, but no trailing slash.
 */
 let subDirectory = false;
-let baseName = isDev ? '' : (subDirectory ? '/build' : ''); 
+let baseName = isDev ? "" : (subDirectory ? "/build" : ""); 
 
 ReactDOM.render(
     <Router basename={baseName}>
         <App />
     </Router>
-    , document.getElementById('root')
+    , document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

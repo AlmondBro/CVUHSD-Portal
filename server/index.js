@@ -287,7 +287,7 @@ app.post(logIn_URL,
   // function to call once successfully authenticated
    (req, res) => {
     console.log("Login success");
-    res.status(200).send({success: true, message : "Logging in...", userInfo: res.locals.userInfo});
+    res.status(200).send({success: true, message : "Success! Logging in...", userInfo: res.locals.userInfo});
   });
 
 // Test endpoint to check whether user is authenticated

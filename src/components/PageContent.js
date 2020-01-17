@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
-import Header from "./Header.js";
+import Header from "./Header/Header.js";
 
 //Import list of buttons
 import { blueSectionInfo_Staff , redSectionInfo_Student} from "./../objectFiles/blueSectionInfo.js";
@@ -14,8 +14,7 @@ import undefsafe from 'undefsafe';
 class PageContent extends Component {
     constructor(props) {
         super(props);
-        console.log("PageContent Props:\t" + JSON.stringify(this.props) );
-        
+
         this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
         this.modifyStudentStatus = this.props.modifyStudentStatus;
 
@@ -25,14 +24,7 @@ class PageContent extends Component {
         
         this.blueSection_objectsArrayProps = {};
 
-        //TODO: Remove these attributes
-        this.state = {
-            fullName : this.props.fullName || undefsafe(this.props.location.state, "fullName") || "CVUHSD User",
-            logInSuccess :  this.props.loggedIn || undefsafe(this.props.location.state, "logInSuccess"),
-            isStudent: this.props.isStudent || undefsafe(this.props.location.state, "isStudent") || false,
-            title: this.props.title|| undefsafe(this.props.location.state, "title") || "student",
-            site: this.props.site || undefsafe(this.props.location.state, "site") || "student"
-        }; //end state{} object
+        this.renderAsStudent = undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
 
       } //end constructor
     
@@ -47,16 +39,19 @@ class PageContent extends Component {
                     buttons={blueSection_Object.buttons}
                     key={index}
                     title={this.title || "student"}
+                    renderAsStudent={this.renderAsStudent || this.props.location.state.renderAsStudent}
                 />
             );
         });
     };
 
-    componentDidMount = (props) => {
+    componentDidMount = () => {
+        console.log("PageContent Props Location:\t" + JSON.stringify(this.props.location) );
+
         this.props.changeContainerStyle({"background-image": "none" });
         console.log("Page content this.title:\t" + this.title);
 
-        if (this.props.title === "student") {
+        if (this.props.title === "student" || this.props.location.state.renderAsStudent === "true") {
             document.title = "CVUHSD | Student Portal"
         } else {
             document.title = "CVUHSD | Staff Portal"
@@ -66,7 +61,7 @@ class PageContent extends Component {
     render = () => {
         let sectionInfoObject;
 
-        sectionInfoObject = (this.title === "student") ? 
+        sectionInfoObject = (this.title === "student" || this.props.location.state.renderAsStudent === "true") ? 
                                     redSectionInfo_Student : blueSectionInfo_Staff;
         
         this.blueSection_objectsArrayProps = {
@@ -84,6 +79,7 @@ class PageContent extends Component {
                         modifyLogInStatus={ this.modifyLogInStatus }
                         modifyTitle={this.modifyTitle}
                         modifySite={this.modifySite}
+                        renderAsStudent={this.props.location.state.renderAsStudent}
                 />,
                 <div className="page-content">
                     { this.generateBlueSections(this.blueSection_objectsArrayProps)} 

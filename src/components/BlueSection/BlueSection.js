@@ -102,7 +102,7 @@ const BlueSection = (props) => {
 
     let SectionHeader = styled("div")`
         background-color: ${ props => 
-            (props.title === ("student") ) ? 
+            (props.title === ("student") || props.renderAsStudent ) ? 
                 "rgb(147, 30, 30)": "rgb(30, 108, 147)"
         };
 
@@ -135,7 +135,7 @@ const BlueSection = (props) => {
         border-radius: 100%;
         background-color: white;
         color: ${ props => 
-            (props.title === ("student") ) ? 
+            (props.title === ("student") || props.renderAsStudent ) ? 
                 "rgb(147, 30, 30)": "rgb(30, 108, 147)"
         };
 
@@ -164,20 +164,28 @@ const BlueSection = (props) => {
     // */
 
     return (
-        <BlueSectionContainer className="blue-section" id={props.blueSectionName + "-blueSection"} >
+        <BlueSectionContainer   className="blue-section" 
+                                id={props.blueSectionName + "-blueSection"} 
+                                renderAsStudent={props.renderAsStudent}
+        >
             <InputCheckBoxHack 
                 type="checkbox" 
                 className="checkbox-hack blueSection-collapseToggle" 
                 id= {props.blueSectionName + "-collapseToggle"} 
                 defaultChecked={props.expanded} 
+                renderAsStudent={props.renderAsStudent}
             />
             <SectionHeader 
                 className="section-header" 
                 title={props.title}
+                renderAsStudent={props.renderAsStudent}
             >
                 <h3>{props.headerTitle}</h3> 
                 <label htmlFor={props.blueSectionName + "-collapseToggle"}>
-                    <OpenColumnButton   className="open-column-button"  title={props.title}
+                    <OpenColumnButton   
+                        className="open-column-button"  
+                        title={props.title}
+                        renderAsStudent={props.renderAsStudent}
                     >
                         
                     </OpenColumnButton>
@@ -186,6 +194,7 @@ const BlueSection = (props) => {
             <ButtonRow  className="row button-row" 
                         id={props.buttonRowID} 
                         title={props.title}
+                        renderAsStudent={props.renderAsStudent}
             >
             {
                 generateBlueSectionButtons()
