@@ -12,13 +12,12 @@ import { Route, Switch } from "react-router-dom";
 import { StyledContainer } from "./App_StyledComponents.js";
 
 //Import pages
-import LogIn from '../LogIn.js';
-import NotFound from '../NotFound.js';
+import LogIn from "./../LogIn/LogIn.js";
+import NotFound from './../NotFound.js';
 
-import PrivateRoute from "../PrivateRoute.js";
+import PrivateRoute from "./../PrivateRoute.js";
 
 import SimpleStorage, { resetParentState } from "react-simple-storage";
-
 
 
 //TODO: Have /staff.html redirect to /staff
@@ -28,7 +27,6 @@ import SimpleStorage, { resetParentState } from "react-simple-storage";
 //TODO: Fix Dashboard "digial" typon on quick links buttons
 //TODO: Have a different link for the student and staff portals
 //TODO: Eliminate the flashing when going into the login page
-
 
 class App extends Component {
   constructor(props) {
