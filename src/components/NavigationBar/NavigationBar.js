@@ -146,23 +146,28 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                         bulletPointInMobile={true}
                         renderAsStudent={props.renderAsStudent}
                     >
-                        <NavBarButton   
-                                title={"Change Password"} 
-                                districtPosition={props.districtPosition}
-                                renderAsStudent={props.renderAsStudent}
+                        <Tooltip
+                            placement={"bottom"}
+                            mouseEnterDelay={0}
+                            mouseLeaveDelay={0.03}
+                            destroyTooltipOnHide={true}
+                            trigger={['hover','click','focus']}
+                            overlay={<div style={{ height: "100%", width: "100%" }}>Change Password</div>}
+                            transitionName={"rc-tooltip-zoom"}
                         >
-                            <FontAwesomeIcon 
-                                icon={undo} 
-                                className="fa-stack-2x icon"
-                                
-                            />  
-                           <FontAwesomeIcon 
-                                icon={lock} 
-                                className="fa-stack-1x icon"
-                            />  
-                        </NavBarButton>  
-                                
-                         
+                            <NavBarButton   
+                                    title={"Change Password"} 
+                                    districtPosition={props.districtPosition}
+                                    renderAsStudent={props.renderAsStudent}
+                            >
+                                <object type="image/svg+xml" 
+                                    data="/images/icons/change-password.svg" 
+                                    className="change-password-icon svg-inline--fa fa-w-16 icon"
+                                >
+                                    Change Password
+                                </object>
+                            </NavBarButton> 
+                        </Tooltip>
                     </NavBarListItemLi>)  
                     : null
                 }
