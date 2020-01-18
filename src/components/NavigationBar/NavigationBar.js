@@ -3,20 +3,19 @@ import React from "react"; //Import React
 import { withRouter, Link } from "react-router-dom";
 
 //Import 3rd-party APIS
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Tooltip from "rc-tooltip";
+import "rc-tooltip/assets/bootstrap.css"; //default tooltip styling
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome as home, faLock as lock, faGraduationCap as student, faUser as user, faSignOutAlt as signOut, faUndo as undo } from '@fortawesome/free-solid-svg-icons';
 
 import { staff_HeaderLinks } from "./../../objectFiles/headerListItems.js";
 
+//Import styled components
 import { NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, MenuToggle, 
     NavMenuIcon, FirstBar, NavBarListItem, NavBarButton, NavBarListItem_Link, 
     NavBarListItem_StyledLink, NavBarListItem_Li, NavBarListItemLi 
    } from "./NavigationBar_StyledComponents.js";
-
-import Tooltip from "rc-tooltip";
-
-import "rc-tooltip/assets/bootstrap.css"; //default tooltip styling
 
 import isDev from 'isdev';
 
@@ -172,17 +171,28 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                     bulletPointInMobile={true}
                     renderAsStudent={props.renderAsStudent}
                 >
-                    <NavBarButton   
+                    <Tooltip
+                        placement={"bottom"}
+                        mouseEnterDelay={0}
+                        mouseLeaveDelay={0.03}
+                        destroyTooltipOnHide={true}
+                        trigger={['hover','click','focus']}
+                        overlay={<div style={{ height: "100%", width: "100%" }}>Log Out</div>}
+                        transitionName={"rc-tooltip-zoom"}
+                    >
+                          <NavBarButton   
                                 title={"Log Out"} 
                                 onClick={logOut} 
                                 districtPosition={props.districtPosition}
                                 renderAsStudent={props.renderAsStudent}
-                    >
-                        <FontAwesomeIcon 
-                            icon={signOut} 
-                            className="icon"
-                        /> 
-                    </NavBarButton>
+                        >
+                            <FontAwesomeIcon 
+                                icon={signOut} 
+                                className="icon"
+                            /> 
+                        </NavBarButton>
+                </Tooltip>
+                  
                 </NavBarListItemLi>
             </NavBarUL>
         </NavBar>
