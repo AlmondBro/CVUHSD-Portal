@@ -361,7 +361,7 @@ class LogIn extends Component {
         document.addEventListener('click', this.resetButtonListener);
 
         this.props.changeContainerStyle({"background-image": `url("./images/district-office-blueBG.jpg")` });        
-        this.modifyLogInStatus(null);
+        //this.modifyLogInStatus(null); //This line is commented so when a logged in user goes to the root url or '/login', he/she is taken to their respective portal
     }; //end componentDidMount()
 
     componentWillUnmount = () => {

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
-
 let NavBar = styled.nav`
         display: inline-block;
 
@@ -60,10 +59,13 @@ let NavBar = styled.nav`
           &::after {
                 content: 'Centinela Valley Union High School District';
                 display: inline;
+
                 color: ${ props => 
                             (props.districtPosition === ("student") || props.renderAsStudent) ? 
                                 "#931E1D": "#1E6C93"
                         };
+                transition: color 0.5s;
+
                 font-size: 1.3em;
                 position: absolute;
                 bottom: 52px;
@@ -152,11 +154,15 @@ let NavBar = styled.nav`
                                 ( (props.districtPosition === "student") || props.renderAsStudent ) ? 
                                     "#931E1D": "#1E6C93"
                             };
+        
         color: ${ props => 
                                 ( (props.districtPosition === "student") || props.renderAsStudent ) ? 
                                     "#931E1D": "#1E6C93"
                             };
+        transition: background-color 0.5s, color 0.5s;
+        
     `;
+    
 
     //TODO: Move this rule "upward"
     let NavBarListItem = styled("a")`
@@ -204,27 +210,34 @@ let NavBar = styled.nav`
                     ( (props.districtPosition === "student") || props.renderAsStudent) ? 
                         "#A01C1C": "#3B709A"
                 };
+        transition: color 0.5s;
+        
         text-decoration: none;
 
         @media only screen and (max-width: 705px) { 
             &&>li~li::before {
-            content: ${props => props.bulletPointInMobile ? "•" : null };
+                content: ${props => props.bulletPointInMobile ? "•" : null };
                 margin-right: 8px;
                 color: ${ props => ((props.districtPosition === "student") || props.renderAsStudent) ? 
                             "#931E1D" : "#154963"
                 };
+                transition: color 0.5s;
             }
         }
     `;
     let NavBarListItem_Li = styled("li")`
         font-size: 1.1em;
+        transition: color 0.5s;
+
         @media only screen and (max-width: 705px) { 
             &&>li~li::before {
-            content: ${props => props.bulletPointInMobile ? "•" : null };
+                content: ${props => props.bulletPointInMobile ? "•" : null };
                 margin-right: 8px;
                 color: ${ props => ((props.districtPosition === "student") || props.renderAsStudent) ? 
                             "#931E1D" : "#154963"
                 };
+            transition: color 0.5s;
+
             }
         }
     `; 

@@ -1,5 +1,3 @@
-import React from "react";
-
 import styled from "styled-components";
 //TODO: Add little picture on position that reflects the school/site the user is from
 
@@ -36,6 +34,7 @@ let NavigationBarHeader = styled("header")`
                             ((props.districtPosition === "student") || props.renderAsStudent ) ? 
                                 "5px solid #931E1D": "5px solid #1E6C93"
                         };
+        transition: border-color 0.5s;
     }
 
     @media only screen and (max-width: 833px) {
@@ -85,6 +84,8 @@ let AddToHomeScreenButton = styled("button")`
                             ( (props.districtPosition === "student") || props.renderAsStudent) ? 
                                 "#931E1D": "#1E6C93"
                         };
+    transition: background-color 0.5s;
+    
     color: white;
     border: 0;
     font-size: 1.3em;
@@ -134,7 +135,7 @@ let PortalHeaderText = styled("h1")`
                 ( (props.districtPosition === "student") || props.renderAsStudent) ? 
                     "#931E1D": "#1E6C93"
         };
-    
+    transition: color 0.5s;
 `;
 
 let Greeting = styled("h3")`
@@ -146,6 +147,7 @@ let Greeting = styled("h3")`
                 ( (props.districtPosition === "student") || props.renderAsStudent) ? 
                     "#931E1D": "#1E6C93"
             };
+    transition: color 0.5s;
 
     & span {
         font-style: italic;
@@ -159,6 +161,8 @@ let Greeting = styled("h3")`
 
 let PositionGreeting = styled(Greeting)`
     font-size: 1.05em;
+    transition: color 0.5s;
+
 `; //end PositionGreeting
 
 export { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting }
