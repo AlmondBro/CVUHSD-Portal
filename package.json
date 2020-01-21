@@ -38,6 +38,7 @@
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.11.0",
     "react-loading": "^2.0.3",
+    "react-modal": "^3.11.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.2.0",
     "react-simple-storage": "^1.4.1",
