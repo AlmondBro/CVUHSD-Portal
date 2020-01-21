@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -13,11 +13,11 @@ const customStyles = {
 };
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
-Modal.setAppElement('#yourAppElement')
+Modal.setAppElement("#root");
 
 let ChangePassword = (props) => {
   var subtitle;
-  const [modalIsOpen,setIsOpen] = React.useState(false);
+  const  [modalIsOpen, setIsOpen] = useState(false);
 
   let openModal = (props) => {
     setIsOpen(true);
@@ -32,8 +32,15 @@ let ChangePassword = (props) => {
     setIsOpen(false);
   }; //end closeModal
 
+  useEffect(() => {
+    console.log("Click modal props:\t" + props.clickModal);
+    if (props.clickModal == "true") {
+        openModal();
+    } 
+  }, [props.clickModal]);
+
     return (
-      <div>
+      <div id="changePassword-modal">
         <button onClick={openModal}>Open Modal</button>
         <Modal
           isOpen={modalIsOpen}

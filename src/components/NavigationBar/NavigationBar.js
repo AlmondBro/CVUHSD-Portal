@@ -1,4 +1,4 @@
-import React from "react"; //Import React 
+import React, { useState, useEffect }  from "react"; //Import React 
 
 import { withRouter, Link } from "react-router-dom";
 
@@ -11,6 +11,8 @@ import { faHome as home, faLock as lock, faGraduationCap as student, faUser as u
 
 import { staff_HeaderLinks } from "./../../objectFiles/headerListItems.js";
 
+import ChangePassword from "./ChangePassword/ChangePassword.js";
+
 //Import styled components
 import { NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, MenuToggle, 
     NavMenuIcon, FirstBar, NavBarListItem, NavBarButton, NavBarListItem_Link, 
@@ -22,6 +24,8 @@ import isDev from 'isdev';
 //TODO: Figure out why bullet point is not rendering
 
 const NavigationBar = ({modifyLogInStatus, ...props}) => {
+    const  [clickModal, setIsOpen] = useState(false);
+
     let generateNavBarListItems = (listItemsArray) => {
         return listItemsArray.map(
             (listItemArrayObject, index) => {
@@ -85,7 +89,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
 
    //TODO: Look at image link. It should redirect to the student or staff portal.
-    return (
+    return ([
         <NavBar className="navigation-bar" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
             <NavBarImageWrapper  className="navigation-bar-image-wrapper" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
                 <Link   to="/" 
@@ -159,6 +163,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                                     title={"Change Password"} 
                                     districtPosition={props.districtPosition}
                                     renderAsStudent={props.renderAsStudent}
+                                    onClick={() => {console.log("Click open modal"); setIsOpen(true); console.log(`clickModal:\t ${clickModal}`) } }
                             >
                                 <object type="image/svg+xml" 
                                     data="/images/icons/change-password.svg" 
@@ -200,8 +205,9 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                   
                 </NavBarListItemLi>
             </NavBarUL>
-        </NavBar>
-    );
+        </NavBar>,
+        <ChangePassword clickModal={clickModal}/>
+    ]);
 }; //end NavigationBar();
 
 export default withRouter(NavigationBar);
