@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -15,43 +15,46 @@ const customStyles = {
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement("#root");
 
-let ChangePassword = (props) => {
-  var subtitle;
-  const  [modalIsOpen, setIsOpen] = useState(false);
+class ChangePassword extends Component {
+  constructor(props) {
+    super(props);
 
-  let openModal = (props) => {
-    setIsOpen(true);
+    this.state = {
+      modalisOpen: false
+    }; //end this.state variable
+  } //end constructor()
+
+  openModal = () => {
+    this.setState({
+      modalIsOpen: true
+    }); //end this.setState()
   }; //end openModal
 
-  let afterOpenModal = () => {
+  afterOpenModal = () => {
     // references are now sync'd and can be accessed.
     subtitle.style.color = '#f00';
   }; //end afterOpenModal
 
-  let closeModal = () => {
-    setIsOpen(false);
+  closeModal = () => {
+    this.setState({
+      modalIsOpen: false
+    }); //end this.setState()
   }; //end closeModal
 
-  useEffect(() => {
-    console.log("Click modal props:\t" + props.clickModal);
-    if (props.clickModal == "true") {
-        openModal();
-    } 
-  }, [props.clickModal]);
-
+  render = () => {
     return (
       <div id="changePassword-modal">
-        <button onClick={openModal}>Open Modal</button>
+        <button onClick={this.openModal}>Open Modal</button>
         <Modal
-          isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
+          isOpen={this.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
           style={customStyles}
           contentLabel="Example Modal"
         >
 
           <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2>
-          <button onClick={closeModal}>close</button>
+          <button onClick={this.closeModal}>close</button>
           <div>I am a modal</div>
           <form>
             <input />
@@ -63,6 +66,8 @@ let ChangePassword = (props) => {
         </Modal>
       </div>
     );
-};
+  }; //end render() method
+ 
+}; //end ChangePassword class
 
 export default ChangePassword;
