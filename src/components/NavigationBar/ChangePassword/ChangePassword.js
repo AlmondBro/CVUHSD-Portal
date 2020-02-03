@@ -25,35 +25,37 @@ class ChangePassword extends Component {
   } //end constructor()
 
   openModal = () => {
-    this.setState({
-      modalIsOpen: true
-    }); //end this.setState()
+    // this.setState({
+    //   modalIsOpen: true
+    // }); //end this.setState()
+    this.props.toggleModal(true);
   }; //end openModal
+
 
   afterOpenModal = () => {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
+    //subtitle.style.color = '#f00';
   }; //end afterOpenModal
 
   closeModal = () => {
-    this.setState({
-      modalIsOpen: false
-    }); //end this.setState()
+    // this.setState({
+    //   modalIsOpen: false
+    // }); //end this.setState()
+    this.props.toggleModal(false);
   }; //end closeModal
 
   render = () => {
     return (
       <div id="changePassword-modal">
-        <button onClick={this.openModal}>Open Modal</button>
         <Modal
-          isOpen={this.modalIsOpen}
+          isOpen={this.props.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
-          contentLabel="Example Modal"
+          contentLabel="Change Password"
         >
 
-          <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2>
+          {/* <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2> */}
           <button onClick={this.closeModal}>close</button>
           <div>I am a modal</div>
           <form>
