@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
-
-// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
-Modal.setAppElement("#root");
-
 class ChangePassword extends Component {
   constructor(props) {
     super(props);
+
+    this.customStyles = {
+      overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor:   
+          ( (props.districtPosition !== "student") 
+              || !props.location.state.renderAsStudent ) ? 
+                "#1E6C93": "#931E1D",
+      
+        // backgroundColor: 'rgba(30,108,147, 0.55)',
+        zIndex: 3
+      },
+    
+      content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+      }
+    };
 
     this.state = {
       modalisOpen: false
@@ -44,6 +56,10 @@ class ChangePassword extends Component {
     this.props.toggleModal(false);
   }; //end closeModal
 
+  componentDidMount = () => {
+    console.log(`Change password props:\t ${JSON.stringify(this.props)}`);
+  }
+
   render = () => {
     return (
       <div id="changePassword-modal">
@@ -51,7 +67,7 @@ class ChangePassword extends Component {
           isOpen={this.props.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={() => this.closeModal() }
-          style={customStyles}
+          style={this.customStyles}
           contentLabel="Change Password"
           closeTimeoutMS={700}
         >
@@ -60,11 +76,10 @@ class ChangePassword extends Component {
           <button onClick={this.closeModal}>close</button>
           <div>I am a modal</div>
           <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
+            <input type="text" />
+            <input type="text" />
+            
+            <button type="submit">Change Password</button>
           </form>
         </Modal>
       </div>

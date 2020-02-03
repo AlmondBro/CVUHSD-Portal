@@ -218,6 +218,9 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         <ChangePassword 
             modalIsOpen={modalIsOpen}
             toggleModal={toggleModal}
+            
+            districtPosition={props.districtPosition}
+            renderAsStudent={props.renderAsStudent}
         />
     ]);
 }; //end NavigationBar();
