@@ -27,6 +27,36 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <style>
+      .ReactModal__Overlay {
+        opacity: 0;
+        transition: opacity 700ms ease-in-out;
+    }
+
+    .ReactModal__Overlay--after-open{
+        opacity: 1;
+    }
+
+    .ReactModal__Overlay--before-close{
+        opacity: 0;
+    }
+
+    /*  */
+    .ReactModal__Content.ReactModal__Content {
+        top: 50%;
+        transition: all 700ms ease-in-out;
+    }
+
+    .ReactModal__Content.ReactModal__Content--after-open {
+        top: 50%;
+    }
+
+    .ReactModal__Overlay--before-close{
+      top: 107%;
+    }
+
+
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this web application!</noscript>

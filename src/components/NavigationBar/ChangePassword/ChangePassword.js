@@ -50,9 +50,10 @@ class ChangePassword extends Component {
         <Modal
           isOpen={this.props.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
+          onRequestClose={() => this.closeModal() }
           style={customStyles}
           contentLabel="Change Password"
+          closeTimeoutMS={700}
         >
 
           {/* <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2> */}
