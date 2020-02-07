@@ -7,7 +7,6 @@ let StyledButton = styled("button")`
     
     &:hover, &:active, &:focus {
         transform: scale(1.1);
-        margin: 0.5em 0.2em;
     } 
 `; //end StyledButton
 

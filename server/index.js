@@ -184,7 +184,8 @@ let passportAuthentication_options = {  failWithError: true,
                                         failureFlash: true 
                                     }
 
-//The following is a function that parses the string value from the 'dn' category and extracts the key value pairs
+/*The following is a function that parses the string value from the 'dn' category 
+and extracts the key value pairs */
 let getSite = (dnString) => {
   let site = "CVUHSD";
   let dnKeyValueObject = {}; //Initialize key-value object. Will contain the OUs

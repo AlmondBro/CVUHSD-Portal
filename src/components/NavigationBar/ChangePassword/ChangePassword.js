@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 
+import { Form, FormInputTextField, FormButton } from './ChangePassword_StyledComponents.js';
+
+import { FormInputLabel, FormInput } from './../../LogIn/LogIn_StyledComponents.js';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { faUser as user, faLock as lock } from '@fortawesome/free-solid-svg-icons';
 class ChangePassword extends Component {
   constructor(props) {
     super(props);
@@ -12,12 +19,12 @@ class ChangePassword extends Component {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor:   
-          ( (props.districtPosition !== "student") 
-              || !props.location.state.renderAsStudent ) ? 
-                "#1E6C93": "#931E1D",
+        backgroundColor: 'rgba(30,108,147, 0.55)',
+          // ( (props.districtPosition !== "student") 
+          //     || !props.location.state.renderAsStudent ) ? 
+          //       "#1E6C93": "#931E1D",
       
-        // backgroundColor: 'rgba(30,108,147, 0.55)',
+       
         zIndex: 3
       },
     
@@ -73,14 +80,25 @@ class ChangePassword extends Component {
         >
 
           {/* <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2> */}
-          <button onClick={this.closeModal}>close</button>
-          <div>I am a modal</div>
-          <form>
-            <input type="text" />
-            <input type="text" />
+          <FormButton onClick={this.closeModal}>x</FormButton>
+          <Form>
+            {/* <FormInputTextField type="text" placeholder="current password"/>
+            <FormInputTextField type="text" />
             
-            <button type="submit">Change Password</button>
-          </form>
+            <FormButton type="submit">Change Password</FormButton> */}
+              <FormInputLabel htmlFor="password">
+                            <FontAwesomeIcon icon={lock} className="icon"/> 
+                        </FormInputLabel>
+                        <FormInput 
+                            type="password" 
+                            name="password" 
+                            id="password"
+                            title="password"
+                            onChange={this.handleInputChange}
+                            value={this.state.password}
+                            placeholder="CVUHSD Password"
+                        />
+          </Form>
         </Modal>
       </div>
     );
