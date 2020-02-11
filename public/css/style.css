@@ -19,6 +19,10 @@ style="font-family: Lato, sans-serif;
     margin-right: 8px;
 }
 
+body.ReactModal__Body--open > * :not(.ReactModalPortal) {
+    filter: blur(10px);
+}
+
 .staff-dashboard-header-container {
     /* max-width: 500px; */
     margin: 0px auto;

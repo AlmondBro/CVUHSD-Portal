@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 
-import { Form, FormInputTextField, FormButton } from './ChangePassword_StyledComponents.js';
+//import { Form, FormInputTextField, FormButton } from './ChangePassword_StyledComponents.js';
 
-import { FormInputLabel, FormInput } from './../../LogIn/LogIn_StyledComponents.js';
+import ReactLoading from 'react-loading';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faUser as user, faLock as lock } from '@fortawesome/free-solid-svg-icons';
+
+import { Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, PortalLogo, 
+        CVUHSDLogo, ResultButton, ErrorTextAlert, FormHeaderText, ResultMessage, IPAddress, 
+        IPLoadingContainer, StyledLoadingContainer, LoadingSpinner } from "./../../LogIn/LogIn_StyledComponents.js";
 class ChangePassword extends Component {
   constructor(props) {
     super(props);
@@ -81,12 +85,31 @@ class ChangePassword extends Component {
 
           {/* <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2> */}
           <FormButton onClick={this.closeModal}>x</FormButton>
-          <Form>
-            {/* <FormInputTextField type="text" placeholder="current password"/>
-            <FormInputTextField type="text" />
-            
-            <FormButton type="submit">Change Password</FormButton> */}
-              <FormInputLabel htmlFor="password">
+          <Form action="/login" method="post" onSubmit={this.handleSubmit}>
+                <fieldset>
+                    <legend>
+                        <FormHeader>
+                            <CVUHSDLogo src="/images/CV-600x600.png" alt="CVUHSD" />
+                            <FormHeaderText>Login</FormHeaderText>
+                        </FormHeader>
+                    </legend>
+                    <p className="cvuhsd-username-container input-icons">
+                        <FormInputLabel htmlFor="username">
+                            <FontAwesomeIcon icon={user} className="icon"/> 
+                        </FormInputLabel>
+                        <FormInput 
+                            className="input-field"
+                            type="text" 
+                            name="username" 
+                            id="username"
+                            title="username"
+                            onChange={this.handleInputChange}
+                            value={this.state.username}
+                            placeholder="CVUHSD Username"
+                        />
+                    </p>
+                    <p className="cvuhsd-password-container input-icons">
+                        <FormInputLabel htmlFor="password">
                             <FontAwesomeIcon icon={lock} className="icon"/> 
                         </FormInputLabel>
                         <FormInput 
@@ -98,7 +121,52 @@ class ChangePassword extends Component {
                             value={this.state.password}
                             placeholder="CVUHSD Password"
                         />
-          </Form>
+                    </p>
+                    <p className="form-buttons-container">
+                         {
+                            /*  &#10003; -- checkmark 
+                            &#215; -- close
+                            //TODO: Need to find HTML entities
+                            */
+                        }
+                        <FormButton type="submit" title="Log In">Submit</FormButton>
+                        { this.state.loggedIn === null ? "" : 
+                            (  <ResetButton id="reset-button"
+                                            type="reset"
+                                            title="Reset form"
+                                >
+                                    Reset
+                                </ResetButton>  
+                            )
+                        }
+                        {   this.state.isLoading ?
+                                <LoadingSpinner 
+                                    type={"spin"}
+                                    height={'30px'} width={'30px'} 
+                                    color={'#1f6b92'}
+                                /> : "" 
+                        }
+                        { (this.state.loggedIn === null) ? null : 
+                            (   <div>
+                                    <ResultButton   
+                                        id="result-button" 
+                                        title="Reset form" 
+                                        loggedIn={this.state.loggedIn}
+                                    > 
+                                        { (this.state.loggedIn) ? "✓" : "×"}
+                                    </ResultButton> 
+                                    <ErrorTextAlert>
+                                        { (this.state.loggedIn != false) ? null : "Error:"}
+                                    </ErrorTextAlert>
+                                </div>
+                              
+                            )
+
+                        }
+                        <ResultMessage loggedIn={this.state.loggedIn}>{"\t" + this.state.message}</ResultMessage>
+                    </p>
+                </fieldset>
+            </Form>
         </Modal>
       </div>
     );
