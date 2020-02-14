@@ -11,7 +11,10 @@ import { faUser as user, faLock as lock } from '@fortawesome/free-solid-svg-icon
 
 import { Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, PortalLogo, 
         CVUHSDLogo, ResultButton, ErrorTextAlert, FormHeaderText, ResultMessage, IPAddress, 
-        IPLoadingContainer, StyledLoadingContainer, LoadingSpinner } from "./../../LogIn/LogIn_StyledComponents.js";
+        IPLoadingContainer, StyledLoadingContainer, LoadingSpinner,
+
+        ChangePassword_SubmitResetButtonsContainer, ChangePassword_FormButton, ChangePassword_ResetButton, ChangePassword_CloseButton, ChangePassword_Form, ChangePassword_FormHeader, ChangePassword_Divider
+      } from "./ChangePassword_StyledComponents";
 class ChangePassword extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +26,7 @@ class ChangePassword extends Component {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(30,108,147, 0.55)',
+        backgroundColor: 'rgba(30,108,147, 0.65)',
           // ( (props.districtPosition !== "student") 
           //     || !props.location.state.renderAsStudent ) ? 
           //       "#1E6C93": "#931E1D",
@@ -38,7 +41,12 @@ class ChangePassword extends Component {
         right                 : 'auto',
         bottom                : 'auto',
         marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)'
+        transform             : 'translate(-50%, -50%)',
+        padding               : 0,
+        margin                : 0,
+        backgroundColor       : 'transparent',   
+        border                : 0,
+        overflow              : 'visible'
       }
     };
 
@@ -82,16 +90,23 @@ class ChangePassword extends Component {
           contentLabel="Change Password"
           closeTimeoutMS={700}
         >
+        
+          <ChangePassword_CloseButton onClick={this.closeModal}>
+            &times;
+          </ChangePassword_CloseButton>
 
           {/* <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2> */}
-          <FormButton onClick={this.closeModal}>x</FormButton>
-          <Form action="/login" method="post" onSubmit={this.handleSubmit}>
+          <ChangePassword_Form 
+              action="/login" 
+              method="post" 
+              onSubmit={this.handleSubmit}
+            >
                 <fieldset>
                     <legend>
-                        <FormHeader>
-                            <CVUHSDLogo src="/images/CV-600x600.png" alt="CVUHSD" />
-                            <FormHeaderText>Login</FormHeaderText>
-                        </FormHeader>
+                        <ChangePassword_FormHeader>
+                            {/* <CVUHSDLogo src="/images/CV-600x600.png" alt="CVUHSD" /> */}
+                            <FormHeaderText>Change Password</FormHeaderText>
+                        </ChangePassword_FormHeader>
                     </legend>
                     <p className="cvuhsd-username-container input-icons">
                         <FormInputLabel htmlFor="username">
@@ -105,7 +120,7 @@ class ChangePassword extends Component {
                             title="username"
                             onChange={this.handleInputChange}
                             value={this.state.username}
-                            placeholder="CVUHSD Username"
+                            placeholder="Your CVUHSD Username"
                         />
                     </p>
                     <p className="cvuhsd-password-container input-icons">
@@ -119,24 +134,55 @@ class ChangePassword extends Component {
                             title="password"
                             onChange={this.handleInputChange}
                             value={this.state.password}
-                            placeholder="CVUHSD Password"
+                            placeholder="Current CVUHSD Password"
                         />
                     </p>
-                    <p className="form-buttons-container">
+                    <ChangePassword_Divider/>
+                    <p className="cvuhsd-password-container input-icons">
+                        <FormInputLabel htmlFor="password">
+                            <FontAwesomeIcon icon={lock} className="icon"/> 
+                        </FormInputLabel>
+                        <FormInput 
+                            type="password" 
+                            name="password" 
+                            id="password"
+                            title="password"
+                            onChange={this.handleInputChange}
+                            value={this.state.password}
+                            placeholder="Confirm new Password"
+                        />
+                    </p>
+                    <p className="cvuhsd-password-container input-icons">
+                        <FormInputLabel htmlFor="password">
+                            <FontAwesomeIcon icon={lock} className="icon"/> 
+                        </FormInputLabel>
+                        <FormInput 
+                            type="password" 
+                            name="password" 
+                            id="password"
+                            title="password"
+                            onChange={this.handleInputChange}
+                            value={this.state.password}
+                            placeholder="Confirm new Password"
+                        />
+                    </p>
+
+
+                    <ChangePassword_SubmitResetButtonsContainer className="form-buttons-container">
                          {
                             /*  &#10003; -- checkmark 
                             &#215; -- close
                             //TODO: Need to find HTML entities
                             */
                         }
-                        <FormButton type="submit" title="Log In">Submit</FormButton>
+                        <ChangePassword_FormButton type="submit" title="Log In">Change Password</ChangePassword_FormButton>
                         { this.state.loggedIn === null ? "" : 
-                            (  <ResetButton id="reset-button"
+                            (  <ChangePassword_ResetButton id="reset-button"
                                             type="reset"
                                             title="Reset form"
                                 >
                                     Reset
-                                </ResetButton>  
+                                </ChangePassword_ResetButton>  
                             )
                         }
                         {   this.state.isLoading ?
@@ -164,9 +210,9 @@ class ChangePassword extends Component {
 
                         }
                         <ResultMessage loggedIn={this.state.loggedIn}>{"\t" + this.state.message}</ResultMessage>
-                    </p>
+                    </ChangePassword_SubmitResetButtonsContainer>
                 </fieldset>
-            </Form>
+            </ChangePassword_Form>
         </Modal>
       </div>
     );
