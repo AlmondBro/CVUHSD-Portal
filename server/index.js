@@ -312,6 +312,20 @@ app.get(getIP_URL, (req, res) => {
   res.end(IP);
 });
 
+let changePassword_URL = `${isDev ? "" : "/server" }/change-password`
+app.get(changePassword_URL, (req, res) => {
+  //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
+  //let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
+  if (req.user) {
+    console.log("\nCurrently Authenticated");
+    res.json({"Authenticated": true});
+  } else {
+    console.log("\Not Authenticated");
+    res.json({"Authenticated": false});
+  }
+});
+
+
 
 /*
   In Express, 404 responses are not the result of an error, so the 

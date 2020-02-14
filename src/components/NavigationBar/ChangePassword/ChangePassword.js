@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 
+import isDev from "isdev";
+
 //import { Form, FormInputTextField, FormButton } from './ChangePassword_StyledComponents.js';
 
 import ReactLoading from 'react-loading';
@@ -15,6 +17,11 @@ import { Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, P
 
         ChangePassword_FormInput, ChangePassword_SubmitResetButtonsContainer, ChangePassword_FormButton, ChangePassword_ResetButton, ChangePassword_CloseButton, ChangePassword_Form, ChangePassword_FormHeader, ChangePassword_Divider
       } from "./ChangePassword_StyledComponents";
+
+
+import { isEmpty } from "./../../../utilityFunctions.js";
+
+
 class ChangePassword extends Component {
   constructor(props) {
     super(props);
@@ -53,6 +60,10 @@ class ChangePassword extends Component {
     this.state = {
       modalisOpen: false,
       changePasswordSuccess: null,
+      isLoading: null,
+      userName: "",
+      password: "",
+      newPassword: "",
       message: ""
     }; //end this.state variable
   } //end constructor()
@@ -81,6 +92,121 @@ class ChangePassword extends Component {
     console.log(`Change password props:\t ${JSON.stringify(this.props)}`);
   }
 
+  modifyChangePasswordSuccess = (changePasswordSuccess) => {
+    this.setState({changePasswordSuccess : changePasswordSuccess});
+    this.setState({message: "Password change failed"});
+  };
+
+  changePassword = () => {
+    let changePassword_URL = `${isDev ? "" : "/server" }/change-password`;
+
+    let headers = {
+      'Content-Type': 'application/json',
+      'credentials': 'include',
+      'Access-Control-Allow-Origin': '*',
+      'Cache-Control': 'no-cache'
+    };
+  
+    //this.setState({username: this.state.usernameOnly});
+    console.log(`this.user_name_only (from connect to server): ${this.user_name_only}`);
+    console.log(`Username: ${this.state.username}`);
+    
+    fetch(changePassword_URL, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({username: this.state.userName, password: this.state.password})
+    }).then((response) => {
+      
+    }).catch((err) => {
+        this.modifyLogInStatus(false);
+        this.setState(
+                {
+                    isLoading: false,
+                    message: `Error: ${err}`
+                }
+        );
+        console.log(`Catching error:\t ${err}`);
+    });
+  };
+
+  
+  validateFields = () => {
+    console.log("checkUser() username");
+    let { userName, password, newPassword} = this.state;
+
+    let lowerCase_Username = userName.toLowerCase();
+
+    let userCheck = false;
+
+    console.log(`Is empty:\t ${isEmpty(" ")} ${isEmpty(userName)}`);
+
+    console.log(`Is empty username and password:\t ${isEmpty(userName)} ${isEmpty(password)}`);
+
+    if (isEmpty(userName) && isEmpty(password)) {
+        this.modifyChangePasswordSuccess(false);
+
+        console.log("Username and password are empty");
+        this.setState({isLoading: false, message: "Please enter a username and password."});
+
+        userCheck = false;
+    }
+
+    else if (isEmpty(password) && !isEmpty(userName) ) {
+        this.modifyLogInStatus(false);
+        console.log("Just password is empty.");
+        this.setState({isLoading: false, message: "Please enter a password."})
+        userCheck = false;
+    }
+
+    else if (!isEmpty(password) && isEmpty(userName) ) {
+        this.modifyLogInStatus(false);
+        console.log("Just username is empty.");
+        this.setState({isLoading: false, message: "Please enter a username."})
+        userCheck = false;
+    } else {
+        userCheck = true;
+    }
+
+    if (isEmpty(newPassword)) {
+      this.modifyChangePasswordSuccess(false);
+      this.setState({isLoading: false, message: "Please enter your new password."})
+    }
+
+   return userCheck;
+};
+
+
+  resetButtonListener = (event) => {
+    this.modifyLogInStatus(null);
+    this.setState({
+        isLoading: false,
+        userName: "",
+        password: "",
+        message: ""
+    });
+  } //end if-statement
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    if (this.validateFields() === true ) {
+      this.changePassword();
+    } else {
+      this.modifyChangePasswordSuccess(false);
+      return;
+    }
+      
+  };
+
+  handleInputChange = (event) => {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+
+    this.setState({
+        [name] : value
+    });
+  };
+
   render = () => {
     return (
       <div id="changePassword-modal">
@@ -98,9 +224,10 @@ class ChangePassword extends Component {
           </ChangePassword_CloseButton>
 
           {/* <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2> */}
+          
           <ChangePassword_Form 
-              action="/login" 
-              method="post" 
+              action="/change-password" 
+              method="POST" 
               onSubmit={this.handleSubmit}
             >
                 <fieldset>
@@ -117,11 +244,11 @@ class ChangePassword extends Component {
                         <ChangePassword_FormInput 
                             className="input-field"
                             type="text" 
-                            name="username" 
-                            id="username"
-                            title="username"
+                            name="userName" 
+                            id="userName"
+                            title="userName"
                             onChange={this.handleInputChange}
-                            value={this.state.username}
+                            value={this.state.userName}
                             placeholder="Your CVUHSD Username"
                         />
                     </p>
@@ -146,11 +273,11 @@ class ChangePassword extends Component {
                         </FormInputLabel>
                         <ChangePassword_FormInput 
                             type="password" 
-                            name="password" 
-                            id="password"
-                            title="password"
+                            name="newPassword" 
+                            id="newPassword"
+                            title="New Password"
                             onChange={this.handleInputChange}
-                            value={this.state.password}
+                            value={this.state.newPassword}
                             placeholder="New Password"
                         />
                     </p>
@@ -160,11 +287,11 @@ class ChangePassword extends Component {
                         </FormInputLabel>
                         <ChangePassword_FormInput 
                             type="password" 
-                            name="password" 
-                            id="password"
-                            title="password"
-                            onChange={this.handleInputChange}
-                            value={this.state.password}
+                            name="newPassword-confirm" 
+                            id="newPassword-confirm"
+                            title="Confirm New Password"
+                            // onChange={this.handleInputChange}
+                            // value={this.state.password}
                             placeholder="Confirm new password"
                         />
                     </p>
