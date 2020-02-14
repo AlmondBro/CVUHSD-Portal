@@ -64,8 +64,22 @@ let ChangePassword_Divider = styled("hr")`
 let ChangePassword_SubmitResetButtonsContainer = styled("p")`
     margin-top: 10%;
 `;
+
+let ChangePassword_FormInput = styled(FormInput)`
+    padding-left: 15%;
+    font-size: 0.9em;
+
+    border: 0;
+    appearance: none;
+    
+    & ::placeholder {
+        font-size: 0.9em;
+    }
+
+`;
+
 export { Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, PortalLogo, 
     CVUHSDLogo, ResultButton, ErrorTextAlert, FormHeaderText, ResultMessage, IPAddress, 
     IPLoadingContainer, StyledLoadingContainer, LoadingSpinner, 
 
-    ChangePassword_SubmitResetButtonsContainer, ChangePassword_FormButton, ChangePassword_ResetButton, ChangePassword_CloseButton, ChangePassword_Form, ChangePassword_FormHeader, ChangePassword_Divider};
+    ChangePassword_FormInput, ChangePassword_SubmitResetButtonsContainer, ChangePassword_FormButton, ChangePassword_ResetButton, ChangePassword_CloseButton, ChangePassword_Form, ChangePassword_FormHeader, ChangePassword_Divider};

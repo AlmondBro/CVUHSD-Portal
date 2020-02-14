@@ -39,6 +39,9 @@ let FormInput = styled("input")`
     padding-left: 60px;
     text-align: left;
 
+    border: 0;
+    appearance: none;
+
     &::placeholder,
     &::-webkit-input-placeholder,
     &:-ms-input-placeholder  {
@@ -53,11 +56,11 @@ let FormInputLabel = styled("label")`
     cursor: pointer;
     background-color: #eeeeee;
     color: #336186;
-    font-size: 1.38em;
+    font-size: 1.2em;
     position: absolute;
     padding: 4px;
     padding-right: 6px;
-    margin-top: 2px;
+    margin-top: 0px;
     border-right: 1px solid #182c3d;
     box-shadow: none;
     z-index: 1;

@@ -13,7 +13,7 @@ import { Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, P
         CVUHSDLogo, ResultButton, ErrorTextAlert, FormHeaderText, ResultMessage, IPAddress, 
         IPLoadingContainer, StyledLoadingContainer, LoadingSpinner,
 
-        ChangePassword_SubmitResetButtonsContainer, ChangePassword_FormButton, ChangePassword_ResetButton, ChangePassword_CloseButton, ChangePassword_Form, ChangePassword_FormHeader, ChangePassword_Divider
+        ChangePassword_FormInput, ChangePassword_SubmitResetButtonsContainer, ChangePassword_FormButton, ChangePassword_ResetButton, ChangePassword_CloseButton, ChangePassword_Form, ChangePassword_FormHeader, ChangePassword_Divider
       } from "./ChangePassword_StyledComponents";
 class ChangePassword extends Component {
   constructor(props) {
@@ -51,7 +51,9 @@ class ChangePassword extends Component {
     };
 
     this.state = {
-      modalisOpen: false
+      modalisOpen: false,
+      changePasswordSuccess: null,
+      message: ""
     }; //end this.state variable
   } //end constructor()
 
@@ -112,7 +114,7 @@ class ChangePassword extends Component {
                         <FormInputLabel htmlFor="username">
                             <FontAwesomeIcon icon={user} className="icon"/> 
                         </FormInputLabel>
-                        <FormInput 
+                        <ChangePassword_FormInput 
                             className="input-field"
                             type="text" 
                             name="username" 
@@ -127,14 +129,14 @@ class ChangePassword extends Component {
                         <FormInputLabel htmlFor="password">
                             <FontAwesomeIcon icon={lock} className="icon"/> 
                         </FormInputLabel>
-                        <FormInput 
+                        <ChangePassword_FormInput 
                             type="password" 
                             name="password" 
                             id="password"
                             title="password"
                             onChange={this.handleInputChange}
                             value={this.state.password}
-                            placeholder="Current CVUHSD Password"
+                            placeholder="Current Password"
                         />
                     </p>
                     <ChangePassword_Divider/>
@@ -142,28 +144,28 @@ class ChangePassword extends Component {
                         <FormInputLabel htmlFor="password">
                             <FontAwesomeIcon icon={lock} className="icon"/> 
                         </FormInputLabel>
-                        <FormInput 
+                        <ChangePassword_FormInput 
                             type="password" 
                             name="password" 
                             id="password"
                             title="password"
                             onChange={this.handleInputChange}
                             value={this.state.password}
-                            placeholder="Confirm new Password"
+                            placeholder="New Password"
                         />
                     </p>
                     <p className="cvuhsd-password-container input-icons">
                         <FormInputLabel htmlFor="password">
                             <FontAwesomeIcon icon={lock} className="icon"/> 
                         </FormInputLabel>
-                        <FormInput 
+                        <ChangePassword_FormInput 
                             type="password" 
                             name="password" 
                             id="password"
                             title="password"
                             onChange={this.handleInputChange}
                             value={this.state.password}
-                            placeholder="Confirm new Password"
+                            placeholder="Confirm new password"
                         />
                     </p>
 
@@ -175,16 +177,20 @@ class ChangePassword extends Component {
                             //TODO: Need to find HTML entities
                             */
                         }
-                        <ChangePassword_FormButton type="submit" title="Log In">Change Password</ChangePassword_FormButton>
-                        { this.state.loggedIn === null ? "" : 
-                            (  <ChangePassword_ResetButton id="reset-button"
-                                            type="reset"
-                                            title="Reset form"
-                                >
-                                    Reset
-                                </ChangePassword_ResetButton>  
-                            )
-                        }
+                        <ChangePassword_FormButton 
+                          type="submit" 
+                          title="Log In"
+                        >
+                          Change Password
+                        </ChangePassword_FormButton>
+                        
+                        <ChangePassword_ResetButton id="reset-button"
+                                      type="reset"
+                                      title="Reset form"
+                          >
+                              Reset
+                          </ChangePassword_ResetButton>  
+                            
                         {   this.state.isLoading ?
                                 <LoadingSpinner 
                                     type={"spin"}
@@ -192,24 +198,21 @@ class ChangePassword extends Component {
                                     color={'#1f6b92'}
                                 /> : "" 
                         }
-                        { (this.state.loggedIn === null) ? null : 
-                            (   <div>
-                                    <ResultButton   
-                                        id="result-button" 
-                                        title="Reset form" 
-                                        loggedIn={this.state.loggedIn}
-                                    > 
-                                        { (this.state.loggedIn) ? "✓" : "×"}
-                                    </ResultButton> 
+                        { (this.state.changePasswordSuccess === null) ? null : 
+                            (   <React.Fragment>
                                     <ErrorTextAlert>
-                                        { (this.state.loggedIn != false) ? null : "Error:"}
+                                        { (this.state.changePasswordSuccess != false) ? null : "Error:"}
                                     </ErrorTextAlert>
-                                </div>
-                              
+                                </React.Fragment>
                             )
 
                         }
-                        <ResultMessage loggedIn={this.state.loggedIn}>{"\t" + this.state.message}</ResultMessage>
+                        
+                        <ResultMessage 
+                          loggedIn={this.state.loggedIn}
+                        >
+                          {"\t" + this.state.message}
+                        </ResultMessage>
                     </ChangePassword_SubmitResetButtonsContainer>
                 </fieldset>
             </ChangePassword_Form>
