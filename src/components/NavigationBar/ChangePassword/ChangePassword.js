@@ -114,7 +114,7 @@ class ChangePassword extends Component {
     fetch(changePassword_URL, {
         method: 'POST',
         headers: headers,
-        body: JSON.stringify({username: this.state.userName, password: this.state.password})
+        body: JSON.stringify({username: this.state.userName, password: this.state.password, newPassword: this.state.newPassword})
     }).then((response) => {
       
     }).catch((err) => {
@@ -190,8 +190,13 @@ class ChangePassword extends Component {
     event.preventDefault();
     if (this.validateFields() === true ) {
       this.changePassword();
+      console.log("Changing password...");
+      this.modifyChangePasswordSuccess(true);
+
     } else {
       this.modifyChangePasswordSuccess(false);
+      console.log("Password...");
+
       return;
     }
       

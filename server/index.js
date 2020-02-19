@@ -42,7 +42,11 @@ const app = express();
 
 const port = process.env.PORT || 3001; 
 
+const { activeDirectory } = require("./config/passport.js");
+
 require("./config/passport.js"); //require passport configuration
+
+
 
 /*
 app.use(cors({
@@ -303,7 +307,7 @@ app.get(isAuth_URL, (req, res) => {
   }
 });
 
-let getIP_URL = `${isDev ? "" : "/server" }/getIP`
+let getIP_URL = `${isDev ? "" : "/server" }/getIP`;
 app.get(getIP_URL, (req, res) => {
   //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
   //let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
@@ -312,20 +316,42 @@ app.get(getIP_URL, (req, res) => {
   res.end(IP);
 });
 
-let changePassword_URL = `${isDev ? "" : "/server" }/change-password`
-app.get(changePassword_URL, (req, res) => {
+let changePassword_URL = `${isDev ? "" : "/server" }/change-password`;
+
+let asyncChangePassword = async (req, res, next) =>  {
   //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
   //let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
+
+  console.log((req.body));
+  let { userName, password, newPassword } = req.body;
+
+  console.log("userName:\t" + userName);
+  
+  console.log("New password:\t" + newPassword);
+
+  let changePassword = async () => {
+      console.log("changePassword");
+      await activeDirectory.user(userName).password(newPassword);
+  };
+
   if (req.user) {
     console.log("\nCurrently Authenticated");
-    res.json({"Authenticated": true});
+
+    res.json({"Authenticated": true, "message": "Currently authenticated"});
+
+    ((async () => { await activeDirectory.user(userName).authenticate(password)  })()) ? changePassword() : null;
+
   } else {
     console.log("\Not Authenticated");
     res.json({"Authenticated": false});
+    return;
   }
+  next();
+}
+
+app.post("/change-password", asyncChangePassword, (req, res) => {
+  console.log("Change password.");
 });
-
-
 
 /*
   In Express, 404 responses are not the result of an error, so the 

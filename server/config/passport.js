@@ -6,7 +6,8 @@ const fs = require('fs'),
       passport = require('passport'),
       SamlStrategy = require('passport-saml').Strategy,
       wsfedsaml2 = require("passport-wsfed-saml2").Strategy,
-      ActiveDirectoryStrategy = require("passport-activedirectory");
+      ActiveDirectoryStrategy = require("passport-activedirectory"),
+      AD = require('ad');
       require('dotenv').config({path: path.join(__dirname, './../../.env'), debug: true}) //Load environmental variables
 
 // Passport session setup.
@@ -66,6 +67,14 @@ let active_directory_config = {
   passReqToCallback: true 
 }
 
+let ad_config = {
+  url: process.env.ADFS_SERVER_URL,
+  user: username,
+  pass: pass
+};
+
+const activeDirectory = new AD(ad_config);
+
 //Passport configuration for SAML
 let ADFS_SAML_CONFIG = {
     //Comments are from docs: https://github.com/bergie/passport-saml#security-and-signatures
@@ -123,4 +132,4 @@ passport.use(new ActiveDirectoryStrategy({
   });
 }));
 
-module.exports = passport;
+module.exports = { passport, activeDirectory};
