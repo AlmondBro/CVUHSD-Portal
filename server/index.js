@@ -349,7 +349,7 @@ let asyncChangePassword = async (req, res, next) =>  {
   next();
 }
 
-app.post("/change-password", asyncChangePassword, (req, res) => {
+app.post(changePassword_URL, asyncChangePassword, (req, res) => {
   console.log("Change password.");
 });
 
