@@ -170,6 +170,12 @@ class ChangePassword extends Component {
     if (isEmpty(newPassword)) {
       this.modifyChangePasswordSuccess(false);
       this.setState({isLoading: false, message: "Please enter your new password."})
+      userCheck = false;
+    }
+
+    if (newPassword.toString().trim().length() < 14) {
+      this.setState({isLoading: false, message: "New password must be at least 14 characters."})
+      userCheck = false;
     }
 
    return userCheck;

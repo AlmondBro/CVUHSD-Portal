@@ -30,6 +30,8 @@ const uuidv4 = require("uuid/v4"); //Random uuID
 
 const undefsafe = require("undefsafe");
 
+const AD = require("ad");
+
 const app = express(); 
 
 //TODO: Change all requires() to imports
@@ -42,7 +44,16 @@ const app = express();
 
 const port = process.env.PORT || 3001; 
 
-const { activeDirectory } = require("./config/passport.js");
+//const { activeDirectory } = require("./config/passport.js");
+ 
+
+let ad_config = {
+  url: process.env.ADFS_SERVER_URL,
+  user: process.env.ADFS_USER_NAME,
+  pass: process.env.ADFS_USER_PASSWORD
+};
+
+const activeDirectory = new AD(ad_config);
 
 require("./config/passport.js"); //require passport configuration
 
@@ -329,9 +340,14 @@ let asyncChangePassword = async (req, res, next) =>  {
   
   console.log("New password:\t" + newPassword);
 
-  let changePassword = async () => {
+  let changePasswordSuccess;
+  let waitInterval = 2200;
+
+  let changePassword = async (userName) => {
       console.log("changePassword");
-      await activeDirectory.user(userName).password(newPassword);
+      changePasswordSuccess = await activeDirectory.user(user).password(userName, password);
+
+      setTimeout(() => console.log(changePasswordSuccess), waitInterval); 
   };
 
   if (req.user) {
@@ -339,7 +355,7 @@ let asyncChangePassword = async (req, res, next) =>  {
 
     res.json({"Authenticated": true, "message": "Currently authenticated"});
 
-    ((async () => { await activeDirectory.user(userName).authenticate(password)  })()) ? changePassword() : null;
+    ((async () => { await activeDirectory.user(userName).authenticate(password)  })()) ? changePassword(userName) : null;
 
   } else {
     console.log("\Not Authenticated");
