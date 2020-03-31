@@ -2,6 +2,8 @@
 import { MsalAuthProvider, LoginType } from 'react-aad-msal';
 
 // Msal Configurations
+//https://sso.centinela.k12.ca.us/adfs/ls
+//
 const config = {
   auth: {
     clientId: "3470eb69-479b-4be6-8d5e-0c5a11b78845",
@@ -26,7 +28,7 @@ const authenticationParameters = {
 
 // Options
 const options = {
-  loginType: LoginType.Popup,
+  loginType: LoginType.Redirect,
   tokenRefreshUri: window.location.origin
 }
 
