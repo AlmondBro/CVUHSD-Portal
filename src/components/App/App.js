@@ -131,8 +131,23 @@ class App extends Component {
     });
 };
 
+  getUserInfo = async () => {
+    const token = await authProvider.getAccessToken();
+    const headers = new Headers({ Authorization: `Bearer ${token}` });
+    const options = {
+      headers
+    };
+
+    return fetch(`https://graph.microsoft.com/v1.0/me`, options)
+      .then(response => response.json())
+      .catch(response => {
+        throw new Error(response.text());
+      });
+  };
+
   componentDidMount = () => {
     this.isAuthenticated();
+    this.getUserInfo();
   };
 
   render = () => {
