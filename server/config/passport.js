@@ -2,13 +2,15 @@
 //TODO: Fix serialize errors upon improper authentication
 
 const fs = require('fs'),
-      path = require('path');
+      path = require('path'),
       passport = require('passport'),
       SamlStrategy = require('passport-saml').Strategy,
       wsfedsaml2 = require("passport-wsfed-saml2").Strategy,
       ActiveDirectoryStrategy = require("passport-activedirectory"),
       AD = require('ad');
+
       require('dotenv').config({path: path.join(__dirname, './../../.env'), debug: true}) //Load environmental variables
+
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
