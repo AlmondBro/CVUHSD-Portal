@@ -11,8 +11,6 @@ import * as serviceWorker from './serviceWorker.js';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { AzureAD } from 'react-aad-msal';
-import { authProvider } from './authProvider.js';
 
 /*  Basename doc from React Training: 
     The base URL for all locations. If your app is served from a sub-directory on your server, 
@@ -23,12 +21,9 @@ let subDirectory = false;
 let baseName = isDev ? "" : (subDirectory ? "/build" : ""); 
 
 ReactDOM.render(
-    <AzureAD provider={authProvider} forceLogin={true}>
         <Router basename={baseName}>
             <App />
         </Router>
-    </AzureAD>
-  
     , document.getElementById("root")
 );
 
