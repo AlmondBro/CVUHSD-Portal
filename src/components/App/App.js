@@ -147,7 +147,9 @@ class App extends Component {
 
   componentDidMount = () => {
     this.isAuthenticated();
-    this.getUserInfo();
+    let graphInfo = this.getUserInfo();
+
+    console.log("Graph info:\t" + JSON.stringify(graphInfo) );
   };
 
   render = () => {

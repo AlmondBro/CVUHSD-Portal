@@ -27,7 +27,8 @@ const authenticationParameters = {
     "openid",
     "profile",
     'User.read'
-  ]
+  ],
+  extraQueryParameters: { domain_hint: 'portal.centinela.k12.ca.us' }
 }
 
 // Options
