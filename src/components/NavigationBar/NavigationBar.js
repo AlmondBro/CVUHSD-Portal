@@ -23,7 +23,7 @@ import isDev from 'isdev';
 
 //TODO: Figure out why bullet point is not rendering
 
-const NavigationBar = ({modifyLogInStatus, ...props}) => {
+const NavigationBar = ({modifyLogInStatus, logOut, ...props}) => {
     const  [modalIsOpen, setIsOpen] = useState(false);
 
     let toggleModal = (toggleValue) => {
@@ -51,7 +51,7 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
         return null;
     }; //end nullFunction()
 
-    let logOut = () => {
+    let logOutTwo = () => {
         let allowAuth = false;
 
         console.log("Logging out...button clicked\n\n\n");

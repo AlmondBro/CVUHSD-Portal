@@ -9,7 +9,7 @@ import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader,
 //Import 3rd-party APIs
 import greeting from 'greeting';
 
-const Header = ( { modifyLogInStatus, renderAsStudent,...props }) => {
+const Header = ( { modifyLogInStatus, renderAsStudent, logOut,...props }) => {
     console.log("Header props:\t" + JSON.stringify(props) );
 
     let districtPosition = props.title;
@@ -23,6 +23,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent,...props }) => {
                 districtPosition={districtPosition}
                 modifyLogInStatus={modifyLogInStatus}
                 renderAsStudent={renderAsStudent}  
+                logOut={logOut}
             />
         </NavigationBarHeader>,
 
