@@ -86,7 +86,7 @@ class PageContent extends Component {
             document.title = "CVUHSD | Staff Portal"
         }
 
-        this.getUserInfo();
+        //this.getUserInfo();
     };
     
     render = () => {
