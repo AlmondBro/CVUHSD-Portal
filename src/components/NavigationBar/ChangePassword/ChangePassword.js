@@ -173,7 +173,7 @@ class ChangePassword extends Component {
       userCheck = false;
     }
 
-    if (newPassword.toString().trim().length() < 14) {
+    if (newPassword.toString().trim().length < 14) {
       this.setState({isLoading: false, message: "New password must be at least 14 characters."})
       userCheck = false;
     }
