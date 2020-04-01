@@ -131,6 +131,11 @@ class App extends Component {
     });
 };
 
+  modifyRootAccountInfo = (newAccountInfo) => {
+    console.log("updateRootAccountInfo()");
+    this.setState({accountInfo: newAccountInfo});
+  };
+
   getUserInfo = async () => {
     console.log("getUserInfo()");
     const token = await authProvider_noDomainHint.getAccessToken();
@@ -214,8 +219,10 @@ class App extends Component {
                                   modifySite={this.modifySite}
                                   changeContainerStyle={this.changeContainerStyle} 
                                   logOut={logout}
-                                  component={ PageContent} 
                                   accountInfo={accountInfo}
+                                  modifyRootAccountInfo={this.modifyRootAccountInfo}
+                                  component={ PageContent} 
+                                 
                                   // renderAsStudent={true}
                     />
 
@@ -232,6 +239,7 @@ class App extends Component {
                                   modifySite={this.modifySite}
                                   changeContainerStyle={this.changeContainerStyle} 
                                   logOut={logout}
+                                  modifyRootAccountInfo={this.modifyRootAccountInfo}
                                   accountInfo={accountInfo}
                                   component={ PageContent} 
                     />

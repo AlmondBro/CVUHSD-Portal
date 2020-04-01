@@ -27,11 +27,6 @@ class PageContent extends Component {
         this.blueSection_objectsArrayProps = {};
 
         this.renderAsStudent = undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
-
-
-        this.state={
-            graphInfo: null
-        }
       } //end constructor
     
       generateBlueSections = (props) => {
@@ -51,34 +46,9 @@ class PageContent extends Component {
         });
     };
 
-    getUserInfo = async () => {
-        console.log("getUserInfo()");
-        const token = await authProvider_noDomainHint.getAccessToken();
-        const headers = new Headers({ 
-                Authorization: `Bearer ${token.accessToken}`,  
-                'Content-Type': 'application/json'
-            }
-        );
-        
-        const options = {
-          method: "GET",
-          headers: headers
-        };
-    
-        return fetch(`https://graph.microsoft.com/v1.0/me`, options)
-          .then(response =>  response.json() )
-          .then(response => console.log("response:\t" + JSON.stringify(response)))
-          .catch(response => {
-            this.setState({graphInfo: response.text()});
-            throw new Error(response.text());
-          });
-      };
-
     componentDidMount = () => {
-        console.log("PageContent Props Location:\t" + JSON.stringify(this.props.location) );
-
+        this.props.modifyRootAccountInfo(this.props.accountInfo);
         this.props.changeContainerStyle({"background-image": "none" });
-        console.log("Page content this.title:\t" + this.title);
 
         if (this.props.title === "student" || this.props.location.state.renderAsStudent === "true") {
             document.title = "CVUHSD | Student Portal"
@@ -86,7 +56,6 @@ class PageContent extends Component {
             document.title = "CVUHSD | Staff Portal"
         }
 
-        //this.getUserInfo();
     };
     
     render = () => {
@@ -114,7 +83,6 @@ class PageContent extends Component {
                         renderAsStudent={this.props.location.state.renderAsStudent}
                 />,
                 <div className="page-content">
-                    <button onClick={this.getUserInfo}>Get User info</button>
                     { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
                 </div>
             ]
