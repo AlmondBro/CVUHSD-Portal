@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 
-import { AzureAD } from 'react-aad-msal';
-import { authProvider } from './../../authProvider.js';
+import { AzureAD, AuthenticationState } from 'react-aad-msal';
+import { authProvider, authProvider_noDomainHint } from './../../authProvider.js';
 
 //Import components
 import PageContent from "../PageContent.js";
@@ -37,7 +37,7 @@ class App extends Component {
     super(props);
     this.state = {
      loggedIn: null,
-
+      accountInfo: null,
      //TODO: Eliminate redudant fullName and first/lastName from state
       userInfo: {
           firstName: "",
@@ -132,21 +132,33 @@ class App extends Component {
 };
 
   getUserInfo = async () => {
-    const token = await authProvider.getAccessToken();
-    const headers = new Headers({ Authorization: `Bearer ${token}` });
+    console.log("getUserInfo()");
+    const token = await authProvider_noDomainHint.getAccessToken();
+    const headers = new Headers({ 
+            Authorization: `Bearer ${token.accessToken}`,  
+            'Content-Type': 'application/json'
+        }
+    );
+    
     const options = {
-      headers
+      method: "GET",
+      headers: headers
     };
 
     return fetch(`https://graph.microsoft.com/v1.0/me`, options)
-      .then(response => response.json())
+      .then(response =>  response.json() )
+      .then(response => {
+        console.log("response:\t" + JSON.stringify(response));
+        this.setState({graphInfo: JSON.stringify(response)});
+        } )
       .catch(response => {
+        this.setState({graphInfo: response.text()});
         throw new Error(response.text());
       });
   };
 
   componentDidMount = () => {
-    this.isAuthenticated();
+   // this.isAuthenticated();
     let graphInfo = this.getUserInfo();
 
     console.log("Graph info:\t" + JSON.stringify(graphInfo) );
@@ -159,6 +171,7 @@ class App extends Component {
         {
           ({login, logout, accountInfo, authenticationState, error }) => {
             console.log("Account info:\t" + JSON.stringify(accountInfo));
+
             return (
               <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
                 <SimpleStorage parent={this} prefix={"PortalStorage"} />
@@ -189,7 +202,7 @@ class App extends Component {
                                   } 
                     />
                     <PrivateRoute path={`${publicURL}/staff`}
-                                  loggedIn={this.state.loggedIn}
+                                  loggedIn={AuthenticationState.Authenticated}
                                   fullName={this.state.fullName}
                                   isStudent={this.state.isStudent}
                                   title={this.state.title}
@@ -202,11 +215,12 @@ class App extends Component {
                                   changeContainerStyle={this.changeContainerStyle} 
                                   logOut={logout}
                                   component={ PageContent} 
+                                  accountInfo={accountInfo}
                                   // renderAsStudent={true}
                     />
 
                     <PrivateRoute path={`${publicURL}/student`}
-                                  loggedIn={this.state.loggedIn}
+                                  loggedIn={AuthenticationState.Authenticated}
                                   fullName={this.state.fullName}
                                   isStudent={this.state.isStudent}
                                   title={this.state.title}
@@ -218,6 +232,7 @@ class App extends Component {
                                   modifySite={this.modifySite}
                                   changeContainerStyle={this.changeContainerStyle} 
                                   logOut={logout}
+                                  accountInfo={accountInfo}
                                   component={ PageContent} 
                     />
                       <Route path={`${publicURL}/student.html`}

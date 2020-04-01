@@ -1,6 +1,6 @@
 // authProvider.js
 import { MsalAuthProvider, LoginType } from 'react-aad-msal';
-
+import { Logger, LogLevel } from "msal";
 // Msal Configurations
 //https://sso.centinela.k12.ca.us/adfs/ls
 
@@ -18,17 +18,32 @@ const config = {
     cacheLocation: "localStorage",
     storeAuthStateInCookie: true, // Set this to "true" if you are having issues on IE11 or Edge
     forceRefresh: false // Set this to "true" to skip a cached token and go to the server to get a new
-  }
+  },
+  // Enable logging of MSAL events for easier troubleshooting.
+    // This should be disabled in production builds.
+    system: {
+      logger: new Logger(
+        (logLevel, message, containsPii) => {
+          console.log("[MSAL]", message);
+        },
+        {
+          level: LogLevel.Verbose,
+          piiLoggingEnabled: false
+        }
+      )
+    }
 };
 
 // Authentication Parameters
 const authenticationParameters = {
-  scopes: [
-    "openid",
-    "profile",
-    'User.read'
-  ],
-  extraQueryParameters: { domain_hint: 'portal.centinela.k12.ca.us' }
+  scopes: ["openid", "profile", "User.Read"],
+  extraQueryParameters: { domain_hint: 'centinela.k12.ca.us' }
+}
+
+
+const authenticationParameters_noDomainHint = {
+  scopes: ["openid", "profile", "User.Read"],
+  extraQueryParameters: { }
 }
 
 // Options
@@ -37,4 +52,8 @@ const options = {
   tokenRefreshUri: window.location.origin
 }
 
-export const authProvider = new MsalAuthProvider(config, authenticationParameters, options)
+const authProvider = new MsalAuthProvider(config, authenticationParameters, options);
+
+const authProvider_noDomainHint = new MsalAuthProvider(config, authenticationParameters_noDomainHint, options);
+
+export { authProvider, authProvider_noDomainHint};

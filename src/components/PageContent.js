@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { authProvider_noDomainHint  } from './../authProvider.js';
+
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header/Header.js";
@@ -15,7 +17,7 @@ class PageContent extends Component {
     constructor(props) {
         super(props);
 
-        this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
+        // this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
         this.modifyStudentStatus = this.props.modifyStudentStatus;
 
         this.modifyFullName = this.props.modifyFullName;
@@ -26,6 +28,10 @@ class PageContent extends Component {
 
         this.renderAsStudent = undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
 
+
+        this.state={
+            graphInfo: null
+        }
       } //end constructor
     
       generateBlueSections = (props) => {
@@ -45,6 +51,29 @@ class PageContent extends Component {
         });
     };
 
+    getUserInfo = async () => {
+        console.log("getUserInfo()");
+        const token = await authProvider_noDomainHint.getAccessToken();
+        const headers = new Headers({ 
+                Authorization: `Bearer ${token.accessToken}`,  
+                'Content-Type': 'application/json'
+            }
+        );
+        
+        const options = {
+          method: "GET",
+          headers: headers
+        };
+    
+        return fetch(`https://graph.microsoft.com/v1.0/me`, options)
+          .then(response =>  response.json() )
+          .then(response => console.log("response:\t" + JSON.stringify(response)))
+          .catch(response => {
+            this.setState({graphInfo: response.text()});
+            throw new Error(response.text());
+          });
+      };
+
     componentDidMount = () => {
         console.log("PageContent Props Location:\t" + JSON.stringify(this.props.location) );
 
@@ -56,6 +85,8 @@ class PageContent extends Component {
         } else {
             document.title = "CVUHSD | Staff Portal"
         }
+
+        this.getUserInfo();
     };
     
     render = () => {
@@ -76,13 +107,14 @@ class PageContent extends Component {
                         title={this.title}
                         site={this.props.site}
 
-                        modifyLogInStatus={ this.modifyLogInStatus }
+                        //modifyLogInStatus={ this.modifyLogInStatus }
                         modifyTitle={this.modifyTitle}
                         modifySite={this.modifySite}
                         logOut={this.props.logOut}
                         renderAsStudent={this.props.location.state.renderAsStudent}
                 />,
                 <div className="page-content">
+                    <button onClick={this.getUserInfo}>Get User info</button>
                     { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
                 </div>
             ]
