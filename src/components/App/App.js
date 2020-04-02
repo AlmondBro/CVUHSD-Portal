@@ -201,9 +201,9 @@ class App extends Component {
           
           if ( (graphInfo.jobTitle !== "Student" || this.state.title !== "Student" ) && graphInfo.officeLocation) {
             this.setState({site: graphInfo.officeLocation}); 
-            getStudentSchool();
           } else {
             //TODO: Call API to get the OU and parse it
+            this.setState({isStudent: true});
             getStudentSchool();
           }
 
@@ -225,7 +225,7 @@ class App extends Component {
 
   componentDidMount = () => {
    // this.isAuthenticated();
-    //let graphInfo = this.getUserInfo(); //TODO: Remove this, this does not work
+   this.getUserInfo(); 
 
     //console.log("Graph info:\t" + JSON.stringify(graphInfo) );
   };
@@ -236,7 +236,7 @@ class App extends Component {
       <AzureAD provider={authProvider} forceLogin={true}>
         {
           ({login, logout, accountInfo, authenticationState, error }) => {
-            console.log("Account info:\t" + JSON.stringify(accountInfo));
+            //console.log("Account info:\t" + JSON.stringify(accountInfo));
 
             return (
               <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
