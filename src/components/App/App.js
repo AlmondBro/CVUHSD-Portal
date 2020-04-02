@@ -268,6 +268,7 @@ class App extends Component {
                                                       modifyTitle={this.modifyTitle}
                                                       modifySite={this.modifySite}
                                                       changeContainerStyle={this.changeContainerStyle} 
+                                                      clearState={this.clearState}
                                                 /> 
                                   } 
                     />
@@ -284,6 +285,7 @@ class App extends Component {
                                   modifySite={this.modifySite}
                                   changeContainerStyle={this.changeContainerStyle} 
                                   logOut={logout}
+                                  clearState={this.clearState}
                                   accountInfo={accountInfo}
                                   modifyRootAccountInfo={this.modifyRootAccountInfo}
                                   component={ PageContent} 
@@ -304,6 +306,7 @@ class App extends Component {
                                   modifySite={this.modifySite}
                                   changeContainerStyle={this.changeContainerStyle} 
                                   logOut={logout}
+                                  clearState={this.clearState}
                                   modifyRootAccountInfo={this.modifyRootAccountInfo}
                                   accountInfo={accountInfo}
                                   component={ PageContent} 

@@ -80,6 +80,7 @@ class PageContent extends Component {
                         modifyTitle={this.modifyTitle}
                         modifySite={this.modifySite}
                         logOut={this.props.logOut}
+                        clearState={this.props.clearState}
                         renderAsStudent={this.props.location.state.renderAsStudent}
                 />,
                 <div className="page-content">

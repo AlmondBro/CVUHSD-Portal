@@ -23,8 +23,13 @@ import isDev from 'isdev';
 
 //TODO: Figure out why bullet point is not rendering
 
-const NavigationBar = ({modifyLogInStatus, logOut, ...props}) => {
+const NavigationBar = ({modifyLogInStatus, clearState, logOut, ...props}) => {
     const  [modalIsOpen, setIsOpen] = useState(false);
+
+    let signOutClearState = () => {
+        clearState();
+        logOut();
+    }; //end signOut()
 
     let toggleModal = (toggleValue) => {
         setIsOpen(toggleValue);
@@ -201,7 +206,7 @@ const NavigationBar = ({modifyLogInStatus, logOut, ...props}) => {
                     >
                           <NavBarButton   
                                 title={"Log Out"} 
-                                onClick={logOut} 
+                                onClick={signOutClearState} 
                                 districtPosition={props.districtPosition}
                                 renderAsStudent={props.renderAsStudent}
                         >
