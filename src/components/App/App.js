@@ -40,15 +40,7 @@ class App extends Component {
       accountInfo: null,
       organizationalUnit: null,
      //TODO: Eliminate redudant fullName and first/lastName from state
-      userInfo: {
-          firstName: "",
-          lastName: "",
-          title: "",
-          site: "",
-          email: "",
-          isStudent: null
-      },
-
+  
       firstName: "",
       lastName: "",
       fullName: "",
