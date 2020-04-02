@@ -2,6 +2,10 @@ import React, { Fragment, Component } from "react";
 
 import { authProvider_noDomainHint  } from './../authProvider.js';
 
+//Import 3rd party modules
+import ReactLoading from 'react-loading';
+import styled from "styled-components";
+
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header/Header.js";
@@ -22,13 +26,15 @@ class PageContent extends Component {
 
         this.modifyFullName = this.props.modifyFullName;
         
-        this.title = this.props.title;
-        
         this.blueSection_objectsArrayProps = {};
 
         this.renderAsStudent = undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
       } //end constructor
     
+      PageContentLoading = styled("div")`
+        margin: 0 auto;
+      `;
+
       generateBlueSections = (props) => {
         return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
             return (
@@ -68,8 +74,7 @@ class PageContent extends Component {
             blueSection_objectsArray: sectionInfoObject
         };
 
-       // if  (this.props.title) {
-            return (
+        return (
                 <Fragment>
                     <Header districtName="CVUHSD" 
                             headerTitle="Portal" 
@@ -84,20 +89,24 @@ class PageContent extends Component {
                             clearState={this.props.clearState}
                             renderAsStudent={this.props.location.state.renderAsStudent}
                     />,
-                    { (this.props.title ? 
+                    { (this.props.helllooo) ? 
                         (
                             <div className="page-content">
                                 { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
                             </div>
                         )
-                        : <p>Loading....</p>)
+                        :   (
+                                <this.PageContentLoading>
+                                    <ReactLoading 
+                                        type={"cubes"}
+                                        height={'30px'} width={'30px'} 
+                                        color={'#1E6C93'}
+                                    /> 
+                                </this.PageContentLoading>
+                            )
                     }
                 </Fragment>
-             );
-        // } else {
-        //     return (<p>Loading Portal Content...</p>);
-        // }
-       
+            );
     }; //end render()
 } //end PageContent class
 
