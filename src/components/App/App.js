@@ -134,10 +134,11 @@ class App extends Component {
   };
 
   getUserInfo = async () => {
-
     console.log("getUserInfo()");
 
-    let getStudentSchool = async () => {
+    const token = await authProvider_noDomainHint.getAccessToken();
+
+    let getStudentSchool = () => {
       console.log("getStudentSchool()");
 
       let parseOUforSchool = (organizationalUnit) => {
@@ -149,7 +150,7 @@ class App extends Component {
 
         console.log("splitDirectoriesArray:\t" + splitDirectoriesArray);
         this.setState({site: school, gradeLevel: gradeLevel});
-      }; 
+      }; //end parseOUforSchool()
 
       const getOU_URL = `${isDev ? "" : "/server" }/getOU`; 
 
@@ -159,14 +160,13 @@ class App extends Component {
           'Access-Control-Allow-Origin': '*',
       };
   
-      let OU = await fetch(getOU_URL, {
+      let OU = fetch(getOU_URL, {
           method: 'POST',
           headers: getOU_headers,
           body: JSON.stringify({user: this.state.email})
       }).then((response) => {
           return response.json();     //Parse the JSON of the response
       }).then((OU) => {
-
         parseOUforSchool(OU);
         this.setState({organizationalUnit:  OU})
       }).catch((error) => {
@@ -174,52 +174,52 @@ class App extends Component {
       });
     }; //end getStudentSchool
 
-    const token = await authProvider_noDomainHint.getAccessToken();
-    const headers = new Headers({ 
-            'Authorization': `Bearer ${token.accessToken}`,  
-            'Content-Type': 'application/json'
-        }
-    );
-    
-    const options = {
-      method: "GET",
-      headers: headers
-    };
-
-    let graphInfo = await fetch(`https://graph.microsoft.com/v1.0/me`, options)
-      .then(response =>  response.json() )
-      .then(graphInfo => {
-        this.setState({graphInfo: (graphInfo)});
-        this.setState({firstName: graphInfo.givenName}); //Set the first name in the state
-        this.setState({lastName: graphInfo.surname});  //Set the last name in the state
-        this.setState({ email: graphInfo.mail});
-        
-        
-        if (graphInfo.jobTitle) {
-          this.setState({title: graphInfo.jobTitle}); 
-        }
-
-        
-        if ( (graphInfo.jobTitle !== "Student" || this.state.title !== "Student" ) && graphInfo.officeLocation) {
-          this.setState({site: graphInfo.officeLocation}); 
-        } else {
-          //TODO: Call API to get the OU and parse it
-          getStudentSchool();
-        }
-
-        if (graphInfo.businessPhones) {
-          this.setState({phoneNumber: graphInfo.businessPhones[0]}); 
-        }
-
-
-      })
-      .catch(response => {
-        this.setState({graphInfo: response.text()});
-        throw new Error(response.text());
+    let getGraphInfo = async () => {
+      const headers = new Headers({ 
+        'Authorization': `Bearer ${token.accessToken}`,  
+        'Content-Type': 'application/json'
       });
 
+      const options = {
+        method: "GET",
+        headers: headers
+      };
+
+      let graphInfo = await fetch(`https://graph.microsoft.com/v1.0/me`, options)
+        .then(response =>  response.json() )
+        .then(graphInfo => {
+          this.setState({graphInfo: (graphInfo)});
+          this.setState({firstName: graphInfo.givenName}); //Set the first name in the state
+          this.setState({lastName: graphInfo.surname});  //Set the last name in the state
+          this.setState({ email: graphInfo.mail});
+          
+          
+          if (graphInfo.jobTitle) {
+            this.setState({title: graphInfo.jobTitle}); 
+          }
+
+          
+          if ( (graphInfo.jobTitle !== "Student" || this.state.title !== "Student" ) && graphInfo.officeLocation) {
+            this.setState({site: graphInfo.officeLocation}); 
+            getStudentSchool();
+          } else {
+            //TODO: Call API to get the OU and parse it
+            getStudentSchool();
+          }
+
+          if (graphInfo.businessPhones) {
+            this.setState({phoneNumber: graphInfo.businessPhones[0]}); 
+          }
+
+
+        })
+        .catch(response => {
+          this.setState({graphInfo: response.text()});
+          throw new Error(response.text());
+        });
+    }; //end getGraphInfo()
     
-      //setTimeout(() => { graphInfo, OU}, 2000);
+    getGraphInfo();
 
   }; //end getUserInfo()
 
