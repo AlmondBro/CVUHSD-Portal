@@ -107,7 +107,7 @@ const NavigationBar = ({modifyLogInStatus, logOut, ...props}) => {
                                 className="img-responsive" 
                                 id="navbar-logo" 
                                 href="#" 
-                                src={ ( (props.districtPosition === "student") || props.renderAsStudent ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
+                                src={ ( (props.districtPosition ===   "Student") || props.renderAsStudent ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
                 </Link>
             </NavBarImageWrapper>
             <NavBarUL className="navigation-bar-ul" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
@@ -120,7 +120,7 @@ const NavigationBar = ({modifyLogInStatus, logOut, ...props}) => {
                     </NavMenuIcon>    
                 </label>
                
-                {(props.districtPosition !== "student") ? ( 
+                {(props.districtPosition !== "Student") ? ( 
                     <NavBarListItemLi 
                         href={"https://www.centinela.k12.ca.us"}
                         bulletPointInMobile={true}
@@ -132,7 +132,7 @@ const NavigationBar = ({modifyLogInStatus, logOut, ...props}) => {
                     : null
                 }
 
-                {(props.districtPosition !== "student") ? ( 
+                {(props.districtPosition !== "Student") ? ( 
                     <NavBarListItemLi 
                         to={
                             {
@@ -153,7 +153,7 @@ const NavigationBar = ({modifyLogInStatus, logOut, ...props}) => {
                 { generateNavBarListItems(staff_HeaderLinks) }
 
                 
-                {(props.districtPosition !== "student") ? ( 
+                {(props.districtPosition !== "Student") ? ( 
                     <NavBarListItemLi 
                         bulletPointInMobile={true}
                         renderAsStudent={props.renderAsStudent}

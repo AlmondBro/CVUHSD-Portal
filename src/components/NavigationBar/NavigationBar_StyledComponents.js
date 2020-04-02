@@ -61,7 +61,7 @@ let NavBar = styled.nav`
                 display: inline;
 
                 color: ${ props => 
-                            (props.districtPosition === ("student") || props.renderAsStudent) ? 
+                            (props.districtPosition === ("Student") || props.renderAsStudent) ? 
                                 "#931E1D": "#1E6C93"
                         };
                 transition: color 0.5s;
@@ -151,12 +151,12 @@ let NavBar = styled.nav`
         transition: 0.4s;
 
         background-color: ${ props => 
-                                ( (props.districtPosition === "student") || props.renderAsStudent ) ? 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
                                     "#931E1D": "#1E6C93"
                             };
         
         color: ${ props => 
-                                ( (props.districtPosition === "student") || props.renderAsStudent ) ? 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
                                     "#931E1D": "#1E6C93"
                             };
         transition: background-color 0.5s, color 0.5s;
@@ -167,7 +167,7 @@ let NavBar = styled.nav`
     //TODO: Move this rule "upward"
     let NavBarListItem = styled("a")`
         color: ${ props => 
-                    ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                         "#A01C1C": "#3B709A"
                 };
         text-decoration: none;
@@ -177,7 +177,7 @@ let NavBar = styled.nav`
         font-size: 0.9em;
         color: white;
         background-color: ${ props => 
-                                ( (props.districtPosition === "student") || props.renderAsStudent ) ? 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
                                     "#931E1D": "#1E6C93"
                             };
         padding: 0.5em 0.7em;
@@ -188,7 +188,7 @@ let NavBar = styled.nav`
 
         &:hover {
             background-color: ${ props => 
-                                ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                                     "#BD2222": "#2588b9"
                             };
         }
@@ -207,7 +207,7 @@ let NavBar = styled.nav`
     let NavBarListItem_StyledLink = styled(NavBarListItem_Link)`
         font-size: 1.1em;
         color: ${ props => 
-                    ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                         "#A01C1C": "#3B709A"
                 };
         transition: color 0.5s;
@@ -218,7 +218,7 @@ let NavBar = styled.nav`
             &&>li~li::before {
                 content: ${props => props.bulletPointInMobile ? "•" : null };
                 margin-right: 8px;
-                color: ${ props => ((props.districtPosition === "student") || props.renderAsStudent) ? 
+                color: ${ props => ((props.districtPosition === "Student") || props.renderAsStudent) ? 
                             "#931E1D" : "#154963"
                 };
                 transition: color 0.5s;
@@ -233,7 +233,7 @@ let NavBar = styled.nav`
             &&>li~li::before {
                 content: ${props => props.bulletPointInMobile ? "•" : null };
                 margin-right: 8px;
-                color: ${ props => ((props.districtPosition === "student") || props.renderAsStudent) ? 
+                color: ${ props => ((props.districtPosition === "Student") || props.renderAsStudent) ? 
                             "#931E1D" : "#154963"
                 };
             transition: color 0.5s;

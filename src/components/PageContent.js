@@ -39,7 +39,7 @@ class PageContent extends Component {
                     buttonRowID={blueSection_Object.buttonRowID}
                     buttons={blueSection_Object.buttons}
                     key={index}
-                    title={this.title || "student"}
+                    title={this.props.title || "Student"}
                     renderAsStudent={this.renderAsStudent || this.props.location.state.renderAsStudent}
                 />
             );
@@ -61,7 +61,7 @@ class PageContent extends Component {
     render = () => {
         let sectionInfoObject;
 
-        sectionInfoObject = (this.title === "student" || this.props.location.state.renderAsStudent === "true") ? 
+        sectionInfoObject = (this.props.title === "Student" || this.props.location.state.renderAsStudent === "true") ? 
                                     redSectionInfo_Student : blueSectionInfo_Staff;
         
         this.blueSection_objectsArrayProps = {

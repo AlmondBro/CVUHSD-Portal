@@ -9,11 +9,11 @@ import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader,
 //Import 3rd-party APIs
 import greeting from 'greeting';
 
-const Header = ( { modifyLogInStatus, renderAsStudent, logOut,...props }) => {
+const Header = ( { modifyLogInStatus, renderAsStudent, logOut, title,...props }) => {
     console.log("Header props:\t" + JSON.stringify(props) );
 
-    let districtPosition = props.title;
-
+    let districtPosition = title;
+    
     return ([
         <NavigationBarHeader 
             districtPosition={districtPosition}

@@ -31,7 +31,7 @@ let NavigationBarHeader = styled("header")`
         /* Bottom two BG-color and border-bottom were not here before */
         background: #f4f7f9;
         border-bottom: ${ props => 
-                            ((props.districtPosition === "student") || props.renderAsStudent ) ? 
+                            ((props.districtPosition === "Student") || props.renderAsStudent ) ? 
                                 "5px solid #931E1D": "5px solid #1E6C93"
                         };
         transition: border-color 0.5s;
@@ -55,7 +55,7 @@ let DashboardHeader = styled.header`
     border-radius: 5px;
     background-color: white;
     color:  ${ props => 
-                ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                     "#931E1D": "#1E6C93"
             };
     /* margin: 2.5% auto; */
@@ -81,7 +81,7 @@ let AddToHomeScreenButton = styled("button")`
     /* display: inline-block; */
 
     background-color: ${ props => 
-                            ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                            ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                                 "#931E1D": "#1E6C93"
                         };
     transition: background-color 0.5s;
@@ -132,7 +132,7 @@ let PortalHeaderText = styled("h1")`
     display: inline-block;
     text-align: center;
     color: ${ props => 
-                ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                     "#931E1D": "#1E6C93"
         };
     transition: color 0.5s;
@@ -144,7 +144,7 @@ let Greeting = styled("h3")`
     padding: 5px;
 
     color:  ${ props => 
-                ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                     "#931E1D": "#1E6C93"
             };
     transition: color 0.5s;
