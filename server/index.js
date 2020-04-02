@@ -328,19 +328,25 @@ app.get(getIP_URL, (req, res) => {
 });
 
 
-const getSite_URL = `${isDev ? "" : "/server" }/getSite`;
-let getSite = async (req, res, next) =>  {
+const getOU_URL = `${isDev ? "" : "/server" }/getOU`;
+let getOU = async (req, res, next) =>  {
+
+  console.log("getOu()");
 
   let userLocation = "";
 
   let { user } = req.body;
   
-  userLocation = await ad.user(user).location();
-
-  setTimeout(() => res.end(userLocation), waitInterval); 
+  console.log("User\t" + user);
 
   
+  userLocation = await activeDirectory.user(user).location();
+
+  let waitInterval = 2000; //2k milliseconds -- 2 seconds
+  setTimeout(() => { res.json(userLocation); console.log("userLocation:\t" + userLocation); }, waitInterval); 
 };
+
+app.post(getOU_URL, getOU);
 
 let changePassword_URL = `${isDev ? "" : "/server" }/change-password`;
 let asyncChangePassword = async (req, res, next) =>  {

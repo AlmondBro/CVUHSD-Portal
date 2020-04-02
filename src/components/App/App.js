@@ -38,6 +38,7 @@ class App extends Component {
     this.state = {
      loggedIn: null,
       accountInfo: null,
+      organizationalUnit: null,
      //TODO: Eliminate redudant fullName and first/lastName from state
       userInfo: {
           firstName: "",
@@ -137,6 +138,7 @@ class App extends Component {
   };
 
   getUserInfo = async () => {
+
     console.log("getUserInfo()");
     const token = await authProvider_noDomainHint.getAccessToken();
     const headers = new Headers({ 
@@ -150,7 +152,7 @@ class App extends Component {
       headers: headers
     };
 
-    return fetch(`https://graph.microsoft.com/v1.0/me`, options)
+    let graphInfo = await fetch(`https://graph.microsoft.com/v1.0/me`, options)
       .then(response =>  response.json() )
       .then(response => {
         console.log("response:\t" + JSON.stringify(response));
@@ -160,7 +162,37 @@ class App extends Component {
         this.setState({graphInfo: response.text()});
         throw new Error(response.text());
       });
-  };
+
+     
+      const getOU_URL = `${isDev ? "" : "/server" }/getOU`; 
+
+      const getOU_headers = {
+          'Content-Type': 'application/json',
+          'credentials': 'include',
+          'Access-Control-Allow-Origin': '*',
+      };
+  
+      let OU = await fetch(getOU_URL, {
+          method: 'POST',
+          headers: getOU_headers,
+          body: JSON.stringify({user: "d.medinaacosta163@centinela.k12.ca.us"})
+      }).then((response) => {
+          //Return just the reponse
+          return response.json();
+      }).then((OU) => {
+        //Parse the JSON of the response
+        console.log("capybara 2:\t" + (OU) );
+        this.setState({organizationalUnit:  OU})
+      }).catch((error) => {
+          console.error(`Catching error:\t ${error}`);
+      });
+
+      let userObject = await { graphInfo, OU } ;
+
+      return userObject; 
+      //setTimeout(() => { graphInfo, OU}, 2000);
+
+  }; //end getUserInfo()
 
   componentDidMount = () => {
    // this.isAuthenticated();
