@@ -31,6 +31,9 @@ import SimpleStorage, { resetParentState, clearStorage } from "react-simple-stor
 //TODO: Fix Dashboard "digial" typon on quick links buttons
 //TODO: Have a different link for the student and staff portals
 //TODO: Eliminate the flashing when going into the login page
+//TODO: Create "SSO Page Loading" page/component to display while it is loading
+//TODO: Have the NavBar links be a lighter color of the student/staff theme color when hovered over
+
 
 class App extends Component {
   constructor(props) {
