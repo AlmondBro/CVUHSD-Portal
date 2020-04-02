@@ -95,7 +95,7 @@ class App extends Component {
 
   //TODO: Pass this function down to the logOut() function
   clearState = () => {
-    clearStorage("PortalStorage");
+    //clearStorage("PortalStorage");
     resetParentState(this, this.initialState);
   };
 
@@ -202,7 +202,6 @@ class App extends Component {
             this.setState({title: graphInfo.jobTitle}); 
           }
 
-          
           if ( (graphInfo.jobTitle !== "Student" || this.state.title !== "Student" ) && graphInfo.officeLocation) {
             this.setState({site: graphInfo.officeLocation}); 
           } else {
@@ -241,96 +240,121 @@ class App extends Component {
         {
           ({login, logout, accountInfo, authenticationState, error }) => {
             //console.log("Account info:\t" + JSON.stringify(accountInfo));
+              switch (authenticationState) {
+                case AuthenticationState.Authenticated:
+                 // if (this.state.title) {
+                    return (
+                      <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
+                        <SimpleStorage parent={this} prefix={"PortalStorage"} />
+                        <Switch>
+                            { // Update routes to use server subdirectory in production
+                              //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
+                            }
+                            {/* TODO: Add logic to redirect to staff/student if you input .html */}
+                            <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
+                                    render={ () => {
+                                        return (<Redirect to={`${publicURL}/staff`} />);
+                                    }
+                                } 
+                            />
+                            <Route path={`${publicURL}/login`} 
+                                  render={ (props) => <LogIn  {...props} 
+                                                              loggedIn={ this.state.loggedIn}
+                                                              fullName={this.state.firstName + " " + this.state.lastName}
+                                                              isStudent={this.state.isStudent}
+                                                              title={this.state.title}
+                                                              modifyLogInStatus={this.modifyLogInStatus} 
+                                                              modifyStudentStatus={this.modifyStudentStatus}
+                                                              modifyFullName={this.modifyFullName}
+                                                              modifyTitle={this.modifyTitle}
+                                                              modifySite={this.modifySite}
+                                                              changeContainerStyle={this.changeContainerStyle} 
+                                                              clearState={this.clearState}
+                                                        /> 
+                                          } 
+                            />
+                            <PrivateRoute path={`${publicURL}/staff`}
+                                          loggedIn={AuthenticationState.Authenticated}
+                                          fullName={this.state.firstName + " " + this.state.lastName}
+                                          isStudent={this.state.isStudent}
+                                          title={this.state.title}
+                                          site={this.state.site}
+                                          modifyLogInStatus={this.modifyLogInStatus} 
+                                          modifyStudentStatus={this.modifyStudentStatus}
+                                          modifyFullName={this.modifyFullName}
+                                          modifyTitle={this.modifyTitle}
+                                          modifySite={this.modifySite}
+                                          changeContainerStyle={this.changeContainerStyle} 
+                                          logOut={logout}
+                                          clearState={this.clearState}
+                                          accountInfo={accountInfo}
+                                          modifyRootAccountInfo={this.modifyRootAccountInfo}
+                                          component={ PageContent} 
+                                         
+                                          // renderAsStudent={true}
+                            />
+        
+                            <PrivateRoute path={`${publicURL}/student`}
+                                          loggedIn={AuthenticationState.Authenticated}
+                                          fullName={this.state.firstName + " " + this.state.lastName}
+                                          isStudent={this.state.isStudent}
+                                          title={this.state.title}
+                                          site={this.state.site}
+                                          modifyLogInStatus={this.modifyLogInStatus} 
+                                          modifyStudentStatus={this.modifyStudentStatus}
+                                          modifyFullName={this.modifyFullName}
+                                          modifyTitle={this.modifyTitle}
+                                          modifySite={this.modifySite}
+                                          changeContainerStyle={this.changeContainerStyle} 
+                                          logOut={logout}
+                                          clearState={this.clearState}
+                                          modifyRootAccountInfo={this.modifyRootAccountInfo}
+                                          accountInfo={accountInfo}
+                                          component={ PageContent} 
+                            />
+                              <Route path={`${publicURL}/student.html`}
+                                    render={ () => {
+                                        return (<Redirect to={`${publicURL}/student`} />);
+                                    }
+                                } 
+                            />
+                                <Route path={`${publicURL}/staff.html`}
+                                    render={ () => {
+                                        return (<Redirect to={`${publicURL}/staff`} />);
+                                    }
+                                } 
+                            /> 
+                            <Route component={NotFound} />   
+                        </Switch>
+                      </StyledContainer> );
+                 // } //end if-statement
+                 // else {
+                 //   return (<p>Loading Portal...</p>);
+                 // }
+                
+                case AuthenticationState.InProgress:
+                  return (<p>Loading S.S.O Page</p>);
+                
+                case AuthenticationState.Unauthenticated:
+                  return (
+                    <div>
+                      {error && <p><span>An error occured during authentication, please try again!</span></p>}
+                      <p>
+                        <span>Hey stranger, you look new!</span>
+                        <button onClick={login}>Login</button>
+                      </p>
+                    </div>
+                  );
 
-            return (
-              <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
-                <SimpleStorage parent={this} prefix={"PortalStorage"} />
-                <Switch>
-                    { // Update routes to use server subdirectory in production
-                      //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
-                    }
-                    {/* TODO: Add logic to redirect to staff/student if you input .html */}
-                    <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
-                            render={ () => {
-                                return (<Redirect to={`${publicURL}/staff`} />);
-                            }
-                        } 
-                    />
-                    <Route path={`${publicURL}/login`} 
-                          render={ (props) => <LogIn  {...props} 
-                                                      loggedIn={ this.state.loggedIn}
-                                                      fullName={this.state.firstName + " " + this.state.lastName}
-                                                      isStudent={this.state.isStudent}
-                                                      title={this.state.title}
-                                                      modifyLogInStatus={this.modifyLogInStatus} 
-                                                      modifyStudentStatus={this.modifyStudentStatus}
-                                                      modifyFullName={this.modifyFullName}
-                                                      modifyTitle={this.modifyTitle}
-                                                      modifySite={this.modifySite}
-                                                      changeContainerStyle={this.changeContainerStyle} 
-                                                      clearState={this.clearState}
-                                                /> 
-                                  } 
-                    />
-                    <PrivateRoute path={`${publicURL}/staff`}
-                                  loggedIn={AuthenticationState.Authenticated}
-                                  fullName={this.state.firstName + " " + this.state.lastName}
-                                  isStudent={this.state.isStudent}
-                                  title={this.state.title}
-                                  site={this.state.site}
-                                  modifyLogInStatus={this.modifyLogInStatus} 
-                                  modifyStudentStatus={this.modifyStudentStatus}
-                                  modifyFullName={this.modifyFullName}
-                                  modifyTitle={this.modifyTitle}
-                                  modifySite={this.modifySite}
-                                  changeContainerStyle={this.changeContainerStyle} 
-                                  logOut={logout}
-                                  clearState={this.clearState}
-                                  accountInfo={accountInfo}
-                                  modifyRootAccountInfo={this.modifyRootAccountInfo}
-                                  component={ PageContent} 
-                                 
-                                  // renderAsStudent={true}
-                    />
-
-                    <PrivateRoute path={`${publicURL}/student`}
-                                  loggedIn={AuthenticationState.Authenticated}
-                                  fullName={this.state.firstName + " " + this.state.lastName}
-                                  isStudent={this.state.isStudent}
-                                  title={this.state.title}
-                                  site={this.state.site}
-                                  modifyLogInStatus={this.modifyLogInStatus} 
-                                  modifyStudentStatus={this.modifyStudentStatus}
-                                  modifyFullName={this.modifyFullName}
-                                  modifyTitle={this.modifyTitle}
-                                  modifySite={this.modifySite}
-                                  changeContainerStyle={this.changeContainerStyle} 
-                                  logOut={logout}
-                                  clearState={this.clearState}
-                                  modifyRootAccountInfo={this.modifyRootAccountInfo}
-                                  accountInfo={accountInfo}
-                                  component={ PageContent} 
-                    />
-                      <Route path={`${publicURL}/student.html`}
-                            render={ () => {
-                                return (<Redirect to={`${publicURL}/student`} />);
-                            }
-                        } 
-                    />
-                        <Route path={`${publicURL}/staff.html`}
-                            render={ () => {
-                                return (<Redirect to={`${publicURL}/staff`} />);
-                            }
-                        } 
-                    /> 
-                    <Route component={NotFound} />   
-                </Switch>
-              </StyledContainer>
-            );
-          }
+                default: 
+                  return (<p>Authenticating 2...</p>);
+              } //end switch
+            
+          } //function with switch cases
         }
         
       </AzureAD>
+      
     );
   }
 }

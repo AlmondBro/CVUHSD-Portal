@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Fragment, Component } from "react";
 
 import { authProvider_noDomainHint  } from './../authProvider.js';
 
@@ -68,26 +68,31 @@ class PageContent extends Component {
             blueSection_objectsArray: sectionInfoObject
         };
 
-       return (
-           [
-                <Header districtName="CVUHSD" 
-                        headerTitle="Portal" 
-                        fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
-                        title={this.props.title}
-                        site={this.props.site}
+        if  (this.props.title) {
+            return (
+                <Fragment>
+                    <Header districtName="CVUHSD" 
+                            headerTitle="Portal" 
+                            fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
+                            title={this.props.title}
+                            site={this.props.site}
 
-                        //modifyLogInStatus={ this.modifyLogInStatus }
-                        modifyTitle={this.modifyTitle}
-                        modifySite={this.modifySite}
-                        logOut={this.props.logOut}
-                        clearState={this.props.clearState}
-                        renderAsStudent={this.props.location.state.renderAsStudent}
-                />,
-                <div className="page-content">
-                    { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
-                </div>
-            ]
-        );
+                            //modifyLogInStatus={ this.modifyLogInStatus }
+                            modifyTitle={this.modifyTitle}
+                            modifySite={this.modifySite}
+                            logOut={this.props.logOut}
+                            clearState={this.props.clearState}
+                            renderAsStudent={this.props.location.state.renderAsStudent}
+                    />,
+                    <div className="page-content">
+                        { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
+                    </div>
+                </Fragment>
+             );
+        } else {
+            return (<p>Loading Portal Content...</p>);
+        }
+       
     }; //end render()
 } //end PageContent class
 

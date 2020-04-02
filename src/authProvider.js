@@ -12,7 +12,7 @@ const config = {
   auth: {
     clientId: "3470eb69-479b-4be6-8d5e-0c5a11b78845",
     authority: "https://login.microsoftonline.com/c9a48109-968f-43b9-9e1f-ce756542dbe2",
-    redirectUri: "http://localhost:3000/"
+    redirectUri: window.location.origin 
   },
   cache: {
     cacheLocation: "localStorage",
