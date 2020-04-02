@@ -21,7 +21,7 @@ import NotFound from './../NotFound.js';
 
 import PrivateRoute from "./../PrivateRoute.js";
 
-import SimpleStorage, { resetParentState } from "react-simple-storage";
+import SimpleStorage, { resetParentState, clearStorage } from "react-simple-storage";
 
 
 //TODO: Have /staff.html redirect to /staff
@@ -95,8 +95,12 @@ class App extends Component {
 
   //TODO: Pass this function down to the logOut() function
   clearState = () => {
-    //clearStorage("PortalStorage");
+    clearStorage("PortalStorage");
     resetParentState(this, this.initialState);
+  };
+
+  logOut = () => {
+    this.clearState();
   };
 
   isAuthenticated = () => {

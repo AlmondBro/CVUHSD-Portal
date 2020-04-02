@@ -102,7 +102,7 @@ const BlueSection = (props) => {
 
     let SectionHeader = styled("div")`
         background-color: ${ props => 
-            (props.title === ("student") || props.renderAsStudent ) ? 
+            (props.title === ("Student") || props.renderAsStudent ) ? 
                 "rgb(147, 30, 30)": "rgb(30, 108, 147)"
         };
 
@@ -135,7 +135,7 @@ const BlueSection = (props) => {
         border-radius: 100%;
         background-color: white;
         color: ${ props => 
-            (props.title === ("student") || props.renderAsStudent ) ? 
+            (props.title === ("Student") || props.renderAsStudent ) ? 
                 "rgb(147, 30, 30)": "rgb(30, 108, 147)"
         };
 

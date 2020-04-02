@@ -13,7 +13,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, title,...props })
     console.log("Header props:\t" + JSON.stringify(props) );
 
     let districtPosition = title;
-    
+
     return ([
         <NavigationBarHeader 
             districtPosition={districtPosition}
@@ -40,7 +40,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, title,...props })
                     </strong>
                 </PortalHeaderText>
                 <Greeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} >{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
-                <PositionGreeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} ><span>{props.title || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
+                <PositionGreeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} ><span>{districtPosition || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
                 <AddToHomeScreenButton  id="addToHomeScreenButton" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >Add to Home Screen</AddToHomeScreenButton>
                 <ToolTip districtPosition={districtPosition} renderAsStudent={renderAsStudent}  className="tooltip" id="addToHomeScreenTooltip">
                     <p>
