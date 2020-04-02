@@ -68,7 +68,7 @@ class PageContent extends Component {
             blueSection_objectsArray: sectionInfoObject
         };
 
-        if  (this.props.title) {
+       // if  (this.props.title) {
             return (
                 <Fragment>
                     <Header districtName="CVUHSD" 
@@ -84,14 +84,19 @@ class PageContent extends Component {
                             clearState={this.props.clearState}
                             renderAsStudent={this.props.location.state.renderAsStudent}
                     />,
-                    <div className="page-content">
-                        { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
-                    </div>
+                    { (this.props.title ? 
+                        (
+                            <div className="page-content">
+                                { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
+                            </div>
+                        )
+                        : <p>Loading....</p>)
+                    }
                 </Fragment>
              );
-        } else {
-            return (<p>Loading Portal Content...</p>);
-        }
+        // } else {
+        //     return (<p>Loading Portal Content...</p>);
+        // }
        
     }; //end render()
 } //end PageContent class
