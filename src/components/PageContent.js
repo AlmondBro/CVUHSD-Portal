@@ -89,7 +89,7 @@ class PageContent extends Component {
                             clearState={this.props.clearState}
                             renderAsStudent={this.props.location.state.renderAsStudent}
                     />,
-                    { (this.props.helllooo) ? 
+                    { (this.props.title) ? 
                         (
                             <div className="page-content">
                                 { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
@@ -98,8 +98,8 @@ class PageContent extends Component {
                         :   (
                                 <this.PageContentLoading>
                                     <ReactLoading 
-                                        type={"cubes"}
-                                        height={'30px'} width={'30px'} 
+                                        type={"spinningBubbles"}
+                                        height={'60px'} width={'60px'} 
                                         color={'#1E6C93'}
                                     /> 
                                 </this.PageContentLoading>
