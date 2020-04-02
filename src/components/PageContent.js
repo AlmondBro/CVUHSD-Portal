@@ -73,7 +73,7 @@ class PageContent extends Component {
                 <Header districtName="CVUHSD" 
                         headerTitle="Portal" 
                         fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
-                        title={this.title}
+                        title={this.props.title}
                         site={this.props.site}
 
                         //modifyLogInStatus={ this.modifyLogInStatus }

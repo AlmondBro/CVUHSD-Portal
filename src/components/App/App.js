@@ -36,9 +36,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     loggedIn: null,
-      accountInfo: null,
-      organizationalUnit: null,
+      loggedIn: "",
+      accountInfo: "",
+      organizationalUnit: "",
      //TODO: Eliminate redudant fullName and first/lastName from state
   
       firstName: "",
@@ -46,6 +46,8 @@ class App extends Component {
       fullName: "",
       title: "",
       site: "",
+      email: "",
+      phoneNumber: "",
 
      isStudent: null,
 
@@ -134,7 +136,7 @@ class App extends Component {
     console.log("getUserInfo()");
     const token = await authProvider_noDomainHint.getAccessToken();
     const headers = new Headers({ 
-            Authorization: `Bearer ${token.accessToken}`,  
+            'Authorization': `Bearer ${token.accessToken}`,  
             'Content-Type': 'application/json'
         }
     );
@@ -146,10 +148,28 @@ class App extends Component {
 
     let graphInfo = await fetch(`https://graph.microsoft.com/v1.0/me`, options)
       .then(response =>  response.json() )
-      .then(response => {
-        console.log("response:\t" + JSON.stringify(response));
-        this.setState({graphInfo: JSON.stringify(response)});
-        } )
+      .then(graphInfo => {
+        this.setState({graphInfo: (graphInfo)});
+        this.setState({firstName: graphInfo.givenName}); //Set the first name in the state
+        this.setState({lastName: graphInfo.surname});  //Set the last name in the state
+        this.setState({ email: graphInfo.mail});
+        
+        
+        if (graphInfo.jobTitle) {
+          this.setState({title: graphInfo.jobTitle}); 
+        }
+
+        
+        if (graphInfo.officeLocation) {
+          this.setState({site: graphInfo.officeLocation}); 
+        }
+
+        if (graphInfo.businessPhones) {
+          this.setState({phoneNumber: graphInfo.businessPhones[0]}); 
+        }
+
+
+      })
       .catch(response => {
         this.setState({graphInfo: response.text()});
         throw new Error(response.text());
@@ -167,19 +187,16 @@ class App extends Component {
       let OU = await fetch(getOU_URL, {
           method: 'POST',
           headers: getOU_headers,
-          body: JSON.stringify({user: "d.medinaacosta163@centinela.k12.ca.us"})
+          body: JSON.stringify({user: this.state.email})
       }).then((response) => {
-          //Return just the reponse
-          return response.json();
+          return response.json();     //Parse the JSON of the response
       }).then((OU) => {
-        //Parse the JSON of the response
-        console.log("capybara 2:\t" + (OU) );
         this.setState({organizationalUnit:  OU})
       }).catch((error) => {
           console.error(`Catching error:\t ${error}`);
       });
 
-      let userObject = await { graphInfo, OU } ;
+      let userObject = await{ graphInfo, OU } ;
 
       return userObject; 
       //setTimeout(() => { graphInfo, OU}, 2000);
@@ -218,7 +235,7 @@ class App extends Component {
                     <Route path={`${publicURL}/login`} 
                           render={ (props) => <LogIn  {...props} 
                                                       loggedIn={ this.state.loggedIn}
-                                                      fullName={this.state.fullName}
+                                                      fullName={this.state.firstName + " " + this.state.lastName}
                                                       isStudent={this.state.isStudent}
                                                       title={this.state.title}
                                                       modifyLogInStatus={this.modifyLogInStatus} 
@@ -232,7 +249,7 @@ class App extends Component {
                     />
                     <PrivateRoute path={`${publicURL}/staff`}
                                   loggedIn={AuthenticationState.Authenticated}
-                                  fullName={this.state.fullName}
+                                  fullName={this.state.firstName + " " + this.state.lastName}
                                   isStudent={this.state.isStudent}
                                   title={this.state.title}
                                   site={this.state.site}
@@ -252,7 +269,7 @@ class App extends Component {
 
                     <PrivateRoute path={`${publicURL}/student`}
                                   loggedIn={AuthenticationState.Authenticated}
-                                  fullName={this.state.fullName}
+                                  fullName={this.state.firstName + " " + this.state.lastName}
                                   isStudent={this.state.isStudent}
                                   title={this.state.title}
                                   site={this.state.site}
