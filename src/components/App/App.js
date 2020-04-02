@@ -46,6 +46,8 @@ class App extends Component {
       fullName: "",
       title: "",
       site: "",
+      school: null,
+      gradeLevel: null,
       email: "",
       phoneNumber: "",
 
@@ -134,6 +136,44 @@ class App extends Component {
   getUserInfo = async () => {
 
     console.log("getUserInfo()");
+
+    let getStudentSchool = async () => {
+      console.log("getStudentSchool()");
+
+      let parseOUforSchool = (organizationalUnit) => {
+        console.log("parseOUforSchool()");
+        let splitDirectoriesArray = organizationalUnit.split("/");
+
+        let school = splitDirectoriesArray[1];
+        let gradeLevel = splitDirectoriesArray[2];
+
+        console.log("splitDirectoriesArray:\t" + splitDirectoriesArray);
+        this.setState({site: school, gradeLevel: gradeLevel});
+      }; 
+
+      const getOU_URL = `${isDev ? "" : "/server" }/getOU`; 
+
+      const getOU_headers = {
+          'Content-Type': 'application/json',
+          'credentials': 'include',
+          'Access-Control-Allow-Origin': '*',
+      };
+  
+      let OU = await fetch(getOU_URL, {
+          method: 'POST',
+          headers: getOU_headers,
+          body: JSON.stringify({user: this.state.email})
+      }).then((response) => {
+          return response.json();     //Parse the JSON of the response
+      }).then((OU) => {
+
+        parseOUforSchool(OU);
+        this.setState({organizationalUnit:  OU})
+      }).catch((error) => {
+          console.error(`Catching error:\t ${error}`);
+      });
+    }; //end getStudentSchool
+
     const token = await authProvider_noDomainHint.getAccessToken();
     const headers = new Headers({ 
             'Authorization': `Bearer ${token.accessToken}`,  
@@ -160,8 +200,11 @@ class App extends Component {
         }
 
         
-        if (graphInfo.officeLocation) {
+        if ( (graphInfo.jobTitle !== "Student" || this.state.title !== "Student" ) && graphInfo.officeLocation) {
           this.setState({site: graphInfo.officeLocation}); 
+        } else {
+          //TODO: Call API to get the OU and parse it
+          getStudentSchool();
         }
 
         if (graphInfo.businessPhones) {
@@ -175,39 +218,16 @@ class App extends Component {
         throw new Error(response.text());
       });
 
-     
-      const getOU_URL = `${isDev ? "" : "/server" }/getOU`; 
-
-      const getOU_headers = {
-          'Content-Type': 'application/json',
-          'credentials': 'include',
-          'Access-Control-Allow-Origin': '*',
-      };
-  
-      let OU = await fetch(getOU_URL, {
-          method: 'POST',
-          headers: getOU_headers,
-          body: JSON.stringify({user: this.state.email})
-      }).then((response) => {
-          return response.json();     //Parse the JSON of the response
-      }).then((OU) => {
-        this.setState({organizationalUnit:  OU})
-      }).catch((error) => {
-          console.error(`Catching error:\t ${error}`);
-      });
-
-      let userObject = await{ graphInfo, OU } ;
-
-      return userObject; 
+    
       //setTimeout(() => { graphInfo, OU}, 2000);
 
   }; //end getUserInfo()
 
   componentDidMount = () => {
    // this.isAuthenticated();
-    let graphInfo = this.getUserInfo();
+    //let graphInfo = this.getUserInfo(); //TODO: Remove this, this does not work
 
-    console.log("Graph info:\t" + JSON.stringify(graphInfo) );
+    //console.log("Graph info:\t" + JSON.stringify(graphInfo) );
   };
 
   render = () => {
