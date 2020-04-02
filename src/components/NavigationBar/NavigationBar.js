@@ -115,110 +115,117 @@ const NavigationBar = ({modifyLogInStatus, clearState, logOut, ...props}) => {
                                 src={ ( (props.districtPosition ===   "Student") || props.renderAsStudent ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
                 </Link>
             </NavBarImageWrapper>
-            <NavBarUL className="navigation-bar-ul" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
-                <MenuToggle type="checkbox" id="menu-toggle" renderAsStudent={props.renderAsStudent} />
-                <label id="nav-menu-icon-label" htmlFor="menu-toggle" >
-                    <NavMenuIcon  className="nav-menu-icon" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
-                        <FirstBar  className="bar1" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}></FirstBar>
-                        <FirstBar className="bar2" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}></FirstBar>
-                        <FirstBar className="bar3" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}></FirstBar>
-                    </NavMenuIcon>    
-                </label>
-               
-                {(props.districtPosition !== "Student") ? ( 
-                    <NavBarListItemLi 
-                        href={"https://www.centinela.k12.ca.us"}
-                        bulletPointInMobile={true}
-                        renderAsStudent={props.renderAsStudent}
-                    >
-                        
-                        CVUHSD <FontAwesomeIcon icon={home} className="icon"/>
-                    </NavBarListItemLi>)  
-                    : null
-                }
-
-                {(props.districtPosition !== "Student") ? ( 
-                    <NavBarListItemLi 
-                        to={
-                            {
-                               pathname: props.renderAsStudent ? "/staff" : "/student",
-                               state: { renderAsStudent: (props.location.pathname === "/staff") ? "true" : false } 
-                            }
-                        }
-                        renderAsStudent={props.renderAsStudent}
-                        bulletPointInMobile={true} 
-                        title={(props.location.pathname === "/staff") ? "Student Portal" : "Staff Portal"}                 
-                    >
+            { props.districtPosition ? 
+                (
+                    <NavBarUL className="navigation-bar-ul" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
+                        <MenuToggle type="checkbox" id="menu-toggle" renderAsStudent={props.renderAsStudent} />
+                        <label id="nav-menu-icon-label" htmlFor="menu-toggle" >
+                            <NavMenuIcon  className="nav-menu-icon" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
+                                <FirstBar  className="bar1" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}></FirstBar>
+                                <FirstBar className="bar2" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}></FirstBar>
+                                <FirstBar className="bar3" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}></FirstBar>
+                            </NavMenuIcon>    
+                        </label>
                     
-                        <FontAwesomeIcon icon={(props.location.pathname === "/staff") ? student : user} className="icon"/> Portal 
-                    </NavBarListItemLi>)  
-                    : null
-                }
-
-                { generateNavBarListItems(staff_HeaderLinks) }
-
-                
-                {(props.districtPosition !== "Student") ? ( 
-                    <NavBarListItemLi 
-                        bulletPointInMobile={true}
-                        renderAsStudent={props.renderAsStudent}
-                    >
-                        <Tooltip
-                            placement={"bottom"}
-                            mouseEnterDelay={0}
-                            mouseLeaveDelay={0.03}
-                            destroyTooltipOnHide={true}
-                            trigger={['hover','click','focus']}
-                            overlay={<div style={{ height: "100%", width: "100%" }}>Change Password</div>}
-                            transitionName={"rc-tooltip-zoom"}
-                        >
-                            <NavBarButton   
-                                    title={"Change Password"} 
-                                    districtPosition={props.districtPosition}
-                                    renderAsStudent={props.renderAsStudent}
-                                    onClick={() => toggleModal(true) }
-                            >
-                                <object 
-                                     type="image/svg+xml" 
-                                     data="/images/icons/change-password.svg" 
-                                     className="change-password-icon svg-inline--fa fa-w-16 icon"
-                                >
-                                    Change Password
-                                </object>
-                            </NavBarButton> 
-                        </Tooltip>
-                    </NavBarListItemLi>)  
-                    : null
-                }
-
-                <NavBarListItemLi 
-                    bulletPointInMobile={true}
-                    renderAsStudent={props.renderAsStudent}
-                >
-                    <Tooltip
-                        placement={"bottom"}
-                        mouseEnterDelay={0}
-                        mouseLeaveDelay={0.03}
-                        destroyTooltipOnHide={true}
-                        trigger={['hover','click','focus']}
-                        overlay={<div style={{ height: "100%", width: "100%" }}>Log Out</div>}
-                        transitionName={"rc-tooltip-zoom"}
-                    >
-                          <NavBarButton   
-                                title={"Log Out"} 
-                                onClick={signOutClearState} 
-                                districtPosition={props.districtPosition}
+                        {(props.districtPosition !== "Student") ? ( 
+                            <NavBarListItemLi 
+                                href={"https://www.centinela.k12.ca.us"}
+                                bulletPointInMobile={true}
                                 renderAsStudent={props.renderAsStudent}
+                            >
+                                
+                                CVUHSD <FontAwesomeIcon icon={home} className="icon"/>
+                            </NavBarListItemLi>)  
+                            : null
+                        }
+
+                        {(props.districtPosition !== "Student") ? ( 
+                            <NavBarListItemLi 
+                                to={
+                                    {
+                                    pathname: props.renderAsStudent ? "/staff" : "/student",
+                                    state: { renderAsStudent: (props.location.pathname === "/staff") ? "true" : false } 
+                                    }
+                                }
+                                renderAsStudent={props.renderAsStudent}
+                                bulletPointInMobile={true} 
+                                title={(props.location.pathname === "/staff") ? "Student Portal" : "Staff Portal"}                 
+                            >
+                            
+                                <FontAwesomeIcon icon={(props.location.pathname === "/staff") ? student : user} className="icon"/> Portal 
+                            </NavBarListItemLi>)  
+                            : null
+                        }
+
+                        { generateNavBarListItems(staff_HeaderLinks) }
+
+                        
+                        {(props.districtPosition !== "Student") ? ( 
+                            <NavBarListItemLi 
+                                bulletPointInMobile={true}
+                                renderAsStudent={props.renderAsStudent}
+                            >
+                                <Tooltip
+                                    placement={"bottom"}
+                                    mouseEnterDelay={0}
+                                    mouseLeaveDelay={0.03}
+                                    destroyTooltipOnHide={true}
+                                    trigger={['hover','click','focus']}
+                                    overlay={<div style={{ height: "100%", width: "100%" }}>Change Password</div>}
+                                    transitionName={"rc-tooltip-zoom"}
+                                >
+                                    <NavBarButton   
+                                            title={"Change Password"} 
+                                            districtPosition={props.districtPosition}
+                                            renderAsStudent={props.renderAsStudent}
+                                            onClick={() => toggleModal(true) }
+                                    >
+                                        <object 
+                                            type="image/svg+xml" 
+                                            data="/images/icons/change-password.svg" 
+                                            className="change-password-icon svg-inline--fa fa-w-16 icon"
+                                        >
+                                            Change Password
+                                        </object>
+                                    </NavBarButton> 
+                                </Tooltip>
+                            </NavBarListItemLi>)  
+                            : null
+                        }
+
+                        <NavBarListItemLi 
+                            bulletPointInMobile={true}
+                            renderAsStudent={props.renderAsStudent}
                         >
-                            <FontAwesomeIcon 
-                                icon={signOut} 
-                                className="icon"
-                            /> 
-                        </NavBarButton>
-                </Tooltip>
-                  
-                </NavBarListItemLi>
-            </NavBarUL>
+                            <Tooltip
+                                placement={"bottom"}
+                                mouseEnterDelay={0}
+                                mouseLeaveDelay={0.03}
+                                destroyTooltipOnHide={true}
+                                trigger={['hover','click','focus']}
+                                overlay={<div style={{ height: "100%", width: "100%" }}>Log Out</div>}
+                                transitionName={"rc-tooltip-zoom"}
+                            >
+                                <NavBarButton   
+                                        title={"Log Out"} 
+                                        onClick={signOutClearState} 
+                                        districtPosition={props.districtPosition}
+                                        renderAsStudent={props.renderAsStudent}
+                                >
+                                    <FontAwesomeIcon 
+                                        icon={signOut} 
+                                        className="icon"
+                                    /> 
+                                </NavBarButton>
+                        </Tooltip>
+                        
+                        </NavBarListItemLi>
+                    </NavBarUL>
+                ) 
+                : (<p>Loading NavBarUL</p>)
+            
+            }
+            
         </NavBar>,
         <ChangePassword 
             modalIsOpen={modalIsOpen}
