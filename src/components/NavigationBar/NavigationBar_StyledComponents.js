@@ -102,6 +102,17 @@ let NavBar = styled.nav`
         padding-right: 2.5%;
     `; //end NavBarUL
 
+    
+    let NavBarUL_Loading = styled("div")`
+        position: absolute;
+        top: 50%;
+        margin-top: -0.5em;
+        left: 50%;
+        padding-right: 2.5%;
+        width: 100%;
+        overflow: hidden;
+    `; //end NavBarUL_Loading
+
     let MenuToggle = styled.input`
         display: none;
 
@@ -273,7 +284,7 @@ let NavBar = styled.nav`
         
     };
 
-export { NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, MenuToggle, 
+export { NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, NavBarUL_Loading, MenuToggle, 
          NavMenuIcon, FirstBar, NavBarListItem, NavBarButton, NavBarListItem_Link, 
          NavBarListItem_StyledLink, NavBarListItem_Li, NavBarListItemLi 
         }

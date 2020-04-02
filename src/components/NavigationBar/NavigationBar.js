@@ -3,6 +3,8 @@ import React, { useState, useEffect }  from "react"; //Import React
 import { withRouter, Link } from "react-router-dom";
 
 //Import 3rd-party APIS
+import ReactLoading from 'react-loading';
+
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap.css"; //default tooltip styling
 
@@ -14,7 +16,7 @@ import { staff_HeaderLinks } from "./../../objectFiles/headerListItems.js";
 import ChangePassword from "./ChangePassword/ChangePassword.js";
 
 //Import styled components
-import { NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, MenuToggle, 
+import { NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, NavBarUL_Loading, MenuToggle, 
     NavMenuIcon, FirstBar, NavBarListItem, NavBarButton, NavBarListItem_Link, 
     NavBarListItem_StyledLink, NavBarListItem_Li, NavBarListItemLi 
    } from "./NavigationBar_StyledComponents.js";
@@ -222,8 +224,16 @@ const NavigationBar = ({modifyLogInStatus, clearState, logOut, ...props}) => {
                         </NavBarListItemLi>
                     </NavBarUL>
                 ) 
-                : (<p>Loading NavBarUL</p>)
-            
+                : (
+                    <NavBarUL_Loading>
+                        {/* hello */}
+                        <ReactLoading 
+                            type={"cubes"}
+                            height={'30px'} width={'30px'} 
+                            color={'#1e6c93'}
+                        /> 
+                    </NavBarUL_Loading>
+                  )
             }
             
         </NavBar>,
