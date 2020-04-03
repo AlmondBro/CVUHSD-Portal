@@ -237,7 +237,7 @@ let CofeeBeans = styled("div")`
         border-radius: 50%;
         height: 98%;
         background: #5E2605;
-        transform: rotate(5deg);
+        transform: rotate(-5deg);
     }
     
 `; //end CofeeBeans
@@ -276,7 +276,7 @@ let GrinderBottom = styled("div")`
     width: 200px;
     border-radius: 80px 80px 5px 5px;
     background: rgba(255, 255, 255, 0.7);
-    animation: ${rotateAnimation} 10s ease-out infinite;
+    /* animation: ${rotateAnimation} 10s ease-out infinite; */
 
     :before {
         bottom: -50px;
@@ -357,23 +357,31 @@ let CoffeeCup = styled("div")`
 `;
 
 let CoffeeAnimationContainer = styled("section")`
-    :before,
-    :after {
+    width: 100%;
+
+    > *.coffee-row {
+        position: relative;
+        margin: 0 auto;
+    }
+
+    > *:before,
+    > *:after {
         position: absolute;
         content: '';
     }
 `;
 
 // This animation is courtesy of Laura Robertson. All work accredited to the author.
+//Source: https://codepen.io/LauraRobertson/pen/OpOjxB
 let CoffeeAnimation = () => {
     return (
-        <CoffeeAnimationContainer class="cofeeAnimation-container">
-            <CofeeBeans class="coffee-row cofee-beans"/>
-            <Grinder class="coffee-row grinder"/>
-            <GrinderBottom class="coffee-row  grinder_bottom"/>
-            <V60 class="coffee-row  v60"/>
-            <Drip class="coffee-row  drip"/>
-            <CoffeeCup class="coffee-row  cup"/>
+        <CoffeeAnimationContainer className="cofeeAnimation-container">
+            <CofeeBeans className="coffee-row coffee-beans"/>
+            <Grinder className="coffee-row grinder"/>
+            {/* <GrinderBottom className="coffee grinder-bottom"/> */}
+            {/* <V60 className="coffee-row v60"/>
+            <Drip className="coffee-row drip"/>
+            <CoffeeCup className="coffee-row cup"/> */}
         </CoffeeAnimationContainer>  
     ); //end return statement
    
