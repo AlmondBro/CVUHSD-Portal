@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-
 import { AzureAD, AuthenticationState } from 'react-aad-msal';
 import { authProvider, authProvider_noDomainHint } from './../../authProvider.js';
 
 //Import components
+import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
 import PageContent from "../PageContent.js";
 
 import isDev from 'isdev';
@@ -241,8 +241,11 @@ class App extends Component {
     return (
       <AzureAD provider={authProvider} forceLogin={true}>
         {
+    
           ({login, logout, accountInfo, authenticationState, error }) => {
             //console.log("Account info:\t" + JSON.stringify(accountInfo));
+            let hello = true;
+
               switch (authenticationState) {
                 case AuthenticationState.Authenticated:
                  // if (this.state.title) {
@@ -335,8 +338,8 @@ class App extends Component {
                  //   return (<p>Loading Portal...</p>);
                  // }
                 
-                case AuthenticationState.InProgress:
-                  return (<p>Loading S.S.O Page</p>);
+                case true:
+                  return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
                 
                 case AuthenticationState.Unauthenticated:
                   return (
@@ -350,7 +353,7 @@ class App extends Component {
                   );
 
                 default: 
-                  return (<p>Authenticating 2...</p>);
+                  return (<LoadingSSOPage message="Authenticating 2"/>);
               } //end switch
             
           } //function with switch cases

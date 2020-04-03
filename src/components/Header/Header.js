@@ -12,7 +12,7 @@ import greeting from 'greeting';
 const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title,...props }) => {
     console.log("Header props:\t" + JSON.stringify(props) );
 
-    let districtPosition = "";
+    let districtPosition = title;
 
     return ([
         <NavigationBarHeader 
@@ -50,7 +50,10 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                             <Greeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} >{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
                             <PositionGreeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} ><span>{districtPosition || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
                         </section>
-                    ) : <Greeting>Sit tight, filling your cup of coffee! <CoffeeAnimation/></Greeting>
+                    ) : <Greeting>
+                            Sit tight, filling your cup of coffee! 
+                            <CoffeeAnimation/>
+                        </Greeting>
                 }
               
 
