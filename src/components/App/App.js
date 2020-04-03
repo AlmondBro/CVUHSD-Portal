@@ -343,22 +343,14 @@ class App extends Component {
                 
                 case AuthenticationState.Unauthenticated:
                   return (
-                    <div>
-                      {error && <p><span>An error occured during authentication, please try again!</span></p>}
-                      <p>
-                        <span>Hey stranger, you look new!</span>
-                        <button onClick={login}>Login</button>
-                      </p>
-                    </div>
+                    (<LoadingSSOPage error/>)
                   );
 
                 default: 
                   return (<LoadingSSOPage message="Authenticating 2"/>);
               } //end switch
-            
           } //function with switch cases
         }
-        
       </AzureAD>
       
     );
