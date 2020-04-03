@@ -4,7 +4,7 @@ import React from "react";
 import NavigationBar from "../NavigationBar/NavigationBar.js";
 
 import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, 
-        AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting } from "./Header_StyledComponents.js";
+        AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, CoffeeAnimation } from "./Header_StyledComponents.js";
 
 //Import 3rd-party APIs
 import greeting from 'greeting';
@@ -12,7 +12,7 @@ import greeting from 'greeting';
 const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title,...props }) => {
     console.log("Header props:\t" + JSON.stringify(props) );
 
-    let districtPosition = title;
+    let districtPosition = "";
 
     return ([
         <NavigationBarHeader 
@@ -41,9 +41,20 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                     </strong>
                 </PortalHeaderText>
 
-                { }
-                <Greeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} >{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
-                <PositionGreeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} ><span>{districtPosition || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
+                <section>
+
+                </section>
+
+                { districtPosition ? (
+                        <section>
+                            <Greeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} >{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
+                            <PositionGreeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} ><span>{districtPosition || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
+                        </section>
+                    ) : <Greeting>Sit tight, filling your cup of coffee! <CoffeeAnimation/></Greeting>
+                }
+              
+
+                
                 <AddToHomeScreenButton  id="addToHomeScreenButton" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >Add to Home Screen</AddToHomeScreenButton>
                 <ToolTip districtPosition={districtPosition} renderAsStudent={renderAsStudent}  className="tooltip" id="addToHomeScreenTooltip">
                     <p>
