@@ -57,8 +57,8 @@ let NavBar = styled.nav`
 
         @media only screen and (min-width: 1185px) { 
           &::after {
-                content: 'Centinela Valley Union High School District';
-                display: inline;
+                content: "Centinela Valley Union High School District";
+                display: ${props => (props.districtPosition) ? "inline" : "none"};
 
                 color: ${ props => 
                             (props.districtPosition === ("Student") || props.renderAsStudent) ? 
@@ -109,7 +109,7 @@ let NavBar = styled.nav`
         margin-top: -0.5em;
         left: 50%;
         padding-right: 2.5%;
-        width: 100%;
+        /* width: 100%; */
         overflow: hidden;
     `; //end NavBarUL_Loading
 
