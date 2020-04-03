@@ -347,7 +347,7 @@ class App extends Component {
                   );
 
                 default: 
-                  return (<LoadingSSOPage message="Authenticating 2"/>);
+                  return (<LoadingSSOPage message="Signing Out"/>);
               } //end switch
           } //function with switch cases
         }
