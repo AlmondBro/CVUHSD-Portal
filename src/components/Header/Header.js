@@ -51,8 +51,8 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                             <PositionGreeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} ><span>{districtPosition || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
                         </section>
                     ) : <Greeting>
-                            Sit tight, filling your cup of coffee! 
-                            <CoffeeAnimation/>
+                            Keep on being planted, warming your cup of coffee! 
+                            {/* <CoffeeAnimation/> */}
                         </Greeting>
                 }
               
