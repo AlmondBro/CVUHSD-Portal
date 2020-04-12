@@ -55,6 +55,7 @@ class App extends Component {
       phoneNumber: "",
 
      isStudent: null,
+     renderAsStudent: null,
 
       containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
@@ -94,6 +95,10 @@ class App extends Component {
     console.log("modifySite() from App.js");
     this.setState({site: newSite});  
   }; //end modifyFullName()
+
+  modifyRenderAsStudent = (newRenderAsStudent) => { 
+    this.setState({renderAsStudent: newRenderAsStudent});
+  };
 
 
   //TODO: Pass this function down to the logOut() function
@@ -269,6 +274,8 @@ class App extends Component {
                                                               fullName={this.state.firstName + " " + this.state.lastName}
                                                               isStudent={this.state.isStudent}
                                                               title={this.state.title}
+                                                              renderAsStudent={this.state.renderAsStudent}
+                                                              modifyRenderAsStudent={this.modifyRenderAsStudent}
                                                               modifyLogInStatus={this.modifyLogInStatus} 
                                                               modifyStudentStatus={this.modifyStudentStatus}
                                                               modifyFullName={this.modifyFullName}
@@ -285,6 +292,8 @@ class App extends Component {
                                           isStudent={this.state.isStudent}
                                           title={this.state.title}
                                           site={this.state.site}
+                                          renderAsStudent={this.state.renderAsStudent}
+                                          modifyRenderAsStudent={this.modifyRenderAsStudent}
                                           modifyLogInStatus={this.modifyLogInStatus} 
                                           modifyStudentStatus={this.modifyStudentStatus}
                                           modifyFullName={this.modifyFullName}
@@ -306,6 +315,8 @@ class App extends Component {
                                           isStudent={this.state.isStudent}
                                           title={this.state.title}
                                           site={this.state.site}
+                                          renderAsStudent={this.state.renderAsStudent}
+                                          modifyRenderAsStudent={this.modifyRenderAsStudent}
                                           modifyLogInStatus={this.modifyLogInStatus} 
                                           modifyStudentStatus={this.modifyStudentStatus}
                                           modifyFullName={this.modifyFullName}
