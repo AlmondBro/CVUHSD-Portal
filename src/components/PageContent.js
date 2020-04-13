@@ -17,9 +17,14 @@ import undefsafe from 'undefsafe';
 
 //TODO: Save passed props from <Redirect> into state.
 //TODO: Enlarge the All links embedded google sheet
+//TODO: Use undefsafe to add this.props.location.state as part of "portal switching". ALso find if this really necessary.
 class PageContent extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+          pathName: null  
+        }; //end state object
 
         // this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
         this.modifyStudentStatus = this.props.modifyStudentStatus;
@@ -46,7 +51,8 @@ class PageContent extends Component {
                     buttons={blueSection_Object.buttons}
                     key={index}
                     title={this.props.title || "Student"}
-                    renderAsStudent={this.renderAsStudent || this.props.location.state.renderAsStudent}
+                    renderAsStudent={(window.location.pathname === "/student")}
+                    // {this.renderAsStudent || this.props.location.state.renderAsStudent}
                 />
             );
         });
@@ -56,7 +62,10 @@ class PageContent extends Component {
         this.props.modifyRootAccountInfo(this.props.accountInfo);
         this.props.changeContainerStyle({"background-image": "none" });
 
-        if (this.props.title === "student" || this.props.location.state.renderAsStudent === "true") {
+        console.log("PageContent.js window.location.pathname:\t" + window.location.pathname);
+
+        this.setState({pathName: window.location.pathname});
+        if (this.props.title === "student" || this.props.location.state.renderAsStudent === "true" || window.location.pathname === "/student") {
             document.title = "CVUHSD | Student Portal"
         } else {
             document.title = "CVUHSD | Staff Portal"
@@ -67,7 +76,7 @@ class PageContent extends Component {
     render = () => {
         let sectionInfoObject;
 
-        sectionInfoObject = (this.props.title === "Student" || this.props.location.state.renderAsStudent === "true") ? 
+        sectionInfoObject = (this.props.title === "Student" ||  window.location.pathname === "/student") ? 
                                     redSectionInfo_Student : blueSectionInfo_Staff;
         
         this.blueSection_objectsArrayProps = {
@@ -87,7 +96,7 @@ class PageContent extends Component {
                             modifySite={this.modifySite}
                             logOut={this.props.logOut}
                             clearState={this.props.clearState}
-                            renderAsStudent={this.props.location.state.renderAsStudent}
+                            renderAsStudent={(window.location.pathname === "/student")}
                     />,
                     { (this.props.title) ? 
                         (

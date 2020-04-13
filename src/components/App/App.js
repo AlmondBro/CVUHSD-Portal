@@ -237,7 +237,7 @@ class App extends Component {
   componentDidMount = () => {
    // this.isAuthenticated();
    this.getUserInfo(); 
-
+    console.log("App.js window.location.pathname:\t" + window.location.pathname);
     //console.log("Graph info:\t" + JSON.stringify(graphInfo) );
   };
 
