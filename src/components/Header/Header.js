@@ -65,18 +65,31 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                                 renderAsStudent={renderAsStudent} 
                                 className="position-greeting"
                             >
-                                <span>
-                                    { 
-                                        (gradeLevel &&  gradeLevel < 13 ) ? `${gradeLevel}th grade ` : null
-                                    }
-                                </span>
+                                {
+                                    ( (districtPosition === "student") && gradeLevel ) ?
+                                        (
+                                            <span>
+                                                { 
+                                                    (gradeLevel &&  gradeLevel < 13 ) ? `${gradeLevel}th grade ` : null
+                                                }
+                                            </span>
+                                        ) : null
+                                    
+                                }
                                 <span>{districtPosition.toLowerCase() || "User"}</span> from 
                                 <span>{" " + site || "CVUHSD"}</span>
                             </PositionGreeting>
-                            <SchoolLogo 
-                                className="school-logo" 
-                                src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
-                            />                
+
+                            { 
+                                (districtPosition === "student") && schoolName ? 
+                                    (   <SchoolLogo 
+                                            className="school-logo" 
+                                            src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
+                                        />  
+                                    )
+                                    : null
+                            }
+                                         
                         </section>
                     ) : <Greeting className="loading-greeting">
                             Stay put, warming your cup of coffee! 
