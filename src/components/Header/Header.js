@@ -4,15 +4,21 @@ import React from "react";
 import NavigationBar from "../NavigationBar/NavigationBar.js";
 
 import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, 
-        AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, CoffeeAnimation } from "./Header_StyledComponents.js";
+        AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, CoffeeAnimation, SchoolLogo } from "./Header_StyledComponents.js";
 
 //Import 3rd-party APIs
 import greeting from 'greeting';
 
-const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title,...props }) => {
+const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title, site,...props }) => {
     console.log("Header props:\t" + JSON.stringify(props) );
 
+    let parseSchoolName = (site) => {
+        return site.toString().split(" ", 1)[0];
+    };
+
     let districtPosition = title;
+
+    let schoolName = parseSchoolName(site);
 
     return ([
         <NavigationBarHeader 
@@ -49,6 +55,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                         <section>
                             <Greeting   districtPosition={districtPosition} 
                                         renderAsStudent={renderAsStudent} 
+                                        className="greeting"
                             >
                                 { greeting.random() || "Hi"}
                              <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span>
@@ -56,18 +63,23 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                             <PositionGreeting 
                                 districtPosition={districtPosition} 
                                 renderAsStudent={renderAsStudent} 
+                                className="position-greeting"
                             >
-                                <span>{districtPosition || "User"}</span> from <span>{props.site || "CVUHSD"}</span>
-                            </PositionGreeting>                  
+                                <span>{}</span>
+                                <span>{districtPosition || "User"}</span> from 
+                                <span>{" " + site || "CVUHSD"}</span>
+                            </PositionGreeting>
+                            <SchoolLogo 
+                                className="school-logo" 
+                                src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
+                            />                
                         </section>
-                    ) : <Greeting>
+                    ) : <Greeting className="loading-greeting">
                             Stay put, warming your cup of coffee! 
                             {/* <CoffeeAnimation/> */}
                         </Greeting>
                 }
               
-
-                
                 <AddToHomeScreenButton  id="addToHomeScreenButton" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >Add to Home Screen</AddToHomeScreenButton>
                 <ToolTip districtPosition={districtPosition} renderAsStudent={renderAsStudent}  className="tooltip" id="addToHomeScreenTooltip">
                     <p>

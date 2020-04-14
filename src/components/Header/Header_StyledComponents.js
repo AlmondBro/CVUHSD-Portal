@@ -161,10 +161,15 @@ let Greeting = styled("h3")`
 `; //end Greeting
 
 let PositionGreeting = styled(Greeting)`
+    display: inline-block;
     font-size: 1.05em;
     transition: color 0.5s;
 `; //end PositionGreeting
 
+let SchoolLogo = styled("img")`
+    max-width: 60px;
+    vertical-align: bottom;
+`;
 
 /* Cofee Animation */
 const fillAnimation = keyframes`
@@ -387,4 +392,4 @@ let CoffeeAnimation = () => {
    
 };
 
-export { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, CoffeeAnimation }
+export { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, SchoolLogo, CoffeeAnimation }
