@@ -225,6 +225,13 @@ let NavBar = styled.nav`
         
         text-decoration: none;
 
+        :hover {
+            color: ${ props => 
+                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                        "#931E1E": "#0056B3"
+                };
+        }
+
         @media only screen and (max-width: 705px) { 
             &&>li~li::before {
                 content: ${props => props.bulletPointInMobile ? "•" : null };

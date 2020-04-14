@@ -16,9 +16,30 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
         return site.toString().split(" ", 1)[0];
     };
 
+    let getSchoolLogoSite = (schoolName) => {
+        let schoolLogoSite = "https://www.centinela.k12.ca.us/";
+        if (schoolName.toLowerCase() === "leuzinger") {
+            schoolLogoSite = "https://www.leuzinger.org/";
+        } 
+
+        if (schoolName.toLowerCase() === "lawndale") {
+            schoolLogoSite = "https://www.lawndalehs.org/";
+        } 
+
+        if (schoolName.toLowerCase() === "hawthorne") {
+            schoolLogoSite = "https://www.hhscougars.org/";
+        } 
+
+        if (schoolName.toLowerCase() === "lloyde") {
+            schoolLogoSite = "https://www.lloydehs.org/";
+        } 
+
+    }; //end getSchoolLogoSite
+
     let districtPosition = title;
 
     let schoolName = parseSchoolName(site);
+
 
     return ([
         <NavigationBarHeader 
@@ -79,13 +100,18 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                                 <span>{districtPosition.toLowerCase() || "User"}</span> from 
                                 <span>{" " + site || "CVUHSD"}</span>
                             </PositionGreeting>
+                            {/*  //TODO: Add link the site of the school logo */}
 
                             { 
                                 (districtPosition === "Student") && schoolName ? 
-                                    (   <SchoolLogo 
-                                            className="school-logo" 
-                                            src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
-                                        />  
+                                    (   <a href={() => getSchoolLogoSite("lawndale")}>
+                                             <SchoolLogo 
+                                                
+                                                className="school-logo" 
+                                                src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
+                                            />  
+                                        </a>
+                                       
                                     )
                                     : null
                             }
