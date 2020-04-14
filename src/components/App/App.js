@@ -249,7 +249,7 @@ class App extends Component {
     
           ({login, logout, accountInfo, authenticationState, error }) => {
             //console.log("Account info:\t" + JSON.stringify(accountInfo));
-            let hello = true;
+
 
               switch (authenticationState) {
                 case AuthenticationState.Authenticated:
@@ -292,6 +292,7 @@ class App extends Component {
                                           isStudent={this.state.isStudent}
                                           title={this.state.title}
                                           site={this.state.site}
+                                          gradeLevel={this.state.gradeLevel}
                                           renderAsStudent={this.state.renderAsStudent}
                                           modifyRenderAsStudent={this.modifyRenderAsStudent}
                                           modifyLogInStatus={this.modifyLogInStatus} 
@@ -315,6 +316,7 @@ class App extends Component {
                                           isStudent={this.state.isStudent}
                                           title={this.state.title}
                                           site={this.state.site}
+                                          gradeLevel={this.state.gradeLevel}
                                           renderAsStudent={this.state.renderAsStudent}
                                           modifyRenderAsStudent={this.modifyRenderAsStudent}
                                           modifyLogInStatus={this.modifyLogInStatus} 

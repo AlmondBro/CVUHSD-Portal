@@ -9,7 +9,7 @@ import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader,
 //Import 3rd-party APIs
 import greeting from 'greeting';
 
-const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title, site,...props }) => {
+const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title, site, gradeLevel,...props }) => {
     console.log("Header props:\t" + JSON.stringify(props) );
 
     let parseSchoolName = (site) => {
@@ -65,8 +65,12 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                                 renderAsStudent={renderAsStudent} 
                                 className="position-greeting"
                             >
-                                <span>{}</span>
-                                <span>{districtPosition || "User"}</span> from 
+                                <span>
+                                    { 
+                                        (gradeLevel &&  gradeLevel < 13 ) ? `${gradeLevel}th grade ` : null
+                                    }
+                                </span>
+                                <span>{districtPosition.toLowerCase() || "User"}</span> from 
                                 <span>{" " + site || "CVUHSD"}</span>
                             </PositionGreeting>
                             <SchoolLogo 

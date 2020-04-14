@@ -90,6 +90,7 @@ class PageContent extends Component {
                             fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
                             title={this.props.title}
                             site={this.props.site}
+                            gradeLevel={this.props.gradeLevel}
 
                             //modifyLogInStatus={ this.modifyLogInStatus }
                             modifyTitle={this.modifyTitle}
