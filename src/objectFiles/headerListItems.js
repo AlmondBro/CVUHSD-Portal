@@ -52,6 +52,12 @@ let schoolWebsites = {
     navShow: false
 };
 
+let troubleShooting = {
+    to: "/troubleshooting",
+    title: "Troubleshooting",
+    navShow: true
+};
+
 let allTools = {
     href: "#allTools-blueSection",
     title: "All Links",
@@ -63,7 +69,7 @@ let staff_HeaderLinks = [
     standardStaffTools, administrativeTools,
     teacherTools, classroomTools,
     learningTools, digitalTextbooks,
-    schoolWebsites, allTools
+    schoolWebsites, troubleShooting, allTools
 
 ];
 

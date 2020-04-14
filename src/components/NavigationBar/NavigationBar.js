@@ -44,6 +44,7 @@ const NavigationBar = ({modifyLogInStatus, clearState, logOut, ...props}) => {
                     <NavBarListItemLi 
                         key={index} 
                         href={listItemArrayObject.href}
+                        to={listItemArrayObject.to}
                         linkName={listItemArrayObject.title}
                         districtPosition={props.districtPosition}
                         bulletPointInMobile={true}

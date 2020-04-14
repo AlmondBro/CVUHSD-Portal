@@ -66,7 +66,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                                 className="position-greeting"
                             >
                                 {
-                                    ( (districtPosition === "student") && gradeLevel ) ?
+                                    ( (districtPosition === "Student") && gradeLevel ) ?
                                         (
                                             <span>
                                                 { 
@@ -81,7 +81,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                             </PositionGreeting>
 
                             { 
-                                (districtPosition === "student") && schoolName ? 
+                                (districtPosition === "Student") && schoolName ? 
                                     (   <SchoolLogo 
                                             className="school-logo" 
                                             src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
