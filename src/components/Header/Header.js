@@ -47,8 +47,18 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
 
                 { districtPosition ? (
                         <section>
-                            <Greeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} >{ greeting.random() || "Hi"} <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span></Greeting>
-                            <PositionGreeting districtPosition={districtPosition} renderAsStudent={renderAsStudent} ><span>{districtPosition || "User"}</span> from <span>{props.site || "CVUHSD"}</span></PositionGreeting>
+                            <Greeting   districtPosition={districtPosition} 
+                                        renderAsStudent={renderAsStudent} 
+                            >
+                                { greeting.random() || "Hi"}
+                             <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span>
+                            </Greeting>
+                            <PositionGreeting 
+                                districtPosition={districtPosition} 
+                                renderAsStudent={renderAsStudent} 
+                            >
+                                <span>{districtPosition || "User"}</span> from <span>{props.site || "CVUHSD"}</span>
+                            </PositionGreeting>                  
                         </section>
                     ) : <Greeting>
                             Stay put, warming your cup of coffee! 
