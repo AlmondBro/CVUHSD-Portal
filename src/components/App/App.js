@@ -247,11 +247,8 @@ class App extends Component {
     return ([
       <AzureAD provider={authProvider} forceLogin={true}>
         {
-    
-          ({login, logout, accountInfo, authenticationState, error }) => {
+          ({ login, logout, accountInfo, authenticationState, error }) => {
             //console.log("Account info:\t" + JSON.stringify(accountInfo));
-
-
               switch (authenticationState) {
                 case AuthenticationState.Authenticated:
                  // if (this.state.title) {
