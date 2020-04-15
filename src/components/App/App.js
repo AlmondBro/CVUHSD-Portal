@@ -259,13 +259,6 @@ class App extends Component {
                               { // Update routes to use server subdirectory in production
                                 //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
                               }
-                              {/* TODO: Add logic to redirect to staff/student if you input .html */}
-                              <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
-                                      render={ () => {
-                                          return (<Redirect to={`${publicURL}/staff`} />);
-                                      }
-                                  } 
-                              />
                               <Route path={`${publicURL}/login`} 
                                     render={ (props) => <LogIn  {...props} 
                                                                 loggedIn={ this.state.loggedIn}
@@ -364,6 +357,13 @@ class App extends Component {
           }
         </AzureAD>
         <Switch>
+          {/* TODO: Add logic to redirect to staff/student if you input .html */}
+          <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
+                                  render={ () => {
+                                      return (<Redirect to={`${publicURL}/staff`} />);
+                                  }
+                              } 
+                          />
           <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/>
           <Route component={NotFound} />   
         </Switch>
