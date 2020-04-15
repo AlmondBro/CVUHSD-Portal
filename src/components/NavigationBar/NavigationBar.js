@@ -146,8 +146,8 @@ const NavigationBar = ({modifyLogInStatus, clearState, logOut, ...props}) => {
                             <NavBarListItemLi 
                                 to={
                                     {
-                                    pathname: props.renderAsStudent ? "/staff" : "/student",
-                                    state: { renderAsStudent: (props.location.pathname === "/staff") ? "true" : false } 
+                                        pathname: props.renderAsStudent ? "/staff" : "/student",
+                                        state: { renderAsStudent: (props.location.pathname === "/staff") ? "true" : false } 
                                     }
                                 }
                                 renderAsStudent={props.renderAsStudent}
