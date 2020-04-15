@@ -13,7 +13,11 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
     console.log("Header props:\t" + JSON.stringify(props) );
 
     let parseSchoolName = (site) => {
-        return site.toString().split(" ", 1)[0];
+        if (site) {
+            return site.toString().split(" ", 1)[0];
+        } else {
+            return "";
+        }
     };
 
     let getSchoolLogoSite = (schoolName) => {

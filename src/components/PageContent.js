@@ -57,7 +57,7 @@ class PageContent extends Component {
                 />
             );
         });
-    };
+    }; //end generateBlueSections()
 
     componentDidMount = () => {
         this.props.modifyRootAccountInfo(this.props.accountInfo);

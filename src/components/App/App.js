@@ -344,8 +344,7 @@ class App extends Component {
                                     }
                                 } 
                             /> 
-                            <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/>
-                            <Route component={NotFound} />   
+                            {/* <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/> */}
                         </Switch>
                       </StyledContainer> );
                  // } //end if-statement
@@ -367,8 +366,10 @@ class App extends Component {
           } //function with switch cases
         }
       </AzureAD>,
-      <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/>
- 
+      <Switch>
+        <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/>
+        <Route component={NotFound} />   
+      </Switch>
     ]); //end return statement
   }
 }
