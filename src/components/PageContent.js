@@ -15,6 +15,7 @@ import { blueSectionInfo_Staff , redSectionInfo_Student} from "./../objectFiles/
 
 import undefsafe from 'undefsafe';
 
+//TODO: Bug -- Changing from the staff to the student portal does not change the page title.
 //TODO: Save passed props from <Redirect> into state.
 //TODO: Enlarge the All links embedded google sheet
 //TODO: Use undefsafe to add this.props.location.state as part of "portal switching". ALso find if this really necessary.

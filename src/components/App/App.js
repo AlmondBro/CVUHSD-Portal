@@ -5,6 +5,7 @@ import { authProvider, authProvider_noDomainHint } from './../../authProvider.js
 
 //Import components
 import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
+import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
 import PageContent from "../PageContent.js";
 
 import isDev from 'isdev';
@@ -243,7 +244,7 @@ class App extends Component {
 
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;
-    return (
+    return ([
       <AzureAD provider={authProvider} forceLogin={true}>
         {
     
@@ -343,6 +344,7 @@ class App extends Component {
                                     }
                                 } 
                             /> 
+                            <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/>
                             <Route component={NotFound} />   
                         </Switch>
                       </StyledContainer> );
@@ -364,9 +366,10 @@ class App extends Component {
               } //end switch
           } //function with switch cases
         }
-      </AzureAD>
-      
-    );
+      </AzureAD>,
+      <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/>
+ 
+    ]); //end return statement
   }
 }
 
