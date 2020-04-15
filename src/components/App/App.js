@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { AzureAD, AuthenticationState } from 'react-aad-msal';
 import { authProvider, authProvider_noDomainHint } from './../../authProvider.js';
@@ -100,7 +100,6 @@ class App extends Component {
   modifyRenderAsStudent = (newRenderAsStudent) => { 
     this.setState({renderAsStudent: newRenderAsStudent});
   };
-
 
   //TODO: Pass this function down to the logOut() function
   clearState = () => {
@@ -244,130 +243,131 @@ class App extends Component {
 
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;
-    return ([
-      <AzureAD provider={authProvider} forceLogin={true}>
-        {
-          ({ login, logout, accountInfo, authenticationState, error }) => {
-            //console.log("Account info:\t" + JSON.stringify(accountInfo));
-              switch (authenticationState) {
-                case AuthenticationState.Authenticated:
-                 // if (this.state.title) {
+    return (
+      <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
+        <AzureAD provider={authProvider} forceLogin={true}>
+          {
+            ({ login, logout, accountInfo, authenticationState, error }) => {
+              //console.log("Account info:\t" + JSON.stringify(accountInfo));
+                switch (authenticationState) {
+                  case AuthenticationState.Authenticated:
+                  // if (this.state.title) {
+                      return (
+                        <Fragment>
+                          <SimpleStorage parent={this} prefix={"PortalStorage"} />
+                          <Switch>
+                              { // Update routes to use server subdirectory in production
+                                //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
+                              }
+                              {/* TODO: Add logic to redirect to staff/student if you input .html */}
+                              <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
+                                      render={ () => {
+                                          return (<Redirect to={`${publicURL}/staff`} />);
+                                      }
+                                  } 
+                              />
+                              <Route path={`${publicURL}/login`} 
+                                    render={ (props) => <LogIn  {...props} 
+                                                                loggedIn={ this.state.loggedIn}
+                                                                fullName={this.state.firstName + " " + this.state.lastName}
+                                                                isStudent={this.state.isStudent}
+                                                                title={this.state.title}
+                                                                renderAsStudent={this.state.renderAsStudent}
+                                                                modifyRenderAsStudent={this.modifyRenderAsStudent}
+                                                                modifyLogInStatus={this.modifyLogInStatus} 
+                                                                modifyStudentStatus={this.modifyStudentStatus}
+                                                                modifyFullName={this.modifyFullName}
+                                                                modifyTitle={this.modifyTitle}
+                                                                modifySite={this.modifySite}
+                                                                changeContainerStyle={this.changeContainerStyle} 
+                                                                clearState={this.clearState}
+                                                          /> 
+                                            } 
+                              />
+                              <PrivateRoute path={`${publicURL}/staff`}
+                                            loggedIn={AuthenticationState.Authenticated}
+                                            fullName={this.state.firstName + " " + this.state.lastName}
+                                            isStudent={this.state.isStudent}
+                                            title={this.state.title}
+                                            site={this.state.site}
+                                            gradeLevel={this.state.gradeLevel}
+                                            renderAsStudent={this.state.renderAsStudent}
+                                            modifyRenderAsStudent={this.modifyRenderAsStudent}
+                                            modifyLogInStatus={this.modifyLogInStatus} 
+                                            modifyStudentStatus={this.modifyStudentStatus}
+                                            modifyFullName={this.modifyFullName}
+                                            modifyTitle={this.modifyTitle}
+                                            modifySite={this.modifySite}
+                                            changeContainerStyle={this.changeContainerStyle} 
+                                            logOut={logout}
+                                            clearState={this.clearState}
+                                            accountInfo={accountInfo}
+                                            modifyRootAccountInfo={this.modifyRootAccountInfo}
+                                            component={ PageContent} 
+                                          
+                                            // renderAsStudent={true}
+                              />
+          
+                              <PrivateRoute path={`${publicURL}/student`}
+                                            loggedIn={AuthenticationState.Authenticated}
+                                            fullName={this.state.firstName + " " + this.state.lastName}
+                                            isStudent={this.state.isStudent}
+                                            title={this.state.title}
+                                            site={this.state.site}
+                                            gradeLevel={this.state.gradeLevel}
+                                            renderAsStudent={this.state.renderAsStudent}
+                                            modifyRenderAsStudent={this.modifyRenderAsStudent}
+                                            modifyLogInStatus={this.modifyLogInStatus} 
+                                            modifyStudentStatus={this.modifyStudentStatus}
+                                            modifyFullName={this.modifyFullName}
+                                            modifyTitle={this.modifyTitle}
+                                            modifySite={this.modifySite}
+                                            changeContainerStyle={this.changeContainerStyle} 
+                                            logOut={logout}
+                                            clearState={this.clearState}
+                                            modifyRootAccountInfo={this.modifyRootAccountInfo}
+                                            accountInfo={accountInfo}
+                                            component={ PageContent} 
+                              />
+                                <Route path={`${publicURL}/student.html`}
+                                      render={ () => {
+                                          return (<Redirect to={`${publicURL}/student`} />);
+                                      }
+                                  } 
+                              />
+                                  <Route path={`${publicURL}/staff.html`}
+                                      render={ () => {
+                                          return (<Redirect to={`${publicURL}/staff`} />);
+                                      }
+                                  } 
+                              /> 
+                              {/* <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/> */}
+                          </Switch>
+                        </Fragment> );
+                  // } //end if-statement
+                  // else {
+                  //   return (<p>Loading Portal...</p>);
+                  // }
+                  
+                  case true:
+                    return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
+                  
+                  case AuthenticationState.Unauthenticated:
                     return (
-                      <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
-                        <SimpleStorage parent={this} prefix={"PortalStorage"} />
-                        <Switch>
-                            { // Update routes to use server subdirectory in production
-                              //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
-                            }
-                            {/* TODO: Add logic to redirect to staff/student if you input .html */}
-                            <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
-                                    render={ () => {
-                                        return (<Redirect to={`${publicURL}/staff`} />);
-                                    }
-                                } 
-                            />
-                            <Route path={`${publicURL}/login`} 
-                                  render={ (props) => <LogIn  {...props} 
-                                                              loggedIn={ this.state.loggedIn}
-                                                              fullName={this.state.firstName + " " + this.state.lastName}
-                                                              isStudent={this.state.isStudent}
-                                                              title={this.state.title}
-                                                              renderAsStudent={this.state.renderAsStudent}
-                                                              modifyRenderAsStudent={this.modifyRenderAsStudent}
-                                                              modifyLogInStatus={this.modifyLogInStatus} 
-                                                              modifyStudentStatus={this.modifyStudentStatus}
-                                                              modifyFullName={this.modifyFullName}
-                                                              modifyTitle={this.modifyTitle}
-                                                              modifySite={this.modifySite}
-                                                              changeContainerStyle={this.changeContainerStyle} 
-                                                              clearState={this.clearState}
-                                                        /> 
-                                          } 
-                            />
-                            <PrivateRoute path={`${publicURL}/staff`}
-                                          loggedIn={AuthenticationState.Authenticated}
-                                          fullName={this.state.firstName + " " + this.state.lastName}
-                                          isStudent={this.state.isStudent}
-                                          title={this.state.title}
-                                          site={this.state.site}
-                                          gradeLevel={this.state.gradeLevel}
-                                          renderAsStudent={this.state.renderAsStudent}
-                                          modifyRenderAsStudent={this.modifyRenderAsStudent}
-                                          modifyLogInStatus={this.modifyLogInStatus} 
-                                          modifyStudentStatus={this.modifyStudentStatus}
-                                          modifyFullName={this.modifyFullName}
-                                          modifyTitle={this.modifyTitle}
-                                          modifySite={this.modifySite}
-                                          changeContainerStyle={this.changeContainerStyle} 
-                                          logOut={logout}
-                                          clearState={this.clearState}
-                                          accountInfo={accountInfo}
-                                          modifyRootAccountInfo={this.modifyRootAccountInfo}
-                                          component={ PageContent} 
-                                         
-                                          // renderAsStudent={true}
-                            />
-        
-                            <PrivateRoute path={`${publicURL}/student`}
-                                          loggedIn={AuthenticationState.Authenticated}
-                                          fullName={this.state.firstName + " " + this.state.lastName}
-                                          isStudent={this.state.isStudent}
-                                          title={this.state.title}
-                                          site={this.state.site}
-                                          gradeLevel={this.state.gradeLevel}
-                                          renderAsStudent={this.state.renderAsStudent}
-                                          modifyRenderAsStudent={this.modifyRenderAsStudent}
-                                          modifyLogInStatus={this.modifyLogInStatus} 
-                                          modifyStudentStatus={this.modifyStudentStatus}
-                                          modifyFullName={this.modifyFullName}
-                                          modifyTitle={this.modifyTitle}
-                                          modifySite={this.modifySite}
-                                          changeContainerStyle={this.changeContainerStyle} 
-                                          logOut={logout}
-                                          clearState={this.clearState}
-                                          modifyRootAccountInfo={this.modifyRootAccountInfo}
-                                          accountInfo={accountInfo}
-                                          component={ PageContent} 
-                            />
-                              <Route path={`${publicURL}/student.html`}
-                                    render={ () => {
-                                        return (<Redirect to={`${publicURL}/student`} />);
-                                    }
-                                } 
-                            />
-                                <Route path={`${publicURL}/staff.html`}
-                                    render={ () => {
-                                        return (<Redirect to={`${publicURL}/staff`} />);
-                                    }
-                                } 
-                            /> 
-                            {/* <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/> */}
-                        </Switch>
-                      </StyledContainer> );
-                 // } //end if-statement
-                 // else {
-                 //   return (<p>Loading Portal...</p>);
-                 // }
-                
-                case true:
-                  return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
-                
-                case AuthenticationState.Unauthenticated:
-                  return (
-                    (<LoadingSSOPage error/>)
-                  );
+                      (<LoadingSSOPage error/>)
+                    );
 
-                default: 
-                  return (<LoadingSSOPage message="Signing Out"/>);
-              } //end switch
-          } //function with switch cases
-        }
-      </AzureAD>,
-      <Switch>
-        <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/>
-        <Route component={NotFound} />   
-      </Switch>
-    ]); //end return statement
+                  default: 
+                    return (<LoadingSSOPage message="Signing Out"/>);
+                } //end switch
+            } //function with switch cases
+          }
+        </AzureAD>
+        <Switch>
+          <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/>
+          <Route component={NotFound} />   
+        </Switch>
+      </StyledContainer>); //end return statement
   }
 }
 
