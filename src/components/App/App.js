@@ -346,7 +346,7 @@ class App extends Component {
                               /> 
                                <Route path={`${publicURL}/troubleshooting`} 
                                       render={() => { return (<Troubleshooting/>)}}
-                                // component={Troubleshooting}
+                                
                               />
                               {
                                 (this.state.pathname !== "/student" || window.location.pathname !== "/student") ||
@@ -384,10 +384,10 @@ class App extends Component {
                                   }
                               } 
           />
-          <Route path={`${publicURL}/troubleshooting`} 
+          {/* <Route path={`${publicURL}/troubleshooting`} 
             render={() => { return <Troubleshooting/>}}
             // component={Troubleshooting}
-          />
+          /> */}
         </Switch>
       </StyledContainer>); //end return statement
   }
