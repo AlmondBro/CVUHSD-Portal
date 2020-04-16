@@ -90,7 +90,12 @@ class App extends Component {
   modifyTitle = (newTitle) => {
     console.log("modifyTitle() from App.js");
     this.setState({title: newTitle});  
-  }; //end modifyFullName()
+  }; //end modifyFullName() 
+
+  modifyPathname = (newPathname) => {
+    console.log("modifyPathName() from App.js");
+    this.setState({pathname: newPathname});  
+  };
 
   modifySite = (newSite) => {
     console.log("modifySite() from App.js");
@@ -248,6 +253,7 @@ class App extends Component {
     let publicURL = ""; //process.env.PUBLIC_URL;
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
+        <SimpleStorage parent={this} prefix={"PortalStorage"} />
         <AzureAD provider={authProvider} forceLogin={true}>
           {
             ({ login, logout, accountInfo, authenticationState, error }) => {
@@ -257,7 +263,6 @@ class App extends Component {
                   // if (this.state.title) {
                       return (
                         <Fragment>
-                          <SimpleStorage parent={this} prefix={"PortalStorage"} />
                           <Switch>
                               { // Update routes to use server subdirectory in production
                                 //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
@@ -288,6 +293,7 @@ class App extends Component {
                                             site={this.state.site}
                                             gradeLevel={this.state.gradeLevel}
                                             renderAsStudent={this.state.renderAsStudent}
+                                            modifyPathname={this.modifyPathname}
                                             modifyRenderAsStudent={this.modifyRenderAsStudent}
                                             modifyLogInStatus={this.modifyLogInStatus} 
                                             modifyStudentStatus={this.modifyStudentStatus}
@@ -312,6 +318,7 @@ class App extends Component {
                                             site={this.state.site}
                                             gradeLevel={this.state.gradeLevel}
                                             renderAsStudent={this.state.renderAsStudent}
+                                            modifyPathname={this.modifyPathname}
                                             modifyRenderAsStudent={this.modifyRenderAsStudent}
                                             modifyLogInStatus={this.modifyLogInStatus} 
                                             modifyStudentStatus={this.modifyStudentStatus}
@@ -337,14 +344,17 @@ class App extends Component {
                                       }
                                   } 
                               /> 
-                               {/* {
-                                ( (this.state.pathname !== "/staff") || 
-                                  (this.state.pathname !== "/student")  ||
-                                  (this.state.pathname !== "/troubleshooting") 
-                                ) ?  */}
-                                  ( <Route component={ NotFound} /> )  : null
-                              {/* } */}
-                              {/* <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/> */}
+                               <Route path={`${publicURL}/troubleshooting`} 
+                                      render={() => { return (<Troubleshooting/>)}}
+                                // component={Troubleshooting}
+                              />
+                              {
+                                (this.state.pathname !== "/student" || window.location.pathname !== "/student") ||
+                                (this.state.pathname !== "/staff" || window.location.pathname !== "/student") ||
+                                (this.state.pathname !== "/troubleshooting" || window.location.pathname !== "/troubleshooting") ?   
+                                  (<Route component={ NotFound } /> ) 
+                                    : null
+                              }
                           </Switch>
                         </Fragment> );
                   // } //end if-statement
@@ -374,7 +384,10 @@ class App extends Component {
                                   }
                               } 
           />
-          <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/>
+          <Route path={`${publicURL}/troubleshooting`} 
+            render={() => { return <Troubleshooting/>}}
+            // component={Troubleshooting}
+          />
         </Switch>
       </StyledContainer>); //end return statement
   }
