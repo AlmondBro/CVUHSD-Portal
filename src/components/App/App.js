@@ -57,7 +57,7 @@ class App extends Component {
 
      isStudent: null,
      renderAsStudent: null,
-
+     pathname: "",
       containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
@@ -236,8 +236,11 @@ class App extends Component {
 
   componentDidMount = () => {
    // this.isAuthenticated();
-   this.getUserInfo(); 
+    this.getUserInfo(); 
     console.log("App.js window.location.pathname:\t" + window.location.pathname);
+    console.log("App.js window.location.pathname true student:\t" + (window.location.pathname === "/student") );
+    console.log("Route render window.location.pathname:\t" + window.location.pathname !== "/staff");
+    this.setState({pathname: window.location.pathname});
     //console.log("Graph info:\t" + JSON.stringify(graphInfo) );
   };
 
@@ -322,18 +325,25 @@ class App extends Component {
                                             accountInfo={accountInfo}
                                             component={ PageContent} 
                               />
-                                <Route path={`${publicURL}/student.html`}
+                              <Route path={`${publicURL}/student.html`}
                                       render={ () => {
                                           return (<Redirect to={`${publicURL}/student`} />);
                                       }
                                   } 
                               />
-                                  <Route path={`${publicURL}/staff.html`}
+                              <Route path={`${publicURL}/staff.html`}
                                       render={ () => {
                                           return (<Redirect to={`${publicURL}/staff`} />);
                                       }
                                   } 
                               /> 
+                               {/* {
+                                ( (this.state.pathname !== "/staff") || 
+                                  (this.state.pathname !== "/student")  ||
+                                  (this.state.pathname !== "/troubleshooting") 
+                                ) ?  */}
+                                  ( <Route component={ NotFound} /> )  : null
+                              {/* } */}
                               {/* <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/> */}
                           </Switch>
                         </Fragment> );
@@ -363,9 +373,8 @@ class App extends Component {
                                       return (<Redirect to={`${publicURL}/staff`} />);
                                   }
                               } 
-                          />
+          />
           <Route path={`${publicURL}/troubleshooting`} component={Troubleshooting}/>
-          <Route component={NotFound} />   
         </Switch>
       </StyledContainer>); //end return statement
   }
