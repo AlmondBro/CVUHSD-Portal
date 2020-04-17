@@ -362,16 +362,16 @@ class App extends Component {
                   //   return (<p>Loading Portal...</p>);
                   // }
                   
-                  case true:
+                  case AuthenticationState.Unauthenticated:
                     return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
                   
-                  case AuthenticationState.Unauthenticated:
+                  case AuthenticationState.Error:
                     return (
                       (<LoadingSSOPage error/>)
                     );
 
                   default: 
-                    return (<LoadingSSOPage message="Signing Out"/>);
+                    return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
                 } //end switch
             } //function with switch cases
           }
