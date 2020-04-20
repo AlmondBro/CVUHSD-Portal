@@ -25,7 +25,7 @@ import isDev from 'isdev';
 
 //TODO: Figure out why bullet point is not rendering
 
-const NavigationBar = ({modifyLogInStatus, clearState, logOut, ...props}) => {
+const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, logOut, ...props}) => {
     const  [modalIsOpen, setIsOpen] = useState(false);
 
     let signOutClearState = () => {
@@ -152,7 +152,12 @@ const NavigationBar = ({modifyLogInStatus, clearState, logOut, ...props}) => {
                                 }
                                 renderAsStudent={props.renderAsStudent}
                                 bulletPointInMobile={true} 
-                                title={(props.location.pathname === "/staff") ? "Student Portal" : "Staff Portal"}           
+                                title={(props.location.pathname === "/staff") ? "Student Portal" : "Staff Portal"}        
+                                onClick={ () => {
+                                        console.log("NavBarListItemLi");
+                                        modifyRenderAsStudent(!props.renderAsStudent);
+                                    }
+                                }
                             >
                             
                                 <FontAwesomeIcon icon={(props.location.pathname === "/staff") ? student : user} className="icon"/> Portal 

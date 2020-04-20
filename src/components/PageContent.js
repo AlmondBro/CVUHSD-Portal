@@ -1,9 +1,7 @@
 import React, { Fragment, Component } from "react";
 
-import { authProvider_noDomainHint  } from './../authProvider.js';
-
 //Import 3rd party modules
-import ReactLoading from 'react-loading';
+import ReactLoading from "react-loading";
 import styled from "styled-components";
 
 //Import App components
@@ -13,7 +11,7 @@ import Header from "./Header/Header.js";
 //Import list of buttons
 import { blueSectionInfo_Staff , redSectionInfo_Student} from "./../objectFiles/blueSectionInfo.js";
 
-import undefsafe from 'undefsafe';
+import undefsafe from "undefsafe";
 
 //TODO: Bug -- Changing from the staff to the student portal does not change the page title.
 //TODO: Save passed props from <Redirect> into state.
@@ -66,7 +64,7 @@ class PageContent extends Component {
         console.log("PageContent.js window.location.pathname:\t" + window.location.pathname);
 
         this.setState({pathName: window.location.pathname});
-        if (this.props.title === "student" || this.props.location.state.renderAsStudent === "true" || window.location.pathname === "/student") {
+        if (this.props.title === "student" || undefsafe(this.props.location, "state", "renderAsStudent") == "true" || window.location.pathname === "/student") {
             document.title = "CVUHSD | Student Portal"
         } else {
             document.title = "CVUHSD | Staff Portal"
@@ -75,11 +73,11 @@ class PageContent extends Component {
 
     componentDidUpdate = () => {
         if (this.props.title.toLowerCase() === "student" ||  undefsafe(this.props.location, "state", "renderAsStudent") == "true" || window.location.pathname === "/student") {
-            document.title = "CVUHSD | Student Portal"
+            document.title = "CVUHSD | Student Portal";
         } else {
-            document.title = "CVUHSD | Staff Portal"
+            document.title = "CVUHSD | Staff Portal";
         }
-    };
+    }; //end componentDidUpdate
     
     render = () => {
         let sectionInfoObject;
@@ -103,6 +101,7 @@ class PageContent extends Component {
                             //modifyLogInStatus={ this.modifyLogInStatus }
                             modifyTitle={this.modifyTitle}
                             modifySite={this.modifySite}
+                            modifyRenderAsStudent={this.props.modifyRenderAsStudent}
                             logOut={this.props.logOut}
                             clearState={this.props.clearState}
                             renderAsStudent={(window.location.pathname === "/student")}

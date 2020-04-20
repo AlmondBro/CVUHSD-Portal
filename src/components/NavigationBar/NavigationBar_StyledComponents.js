@@ -205,9 +205,9 @@ let NavBar = styled.nav`
         }
     `; //end LogOut Button
 
-    let NavBarListItem_Link = ({to, children, ...props}) => {
+    let NavBarListItem_Link = ({to, children, onClick, ...props}) => {
         return (
-            <li>
+            <li onClick={onClick}>
                 <Link to={to} {...props}>
                     { children }
                 </Link>
@@ -270,6 +270,7 @@ let NavBar = styled.nav`
                     districtPosition={props.districtPosition}
                     renderAsStudent={props.renderAsStudent}
                     title={props.title}
+                    onClick={props.onClick}
                 >
                     
                     {props.linkName || props.children}
@@ -282,6 +283,7 @@ let NavBar = styled.nav`
                     <NavBarListItem href={props.href || null} 
                                     districtPosition={props.districtPosition}
                                     renderAsStudent={props.renderAsStudent}
+                                    onClick={props.onClick}
                     >
                         {props.linkName || props.children}
                     </NavBarListItem>

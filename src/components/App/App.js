@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from 'react';
 
+import isDev from 'isdev';
+import undefsafe from "undefsafe";
+
 import { AzureAD, AuthenticationState } from 'react-aad-msal';
 import { authProvider, authProvider_noDomainHint } from './../../authProvider.js';
 
@@ -7,8 +10,6 @@ import { authProvider, authProvider_noDomainHint } from './../../authProvider.js
 import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
 import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
 import PageContent from "../PageContent.js";
-
-import isDev from 'isdev';
 
 import {  Redirect } from 'react-router'
 import { Route, Switch } from "react-router-dom";
@@ -35,7 +36,9 @@ import SimpleStorage, { resetParentState, clearStorage } from "react-simple-stor
 //TODO: Create "SSO Page Loading" page/component to display while it is loading
 //TODO: Have the NavBar links be a lighter color of the student/staff theme color when hovered over
 //TODO: Extra thing: Add user profile picture: https://sharepoint.stackexchange.com/questions/215659/how-to-fetch-user-profile-image-from-azure-active-directory-from-sharepoint-onli
-//TODO: The hover in the 'All links' in the navba
+//TODO: The hover in the 'All links' in the navbar
+//TODO: Fullname state property even logged in as a student still displays the old name
+//TODO: Change nav links hover color to same hover color as the logout button
 class App extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +59,7 @@ class App extends Component {
       phoneNumber: "",
 
      isStudent: null,
-     renderAsStudent: null,
+     renderAsStudent: false,
      pathname: "",
       containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
@@ -249,8 +252,14 @@ class App extends Component {
     //console.log("Graph info:\t" + JSON.stringify(graphInfo) );
   };
 
+  componentDidUpdate = () => {
+
+  }; //end componentDidUpdate
+
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;
+    let defaultURL = ( window.location.pathname === "/student" || (this.state.title.toLowerCase() === "student" ) || undefsafe(this.props.location, "state", "renderAsStudent") == "true" ) ? "student" : "staff";
+    console.log("defaultURL:\t" + defaultURL);
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
@@ -285,7 +294,7 @@ class App extends Component {
                                                           /> 
                                             } 
                               />
-                              <PrivateRoute path={`${publicURL}/staff`}
+                              <PrivateRoute path={`${publicURL}/${defaultURL}`}
                                             loggedIn={AuthenticationState.Authenticated}
                                             fullName={this.state.firstName + " " + this.state.lastName}
                                             isStudent={this.state.isStudent}
@@ -309,28 +318,18 @@ class App extends Component {
                                           
                                             // renderAsStudent={true}
                               />
-          
-                              <PrivateRoute path={`${publicURL}/student`}
-                                            loggedIn={AuthenticationState.Authenticated}
-                                            fullName={this.state.firstName + " " + this.state.lastName}
-                                            isStudent={this.state.isStudent}
-                                            title={this.state.title}
-                                            site={this.state.site}
-                                            gradeLevel={this.state.gradeLevel}
-                                            renderAsStudent={this.state.renderAsStudent}
-                                            modifyPathname={this.modifyPathname}
-                                            modifyRenderAsStudent={this.modifyRenderAsStudent}
-                                            modifyLogInStatus={this.modifyLogInStatus} 
-                                            modifyStudentStatus={this.modifyStudentStatus}
-                                            modifyFullName={this.modifyFullName}
-                                            modifyTitle={this.modifyTitle}
-                                            modifySite={this.modifySite}
-                                            changeContainerStyle={this.changeContainerStyle} 
-                                            logOut={logout}
-                                            clearState={this.clearState}
-                                            modifyRootAccountInfo={this.modifyRootAccountInfo}
-                                            accountInfo={accountInfo}
-                                            component={ PageContent} 
+
+                              <Route path={`${publicURL}/staff`}
+                                      render={ () => {
+                                          return (<Redirect to={`${publicURL}/${defaultURL}`} />);
+                                      }
+                                  } 
+                              />
+                              <Route path={`${publicURL}/student`}
+                                      render={ () => {
+                                          return (<Redirect to={`${publicURL}/${defaultURL}`} />);
+                                      }
+                                  } 
                               />
                               <Route path={`${publicURL}/student.html`}
                                       render={ () => {
