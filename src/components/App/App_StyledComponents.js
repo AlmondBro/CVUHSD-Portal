@@ -20,12 +20,7 @@ let StyledContainer = styled(ModifiedContainer)`
     /*  background: -moz-linear-gradient(top,  #4177a3 0%, #182c3d 100%); FF3.6-15 */
     /* background: -webkit-linear-gradient(top,  #4177a3 0%,#182c3d 100%);  Chrome10-25,Safari5.1-6 */
     /* background: linear-gradient(to bottom,  #4177a3 0%,#182c3d 100%);  W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  
-    background-image: ${props => props.containerStyle["background-image"] || `url("./images/district-office-blueBG.jpg")` };
-    background-repeat: ${props => props.containerStyle["background-repeat"] || `no-repeat` };
-    background-size: ${props => props.containerStyle["background-size"] || `cover` };
-  
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4177a3', endColorstr='#182c3d',GradientType=0 ); /* IE6-9 */
+    /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4177a3', endColorstr='#182c3d',GradientType=0 ); IE6-9 */
   
     height: 100%;
     && { /*Overrode class style */
@@ -38,6 +33,20 @@ let StyledContainer = styled(ModifiedContainer)`
         {props.styledContainer}
       `}
     }
-  `;
+
+    ::after {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+
+
+      background-image: ${props => props.containerStyle["background-image"] || `url("./images/cvuhsd-allStudents-ready.jpg")` };
+      background-repeat: ${props => props.containerStyle["background-repeat"] || `no-repeat` };
+      background-size: ${props => props.containerStyle["background-size"] || `cover` };
+  
+
+      opacity: 0.2;
+    }
+  `; //end StyledContainer
 
 export { StyledContainer }
