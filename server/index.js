@@ -30,6 +30,8 @@ const uuidv4 = require("uuid/v4"); //Random uuID
 
 const undefsafe = require("undefsafe");
 
+const AD = require("ad");
+
 const app = express(); 
 
 //TODO: Change all requires() to imports
@@ -42,7 +44,20 @@ const app = express();
 
 const port = process.env.PORT || 3001; 
 
+//const { activeDirectory } = require("./config/passport.js");
+ 
+
+let ad_config = {
+  url: process.env.ADFS_SERVER_URL,
+  user: process.env.ADFS_USER_NAME,
+  pass: process.env.ADFS_USER_PASSWORD
+};
+
+const activeDirectory = new AD(ad_config);
+
 require("./config/passport.js"); //require passport configuration
+
+
 
 /*
 app.use(cors({
@@ -184,7 +199,8 @@ let passportAuthentication_options = {  failWithError: true,
                                         failureFlash: true 
                                     }
 
-//The following is a function that parses the string value from the 'dn' category and extracts the key value pairs
+/*The following is a function that parses the string value from the 'dn' category 
+and extracts the key value pairs */
 let getSite = (dnString) => {
   let site = "CVUHSD";
   let dnKeyValueObject = {}; //Initialize key-value object. Will contain the OUs
@@ -219,7 +235,7 @@ app.post(logIn_URL,
    (req, res, next) => {
     // call passport authentication passing the "local" strategy name and a callback function
     ////Can use ActiveDirectory, saml, wsfed-saml2 all as authentication strategies 
-    passport.authenticate('saml', passportAuthentication_options,  (error, user, info) => {
+    passport.authenticate('ActiveDirectory', passportAuthentication_options,  (error, user, info) => {
       // this will execute in any case, even if a passport strategy will find an error
       // log everything to 
       
@@ -302,7 +318,7 @@ app.get(isAuth_URL, (req, res) => {
   }
 });
 
-let getIP_URL = `${isDev ? "" : "/server" }/getIP`
+let getIP_URL = `${isDev ? "" : "/server" }/getIP`;
 app.get(getIP_URL, (req, res) => {
   //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
   //let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
@@ -311,6 +327,47 @@ app.get(getIP_URL, (req, res) => {
   res.end(IP);
 });
 
+let changePassword_URL = `${isDev ? "" : "/server" }/change-password`;
+
+let asyncChangePassword = async (req, res, next) =>  {
+  //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
+  //let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
+
+  console.log((req.body));
+  let { userName, password, newPassword } = req.body;
+
+  console.log("userName:\t" + userName);
+  
+  console.log("New password:\t" + newPassword);
+
+  let changePasswordSuccess;
+  let waitInterval = 2200;
+
+  let changePassword = async (userName) => {
+      console.log("changePassword");
+      changePasswordSuccess = await activeDirectory.user(user).password(userName, password);
+
+      setTimeout(() => console.log(changePasswordSuccess), waitInterval); 
+  };
+
+  if (req.user) {
+    console.log("\nCurrently Authenticated");
+
+    res.json({"Authenticated": true, "message": "Currently authenticated"});
+
+    ((async () => { await activeDirectory.user(userName).authenticate(password)  })()) ? changePassword(userName) : null;
+
+  } else {
+    console.log("\Not Authenticated");
+    res.json({"Authenticated": false});
+    return;
+  }
+  next();
+}
+
+app.post(changePassword_URL, asyncChangePassword, (req, res) => {
+  console.log("Change password.");
+});
 
 /*
   In Express, 404 responses are not the result of an error, so the 

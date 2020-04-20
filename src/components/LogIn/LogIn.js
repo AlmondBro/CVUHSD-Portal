@@ -71,7 +71,7 @@ class LogIn extends Component {
 
         setTimeout((response) => {
             //browserHistory.push("/page-content");
-            console.log("Initiating timeout...");
+            //console.log("Initiating timeout...");
             this.props.modifyLogInStatus(newStatus);
             return response;
         }, 300);
@@ -226,6 +226,7 @@ class LogIn extends Component {
                         console.log("Error & Response:\t" + JSON.stringify(response));
                         console.log("Response:\t" + JSON.stringify(response) ); //a response does not appear to be a
                         console.log(response);
+                        
                         
                         this.modifyLogInStatus(false);
                         this.setState({ isLoading: false,

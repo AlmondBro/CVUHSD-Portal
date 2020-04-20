@@ -24,7 +24,11 @@ import isDev from 'isdev';
 //TODO: Figure out why bullet point is not rendering
 
 const NavigationBar = ({modifyLogInStatus, ...props}) => {
-    const  [clickModal, setIsOpen] = useState(false);
+    const  [modalIsOpen, setIsOpen] = useState(false);
+
+    let toggleModal = (toggleValue) => {
+        setIsOpen(toggleValue);
+    }; //end toggleModal
 
     let generateNavBarListItems = (listItemsArray) => {
         return listItemsArray.map(
@@ -91,7 +95,11 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
    //TODO: Look at image link. It should redirect to the student or staff portal.
     return ([
         <NavBar className="navigation-bar" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
-            <NavBarImageWrapper  className="navigation-bar-image-wrapper" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
+            <NavBarImageWrapper 
+                className="navigation-bar-image-wrapper" 
+                districtPosition={props.districtPosition} 
+                renderAsStudent={props.renderAsStudent}
+            >
                 <Link   to="/" 
                         className="navbar-logo-link"
                 >
@@ -163,11 +171,12 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                                     title={"Change Password"} 
                                     districtPosition={props.districtPosition}
                                     renderAsStudent={props.renderAsStudent}
-                                    onClick={() => {console.log("Click open modal"); setIsOpen(true); console.log(`clickModal:\t ${clickModal}`) } }
+                                    onClick={() => toggleModal(true) }
                             >
-                                <object type="image/svg+xml" 
-                                    data="/images/icons/change-password.svg" 
-                                    className="change-password-icon svg-inline--fa fa-w-16 icon"
+                                <object 
+                                     type="image/svg+xml" 
+                                     data="/images/icons/change-password.svg" 
+                                     className="change-password-icon svg-inline--fa fa-w-16 icon"
                                 >
                                     Change Password
                                 </object>
@@ -206,7 +215,14 @@ const NavigationBar = ({modifyLogInStatus, ...props}) => {
                 </NavBarListItemLi>
             </NavBarUL>
         </NavBar>,
-        <ChangePassword clickModal={clickModal}/>
+        <ChangePassword 
+            modalIsOpen={modalIsOpen}
+            toggleModal={toggleModal}
+
+            districtPosition={props.districtPosition}
+            renderAsStudent={props.renderAsStudent}
+            {...props}
+        />
     ]);
 }; //end NavigationBar();
 
