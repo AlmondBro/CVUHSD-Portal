@@ -19,7 +19,7 @@ import { StyledContainer } from "./App_StyledComponents.js";
 
 //Import pages
 import LogIn from "./../LogIn/LogIn.js";
-import NotFound from './../NotFound.js';
+import NotFound from "./../NotFound/NotFound.js";
 
 import PrivateRoute from "./../PrivateRoute.js";
 
