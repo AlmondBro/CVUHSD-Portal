@@ -34,8 +34,8 @@ import SimpleStorage, { resetParentState, clearStorage } from "react-simple-stor
 //TODO: Eliminate the flashing when going into the login page
 //TODO: Create "SSO Page Loading" page/component to display while it is loading
 //TODO: Have the NavBar links be a lighter color of the student/staff theme color when hovered over
-
-
+//TODO: Extra thing: Add user profile picture: https://sharepoint.stackexchange.com/questions/215659/how-to-fetch-user-profile-image-from-azure-active-directory-from-sharepoint-onli
+//TODO: The hover in the 'All links' in the navba
 class App extends Component {
   constructor(props) {
     super(props);
