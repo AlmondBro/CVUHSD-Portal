@@ -71,7 +71,14 @@ class PageContent extends Component {
         } else {
             document.title = "CVUHSD | Staff Portal"
         }
+    };//end componentDidMount
 
+    componentDidUpdate = () => {
+        if (this.props.title.toLowerCase() === "student" ||  undefsafe(this.props.location, "state", "renderAsStudent") == "true" || window.location.pathname === "/student") {
+            document.title = "CVUHSD | Student Portal"
+        } else {
+            document.title = "CVUHSD | Staff Portal"
+        }
     };
     
     render = () => {

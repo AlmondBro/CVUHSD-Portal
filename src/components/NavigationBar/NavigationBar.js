@@ -152,7 +152,7 @@ const NavigationBar = ({modifyLogInStatus, clearState, logOut, ...props}) => {
                                 }
                                 renderAsStudent={props.renderAsStudent}
                                 bulletPointInMobile={true} 
-                                title={(props.location.pathname === "/staff") ? "Student Portal" : "Staff Portal"}                 
+                                title={(props.location.pathname === "/staff") ? "Student Portal" : "Staff Portal"}           
                             >
                             
                                 <FontAwesomeIcon icon={(props.location.pathname === "/staff") ? student : user} className="icon"/> Portal 
