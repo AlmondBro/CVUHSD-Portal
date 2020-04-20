@@ -182,6 +182,13 @@ let NavBar = styled.nav`
                         "#A01C1C": "#3B709A"
                 };
         text-decoration: none;
+
+        &:hover, &:active, &:focus {
+            color: ${ props => 
+                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                        "#BD2222": "#2588B9"
+                };
+        }
     `; 
 
     let NavBarButton = styled("button")`
@@ -228,7 +235,7 @@ let NavBar = styled.nav`
         :hover {
             color: ${ props => 
                     ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                        "#931E1E": "#0056B3"
+                        "#BD2222": "#2588B9"
                 };
         }
 
