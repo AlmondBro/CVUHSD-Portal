@@ -57,11 +57,11 @@ let NavBar = styled.nav`
 
         @media only screen and (min-width: 1185px) { 
           &::after {
-                content: 'Centinela Valley Union High School District';
-                display: inline;
+                content: "Centinela Valley Union High School District";
+                display: ${props => (props.districtPosition) ? "inline" : "none"};
 
                 color: ${ props => 
-                            (props.districtPosition === ("student") || props.renderAsStudent) ? 
+                            (props.districtPosition === ("Student") || props.renderAsStudent) ? 
                                 "#931E1D": "#1E6C93"
                         };
                 transition: color 0.5s;
@@ -101,6 +101,17 @@ let NavBar = styled.nav`
         right: 0px;
         padding-right: 2.5%;
     `; //end NavBarUL
+
+    
+    let NavBarUL_Loading = styled("div")`
+        position: absolute;
+        top: 50%;
+        margin-top: -0.5em;
+        left: 50%;
+        padding-right: 2.5%;
+        /* width: 100%; */
+        overflow: hidden;
+    `; //end NavBarUL_Loading
 
     let MenuToggle = styled.input`
         display: none;
@@ -151,12 +162,12 @@ let NavBar = styled.nav`
         transition: 0.4s;
 
         background-color: ${ props => 
-                                ( (props.districtPosition === "student") || props.renderAsStudent ) ? 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
                                     "#931E1D": "#1E6C93"
                             };
         
         color: ${ props => 
-                                ( (props.districtPosition === "student") || props.renderAsStudent ) ? 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
                                     "#931E1D": "#1E6C93"
                             };
         transition: background-color 0.5s, color 0.5s;
@@ -167,17 +178,24 @@ let NavBar = styled.nav`
     //TODO: Move this rule "upward"
     let NavBarListItem = styled("a")`
         color: ${ props => 
-                    ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                         "#A01C1C": "#3B709A"
                 };
         text-decoration: none;
+
+        &:hover, &:active, &:focus {
+            color: ${ props => 
+                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                        "#BD2222": "#2588B9"
+                };
+        }
     `; 
 
     let NavBarButton = styled("button")`
         font-size: 0.9em;
         color: white;
         background-color: ${ props => 
-                                ( (props.districtPosition === "student") || props.renderAsStudent ) ? 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
                                     "#931E1D": "#1E6C93"
                             };
         padding: 0.5em 0.7em;
@@ -188,15 +206,15 @@ let NavBar = styled.nav`
 
         &:hover {
             background-color: ${ props => 
-                                ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                                     "#BD2222": "#2588b9"
                             };
         }
     `; //end LogOut Button
 
-    let NavBarListItem_Link = ({to, children, ...props}) => {
+    let NavBarListItem_Link = ({to, children, onClick, ...props}) => {
         return (
-            <li>
+            <li onClick={onClick}>
                 <Link to={to} {...props}>
                     { children }
                 </Link>
@@ -207,18 +225,25 @@ let NavBar = styled.nav`
     let NavBarListItem_StyledLink = styled(NavBarListItem_Link)`
         font-size: 1.1em;
         color: ${ props => 
-                    ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                         "#A01C1C": "#3B709A"
                 };
         transition: color 0.5s;
         
         text-decoration: none;
 
+        :hover {
+            color: ${ props => 
+                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                        "#BD2222": "#2588B9"
+                };
+        }
+
         @media only screen and (max-width: 705px) { 
             &&>li~li::before {
                 content: ${props => props.bulletPointInMobile ? "•" : null };
                 margin-right: 8px;
-                color: ${ props => ((props.districtPosition === "student") || props.renderAsStudent) ? 
+                color: ${ props => ((props.districtPosition === "Student") || props.renderAsStudent) ? 
                             "#931E1D" : "#154963"
                 };
                 transition: color 0.5s;
@@ -233,7 +258,7 @@ let NavBar = styled.nav`
             &&>li~li::before {
                 content: ${props => props.bulletPointInMobile ? "•" : null };
                 margin-right: 8px;
-                color: ${ props => ((props.districtPosition === "student") || props.renderAsStudent) ? 
+                color: ${ props => ((props.districtPosition === "Student") || props.renderAsStudent) ? 
                             "#931E1D" : "#154963"
                 };
             transition: color 0.5s;
@@ -252,6 +277,7 @@ let NavBar = styled.nav`
                     districtPosition={props.districtPosition}
                     renderAsStudent={props.renderAsStudent}
                     title={props.title}
+                    onClick={props.onClick}
                 >
                     
                     {props.linkName || props.children}
@@ -264,6 +290,7 @@ let NavBar = styled.nav`
                     <NavBarListItem href={props.href || null} 
                                     districtPosition={props.districtPosition}
                                     renderAsStudent={props.renderAsStudent}
+                                    onClick={props.onClick}
                     >
                         {props.linkName || props.children}
                     </NavBarListItem>
@@ -273,7 +300,7 @@ let NavBar = styled.nav`
         
     };
 
-export { NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, MenuToggle, 
+export { NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, NavBarUL_Loading, MenuToggle, 
          NavMenuIcon, FirstBar, NavBarListItem, NavBarButton, NavBarListItem_Link, 
          NavBarListItem_StyledLink, NavBarListItem_Li, NavBarListItemLi 
         }

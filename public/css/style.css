@@ -584,3 +584,8 @@ p.tut-descr a.tutRef {
 }
 
 
+/* */
+.coffee-row {
+    position: relative;
+    margin: 0 auto;
+  }

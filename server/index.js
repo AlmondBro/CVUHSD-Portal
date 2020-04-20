@@ -327,8 +327,28 @@ app.get(getIP_URL, (req, res) => {
   res.end(IP);
 });
 
-let changePassword_URL = `${isDev ? "" : "/server" }/change-password`;
 
+const getOU_URL = `${isDev ? "" : "/server" }/getOU`;
+let getOU = async (req, res, next) =>  {
+
+  console.log("getOu()");
+
+  let userLocation = "";
+
+  let { user } = req.body;
+  
+  console.log("User\t" + user);
+
+  
+  userLocation = await activeDirectory.user(user).location();
+
+  let waitInterval = 2000; //2k milliseconds -- 2 seconds
+  setTimeout(() => { res.json(userLocation); console.log("userLocation:\t" + userLocation); }, waitInterval); 
+};
+
+app.post(getOU_URL, getOU);
+
+let changePassword_URL = `${isDev ? "" : "/server" }/change-password`;
 let asyncChangePassword = async (req, res, next) =>  {
   //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
   //let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
@@ -345,7 +365,9 @@ let asyncChangePassword = async (req, res, next) =>  {
 
   let changePassword = async (userName) => {
       console.log("changePassword");
-      changePasswordSuccess = await activeDirectory.user(user).password(userName, password);
+      //changePasswordSuccess = await activeDirectory.user(user).password(userName, password);
+
+      changePasswordSuccess = await ad.user('v.mejia205').location();
 
       setTimeout(() => console.log(changePasswordSuccess), waitInterval); 
   };

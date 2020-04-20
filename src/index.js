@@ -11,6 +11,13 @@ import * as serviceWorker from './serviceWorker.js';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import path from "path";
+
+import dotenv from "dotenv";
+dotenv.config({ path: path.join( __dirname, "./.env" ), 
+          debug: true}); //Load environmental variables
+
+
 /*  Basename doc from React Training: 
     The base URL for all locations. If your app is served from a sub-directory on your server, 
     you’ll want to set this to the sub-directory. A properly formatted basename should have \
@@ -20,9 +27,9 @@ let subDirectory = false;
 let baseName = isDev ? "" : (subDirectory ? "/build" : ""); 
 
 ReactDOM.render(
-    <Router basename={baseName}>
-        <App />
-    </Router>
+        <Router basename={baseName}>
+            <App />
+        </Router>
     , document.getElementById("root")
 );
 

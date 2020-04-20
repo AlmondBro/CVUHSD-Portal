@@ -1,9 +1,15 @@
-import React, { Component } from 'react';
-
-//Import components
-import PageContent from "../PageContent.js";
+import React, { Component, Fragment } from 'react';
 
 import isDev from 'isdev';
+import undefsafe from "undefsafe";
+
+import { AzureAD, AuthenticationState } from 'react-aad-msal';
+import { authProvider, authProvider_noDomainHint } from './../../authProvider.js';
+
+//Import components
+import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
+import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
+import PageContent from "../PageContent.js";
 
 import {  Redirect } from 'react-router'
 import { Route, Switch } from "react-router-dom";
@@ -17,7 +23,7 @@ import NotFound from './../NotFound.js';
 
 import PrivateRoute from "./../PrivateRoute.js";
 
-import SimpleStorage, { resetParentState } from "react-simple-storage";
+import SimpleStorage, { resetParentState, clearStorage } from "react-simple-storage";
 
 
 //TODO: Have /staff.html redirect to /staff
@@ -27,31 +33,34 @@ import SimpleStorage, { resetParentState } from "react-simple-storage";
 //TODO: Fix Dashboard "digial" typon on quick links buttons
 //TODO: Have a different link for the student and staff portals
 //TODO: Eliminate the flashing when going into the login page
-
+//TODO: Create "SSO Page Loading" page/component to display while it is loading
+//TODO: Have the NavBar links be a lighter color of the student/staff theme color when hovered over
+//TODO: Extra thing: Add user profile picture: https://sharepoint.stackexchange.com/questions/215659/how-to-fetch-user-profile-image-from-azure-active-directory-from-sharepoint-onli
+//TODO: The hover in the 'All links' in the navbar
+//TODO: Fullname state property even logged in as a student still displays the old name
+//TODO: Change nav links hover color to same hover color as the logout button
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     loggedIn: null,
-
+      loggedIn: "",
+      accountInfo: "",
+      organizationalUnit: "",
      //TODO: Eliminate redudant fullName and first/lastName from state
-      userInfo: {
-          firstName: "",
-          lastName: "",
-          title: "",
-          site: "",
-          email: "",
-          isStudent: null
-      },
-
+  
       firstName: "",
       lastName: "",
       fullName: "",
       title: "",
       site: "",
+      school: null,
+      gradeLevel: null,
+      email: "",
+      phoneNumber: "",
 
      isStudent: null,
-
+     renderAsStudent: false,
+     pathname: "",
       containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
@@ -84,18 +93,30 @@ class App extends Component {
   modifyTitle = (newTitle) => {
     console.log("modifyTitle() from App.js");
     this.setState({title: newTitle});  
-  }; //end modifyFullName()
+  }; //end modifyFullName() 
+
+  modifyPathname = (newPathname) => {
+    console.log("modifyPathName() from App.js");
+    this.setState({pathname: newPathname});  
+  };
 
   modifySite = (newSite) => {
     console.log("modifySite() from App.js");
     this.setState({site: newSite});  
   }; //end modifyFullName()
 
+  modifyRenderAsStudent = (newRenderAsStudent) => { 
+    this.setState({renderAsStudent: newRenderAsStudent});
+  };
 
   //TODO: Pass this function down to the logOut() function
   clearState = () => {
     //clearStorage("PortalStorage");
     resetParentState(this, this.initialState);
+  };
+
+  logOut = () => {
+    this.clearState();
   };
 
   isAuthenticated = () => {
@@ -127,87 +148,251 @@ class App extends Component {
     });
 };
 
-  componentDidMount = () => {
-    this.isAuthenticated();
+  modifyRootAccountInfo = (newAccountInfo) => {
+    console.log("updateRootAccountInfo()");
+    this.setState({accountInfo: newAccountInfo});
   };
+
+  getUserInfo = async () => {
+    console.log("getUserInfo()");
+
+    const token = await authProvider_noDomainHint.getAccessToken();
+
+    let getStudentSchool = () => {
+      console.log("getStudentSchool()");
+
+      let parseOUforSchool = (organizationalUnit) => {
+        console.log("parseOUforSchool()");
+        let splitDirectoriesArray = organizationalUnit.split("/");
+
+        let school = splitDirectoriesArray[1];
+        let gradeLevel = splitDirectoriesArray[2];
+
+        console.log("splitDirectoriesArray:\t" + splitDirectoriesArray);
+        this.setState({site: school, gradeLevel: gradeLevel});
+      }; //end parseOUforSchool()
+
+      const getOU_URL = `${isDev ? "" : "/server" }/getOU`; 
+
+      const getOU_headers = {
+          'Content-Type': 'application/json',
+          'credentials': 'include',
+          'Access-Control-Allow-Origin': '*',
+      };
+  
+      let OU = fetch(getOU_URL, {
+          method: 'POST',
+          headers: getOU_headers,
+          body: JSON.stringify({user: this.state.email})
+      }).then((response) => {
+          return response.json();     //Parse the JSON of the response
+      }).then((OU) => {
+        parseOUforSchool(OU);
+        this.setState({organizationalUnit:  OU})
+      }).catch((error) => {
+          console.error(`Catching error:\t ${error}`);
+      });
+    }; //end getStudentSchool
+
+    let getGraphInfo = async () => {
+      const headers = new Headers({ 
+        'Authorization': `Bearer ${token.accessToken}`,  
+        'Content-Type': 'application/json'
+      });
+
+      const options = {
+        method: "GET",
+        headers: headers
+      };
+
+      let graphInfo = await fetch(`https://graph.microsoft.com/v1.0/me`, options)
+        .then(response =>  response.json() )
+        .then(graphInfo => {
+          this.setState({graphInfo: (graphInfo)});
+          this.setState({firstName: graphInfo.givenName}); //Set the first name in the state
+          this.setState({lastName: graphInfo.surname});  //Set the last name in the state
+          this.setState({ email: graphInfo.mail});
+          
+          
+          if (graphInfo.jobTitle) {
+            this.setState({title: graphInfo.jobTitle}); 
+          }
+
+          if ( (graphInfo.jobTitle !== "Student" || this.state.title !== "Student" ) && graphInfo.officeLocation) {
+            this.setState({site: graphInfo.officeLocation}); 
+          } else {
+            //TODO: Call API to get the OU and parse it
+            this.setState({isStudent: true});
+            getStudentSchool();
+          }
+
+          if (graphInfo.businessPhones) {
+            this.setState({phoneNumber: graphInfo.businessPhones[0]}); 
+          }
+
+
+        })
+        .catch(response => {
+          this.setState({graphInfo: response.text()});
+          throw new Error(response.text());
+        });
+    }; //end getGraphInfo()
+    
+    getGraphInfo();
+
+  }; //end getUserInfo()
+
+  componentDidMount = () => {
+   // this.isAuthenticated();
+    this.getUserInfo(); 
+    console.log("App.js window.location.pathname:\t" + window.location.pathname);
+    console.log("App.js window.location.pathname true student:\t" + (window.location.pathname === "/student") );
+    console.log("Route render window.location.pathname:\t" + window.location.pathname !== "/staff");
+    this.setState({pathname: window.location.pathname});
+
+   
+    //console.log("Graph info:\t" + JSON.stringify(graphInfo) );
+  };
+
+  componentDidUpdate = () => {
+ 
+  }; //end componentDidUpdate
 
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;
+
+    let defaultURL = ( window.location.pathname === "/student" || (this.state.title.toLowerCase() === "student" ) || undefsafe(this.props.location, "state", "renderAsStudent") == "true" ) ? "student" : "staff";
+    console.log("defaultURL:\t" + defaultURL);
+
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
-        <Switch>
-            { // Update routes to use server subdirectory in production
-              //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
-            }
-            {/* TODO: Add logic to redirect to staff/student if you input .html */}
-            <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
-                    render={ () => {
-                        return (<Redirect to={`${publicURL}/login`} />);
-                    }
-                } 
-            />
-            <Route path={`${publicURL}/login`} 
-                  render={ (props) => <LogIn  {...props} 
-                                              loggedIn={ this.state.loggedIn}
-                                              fullName={this.state.fullName}
-                                              isStudent={this.state.isStudent}
-                                              title={this.state.title}
-                                              modifyLogInStatus={this.modifyLogInStatus} 
-                                              modifyStudentStatus={this.modifyStudentStatus}
-                                              modifyFullName={this.modifyFullName}
-                                              modifyTitle={this.modifyTitle}
-                                              modifySite={this.modifySite}
-                                              changeContainerStyle={this.changeContainerStyle} 
-                                        /> 
-                          } 
-            />
-            <PrivateRoute path={`${publicURL}/staff`}
-                          loggedIn={this.state.loggedIn}
-                          fullName={this.state.fullName}
-                          isStudent={this.state.isStudent}
-                          title={this.state.title}
-                          site={this.state.site}
-                          modifyLogInStatus={this.modifyLogInStatus} 
-                          modifyStudentStatus={this.modifyStudentStatus}
-                          modifyFullName={this.modifyFullName}
-                          modifyTitle={this.modifyTitle}
-                          modifySite={this.modifySite}
-                          changeContainerStyle={this.changeContainerStyle} 
-                          component={ PageContent} 
-                          // renderAsStudent={true}
-            />
+        <AzureAD provider={authProvider} forceLogin={true}>
+          {
+            ({ login, logout, accountInfo, authenticationState, error }) => {
+              //console.log("Account info:\t" + JSON.stringify(accountInfo));
+                switch (authenticationState) {
+                  case AuthenticationState.Authenticated:
+                  // if (this.state.title) {
+                      return (
+                        <Fragment>
+                          <Switch>
+                              { // Update routes to use server subdirectory in production
+                                //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
+                              }
+                              <Route path={`${publicURL}/login`} 
+                                    render={ (props) => <LogIn  {...props} 
+                                                                loggedIn={ this.state.loggedIn}
+                                                                fullName={this.state.firstName + " " + this.state.lastName}
+                                                                isStudent={this.state.isStudent}
+                                                                title={this.state.title}
+                                                                renderAsStudent={this.state.renderAsStudent}
+                                                                modifyRenderAsStudent={this.modifyRenderAsStudent}
+                                                                modifyLogInStatus={this.modifyLogInStatus} 
+                                                                modifyStudentStatus={this.modifyStudentStatus}
+                                                                modifyFullName={this.modifyFullName}
+                                                                modifyTitle={this.modifyTitle}
+                                                                modifySite={this.modifySite}
+                                                                changeContainerStyle={this.changeContainerStyle} 
+                                                                clearState={this.clearState}
+                                                          /> 
+                                            } 
+                              />
+                              <PrivateRoute path={`${publicURL}/${defaultURL}`}
+                                            loggedIn={AuthenticationState.Authenticated}
+                                            fullName={this.state.firstName + " " + this.state.lastName}
+                                            isStudent={this.state.isStudent}
+                                            title={this.state.title}
+                                            site={this.state.site}
+                                            gradeLevel={this.state.gradeLevel}
+                                            renderAsStudent={this.state.renderAsStudent}
+                                            modifyPathname={this.modifyPathname}
+                                            modifyRenderAsStudent={this.modifyRenderAsStudent}
+                                            modifyLogInStatus={this.modifyLogInStatus} 
+                                            modifyStudentStatus={this.modifyStudentStatus}
+                                            modifyFullName={this.modifyFullName}
+                                            modifyTitle={this.modifyTitle}
+                                            modifySite={this.modifySite}
+                                            changeContainerStyle={this.changeContainerStyle} 
+                                            logOut={logout}
+                                            clearState={this.clearState}
+                                            accountInfo={accountInfo}
+                                            modifyRootAccountInfo={this.modifyRootAccountInfo}
+                                            component={ PageContent} 
+                                          
+                                            // renderAsStudent={true}
+                              />
 
-            <PrivateRoute path={`${publicURL}/student`}
-                          loggedIn={this.state.loggedIn}
-                          fullName={this.state.fullName}
-                          isStudent={this.state.isStudent}
-                          title={this.state.title}
-                          site={this.state.site}
-                          modifyLogInStatus={this.modifyLogInStatus} 
-                          modifyStudentStatus={this.modifyStudentStatus}
-                          modifyFullName={this.modifyFullName}
-                          modifyTitle={this.modifyTitle}
-                          modifySite={this.modifySite}
-                          changeContainerStyle={this.changeContainerStyle} 
-                          component={ PageContent} 
-            />
-               <Route path={`${publicURL}/student.html`}
-                    render={ () => {
-                        return (<Redirect to={`${publicURL}/student`} />);
-                    }
-                } 
-            />
-                <Route path={`${publicURL}/staff.html`}
-                    render={ () => {
-                        return (<Redirect to={`${publicURL}/staff`} />);
-                    }
-                } 
-            /> 
-            <Route component={NotFound} />   
+                              <Route path={`${publicURL}/staff`}
+                                      render={ () => {
+                                          return (<Redirect to={`${publicURL}/${defaultURL}`} />);
+                                      }
+                                  } 
+                              />
+                              <Route path={`${publicURL}/student`}
+                                      render={ () => {
+                                          return (<Redirect to={`${publicURL}/${defaultURL}`} />);
+                                      }
+                                  } 
+                              />
+                              <Route path={`${publicURL}/student.html`}
+                                      render={ () => {
+                                          return (<Redirect to={`${publicURL}/student`} />);
+                                      }
+                                  } 
+                              />
+                              <Route path={`${publicURL}/staff.html`}
+                                      render={ () => {
+                                          return (<Redirect to={`${publicURL}/staff`} />);
+                                      }
+                                  } 
+                              /> 
+                               <Route path={`${publicURL}/troubleshooting`} 
+                                      render={() => { return (<Troubleshooting/>)}}
+                                
+                              />
+                              {
+                                (this.state.pathname !== "/student" || window.location.pathname !== "/student") ||
+                                (this.state.pathname !== "/staff" || window.location.pathname !== "/student") ||
+                                (this.state.pathname !== "/troubleshooting" || window.location.pathname !== "/troubleshooting") ?   
+                                  (<Route component={ NotFound } /> ) 
+                                    : null
+                              }
+                          </Switch>
+                        </Fragment> );
+                  // } //end if-statement
+                  // else {
+                  //   return (<p>Loading Portal...</p>);
+                  // }
+                  
+                  case AuthenticationState.Unauthenticated:
+                    return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
+                  
+                  case AuthenticationState.Error:
+                    return (
+                      (<LoadingSSOPage error/>)
+                    );
+
+                  default: 
+                    return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
+                } //end switch
+            } //function with switch cases
+          }
+        </AzureAD>
+        <Switch>
+          {/* TODO: Add logic to redirect to staff/student if you input .html */}
+          <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
+                                  render={ () => {
+                                      return (<Redirect to={`${publicURL}/staff`} />);
+                                  }
+                              } 
+          />
+          {/* <Route path={`${publicURL}/troubleshooting`} 
+            render={() => { return <Troubleshooting/>}}
+            // component={Troubleshooting}
+          /> */}
         </Switch>
-      </StyledContainer>
-    );
+      </StyledContainer>); //end return statement
   }
 }
 
