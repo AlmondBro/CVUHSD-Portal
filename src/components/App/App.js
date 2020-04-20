@@ -249,17 +249,21 @@ class App extends Component {
     console.log("App.js window.location.pathname true student:\t" + (window.location.pathname === "/student") );
     console.log("Route render window.location.pathname:\t" + window.location.pathname !== "/staff");
     this.setState({pathname: window.location.pathname});
+
+   
     //console.log("Graph info:\t" + JSON.stringify(graphInfo) );
   };
 
   componentDidUpdate = () => {
-
+ 
   }; //end componentDidUpdate
 
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;
+
     let defaultURL = ( window.location.pathname === "/student" || (this.state.title.toLowerCase() === "student" ) || undefsafe(this.props.location, "state", "renderAsStudent") == "true" ) ? "student" : "staff";
     console.log("defaultURL:\t" + defaultURL);
+
     return (
       <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
         <SimpleStorage parent={this} prefix={"PortalStorage"} />

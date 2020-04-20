@@ -153,11 +153,11 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                                 renderAsStudent={props.renderAsStudent}
                                 bulletPointInMobile={true} 
                                 title={(props.location.pathname === "/staff") ? "Student Portal" : "Staff Portal"}        
-                                onClick={ () => {
-                                        console.log("NavBarListItemLi");
-                                        modifyRenderAsStudent(!props.renderAsStudent);
-                                    }
-                                }
+                                // onClick={ () => {
+                                //         console.log("NavBarListItemLi");
+                                //         modifyRenderAsStudent(!props.renderAsStudent);
+                                //     }
+                                // }
                             >
                             
                                 <FontAwesomeIcon icon={(props.location.pathname === "/staff") ? student : user} className="icon"/> Portal 
