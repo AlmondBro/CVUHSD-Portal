@@ -47,11 +47,12 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
 
     return ([
         <NavigationBarHeader 
-            className="app-header"
+            className="app-header navigation-bar-header"
             districtPosition={districtPosition}
             renderAsStudent={renderAsStudent} 
         >
             <NavigationBar
+                className="navigation-bar"
                 districtPosition={districtPosition}
                 modifyLogInStatus={modifyLogInStatus}
                 renderAsStudent={renderAsStudent}  

@@ -45,7 +45,6 @@ let StyledContainer = styled(ModifiedContainer)`
       background-image: ${props => props.containerStyle["background-image"] || `url(./images/cvuhsd-allStudents-ready.jpg)` };
       background-repeat: ${props => props.containerStyle["background-repeat"] || `no-repeat` };
       background-size: ${props => props.containerStyle["background-size"] || `cover` };
-  
 
       opacity:  ${props => props.containerStyle["opacity"] || 0.2 };
     }
