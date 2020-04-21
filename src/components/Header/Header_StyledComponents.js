@@ -47,6 +47,7 @@ let NavigationBarHeader = styled("header")`
 let DashboardHeaderContainer = styled("div")`
     margin: 0;
     width: 100%;
+    
 `//end DashboardHeaderContainer
 
 let DashboardHeader = styled("header")`
@@ -54,7 +55,7 @@ let DashboardHeader = styled("header")`
     z-index: 0;
     padding: 15px 0;
     border-radius: 5px;
-    background-color: transparent;
+    background-color: white;
     color:  ${ props => 
                 ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                     "#931E1D": "#1E6C93"
@@ -75,7 +76,18 @@ let DashboardHeader = styled("header")`
         margin-top: 0px;
     }
 
-    
+    ::after {
+      position: absolute;
+      z-index: -1;
+  
+      
+      content: "";
+
+      background-image: url("./images/cvuhsd-allStudents-ready.jpg");
+      background-repeat: "no-repeat";
+      background-size: "cover";
+  
+    }
 `;//end DashboardHeader
 
 let AddToHomeScreenButton = styled("button")`
@@ -132,6 +144,8 @@ let ToolTip = styled("div")`
 `; //end ToolTip
 
 let PortalHeaderText = styled("h1")`
+    position: relative;
+    z-index: 1;
     display:  ${props => props.display || "inline-block" } ;
     text-align: center;
     color: ${ props => 
@@ -392,7 +406,13 @@ let CoffeeAnimation = () => {
             <CoffeeCup className="coffee-row cup"/> */}
         </CoffeeAnimationContainer>  
     ); //end return statement
-   
 };
 
-export { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, SchoolLogo, CoffeeAnimation }
+
+const PositionSiteInfo = styled("section")`
+    position: relative;
+    display:  ${props => props.display || "inline-block" } ;
+`;
+
+
+export { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, SchoolLogo, PositionSiteInfo, CoffeeAnimation }

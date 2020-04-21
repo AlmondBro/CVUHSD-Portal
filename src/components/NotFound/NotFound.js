@@ -29,7 +29,7 @@ const NotFound_404 = (props) => {
                 title={props.title}
                 site={props.site}
                 gradeLevel={props.gradeLevel}
-
+                portalHeaderTextDisplay={"none"}
                 //modifyLogInStatus={ this.modifyLogInStatus }
                 modifyTitle={props.modifyTitle}
                 modifySite={props.modifySite}

@@ -31,6 +31,7 @@ const Troubleshooting = (props) => {
         <Fragment>
              <Header districtName="CVUHSD" 
                     headerTitle="Troubleshooting" 
+                    portalHeaderTextDisplay={"none"}
                     // fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
                     // title={this.props.title}
                     // site={this.props.site}
