@@ -72,6 +72,7 @@ class App extends Component {
   } //end constructor
 
   changeContainerStyle = (styleObject) => {
+    console.log("Change Container Style");
     this.setState({containerStyle: styleObject});
   }; //end changeContainerStyle() function
 
@@ -355,7 +356,28 @@ class App extends Component {
                                 (this.state.pathname !== "/student" || window.location.pathname !== "/student") ||
                                 (this.state.pathname !== "/staff" || window.location.pathname !== "/student") ||
                                 (this.state.pathname !== "/troubleshooting" || window.location.pathname !== "/troubleshooting") ?   
-                                  (<Route component={ NotFound } /> ) 
+                                  (<PrivateRoute 
+                                      loggedIn={AuthenticationState.Authenticated}
+                                      fullName={this.state.firstName + " " + this.state.lastName}
+                                      isStudent={this.state.isStudent}
+                                      title={this.state.title}
+                                      site={this.state.site}
+                                      gradeLevel={this.state.gradeLevel}
+                                      renderAsStudent={this.state.renderAsStudent}
+                                      modifyPathname={this.modifyPathname}
+                                      modifyRenderAsStudent={this.modifyRenderAsStudent}
+                                      modifyLogInStatus={this.modifyLogInStatus} 
+                                      modifyStudentStatus={this.modifyStudentStatus}
+                                      modifyFullName={this.modifyFullName}
+                                      modifyTitle={this.modifyTitle}
+                                      modifySite={this.modifySite}
+                                      changeContainerStyle={this.changeContainerStyle} 
+                                      logOut={logout}
+                                      clearState={this.clearState}
+                                      accountInfo={accountInfo}
+                                      modifyRootAccountInfo={this.modifyRootAccountInfo}
+                                    
+                                    component={ NotFound } /> ) 
                                     : null
                               }
                           </Switch>
