@@ -47,6 +47,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
 
     return ([
         <NavigationBarHeader 
+            className="app-header"
             districtPosition={districtPosition}
             renderAsStudent={renderAsStudent} 
         >
@@ -60,9 +61,9 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
             />
         </NavigationBarHeader>,
 
-        <DashboardHeaderContainer id="back-to-top" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
-            <DashboardHeader districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
-                <PortalHeaderText districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
+        <DashboardHeaderContainer className="dashboard-header-container" id="back-to-top" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
+            <DashboardHeader className="dashboard-header" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
+                <PortalHeaderText className="portal-header-text" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
                     <strong>
                         {props.districtName || "District"}
                         <span>

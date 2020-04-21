@@ -45,16 +45,16 @@ let NavigationBarHeader = styled("header")`
 `//end NavigationBarHeader
 
 let DashboardHeaderContainer = styled("div")`
-    /* max-width: 500px; */
-    margin: 0px auto;
+    margin: 0;
+    width: 100%;
 `//end DashboardHeaderContainer
 
-let DashboardHeader = styled.header`
+let DashboardHeader = styled("header")`
     position: relative;
-    z-index: -1;
+    z-index: 0;
     padding: 15px 0;
     border-radius: 5px;
-    background-color: white;
+    background-color: transparent;
     color:  ${ props => 
                 ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                     "#931E1D": "#1E6C93"
@@ -74,7 +74,9 @@ let DashboardHeader = styled.header`
     @media only screen and (max-width: 833px) {
         margin-top: 0px;
     }
-`//end DashboardHeader
+
+    
+`;//end DashboardHeader
 
 let AddToHomeScreenButton = styled("button")`
     display: none;
@@ -130,7 +132,7 @@ let ToolTip = styled("div")`
 `; //end ToolTip
 
 let PortalHeaderText = styled("h1")`
-    display: inline-block;
+    display:  ${props => props.display || "inline-block" } ;
     text-align: center;
     color: ${ props => 
                 ( (props.districtPosition === "Student") || props.renderAsStudent) ? 

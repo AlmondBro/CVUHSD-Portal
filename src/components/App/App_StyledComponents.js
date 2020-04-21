@@ -36,6 +36,7 @@ let StyledContainer = styled(ModifiedContainer)`
 
     ::after {
       position: absolute;
+      z-index: -1;
       height: 100%;
       width: 100%;
       

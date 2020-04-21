@@ -15,7 +15,8 @@ const NotFound_404 = (props) => {
     useEffect(() => {
         console.log("hello world");
         props.changeContainerStyle({
-                                    "background-image": `url("./images/lost-trail.jpg")`
+                                    "background-image": `url("./images/lw-high.jpg")`,
+                                    "opacity": "0.45"
                                     }
         ); //end props.changeContainerStyle()
     }, []);

@@ -59,7 +59,7 @@ class PageContent extends Component {
 
     componentDidMount = () => {
         this.props.modifyRootAccountInfo(this.props.accountInfo);
-        this.props.changeContainerStyle({"background-image": "none" });
+        this.props.changeContainerStyle({"background-image": `none` });
 
         console.log("PageContent.js window.location.pathname:\t" + window.location.pathname);
 
