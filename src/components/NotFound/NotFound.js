@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
 //Import App components
 import BlueSection from "./../BlueSection/BlueSection.js";
@@ -6,20 +6,47 @@ import Header from "./../Header/Header.js";
 
 import undefsafe from "undefsafe";
 
+import { withRouter } from "react-router-dom";
+
 //import styled components
 import { NotFoundContainer } from "./NotFound_StyledComponents.js";
 
 //TODO: Make this wayyy more decorative!
 const NotFound_404 = (props) => {
 
+    //Initialize hooks:
+    const countDownTime = 7;
+    const [seconds, setSeconds] = useState(countDownTime);
+
+
     useEffect(() => {
-        console.log("hello world");
+        let interval = null;
+
+        let intervalFunction = () => {
+            if (seconds >= 0)  {
+                setSeconds(seconds => seconds - 1);
+            } else {
+                return;
+            }
+        }; //end intervalFunction
+
+        interval = setInterval(intervalFunction, 1000); // end setInterval. Run every second to update the countdownTime
+
+        if (seconds === 0) {
+            console.log("Pushing history");
+            clearInterval(interval);
+            props.history.push("/staff");
+            return;
+        }
+
         props.changeContainerStyle({
                                     "background-image": `url("./images/lw-high.jpg")`,
                                     "opacity": "0.45"
                                     }
         ); //end props.changeContainerStyle()
-    }, []);
+
+
+    }, [seconds]);
 
     return (
         <Fragment>
@@ -44,7 +71,7 @@ const NotFound_404 = (props) => {
             >
                 <h4>Oops!</h4>
                 <p>It seems you may have gotten lost off the trail.</p>
-                <p>Redirecting you back to the path in <span></span></p>
+                <p>Redirecting you back to the path in <span>{seconds} second(s)</span></p>
             </NotFoundContainer>
         
         </Fragment>
@@ -52,4 +79,4 @@ const NotFound_404 = (props) => {
     ); //end return statement
 }; 
 
-export default NotFound_404;
+export default withRouter(NotFound_404);
