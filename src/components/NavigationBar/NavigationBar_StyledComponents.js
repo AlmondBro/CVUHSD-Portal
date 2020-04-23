@@ -55,7 +55,7 @@ let NavBar = styled.nav`
             } 
         }
 
-        @media only screen and (min-width: 1185px) { 
+        @media only screen and (min-width: 1282px) { 
           &::after {
                 content: "Centinela Valley Union High School District";
                 display: ${props => (props.districtPosition) ? "inline" : "none"};
