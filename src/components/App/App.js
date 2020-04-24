@@ -353,10 +353,6 @@ class App extends Component {
                               }
                           </Switch>
                         </Fragment> );
-                  // } //end if-statement
-                  // else {
-                  //   return (<p>Loading Portal...</p>);
-                  // }
                   
                   case AuthenticationState.Unauthenticated:
                     return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
@@ -366,9 +362,14 @@ class App extends Component {
                       (<LoadingSSOPage error/>)
                     );
 
+                  case error: 
+                      return  (
+                        (<LoadingSSOPage error/>)
+                      );
                   default: 
                     return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
                 } //end switch
+
             } //function with switch cases
           }
         </AzureAD>
