@@ -28,8 +28,6 @@ import SimpleStorage, { resetParentState, clearStorage } from "react-simple-stor
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
 //TODO: Fix Dashboard "digial" typon on quick links buttons
-//TODO: H ave a different link for the student and staff portals
-//TODO: Eliminate the flashing when going into the login page
 
 //TODO: Extra thing: Add user profile picture: https://sharepoint.stackexchange.com/questions/215659/how-to-fetch-user-profile-image-from-azure-active-directory-from-sharepoint-onli
 //TODO: The hover in the 'All links' in the navbar

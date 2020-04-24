@@ -110,9 +110,8 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
 
                             { 
                                 (districtPosition === "Student") && schoolName ? 
-                                    (   <a href={() => getSchoolLogoSite("lawndale")}>
-                                             <SchoolLogo 
-                                                
+                                    (   <a href={() => getSchoolLogoSite(schoolName.toString())}>
+                                             <SchoolLogo  
                                                 className="school-logo" 
                                                 src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
                                             />  
