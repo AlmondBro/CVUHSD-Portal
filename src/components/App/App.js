@@ -322,6 +322,12 @@ class App extends Component {
                                       }
                                   } 
                               />
+                              <Route path={`${publicURL}/staff.html`}
+                                      render={ () => {
+                                          return (<Redirect to={`${publicURL}/staff`} />);
+                                      }
+                                  } 
+                              /> 
                               <Route path={`${publicURL}/student`}
                                       render={ () => {
                                           return (<Redirect to={`${publicURL}/${defaultURL}`} />);
@@ -334,12 +340,6 @@ class App extends Component {
                                       }
                                   } 
                               />
-                              <Route path={`${publicURL}/staff.html`}
-                                      render={ () => {
-                                          return (<Redirect to={`${publicURL}/staff`} />);
-                                      }
-                                  } 
-                              /> 
                                <Route path={`${publicURL}/troubleshooting`} 
                                       render={() => { return (<Troubleshooting/>)}}
                                 
