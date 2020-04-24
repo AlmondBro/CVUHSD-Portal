@@ -1,17 +1,17 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
 
-import isDev from 'isdev';
+import isDev from "isdev";
 import undefsafe from "undefsafe";
 
 import { AzureAD, AuthenticationState } from 'react-aad-msal';
-import { authProvider, authProvider_noDomainHint } from './../../authProvider.js';
+import { authProvider, authProvider_noDomainHint } from "./../../authProvider.js";
 
 //Import components
 import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
 import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
 import PageContent from "../PageContent.js";
 
-import {  Redirect } from 'react-router'
+import {  Redirect } from "react-router";
 import { Route, Switch } from "react-router-dom";
 
 //Import styledcomponents
@@ -25,16 +25,12 @@ import PrivateRoute from "./../PrivateRoute.js";
 
 import SimpleStorage, { resetParentState, clearStorage } from "react-simple-storage";
 
-
-//TODO: Have /staff.html redirect to /staff
-
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
 //TODO: Fix Dashboard "digial" typon on quick links buttons
-//TODO: Have a different link for the student and staff portals
+//TODO: H ave a different link for the student and staff portals
 //TODO: Eliminate the flashing when going into the login page
-//TODO: Create "SSO Page Loading" page/component to display while it is loading
-//TODO: Have the NavBar links be a lighter color of the student/staff theme color when hovered over
+
 //TODO: Extra thing: Add user profile picture: https://sharepoint.stackexchange.com/questions/215659/how-to-fetch-user-profile-image-from-azure-active-directory-from-sharepoint-onli
 //TODO: The hover in the 'All links' in the navbar
 //TODO: Fullname state property even logged in as a student still displays the old name
@@ -221,7 +217,6 @@ class App extends Component {
           if ( (graphInfo.jobTitle !== "Student" || this.state.title !== "Student" ) && graphInfo.officeLocation) {
             this.setState({site: graphInfo.officeLocation}); 
           } else {
-            //TODO: Call API to get the OU and parse it
             this.setState({isStudent: true});
             getStudentSchool();
           }
@@ -229,8 +224,6 @@ class App extends Component {
           if (graphInfo.businessPhones) {
             this.setState({phoneNumber: graphInfo.businessPhones[0]}); 
           }
-
-
         })
         .catch(response => {
           this.setState({graphInfo: response.text()});
@@ -383,7 +376,7 @@ class App extends Component {
           {/* TODO: Add logic to redirect to staff/student if you input .html */}
           <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
                                   render={ () => {
-                                      return (<Redirect to={`${publicURL}/staff`} />);
+                                      return (<Redirect to={`${publicURL}/${defaultURL}`} />);
                                   }
                               } 
           />
