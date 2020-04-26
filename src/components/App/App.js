@@ -33,6 +33,12 @@ import SimpleStorage, { resetParentState, clearStorage } from "react-simple-stor
 //TODO: The hover in the 'All links' in the navbar
 //TODO: Fullname state property even logged in as a student still displays the old name
 //TODO: Change nav links hover color to same hover color as the logout button
+
+//TODO: Fix the above bug, occurs when you have not cleared the cache or cookies in over a day:
+// Request Id: ea3503c9-5058-4f9f-881e-8bbaafd6bd00
+// Correlation Id: ba242330-1c92-419e-9913-abde2144a072
+// Timestamp: 2020-04-26T19:05:34Z
+// Message: AADSTS9000411: The request is not properly formatted. The parameter 'domain_hint' is duplicated.
 class App extends Component {
   constructor(props) {
     super(props);
