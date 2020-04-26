@@ -39,6 +39,8 @@ import SimpleStorage, { resetParentState, clearStorage } from "react-simple-stor
 // Correlation Id: ba242330-1c92-419e-9913-abde2144a072
 // Timestamp: 2020-04-26T19:05:34Z
 // Message: AADSTS9000411: The request is not properly formatted. The parameter 'domain_hint' is duplicated.
+
+// TODO: Remove isStudent boolean state variable
 class App extends Component {
   constructor(props) {
     super(props);
@@ -268,6 +270,7 @@ class App extends Component {
           {
             ({ login, logout, accountInfo, authenticationState, error }) => {
               //console.log("Account info:\t" + JSON.stringify(accountInfo));
+
                 switch (authenticationState) {
                   case AuthenticationState.Authenticated:
                   // if (this.state.title) {
@@ -371,7 +374,11 @@ class App extends Component {
                         (<LoadingSSOPage error/>)
                       );
                   default: 
-                    return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
+                    return (<LoadingSSOPage 
+                              message="Loading CVUHSD Single Sign On Page..." 
+                              title={this.state.title}
+                              renderAsStudent={this.state.renderAsStudent}
+                            />);
                 } //end switch
 
             } //function with switch cases

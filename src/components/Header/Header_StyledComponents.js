@@ -252,7 +252,7 @@ let Grinder = styled("div")`
     height: 120px;
     width: 200px;
     border-radius: 5px 5px 80px 80px;
-    background: #1d1d1d;
+    background: #931E1D;
 
     :before {
         left: 40px;
@@ -260,7 +260,7 @@ let Grinder = styled("div")`
         width: 120px;
         height: 15px;
         border-radius: 30px;
-        background: #1d1d1d;
+        background: #1D1D1D;
     }
 
 
@@ -271,7 +271,7 @@ let Grinder = styled("div")`
         width: 120px;
         height: 15px;
         border-radius: 30px;
-        background: #1d1d1d;
+        background: #1D1D1D;
     }
 
 `; //end Grinder
