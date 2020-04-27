@@ -15,12 +15,17 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
     console.log("Header props:\t" + JSON.stringify(props) );
 
     let parseSchoolName = (site) => {
-        if (site) {
+        if (site && (site !== "Centinela Valley Independent Study School" )) {
+            console.log("Site:\t" + site);
             return site.toString().split(" ", 1)[0];
-        } else {
-            return "";
-        }
-    };
+        } 
+        
+        if (site === "Centinela Valley Independent Study School" ) {
+            return "cviss";
+        } 
+
+        return ""; 
+    }; //end parseSchoolName
 
     let getSchoolLogoSite = (schoolName) => {
         let schoolLogoSite = "https://www.centinela.k12.ca.us/";
@@ -40,6 +45,11 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
             schoolLogoSite = "https://www.lloydehs.org/";
         } 
 
+        if (schoolName.toLowerCase() === "Centinela Valley Independent Study School") {
+            schoolLogoSite = "https://www.cvalternatives.org/";
+        }
+
+        return schoolLogoSite;
     }; //end getSchoolLogoSite
 
     let districtPosition = title;
