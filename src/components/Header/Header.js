@@ -4,12 +4,14 @@ import React from "react";
 import NavigationBar from "../NavigationBar/NavigationBar.js";
 
 import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, 
-        AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, CoffeeAnimation, SchoolLogo } from "./Header_StyledComponents.js";
+        AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, 
+        PositionSiteInfo,
+        CoffeeAnimation, SchoolLogo } from "./Header_StyledComponents.js";
 
 //Import 3rd-party APIs
 import greeting from 'greeting';
 
-const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title, site, gradeLevel, modifyRenderAsStudent,...props }) => {
+const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title, site, gradeLevel, modifyRenderAsStudent, portalHeaderTextDisplay,...props }) => {
     console.log("Header props:\t" + JSON.stringify(props) );
 
     let parseSchoolName = (site) => {
@@ -47,10 +49,12 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
 
     return ([
         <NavigationBarHeader 
+            className="app-header navigation-bar-header"
             districtPosition={districtPosition}
             renderAsStudent={renderAsStudent} 
         >
             <NavigationBar
+                className="navigation-bar"
                 districtPosition={districtPosition}
                 modifyLogInStatus={modifyLogInStatus}
                 renderAsStudent={renderAsStudent}  
@@ -60,9 +64,14 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
             />
         </NavigationBarHeader>,
 
-        <DashboardHeaderContainer id="back-to-top" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
-            <DashboardHeader districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
-                <PortalHeaderText districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
+        <DashboardHeaderContainer className="dashboard-header-container" id="back-to-top" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
+            <DashboardHeader className="dashboard-header" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
+                <PortalHeaderText 
+                    className="portal-header-text" 
+                    districtPosition={districtPosition} 
+                    renderAsStudent={renderAsStudent} 
+                    
+                >
                     <strong>
                         {props.districtName || "District"}
                         <span>
@@ -78,7 +87,10 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                 </section>
 
                 { districtPosition ? (
-                        <section>
+                        <PositionSiteInfo 
+                            className="position-site-info" 
+                            display={portalHeaderTextDisplay}
+                        >
                             <Greeting   districtPosition={districtPosition} 
                                         renderAsStudent={renderAsStudent} 
                                         className="greeting"
@@ -121,7 +133,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                                     : null
                             }
                                          
-                        </section>
+                        </PositionSiteInfo>
                     ) : <Greeting className="loading-greeting">
                             Stay put, warming your cup of coffee! 
                             {/* <CoffeeAnimation/> */}

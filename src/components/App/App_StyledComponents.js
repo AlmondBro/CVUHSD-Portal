@@ -7,7 +7,7 @@ import css from 'styled-components';
 import { Container } from 'react-bootstrap';
 
 let ModifiedContainer = ({className, children, fluid}) => (
-    <Container className={className} fluid={fluid}>
+    <Container className={className + " app-container"} fluid={fluid}>
       { children }
     </Container>
   );
@@ -36,16 +36,17 @@ let StyledContainer = styled(ModifiedContainer)`
 
     ::after {
       position: absolute;
+      z-index: -1;
       height: 100%;
       width: 100%;
+      
+      content: "";
 
-
-      background-image: ${props => props.containerStyle["background-image"] || `url("./images/cvuhsd-allStudents-ready.jpg")` };
+      background-image: ${props => props.containerStyle["background-image"] || `url(./images/cvuhsd-allStudents-ready.jpg)` };
       background-repeat: ${props => props.containerStyle["background-repeat"] || `no-repeat` };
       background-size: ${props => props.containerStyle["background-size"] || `cover` };
-  
 
-      opacity: 0.2;
+      opacity:  ${props => props.containerStyle["opacity"] || 0.2 };
     }
   `; //end StyledContainer
 
