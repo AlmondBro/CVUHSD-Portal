@@ -49,6 +49,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
             schoolLogoSite = "https://www.cvalternatives.org/";
         }
 
+        
         return schoolLogoSite;
     }; //end getSchoolLogoSite
 
@@ -136,7 +137,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
 
                             { 
                                 (districtPosition === "Student") && schoolName ? 
-                                    (   <a href={() => getSchoolLogoSite(schoolName.toString())}>
+                                    (   <a href={() => getSchoolLogoSite(schoolName)}>
                                              <SchoolLogo  
                                                 className="school-logo" 
                                                 src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
