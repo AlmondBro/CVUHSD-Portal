@@ -10,17 +10,19 @@ let LoadingSSOPageContainer = styled("div")`
         content: "";
         width: 100%;
         height: 100%;
-        background-image: url("./cvuhsd-allStudents-ready.jpg");
+        background-image: url("./images/cvuhsd-allStudents-ready.jpg");
         background-position: center;
         background-size: contain;
         background-repeat: no-repeat;
-        opacity: 0.3;
+        opacity: 0.4;
        
     }
 `;
 
 let CoffeeAnimationContainer = styled("div")`
     position: absolute;
+    width: 100%;
+    height: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -34,20 +36,20 @@ let CoffeeAnimationContainer = styled("div")`
 
 let LoadingMessage = styled("p")`
     font-size: 1.5em;
+    text-align: center;
     margin: 4px 10px;
     padding: 5px;
 
-    color:  ${ props => 
-                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                    "#931E1D": "#1E6C93"
-            };
+    color: #931E1D; 
+          
     transition: color 0.5s;
 
     & span {
         display: block;
+        font-size: 0.7em;
         font-style: italic;
-        font-weight: 200;
-        margin: 0 auto;
+        font-weight: 900;
+        margin: 8% 0%;
         text-align: center;
     }
 

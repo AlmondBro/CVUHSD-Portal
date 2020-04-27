@@ -1,17 +1,17 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
 
-import isDev from 'isdev';
+import isDev from "isdev";
 import undefsafe from "undefsafe";
 
 import { AzureAD, AuthenticationState } from 'react-aad-msal';
-import { authProvider, authProvider_noDomainHint } from './../../authProvider.js';
+import { authProvider, authProvider_noDomainHint } from "./../../authProvider.js";
 
 //Import components
 import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
 import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
 import PageContent from "../PageContent.js";
 
-import {  Redirect } from 'react-router'
+import {  Redirect } from "react-router";
 import { Route, Switch } from "react-router-dom";
 
 //Import styledcomponents
@@ -25,20 +25,22 @@ import PrivateRoute from "./../PrivateRoute.js";
 
 import SimpleStorage, { resetParentState, clearStorage } from "react-simple-storage";
 
-
-//TODO: Have /staff.html redirect to /staff
-
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
 //TODO: Fix Dashboard "digial" typon on quick links buttons
-//TODO: Have a different link for the student and staff portals
-//TODO: Eliminate the flashing when going into the login page
-//TODO: Create "SSO Page Loading" page/component to display while it is loading
-//TODO: Have the NavBar links be a lighter color of the student/staff theme color when hovered over
+
 //TODO: Extra thing: Add user profile picture: https://sharepoint.stackexchange.com/questions/215659/how-to-fetch-user-profile-image-from-azure-active-directory-from-sharepoint-onli
 //TODO: The hover in the 'All links' in the navbar
 //TODO: Fullname state property even logged in as a student still displays the old name
 //TODO: Change nav links hover color to same hover color as the logout button
+
+//TODO: Fix the above bug, occurs when you have not cleared the cache or cookies in over a day:
+// Request Id: ea3503c9-5058-4f9f-881e-8bbaafd6bd00
+// Correlation Id: ba242330-1c92-419e-9913-abde2144a072
+// Timestamp: 2020-04-26T19:05:34Z
+// Message: AADSTS9000411: The request is not properly formatted. The parameter 'domain_hint' is duplicated.
+
+// TODO: Remove isStudent boolean state variable
 class App extends Component {
   constructor(props) {
     super(props);
@@ -222,7 +224,6 @@ class App extends Component {
           if ( (graphInfo.jobTitle !== "Student" || this.state.title !== "Student" ) && graphInfo.officeLocation) {
             this.setState({site: graphInfo.officeLocation}); 
           } else {
-            //TODO: Call API to get the OU and parse it
             this.setState({isStudent: true});
             getStudentSchool();
           }
@@ -230,8 +231,6 @@ class App extends Component {
           if (graphInfo.businessPhones) {
             this.setState({phoneNumber: graphInfo.businessPhones[0]}); 
           }
-
-
         })
         .catch(response => {
           this.setState({graphInfo: response.text()});
@@ -272,6 +271,7 @@ class App extends Component {
           {
             ({ login, logout, accountInfo, authenticationState, error }) => {
               //console.log("Account info:\t" + JSON.stringify(accountInfo));
+
                 switch (authenticationState) {
                   case AuthenticationState.Authenticated:
                   // if (this.state.title) {
@@ -328,6 +328,12 @@ class App extends Component {
                                       }
                                   } 
                               />
+                              <Route path={`${publicURL}/staff.html`}
+                                      render={ () => {
+                                          return (<Redirect to={`${publicURL}/staff`} />);
+                                      }
+                                  } 
+                              /> 
                               <Route path={`${publicURL}/student`}
                                       render={ () => {
                                           return (<Redirect to={`${publicURL}/${defaultURL}`} />);
@@ -340,12 +346,6 @@ class App extends Component {
                                       }
                                   } 
                               />
-                              <Route path={`${publicURL}/staff.html`}
-                                      render={ () => {
-                                          return (<Redirect to={`${publicURL}/staff`} />);
-                                      }
-                                  } 
-                              /> 
                                <Route path={`${publicURL}/troubleshooting`} 
                                       render={() => { return (<Troubleshooting/>)}}
                                 
@@ -380,10 +380,6 @@ class App extends Component {
                               }
                           </Switch>
                         </Fragment> );
-                  // } //end if-statement
-                  // else {
-                  //   return (<p>Loading Portal...</p>);
-                  // }
                   
                   case AuthenticationState.Unauthenticated:
                     return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
@@ -393,9 +389,18 @@ class App extends Component {
                       (<LoadingSSOPage error/>)
                     );
 
+                  case error: 
+                      return  (
+                        (<LoadingSSOPage error/>)
+                      );
                   default: 
-                    return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
+                    return (<LoadingSSOPage 
+                              message="Loading CVUHSD Single Sign On Page..." 
+                              title={this.state.title}
+                              renderAsStudent={this.state.renderAsStudent}
+                            />);
                 } //end switch
+
             } //function with switch cases
           }
         </AzureAD>
@@ -403,7 +408,7 @@ class App extends Component {
           {/* TODO: Add logic to redirect to staff/student if you input .html */}
           <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
                                   render={ () => {
-                                      return (<Redirect to={`${publicURL}/staff`} />);
+                                      return (<Redirect to={`${publicURL}/${defaultURL}`} />);
                                   }
                               } 
           />

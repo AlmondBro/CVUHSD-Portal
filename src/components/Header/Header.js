@@ -114,16 +114,16 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                                         ) : null
                                     
                                 }
-                                <span>{districtPosition.toLowerCase() || "User"}</span> from 
-                                <span>{" " + site || "CVUHSD"}</span>
+                                <span>{districtPosition.toLowerCase() || "User"}</span> 
+                                { " from " } 
+                                <span>{ site || "CVUHSD"}</span>
                             </PositionGreeting>
                             {/*  //TODO: Add link the site of the school logo */}
 
                             { 
                                 (districtPosition === "Student") && schoolName ? 
-                                    (   <a href={() => getSchoolLogoSite("lawndale")}>
-                                             <SchoolLogo 
-                                                
+                                    (   <a href={() => getSchoolLogoSite(schoolName.toString())}>
+                                             <SchoolLogo  
                                                 className="school-logo" 
                                                 src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
                                             />  
