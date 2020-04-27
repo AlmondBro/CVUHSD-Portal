@@ -12,7 +12,7 @@ import { withRouter } from "react-router-dom";
 import { NotFoundContainer } from "./NotFound_StyledComponents.js";
 
 //TODO: Make this wayyy more decorative!
-const NotFound_404 = (props) => {
+const NotFound_404 = ({defaultURL, ...props}) => {
 
     //Initialize hooks:
     const countDownTime = 7;
@@ -23,11 +23,7 @@ const NotFound_404 = (props) => {
         let interval = null;
 
         let intervalFunction = () => {
-            if (seconds >= 0)  {
-                setSeconds(seconds => seconds - 1);
-            } else {
-                return;
-            }
+            setSeconds(seconds => seconds - 1);
         }; //end intervalFunction
 
         interval = setInterval(intervalFunction, 1000); // end setInterval. Run every second to update the countdownTime
@@ -35,13 +31,13 @@ const NotFound_404 = (props) => {
         if (seconds === 0) {
             console.log("Pushing history");
             clearInterval(interval);
-            props.history.push("/staff");
+            props.history.push(`/${defaultURL}`);
             return;
         }
 
         props.changeContainerStyle({
                                     "background-image": `url("./images/lw-high.jpg")`,
-                                    "opacity": "0.45"
+                                    "opacity": "0.2"
                                     }
         ); //end props.changeContainerStyle()
 

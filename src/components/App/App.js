@@ -320,8 +320,6 @@ class App extends Component {
                                             accountInfo={accountInfo}
                                             modifyRootAccountInfo={this.modifyRootAccountInfo}
                                             component={ PageContent} 
-                                          
-                                            // renderAsStudent={true}
                               />
 
                               <Route path={`${publicURL}/staff`}
@@ -376,8 +374,8 @@ class App extends Component {
                                       clearState={this.clearState}
                                       accountInfo={accountInfo}
                                       modifyRootAccountInfo={this.modifyRootAccountInfo}
-                                    
-                                    component={ NotFound } /> ) 
+                                      defaultURL={defaultURL}
+                                      component={ NotFound } /> ) 
                                     : null
                               }
                           </Switch>

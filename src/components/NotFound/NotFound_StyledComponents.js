@@ -19,6 +19,9 @@ let NotFoundContainer = styled("main")`
         font-size: 1.2em;
     }
    
+    span {
+        font-weight: bold;
+    }
 
 `; //end NotFoundContainer
 
