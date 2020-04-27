@@ -19,7 +19,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
             console.log("Site:\t" + site);
             return site.toString().split(" ", 1)[0];
         } 
-        
+
         if (site === "Centinela Valley Independent Study School" ) {
             return "cviss";
         } 
@@ -113,6 +113,10 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                                 renderAsStudent={renderAsStudent} 
                                 className="position-greeting"
                             >
+                                {/* TODO: Find a way to differentiate students such as student with
+                                        id #46196, who is a special ed students. Special ed students are not always
+                                        seniors.
+                                */}
                                 {
                                     ( (districtPosition === "Student") && gradeLevel ) ?
                                         (
