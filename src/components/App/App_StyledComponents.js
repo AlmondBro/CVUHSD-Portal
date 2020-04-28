@@ -26,6 +26,11 @@ let StyledContainer = styled(ModifiedContainer)`
     && { /*Overrode class style */
       padding-left: 0px;
       padding-right: 0px;
+      overflow-y: auto;
+      overflow-x: auto;
+
+      scrollbar-color: #1E6C93 white;
+    scrollbar-width: auto;
     }
   
     &&& {
@@ -33,7 +38,27 @@ let StyledContainer = styled(ModifiedContainer)`
         {props.styledContainer}
       `}
     }
-    
+
+    ::-webkit-scrollbar {
+      width: 12px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 10px;
+      background-color: white;
+    }
+ 
+  /*  Whole Scrollbar */
+  ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 5px;
+      background-color: white;
+  }
+  
+  /*  Actual Scrollbar */
+  ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+      background: #1E6C93;
+  }
     ::after {
       position: absolute;
       z-index: -1;
