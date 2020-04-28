@@ -265,7 +265,12 @@ class App extends Component {
     console.log("defaultURL:\t" + defaultURL);
 
     return (
-      <StyledContainer fluid={true} containerStyle={this.state.containerStyle} >
+      <StyledContainer 
+        fluid={true} 
+        containerStyle={this.state.containerStyle} 
+        districtPosition={this.state.title}
+        renderAsStudent={this.state.renderAsStudent}
+      >
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
         <AzureAD provider={authProvider} forceLogin={true}>
           {

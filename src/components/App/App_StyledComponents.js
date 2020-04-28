@@ -29,8 +29,11 @@ let StyledContainer = styled(ModifiedContainer)`
       overflow-y: auto;
       overflow-x: auto;
 
-      scrollbar-color: #1E6C93 white;
-    scrollbar-width: auto;
+      scrollbar-color: ${ props => 
+                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                    "#931E1D white": "#1E6C93 white;"
+        };
+      scrollbar-width: auto;
     }
   
     &&& {
@@ -57,7 +60,10 @@ let StyledContainer = styled(ModifiedContainer)`
   ::-webkit-scrollbar-thumb {
       border-radius: 10px;
       -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-      background: #1E6C93;
+      background-color: ${ props => 
+                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                    "#931E1D": "#1E6C93"
+        };
   }
     ::after {
       position: absolute;
