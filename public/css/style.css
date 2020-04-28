@@ -1,9 +1,3 @@
-
-/*  Whole entire scrollbar */
-#root {
-    overflow: hidden;
-}
-     
 body {
     transition: all 700ms ease-in-out !important;
 }
