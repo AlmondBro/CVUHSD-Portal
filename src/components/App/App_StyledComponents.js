@@ -33,7 +33,7 @@ let StyledContainer = styled(ModifiedContainer)`
         {props.styledContainer}
       `}
     }
-
+    
     ::after {
       position: absolute;
       z-index: -1;
