@@ -225,26 +225,30 @@ class ChangePassword extends Component {
           closeTimeoutMS={700}
         >
         
-          <ChangePassword_CloseButton onClick={this.closeModal}>
+          <ChangePassword_CloseButton 
+            className="changePassword-close-button" 
+            onClick={this.closeModal}
+          >
             &times;
           </ChangePassword_CloseButton>
 
           {/* <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2> */}
           
           <ChangePassword_Form 
+              className="changePassword-form"
               action="/change-password" 
               method="POST" 
               onSubmit={this.handleSubmit}
             >
                 <fieldset>
                     <legend>
-                        <ChangePassword_FormHeader>
+                        <ChangePassword_FormHeader className="changePassword-form-header">
                             {/* <CVUHSDLogo src="/images/CV-600x600.png" alt="CVUHSD" /> */}
-                            <FormHeaderText>Change Password</FormHeaderText>
+                            <FormHeaderText className="changePassword-form-header-text">Change Password</FormHeaderText>
                         </ChangePassword_FormHeader>
                     </legend>
                     <p className="cvuhsd-username-container input-icons">
-                        <FormInputLabel htmlFor="username">
+                        <FormInputLabel htmlFor="username" className="formInput-label">
                             <FontAwesomeIcon icon={user} className="icon"/> 
                         </FormInputLabel>
                         <ChangePassword_FormInput 
