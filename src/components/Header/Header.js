@@ -48,7 +48,6 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
         if (schoolName.toLowerCase() === "Centinela Valley Independent Study School") {
             schoolLogoSite = "https://www.cvalternatives.org/";
         }
-
         
         return schoolLogoSite;
     }; //end getSchoolLogoSite
@@ -80,8 +79,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                 <PortalHeaderText 
                     className="portal-header-text" 
                     districtPosition={districtPosition} 
-                    renderAsStudent={renderAsStudent} 
-                    
+                    renderAsStudent={renderAsStudent}    
                 >
                     <strong>
                         {props.districtName || "District"}

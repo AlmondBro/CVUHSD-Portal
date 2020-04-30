@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 
 let AllLinksGoogleSheet = styled("iframe")`
-    width: 25%;
+    width: 50%;
     height: 90vh;
 `; //end AllLinksGoogleSheet
 
@@ -72,7 +72,9 @@ const BlueSection = (props) => {
                     <AllLinksGoogleSheet title="All Links Google Sheets"
                             className="google-sheet" 
                             src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSOPMzFTLmTXsOzY172KN_3IaJqeO9bLPl_3TIgc_bBQiWEanznykV6cEiPBuV9WUHEnL2vesphHEWZ/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
-                    />);
+                            scolling="yes"
+                    />
+                    );
         }//end else-statement
     }; //end generateBlueSectionButtons()
 
@@ -170,7 +172,7 @@ const BlueSection = (props) => {
         double exclamation point to cast null or undefined to false, and register the checked 
         property as part of controlled form component. 
         https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react 
-    // */
+    */
 
     return (
         <BlueSectionContainer   className="blue-section" 
