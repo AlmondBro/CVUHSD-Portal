@@ -1,26 +1,21 @@
-import React, { Component } from 'react';
-import Modal from 'react-modal';
+import React, { Component } from "react";
 
+//Import 3rd-pary modules
+import Modal from "react-modal";
 import isDev from "isdev";
-
-//import { Form, FormInputTextField, FormButton } from './ChangePassword_StyledComponents.js';
-
-import ReactLoading from 'react-loading';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { faUser as user, faLock as lock } from '@fortawesome/free-solid-svg-icons';
 
+//Import utility functions
+import { isEmpty } from "./../../../utilityFunctions.js";
+
+//Import form components
 import { Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, PortalLogo, 
         CVUHSDLogo, ResultButton, ErrorTextAlert, FormHeaderText, ResultMessage, IPAddress, 
         IPLoadingContainer, StyledLoadingContainer, LoadingSpinner,
 
         ChangePassword_FormInput, ChangePassword_SubmitResetButtonsContainer, ChangePassword_FormButton, ChangePassword_ResetButton, ChangePassword_CloseButton, ChangePassword_Form, ChangePassword_FormHeader, ChangePassword_Divider
       } from "./ChangePassword_StyledComponents";
-
-
-import { isEmpty } from "./../../../utilityFunctions.js";
-
 
 class ChangePassword extends Component {
   constructor(props) {

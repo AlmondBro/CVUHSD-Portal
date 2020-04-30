@@ -4,7 +4,7 @@ import React from "react";
 import { BlueSectionButton, AllLinksGoogleSheet, SystemStatuses }  from "./BlueSection_StyledComponents.js";
 
 //Import 3rd-party APIs
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const BlueSection = (props) => {
     let generateBlueSectionButtons = () => {
