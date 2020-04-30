@@ -1,24 +1,10 @@
 import React from "react";
 
 //Import components
-import BlueSectionButton from "./BlueSectionButton.js";
+import { BlueSectionButton, AllLinksGoogleSheet, SystemStatuses }  from "./BlueSection_StyledComponents.js";
 
 //Import 3rd-party APIs
 import styled from 'styled-components';
-
-
-let AllLinksGoogleSheet = styled("iframe")`
-    width: 50%;
-    height: 90vh;
-`; //end AllLinksGoogleSheet
-
-let SystemStatuses = styled("iframe")`
-    align: "center";
-    height: 400px;
-    width: 1200px;
-    border: 0;
-`; //end SystemStatuses
-
 
 const BlueSection = (props) => {
     let generateBlueSectionButtons = () => {

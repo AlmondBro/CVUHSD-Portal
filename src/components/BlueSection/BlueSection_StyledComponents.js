@@ -1,6 +1,20 @@
 import React from "react"; //Import React since JSX is being used
 
+//Import 3rd-party APIs
 import styled from "styled-components";
+
+let AllLinksGoogleSheet = styled("iframe")`
+    width: 50%;
+    height: 90vh;
+`; //end AllLinksGoogleSheet
+
+let SystemStatuses = styled("iframe")`
+    align: "center";
+    height: 400px;
+    width: 1200px;
+    border: 0;
+`; //end SystemStatuses
+
 let StyledButton = styled("button")`
     max-width: 300px;
     
@@ -30,4 +44,4 @@ const BlueSectionButton = (props) => {
     );
 }; //BlueSection()
 
-export default BlueSectionButton;
+export { BlueSectionButton, AllLinksGoogleSheet, SystemStatuses };
