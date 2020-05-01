@@ -55,7 +55,10 @@ let FormInput = styled("input")`
 let FormInputLabel = styled("label")`
     cursor: pointer;
     background-color: #eeeeee;
-    color: #336186;
+    color: ${ props => 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
+                                    "#6A1312": "#336186"
+                        };
     font-size: 1.2em;
     position: absolute;
     padding: 4px;
@@ -67,7 +70,10 @@ let FormInputLabel = styled("label")`
     transition: 0.5s;
 
     &:hover {
-        color: #4785b7;
+        color: ${ props => 
+                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                        "#BD2222": "#4785b7"
+                };
         background-color: white;
     }
 `
@@ -86,7 +92,10 @@ let FormButton = styled("button")`
     text-align: center;
 
     &:hover, &:active, &:focus  {
-        background-color: #3b709a;
+        background-color:  ${ props => 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                "#BD2222": "#4785b7"
+                            };
     }
 `;
 

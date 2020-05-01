@@ -7,7 +7,10 @@ import { Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, P
 
 
 let ChangePassword_Form = styled(Form)`
-    background-color: rgba(24,44,61, 0.9);
+    background-color: ${ props => 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
+                                    "#931E1D": "#1E6C93"
+                        };
     /* rgba(83,147,195, 0.7); */
     border-radius: 0.2em;
     border: 0;
@@ -30,6 +33,10 @@ let ChangePassword_FormHeader = styled(FormHeader)`
 
 let ChangePassword_FormButton = styled(FormButton)`
    width: 90%;
+   background-color: ${ props => 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
+                                    "#6A1312": "#336186"
+                        };
 `;
 
 let ChangePassword_ResetButton = styled(ResetButton)`
@@ -48,10 +55,20 @@ let ChangePassword_CloseButton = styled(FormButton)`
     height: 50px;
     font-size: 1em;
     margin: 0;
-    background-color: #0b74a7;
+    background-color: ${ props => 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
+                                    "#6A1312": "#336186"
+                        };
     color: white;
     /* margin: 0 auto; */
     border-radius: 100%;
+
+    :hover {
+        background-color: ${ props => 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                    "#BD2222": "#2588B9"
+                            };
+    }
 `;
 
 let ChangePassword_Divider = styled("hr")`
