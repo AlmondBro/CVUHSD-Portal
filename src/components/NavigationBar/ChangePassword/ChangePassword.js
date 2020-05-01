@@ -91,9 +91,9 @@ class ChangePassword extends Component {
   }; //end componentDidMount()
 
   componentDidUpdate = (prevProps, prevState) => {
-    console.log("componentDidUpdate prevState:" + JSON.stringify(prevState.renderAsStudent));
-    console.log("componentDidUpdate Prev props renderAsStudent:\t" + JSON.stringify(prevProps.renderAsStudent));
-    console.log("componentDidUpdate this.props renderAsStudent:\t" + JSON.stringify(this.props.renderAsStudent));
+    console.log("before-if componentDidUpdate prevState renderAsStudent:" + JSON.stringify(prevState.renderAsStudent));
+    console.log("before-if componentDidUpdate Prev props renderAsStudent:\t" + JSON.stringify(prevProps.renderAsStudent));
+    console.log("before-if componentDidUpdate this.props renderAsStudent:\t" + JSON.stringify(this.props.renderAsStudent));
     
     // districtPosition={props.districtPosition}
     // renderAsStudent={props.renderAsStudent}
@@ -101,7 +101,7 @@ class ChangePassword extends Component {
     //Othe possible color: rgba(219, 74, 74, 0.65)
 
     if (this.props.renderAsStudent !== prevProps.renderAsStudent) {
-      console.group("componentDidUpdate update inside if-statement");
+      console.log ("after-if 4componentDidUpdate update inside if-statement");
       let modalBGColor = (this.props.renderAsStudent == true) ? 
                             "rgba(147, 30, 29, 0.65)" : "rgba(30, 108, 147, 0.65)";
       this.setState({ customStyles: {
