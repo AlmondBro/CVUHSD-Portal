@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import Modal from "react-modal";
 import isDev from "isdev";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser as user, faLock as lock } from '@fortawesome/free-solid-svg-icons';
+import { faUser as user, faLock as lock, faCommentsDollar } from '@fortawesome/free-solid-svg-icons';
 
 //Import utility functions
 import { isEmpty } from "./../../../utilityFunctions.js";
@@ -24,44 +24,46 @@ class ChangePassword extends Component {
     this.state = {
       modalisOpen: false,
       changePasswordSuccess: null,
-      isLoading: null,
-      userName: "",
-      password: "",
-      newPassword: "",
-      message: "",
-      modalBGColor: "rgba(30, 108, 147, 0.65)"
+      isLoading : null,
+      userName  : "",
+      password  : "",
+      newPassword : "",
+      message : "",
+      renderAsStudent: this.props.renderAsStudent,
+      modalBGColor  : (this.props.districtPosition === "Student" || this.props.renderAsStudent == true) ? 
+                      "rgba(147, 30, 29, 0.65)" : "rgba(30, 108, 147, 0.65)",
+      customStyles : {
+                        overlay: {
+                          position: 'fixed',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          backgroundColor: (this.props.districtPosition === "Student" || this.props.renderAsStudent == true) ? 
+                          "rgba(147, 30, 29, 0.65)" : "rgba(30, 108, 147, 0.65)",
+                            // ( (props.districtPosition !== "student") 
+                            //     || !props.location.state.renderAsStudent ) ? 
+                            //       "#1E6C93": "#931E1D",
+                        
+                          zIndex: 3
+                        }, 
+                      
+                        content : {
+                          top                   : '50%',
+                          left                  : '50%',
+                          right                 : 'auto',
+                          bottom                : 'auto',
+                          marginRight           : '-50%',
+                          transform             : 'translate(-50%, -50%)',
+                          padding               : 0,
+                          margin                : 0,
+                          backgroundColor       : 'transparent',   
+                          border                : 0,
+                          overflow              : 'visible'
+                        }
+                      } //end customStyles{} 
       //red: rgba(147, 30, 29, 0.65)
     }; //end this.state variable
-
-    this.customStyles = {
-      overlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: this.state.modalBGColor,
-          // ( (props.districtPosition !== "student") 
-          //     || !props.location.state.renderAsStudent ) ? 
-          //       "#1E6C93": "#931E1D",
-      
-        zIndex: 3
-      }, 
-    
-      content : {
-        top                   : '50%',
-        left                  : '50%',
-        right                 : 'auto',
-        bottom                : 'auto',
-        marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)',
-        padding               : 0,
-        margin                : 0,
-        backgroundColor       : 'transparent',   
-        border                : 0,
-        overflow              : 'visible'
-      }
-    }; //end customStyles{} 
   } //end constructor()
 
   openModal = () => {
@@ -88,17 +90,51 @@ class ChangePassword extends Component {
     console.log(`Change password props:\t ${JSON.stringify(this.props)}`);
   }; //end componentDidMount()
 
-  componentDidUpdate = (prevProps) => {
-    console.log("componentDidUpdate");
+  componentDidUpdate = (prevProps, prevState) => {
+    console.log("componentDidUpdate prevState:" + JSON.stringify(prevState.renderAsStudent));
+    console.log("componentDidUpdate Prev props renderAsStudent:\t" + JSON.stringify(prevProps.renderAsStudent));
+    console.log("componentDidUpdate this.props renderAsStudent:\t" + JSON.stringify(this.props.renderAsStudent));
+    
     // districtPosition={props.districtPosition}
     // renderAsStudent={props.renderAsStudent}
 
-    if (this.props.districtPosition != prevProps.districtPosition) {
-      console.group("componentDidUpdate update");
-      let modalBGColor = (this.props.districtPosition === "Student" || this.props.renderAsStudent) ? 
+    //Othe possible color: rgba(219, 74, 74, 0.65)
+
+    if (this.props.renderAsStudent !== prevProps.renderAsStudent) {
+      console.group("componentDidUpdate update inside if-statement");
+      let modalBGColor = (this.props.renderAsStudent == true) ? 
                             "rgba(147, 30, 29, 0.65)" : "rgba(30, 108, 147, 0.65)";
-      this.setState({modalBGColor: modalBGColor});
-    }
+      this.setState({ customStyles: {
+        overlay: {
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: modalBGColor,
+            // ( (props.districtPosition !== "student") 
+            //     || !props.location.state.renderAsStudent ) ? 
+            //       "#1E6C93": "#931E1D",
+        
+          zIndex: 3
+        }, 
+      
+        content : {
+          top                   : '50%',
+          left                  : '50%',
+          right                 : 'auto',
+          bottom                : 'auto',
+          marginRight           : '-50%',
+          transform             : 'translate(-50%, -50%)',
+          padding               : 0,
+          margin                : 0,
+          backgroundColor       : 'transparent',   
+          border                : 0,
+          overflow              : 'visible'
+        }
+      } //end customStyles{} 
+    });
+    } //end if-statement
   }; //end componentDidUpdate()
 
   modifyChangePasswordSuccess = (changePasswordSuccess) => {
@@ -232,7 +268,7 @@ class ChangePassword extends Component {
           isOpen={this.props.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={() => this.closeModal() }
-          style={this.customStyles}
+          style={this.state.customStyles}
           contentLabel="Change Password"
           closeTimeoutMS={700}
         >
