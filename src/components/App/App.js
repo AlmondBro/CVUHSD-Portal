@@ -391,12 +391,20 @@ class App extends Component {
                   
                   case AuthenticationState.Error:
                     return (
-                      (<LoadingSSOPage error/>)
+                      (<LoadingSSOPage 
+                        error
+                        title={this.state.title}
+                        renderAsStudent={this.state.renderAsStudent}
+                      />)
                     );
 
                   case error: 
                       return  (
-                        (<LoadingSSOPage error/>)
+                        (<LoadingSSOPage
+                           error
+                           title={this.state.title}
+                           renderAsStudent={this.state.renderAsStudent}
+                        />)
                       );
                   default: 
                     return (<LoadingSSOPage 

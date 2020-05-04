@@ -40,7 +40,12 @@ let LoadingMessage = styled("p")`
     margin: 4px 10px;
     padding: 5px;
 
-    color: #931E1D; 
+    color: ${ props => props.districtPosition ?
+                            (props.districtPosition !== ("Student") || !props.renderAsStudent) ? 
+                                            "#1E6C93": "#931E1D" 
+                            : "#931E1D"
+            };
+     
           
     transition: color 0.5s;
 

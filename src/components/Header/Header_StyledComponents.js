@@ -148,9 +148,10 @@ let PortalHeaderText = styled("h1")`
     z-index: 1;
     display:  ${props => props.display || "inline-block" } ;
     text-align: center;
-    color: ${ props => 
-                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                    "#931E1D": "#1E6C93"
+    color: ${ props => props.districtPosition ? 
+                        ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                            "#931E1D": "#1E6C93" 
+                        : "#931E1D"
         };
     transition: color 0.5s;
 `;
@@ -160,10 +161,11 @@ let Greeting = styled("h3")`
     margin: 4px 10px;
     padding: 5px;
 
-    color:  ${ props => 
-                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                    "#931E1D": "#1E6C93"
-            };
+    color:  ${ props => props.districtPosition ?
+                            (props.districtPosition === ("Student") || props.renderAsStudent) ? 
+                                "#931E1D": "#1E6C93"
+                            : "#931E1D" 
+                        };
     transition: color 0.5s;
 
     & span {

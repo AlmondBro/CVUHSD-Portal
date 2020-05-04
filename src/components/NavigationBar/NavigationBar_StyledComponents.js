@@ -60,10 +60,13 @@ let NavBar = styled.nav`
                 content: "Centinela Valley Union High School District";
                 display: ${props => (props.districtPosition) ? "inline" : "none"};
 
-                color: ${ props => 
-                            (props.districtPosition === ("Student") || props.renderAsStudent) ? 
-                                "#931E1D": "#1E6C93"
+                color: ${ props => props.districtPosition ?
+                                    (props.districtPosition === ("Student") || props.renderAsStudent) ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
                         };
+
+                        
                 transition: color 0.5s;
 
                 font-size: 1.3em;

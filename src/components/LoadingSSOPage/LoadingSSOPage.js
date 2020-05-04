@@ -16,7 +16,11 @@ const LoadingSSOPage = ({message, error, title,...props}) => {
             className="loadingSSOPage-container"
         > 
             <CoffeeAnimationContainer className="coffee-animation-container">
-                <LoadingMessage className="loading-message">Sit tight CVUHSD user, filling your cup of coffee!
+                <LoadingMessage 
+                    className="loading-message"
+                    title={title}
+                >
+                    Sit tight CVUHSD user, filling your cup of coffee!
                     <span>{ message } </span>
                 </LoadingMessage>
                 <CoffeeAnimation className="coffee-animation-outerContainer"/>

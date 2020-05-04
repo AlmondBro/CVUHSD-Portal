@@ -117,7 +117,7 @@ class PageContent extends Component {
                                     <ReactLoading 
                                         type={"spinningBubbles"}
                                         height={'60px'} width={'60px'} 
-                                        color={'#1E6C93'}
+                                        color={ (this.props.title !== "Student") ? "#931E1D": "#1E6C93"}
                                     /> 
                                 </this.PageContentLoading>
                             )

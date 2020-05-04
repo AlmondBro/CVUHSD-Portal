@@ -101,6 +101,9 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
    // <li><a href="https://www.centinela.k12.ca.us/">CVUHSD Home</a></li>
 
    //TODO: Look at image link. It should redirect to the student or staff portal.
+
+     let test = false;
+
     return ([
         <NavBar className="navigation-bar" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
             <NavBarImageWrapper 
@@ -115,7 +118,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                                 className="img-responsive" 
                                 id="navbar-logo" 
                                 href="#" 
-                                src={ ( (props.districtPosition ===   "Student") || props.renderAsStudent ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
+                                src={ ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
                 </Link>
             </NavBarImageWrapper>
             { props.districtPosition ? 
@@ -236,7 +239,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                         <ReactLoading 
                             type={"cubes"}
                             height={'30px'} width={'30px'} 
-                            color={'#1e6c93'}
+                            color={(props.title !== "Student") ? "#931E1D": "#1E6C93"}
                         /> 
                     </NavBarUL_Loading>
                   )

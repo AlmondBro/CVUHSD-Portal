@@ -47,6 +47,7 @@ let StyledContainer = styled(ModifiedContainer)`
       box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
       border-radius: 10px;
       background-color: white;
+
     }
  
   /*  Whole Scrollbar */
@@ -60,11 +61,13 @@ let StyledContainer = styled(ModifiedContainer)`
   ::-webkit-scrollbar-thumb {
       border-radius: 10px;
       -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-      background-color: ${ props => 
-                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                    "#931E1D": "#1E6C93"
+      background-color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
         };
-  }
+    }
+
     ::after {
       position: absolute;
       z-index: -1;
