@@ -54,6 +54,8 @@ class ChangePassword extends Component {
                         }, 
                       
                         content : {
+                          width                 : "50%",
+                          height                : "63%",
                           top                   : '50%',
                           left                  : '50%',
                           right                 : 'auto',
@@ -94,6 +96,55 @@ class ChangePassword extends Component {
   componentDidMount = () => {
     console.log(`Change password props:\t ${JSON.stringify(this.props)}`);
   }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    console.log("before-if componentDidUpdate prevState renderAsStudent:" + JSON.stringify(prevState.renderAsStudent));
+    console.log("before-if componentDidUpdate Prev props renderAsStudent:\t" + JSON.stringify(prevProps.renderAsStudent));
+    console.log("before-if componentDidUpdate this.props renderAsStudent:\t" + JSON.stringify(this.props.renderAsStudent));
+    
+    // districtPosition={props.districtPosition}
+    // renderAsStudent={props.renderAsStudent}
+
+    //Othe possible color: rgba(219, 74, 74, 0.65)
+
+    if (this.props.renderAsStudent !== prevProps.renderAsStudent) {
+      console.log ("after-if 4componentDidUpdate update inside if-statement");
+      let modalBGColor = (this.props.renderAsStudent == true) ? 
+                            "rgba(147, 30, 29, 0.65)" : "rgba(30, 108, 147, 0.65)";
+      this.setState({ customStyles: {
+        overlay: {
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: modalBGColor,
+            // ( (props.districtPosition !== "student") 
+            //     || !props.location.state.renderAsStudent ) ? 
+            //       "#1E6C93": "#931E1D",
+        
+          zIndex: 3
+        }, 
+      
+        content : {
+          width                 : "50%",
+          height                : "63%",
+          top                   : '50%',
+          left                  : '50%',
+          right                 : 'auto',
+          bottom                : 'auto',
+          marginRight           : '-50%',
+          transform             : 'translate(-50%, -50%)',
+          padding               : 0,
+          margin                : 0,
+          backgroundColor       : 'transparent',   
+          border                : 0,
+          overflow              : 'visible'
+        }
+      } //end customStyles{} 
+    });
+    } //end if-statement
+  }; //end componentDidUpdate()
 
   modifyChangePasswordSuccess = (changePasswordSuccess) => {
     this.setState({changePasswordSuccess : changePasswordSuccess});
@@ -228,7 +279,7 @@ class ChangePassword extends Component {
           isOpen={this.props.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={() => this.closeModal() }
-          style={this.customStyles}
+          style={this.state.customStyles}
           contentLabel="Change Password"
           closeTimeoutMS={700}
         >
