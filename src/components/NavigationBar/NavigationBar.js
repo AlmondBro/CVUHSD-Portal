@@ -118,7 +118,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                                 className="img-responsive" 
                                 id="navbar-logo" 
                                 href="#" 
-                                src={ ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
+                                src={ ( (props.districtPosition === "Student") || props.renderAsStudent ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
                 </Link>
             </NavBarImageWrapper>
             { props.districtPosition ? 
@@ -133,6 +133,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                             </NavMenuIcon>    
                         </label>
                     
+                        {/* TODO: Open CVUHSD Home page in a new tab/window */}
                         {(props.districtPosition !== "Student") ? ( 
                             <NavBarListItemLi 
                                 href={"https://www.centinela.k12.ca.us"}
