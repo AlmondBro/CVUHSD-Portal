@@ -7,10 +7,7 @@ import { Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, P
 
 
 let ChangePassword_Form = styled(Form)`
-    background-color: ${ props => 
-                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
-                                    "#931E1D": "#1E6C93"
-                        };
+    background-color: rgba(24,44,61, 0.9);
     /* rgba(83,147,195, 0.7); */
     border-radius: 0.2em;
     border: 0;
@@ -23,20 +20,18 @@ let ChangePassword_Form = styled(Form)`
 `;
 
 let ChangePassword_FormHeader = styled(FormHeader)`
-    margin-bottom: 15px;
+    margin-bottom: 0px;
     padding-bottom: 7px;
-
+    background-color: rgb(147,30,30);
+    justify-content: center;
     & > p {
         margin-bottom: 0px;
+        color: white;
     }
 `;
 
 let ChangePassword_FormButton = styled(FormButton)`
    width: 90%;
-   background-color: ${ props => 
-                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
-                                    "#6A1312": "#336186"
-                        };
 `;
 
 let ChangePassword_ResetButton = styled(ResetButton)`
@@ -45,29 +40,28 @@ let ChangePassword_ResetButton = styled(ResetButton)`
 
 let ChangePassword_CloseButton = styled(FormButton)`
     position: absolute;
-    left: 90%;
-    bottom: 92%;
+    left: 97%;
+    bottom: 95%;
 
     display: block;
     border: 0;
-    padding: 3%;
+    padding: 0;
     width: 50px;
     height: 50px;
     font-size: 1em;
     margin: 0;
-    background-color: ${ props => 
-                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
-                                    "#6A1312": "#336186"
-                        };
+    background-color: rgb(147,30,30);
     color: white;
     /* margin: 0 auto; */
     border-radius: 100%;
 
-    :hover {
-        background-color: ${ props => 
-                                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                    "#BD2222": "#2588B9"
-                            };
+    &:hover, &:active, &:target {
+        background-color: #BD2222;
+
+    }
+
+    @media only screen and (max-width: 920px) {
+        left: 93%;
     }
 `;
 
@@ -95,8 +89,13 @@ let ChangePassword_FormInput = styled(FormInput)`
 
 `;
 
+let ChangePassword_IFrame = styled("iframe")`
+    width: 100%;
+    height: 100%;
+`;
+
 export { Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, PortalLogo, 
     CVUHSDLogo, ResultButton, ErrorTextAlert, FormHeaderText, ResultMessage, IPAddress, 
-    IPLoadingContainer, StyledLoadingContainer, LoadingSpinner, 
+    IPLoadingContainer, StyledLoadingContainer, LoadingSpinner, ChangePassword_IFrame,
 
     ChangePassword_FormInput, ChangePassword_SubmitResetButtonsContainer, ChangePassword_FormButton, ChangePassword_ResetButton, ChangePassword_CloseButton, ChangePassword_Form, ChangePassword_FormHeader, ChangePassword_Divider};

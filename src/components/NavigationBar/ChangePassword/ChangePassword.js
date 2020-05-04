@@ -1,68 +1,73 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import Modal from 'react-modal';
 
-//Import 3rd-pary modules
-import Modal from "react-modal";
 import isDev from "isdev";
+
+//import { Form, FormInputTextField, FormButton } from './ChangePassword_StyledComponents.js';
+
+import ReactLoading from 'react-loading';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser as user, faLock as lock, faCommentsDollar } from '@fortawesome/free-solid-svg-icons';
 
-//Import utility functions
-import { isEmpty } from "./../../../utilityFunctions.js";
+import { faUser as user, faLock as lock } from '@fortawesome/free-solid-svg-icons';
 
-//Import form components
-import { Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, PortalLogo, 
+import { ChangePassword_IFrame, Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, PortalLogo, 
         CVUHSDLogo, ResultButton, ErrorTextAlert, FormHeaderText, ResultMessage, IPAddress, 
         IPLoadingContainer, StyledLoadingContainer, LoadingSpinner,
 
         ChangePassword_FormInput, ChangePassword_SubmitResetButtonsContainer, ChangePassword_FormButton, ChangePassword_ResetButton, ChangePassword_CloseButton, ChangePassword_Form, ChangePassword_FormHeader, ChangePassword_Divider
       } from "./ChangePassword_StyledComponents";
 
+
+import { isEmpty } from "./../../../utilityFunctions.js";
+
+
 class ChangePassword extends Component {
   constructor(props) {
     super(props);
 
+    this.customStyles = {
+      overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(30,108,147, 0.65)',
+          // ( (props.districtPosition !== "student") 
+          //     || !props.location.state.renderAsStudent ) ? 
+          //       "#1E6C93": "#931E1D",
+      
+       
+        zIndex: 3
+      },
+    
+      content : {
+        position              : "relative",
+        height                : "73%",
+        width                 : "65%",
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)',
+        padding               : 0,
+        margin                : 0,
+        backgroundColor       : 'transparent',   
+        border                : 0,
+        overflow              : 'visible'
+      }
+    };
+
     this.state = {
       modalisOpen: false,
       changePasswordSuccess: null,
-      isLoading : null,
-      userName  : "",
-      password  : "",
-      newPassword : "",
-      message : "",
-      renderAsStudent: this.props.renderAsStudent,
-      modalBGColor  : (this.props.districtPosition === "Student" || this.props.renderAsStudent == true) ? 
-                      "rgba(147, 30, 29, 0.65)" : "rgba(30, 108, 147, 0.65)",
-      customStyles : {
-                        overlay: {
-                          position: 'fixed',
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          backgroundColor: (this.props.districtPosition === "Student" || this.props.renderAsStudent == true) ? 
-                          "rgba(147, 30, 29, 0.65)" : "rgba(30, 108, 147, 0.65)",
-                            // ( (props.districtPosition !== "student") 
-                            //     || !props.location.state.renderAsStudent ) ? 
-                            //       "#1E6C93": "#931E1D",
-                        
-                          zIndex: 3
-                        }, 
-                      
-                        content : {
-                          top                   : '50%',
-                          left                  : '50%',
-                          right                 : 'auto',
-                          bottom                : 'auto',
-                          marginRight           : '-50%',
-                          transform             : 'translate(-50%, -50%)',
-                          padding               : 0,
-                          margin                : 0,
-                          backgroundColor       : 'transparent',   
-                          border                : 0,
-                          overflow              : 'visible'
-                        }
-                      } //end customStyles{} 
-      //red: rgba(147, 30, 29, 0.65)
+      isLoading: null,
+      userName: "",
+      password: "",
+      newPassword: "",
+      message: ""
     }; //end this.state variable
   } //end constructor()
 
@@ -88,54 +93,7 @@ class ChangePassword extends Component {
 
   componentDidMount = () => {
     console.log(`Change password props:\t ${JSON.stringify(this.props)}`);
-  }; //end componentDidMount()
-
-  componentDidUpdate = (prevProps, prevState) => {
-    console.log("before-if componentDidUpdate prevState renderAsStudent:" + JSON.stringify(prevState.renderAsStudent));
-    console.log("before-if componentDidUpdate Prev props renderAsStudent:\t" + JSON.stringify(prevProps.renderAsStudent));
-    console.log("before-if componentDidUpdate this.props renderAsStudent:\t" + JSON.stringify(this.props.renderAsStudent));
-    
-    // districtPosition={props.districtPosition}
-    // renderAsStudent={props.renderAsStudent}
-
-    //Othe possible color: rgba(219, 74, 74, 0.65)
-
-    if (this.props.renderAsStudent !== prevProps.renderAsStudent) {
-      console.log ("after-if 4componentDidUpdate update inside if-statement");
-      let modalBGColor = (this.props.renderAsStudent == true) ? 
-                            "rgba(147, 30, 29, 0.65)" : "rgba(30, 108, 147, 0.65)";
-      this.setState({ customStyles: {
-        overlay: {
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: modalBGColor,
-            // ( (props.districtPosition !== "student") 
-            //     || !props.location.state.renderAsStudent ) ? 
-            //       "#1E6C93": "#931E1D",
-        
-          zIndex: 3
-        }, 
-      
-        content : {
-          top                   : '50%',
-          left                  : '50%',
-          right                 : 'auto',
-          bottom                : 'auto',
-          marginRight           : '-50%',
-          transform             : 'translate(-50%, -50%)',
-          padding               : 0,
-          margin                : 0,
-          backgroundColor       : 'transparent',   
-          border                : 0,
-          overflow              : 'visible'
-        }
-      } //end customStyles{} 
-    });
-    } //end if-statement
-  }; //end componentDidUpdate()
+  }
 
   modifyChangePasswordSuccess = (changePasswordSuccess) => {
     this.setState({changePasswordSuccess : changePasswordSuccess});
@@ -174,6 +132,7 @@ class ChangePassword extends Component {
     });
   };
 
+  
   validateFields = () => {
     console.log("checkUser() username");
     let { userName, password, newPassword} = this.state;
@@ -223,7 +182,8 @@ class ChangePassword extends Component {
     }
 
    return userCheck;
-}; //end validateFields()
+};
+
 
   resetButtonListener = (event) => {
     this.modifyLogInStatus(null);
@@ -249,7 +209,7 @@ class ChangePassword extends Component {
       return;
     }
       
-  }; //end handleSubmit()
+  };
 
   handleInputChange = (event) => {
     const target = event.target;
@@ -259,7 +219,7 @@ class ChangePassword extends Component {
     this.setState({
         [name] : value
     });
-  }; //end handleInputChange()
+  };
 
   render = () => {
     return (
@@ -268,166 +228,26 @@ class ChangePassword extends Component {
           isOpen={this.props.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={() => this.closeModal() }
-          style={this.state.customStyles}
+          style={this.customStyles}
           contentLabel="Change Password"
           closeTimeoutMS={700}
         >
         
           <ChangePassword_CloseButton 
-            className="changePassword-close-button" 
-            districtPosition={this.props.districtPosition}
-            renderAsStudent={this.props.renderAsStudent}
+            className="change-password-close-button"
             onClick={this.closeModal}
           >
             &times;
           </ChangePassword_CloseButton>
 
-          {/* <h2 ref={_subtitle => (subtitle = _subtitle)}>Hello</h2> */}
-          
-          <ChangePassword_Form 
-              className="changePassword-form"
-              districtPosition={this.props.districtPosition}
-              renderAsStudent={this.props.renderAsStudent}
-              action="/change-password" 
-              method="POST" 
-              onSubmit={this.handleSubmit}
-            >
-                <fieldset>
-                    <legend>
-                        <ChangePassword_FormHeader className="changePassword-form-header">
-                            {/* <CVUHSDLogo src="/images/CV-600x600.png" alt="CVUHSD" /> */}
-                            <FormHeaderText className="changePassword-form-header-text">Change Password</FormHeaderText>
-                        </ChangePassword_FormHeader>
-                    </legend>
-                    <p className="cvuhsd-username-container input-icons">
-                        <FormInputLabel 
-                          htmlFor="username" 
-                          className="formInput-label"
-                          districtPosition={this.props.districtPosition}
-                          renderAsStudent={this.props.renderAsStudent}
-                        >
-                            <FontAwesomeIcon icon={user} className="icon"/> 
-                        </FormInputLabel>
-                        <ChangePassword_FormInput 
-                            className="input-field"
-                            type="text" 
-                            name="userName" 
-                            id="userName"
-                            title="userName"
-                            onChange={this.handleInputChange}
-                            value={this.state.userName}
-                            placeholder="Your CVUHSD Username"
-                        />
-                    </p>
-                    <p className="cvuhsd-password-container input-icons">
-                        <FormInputLabel 
-                          htmlFor="password"
-                          districtPosition={this.props.districtPosition}
-                          renderAsStudent={this.props.renderAsStudent}
-                        >
-                            <FontAwesomeIcon icon={lock} className="icon"/> 
-                        </FormInputLabel>
-                        <ChangePassword_FormInput 
-                            className="form-input"
-                            type="password" 
-                            name="password" 
-                            id="password"
-                            title="password"
-                            onChange={this.handleInputChange}
-                            value={this.state.password}
-                            placeholder="Current Password"
-                        />
-                    </p>
-                    <ChangePassword_Divider/>
-                    <p className="cvuhsd-password-container input-icons">
-                      <FormInputLabel 
-                          className="form-input-label"
-                          htmlFor="password"
-                          districtPosition={this.props.districtPosition}
-                          renderAsStudent={this.props.renderAsStudent}
-                        >
-                            <FontAwesomeIcon icon={lock} className="icon"/> 
-                        </FormInputLabel>
-                        <ChangePassword_FormInput 
-                            className="form-input"
-                            type="password" 
-                            name="newPassword" 
-                            id="newPassword"
-                            title="New Password"
-                            onChange={this.handleInputChange}
-                            value={this.state.newPassword}
-                            placeholder="New Password"
-                        />
-                    </p>
-                    <p className="cvuhsd-password-container input-icons">
-                        <FormInputLabel 
-                          className="form-input-label"
-                          htmlFor="password"
-                          districtPosition={this.props.districtPosition}
-                          renderAsStudent={this.props.renderAsStudent}
-                        >
-                            <FontAwesomeIcon icon={lock} className="icon"/> 
-                        </FormInputLabel>
-                        <ChangePassword_FormInput 
-                            className="form-input"
-                            type="password" 
-                            name="newPassword-confirm" 
-                            id="newPassword-confirm"
-                            title="Confirm New Password"
-                            // onChange={this.handleInputChange}
-                            // value={this.state.password}
-                            placeholder="Confirm new password"
-                        />
-                    </p>
+          <ChangePassword_FormHeader className="changePasswordForm-header">
+              {/* <CVUHSDLogo src="/images/CV-600x600.png" alt="CVUHSD" /> */}
+              <FormHeaderText className="form-header-text">Change Password</FormHeaderText>
+          </ChangePassword_FormHeader>
 
-                    <ChangePassword_SubmitResetButtonsContainer className="form-buttons-container">
-                         {
-                            /*  &#10003; -- checkmark 
-                            &#215; -- close
-                            //TODO: Need to find HTML entities
-                            */
-                        }
-                        <ChangePassword_FormButton 
-                          type="submit" 
-                          title="Change Password"
-                          districtPosition={this.props.districtPosition}
-                          renderAsStudent={this.props.renderAsStudent}
-                        >
-                          Change Password
-                        </ChangePassword_FormButton>
-                        
-                        <ChangePassword_ResetButton id="reset-button"
-                                      type="reset"
-                                      title="Reset form"
-                          >
-                              Reset
-                          </ChangePassword_ResetButton>  
-                            
-                        {   this.state.isLoading ?
-                                <LoadingSpinner 
-                                    type={"spin"}
-                                    height={'30px'} width={'30px'} 
-                                    color={'#1f6b92'}
-                                /> : "" 
-                        }
-                        { (this.state.changePasswordSuccess === null) ? null : 
-                            (   <React.Fragment>
-                                    <ErrorTextAlert>
-                                        { (this.state.changePasswordSuccess != false) ? null : "Error:"}
-                                    </ErrorTextAlert>
-                                </React.Fragment>
-                            )
-
-                        }
-                        
-                        <ResultMessage 
-                          loggedIn={this.state.loggedIn}
-                        >
-                          {"\t" + this.state.message}
-                        </ResultMessage>
-                    </ChangePassword_SubmitResetButtonsContainer>
-                </fieldset>
-            </ChangePassword_Form>
+          <ChangePassword_IFrame 
+            src="https://sso.centinela.k12.ca.us/adfs/portal/updatepassword"
+          />
         </Modal>
       </div>
     );
