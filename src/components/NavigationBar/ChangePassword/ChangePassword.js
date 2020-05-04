@@ -26,48 +26,48 @@ class ChangePassword extends Component {
   constructor(props) {
     super(props);
 
-    this.customStyles = {
-      overlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(30,108,147, 0.65)',
-          // ( (props.districtPosition !== "student") 
-          //     || !props.location.state.renderAsStudent ) ? 
-          //       "#1E6C93": "#931E1D",
-      
-       
-        zIndex: 3
-      },
-    
-      content : {
-        position              : "relative",
-        height                : "73%",
-        width                 : "65%",
-        top                   : '50%',
-        left                  : '50%',
-        right                 : 'auto',
-        bottom                : 'auto',
-        marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)',
-        padding               : 0,
-        margin                : 0,
-        backgroundColor       : 'transparent',   
-        border                : 0,
-        overflow              : 'visible'
-      }
-    };
-
     this.state = {
       modalisOpen: false,
       changePasswordSuccess: null,
-      isLoading: null,
-      userName: "",
-      password: "",
-      newPassword: "",
-      message: ""
+      isLoading : null,
+      userName  : "",
+      password  : "",
+      newPassword : "",
+      message : "",
+      renderAsStudent: this.props.renderAsStudent,
+      modalBGColor  : (this.props.districtPosition === "Student" || this.props.renderAsStudent == true) ? 
+                      "rgba(147, 30, 29, 0.65)" : "rgba(30, 108, 147, 0.65)",
+      customStyles : {
+                        overlay: {
+                          position: 'fixed',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          backgroundColor: (this.props.districtPosition === "Student" || this.props.renderAsStudent == true) ? 
+                          "rgba(147, 30, 29, 0.65)" : "rgba(30, 108, 147, 0.65)",
+                            // ( (props.districtPosition !== "student") 
+                            //     || !props.location.state.renderAsStudent ) ? 
+                            //       "#1E6C93": "#931E1D",
+                        
+                          zIndex: 3
+                        }, 
+                      
+                        content : {
+                          top                   : '50%',
+                          left                  : '50%',
+                          right                 : 'auto',
+                          bottom                : 'auto',
+                          marginRight           : '-50%',
+                          transform             : 'translate(-50%, -50%)',
+                          padding               : 0,
+                          margin                : 0,
+                          backgroundColor       : 'transparent',   
+                          border                : 0,
+                          overflow              : 'visible'
+                        }
+                      } //end customStyles{} 
+      //red: rgba(147, 30, 29, 0.65)
     }; //end this.state variable
   } //end constructor()
 
