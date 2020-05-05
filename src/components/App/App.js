@@ -157,10 +157,6 @@ class App extends Component {
   };
 
   getUserInfo = async () => {
-    console.log("getUserInfo()");
-
-    const token = await authProvider_noDomainHint.getAccessToken();
-
     let getStudentSchool = () => {
       console.log("getStudentSchool()");
 
@@ -237,6 +233,11 @@ class App extends Component {
           throw new Error(response.text());
         });
     }; //end getGraphInfo()
+    
+    console.log("getUserInfo()");
+    const token = await authProvider_noDomainHint.getAccessToken();
+
+   
     
     getGraphInfo();
 

@@ -343,7 +343,11 @@ let getOU = async (req, res, next) =>  {
   userLocation = await activeDirectory.user(user).location();
 
   let waitInterval = 2000; //2k milliseconds -- 2 seconds
-  setTimeout(() => { res.json(userLocation); console.log("userLocation:\t" + userLocation); }, waitInterval); 
+  setTimeout(() => { 
+                    res.json(userLocation); 
+                    console.log("userLocation:\t" + userLocation); 
+                  }, waitInterval
+            ); 
 };
 
 app.post(getOU_URL, getOU);
