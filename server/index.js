@@ -149,55 +149,6 @@ app.get(aboutIISNode_URL,  (req, res)  =>{
 }); 
 
 let logIn_URL = `${isDev ? "" : "/server" }/login`;
-let logOut_URL = `${isDev ? "" : "/server" }/logout`;
-
-//Routes
-app.get(logIn_URL, (req, res) => { res.send({success: true}); console.log("Login"); } ); 
-
-app.post(logOut_URL, (req, res, next) => {
-  //console.log("Log Out Next:\t" + next); //TODO: See if this is really the next() function or an error
-
-  if (req.user || req.isAuthenticated()) {
-    console.log("\n\nReq-session, before logging out:\t" + JSON.stringify(req.session) );
-    //Destroy cookie: https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
-    req.logout();
-    req.session = null; //Destroy session
-
-    //res.clearCookie('express.sid', {path: '/'}).json({status: "Logout success"});
-    res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //Send message to front-end to log out. Status 401 is logged out or unauthorized.
-    /* /req.session.destroy only works when expression-session is used
-    req.session.destroy(
-      (err) => {
-        if (!err) {
-            console.log("Clear cookie...");
-            //res.cookie("express.sid", "", { expires: new Date() });
-           // res.clearCookie('express.sid', {path: '/'}).json({status: "Logout success"});
-           //req.logOut(); Logout used to be here
-           res.status(401).send({logOutSuccess: true, message : "Logging Out...", userInfo: res.locals.userInfo}); //status 401 is logged out
-           console.log("Req-session, after logging out:\t" + JSON.stringify(req.session) )          
-          } else {
-            // handle error case
-            console.log(" Destroy Cookie error");
-        } //end else-statement
-      } //code snippet courtesy of https://stackoverflow.com/questions/31641884/does-passports-logout-function-remove-the-cookie-if-not-how-does-it-work
-    );//end req.session.code()
-      */
-  } //end if-statement
-  
-  if ( (!(req.user)) || req.isUnauthenticated()) {
-    console.log("Already logged out");
-    console.log("\n\nPassport.session, after logging out:\t" + JSON.stringify(passport.session) ); 
-  } else {
-    console.log("Neither logged in nor out");
-  }
-});
- 
-//app.options('/login', cors()); // enable pre-flight request for DELETE request
-
-let passportAuthentication_options = {  failWithError: true, 
-                                        session: true,
-                                        failureFlash: true 
-                                    }
 
 /*The following is a function that parses the string value from the 'dn' category 
 and extracts the key value pairs */
@@ -228,95 +179,6 @@ let getSite = (dnString) => {
   site = dnKeyValueObject["OU"];
   return site;
 }; 
-
-//TODO: Find a way so that if users input with the domain "@cvuhsd.org", they are also authenticated
-app.post(logIn_URL,
-  // wrap passport.authenticate call in a middleware function
-   (req, res, next) => {
-    // call passport authentication passing the "local" strategy name and a callback function
-    ////Can use ActiveDirectory, saml, wsfed-saml2 all as authentication strategies 
-    passport.authenticate('ActiveDirectory', passportAuthentication_options,  (error, user, info) => {
-      // this will execute in any case, even if a passport strategy will find an error
-      // log everything to 
-      
-      //let userInfo = {...user["_json"], ...user["name"]};
-     // res.locals.userInfo = userInfo; //To 'pass a variable' to a middleware, attach it to the response.locals object
-      //console.log("User:\t" + JSON.stringify(userInfo) );
-
-      username = req.body.username;
-      console.log("\n------------------");
-      console.log("Error:\t" + error);
-    
-      console.log("Info:\t" + info);
-
-      console.log(`\nUser password:\t ${req.body.password} \n Username:\t ${req.body.username}`);
-     // let statusCode = /InvalidCredentialsError/.test(error.stack) || "";
-      // || ( (statusCode == "401") || (statusCode == "500") )
-      if (error) {
-        console.log("invalid credentials error:\t" + error);
-        //res.status(401).send(error);
-        res.json({"success" : false, "message" : JSON.stringify(error) || "Invalid password", "user": user});
-      } else if (!user) {
-        console.log("else if !user");        
-       // res.status(401).send(info);
-        
-        res.status(401).json({"success" : false, "message" : "User does not exist"});
-      } 
-        
-      // "Note that when using a custom callback, it becomes the application's responsibility to establish a session (by calling req.login()) and send a response."
-      req.logIn(user, (err) => {
-          if (err) { return next(err); }
-          
-          let userInfo = {...user["_json"], ...user["name"]};
-
-          let site = getSite(userInfo["dn"]);
-
-          console.log("site:\t" + (site) );
-          console.log("\n\nRaw user info:\t" + (user) );
-          console.dir(user);
-        
-          //userInfo = {...user["_json"], ...user["name"], ...{"site": site} };
-
-          //More condensed userInfo with only necessary attributes
-          userInfo = { 
-                      ...{"title" : user["_json"].title },
-                      ...{"displayName" : user["_json"].displayName }, 
-                      ...{"givenName" : user["name"].givenName },
-                      ...{"familyName" : user["name"].familyName }, 
-                      ...{"emails": user["emails"][0].value},
-                      ...{"cvuhsd-email" : user["_json"].description },
-                      ...{"site": site} 
-                    };
-
-          res.locals.userInfo = userInfo; //To 'pass a variable' to a middleware, attach it to the response.locals object
-          req.session.userInfo = res.locals.userInfo; //Add userInfo object to the session
-          
-          console.log("Logged in successfully -- Calling next() -- go to next middleware");
-         // return done(null, user); //causes error
-          next(); //pass to next function in middleware
-      });
-
-      //res.status(401).send(info); this was causing a headers already set error
-    })(req, res, next);
-  },
-
-  // function to call once successfully authenticated
-   (req, res) => {
-    console.log("Login success");
-    res.status(200).send({success: true, message : "Success! Logging in...", userInfo: res.locals.userInfo});
-  });
-
-// Test endpoint to check whether user is authenticated
-let isAuth_URL = `${isDev ? "" : "/server" }/isloggedin`
-app.get(isAuth_URL, (req, res) => {
-  if (req.user) {
-      console.log("\nCurrently Authenticated");
-      res.json({"Authenticated": true});
-  } else {
-    console.log("\nCurrently Not Authenticated");
-    res.json({"Authenticated": false});
-  }
-});
 
 let getIP_URL = `${isDev ? "" : "/server" }/getIP`;
 app.get(getIP_URL, (req, res) => {
@@ -350,49 +212,6 @@ let getOU = async (req, res, next) =>  {
 };
 
 app.post(getOU_URL, getOU);
-
-let changePassword_URL = `${isDev ? "" : "/server" }/change-password`;
-let asyncChangePassword = async (req, res, next) =>  {
-  //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
-  //let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
-
-  console.log((req.body));
-  let { userName, password, newPassword } = req.body;
-
-  console.log("userName:\t" + userName);
-  
-  console.log("New password:\t" + newPassword);
-
-  let changePasswordSuccess;
-  let waitInterval = 2200;
-
-  let changePassword = async (userName) => {
-      console.log("changePassword");
-      //changePasswordSuccess = await activeDirectory.user(user).password(userName, password);
-
-      changePasswordSuccess = await ad.user('v.mejia205').location();
-
-      setTimeout(() => console.log(changePasswordSuccess), waitInterval); 
-  };
-
-  if (req.user) {
-    console.log("\nCurrently Authenticated");
-
-    res.json({"Authenticated": true, "message": "Currently authenticated"});
-
-    ((async () => { await activeDirectory.user(userName).authenticate(password)  })()) ? changePassword(userName) : null;
-
-  } else {
-    console.log("\Not Authenticated");
-    res.json({"Authenticated": false});
-    return;
-  }
-  next();
-}
-
-app.post(changePassword_URL, asyncChangePassword, (req, res) => {
-  console.log("Change password.");
-});
 
 /*
   In Express, 404 responses are not the result of an error, so the 
