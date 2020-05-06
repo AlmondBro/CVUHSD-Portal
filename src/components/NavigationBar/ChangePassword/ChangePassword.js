@@ -285,6 +285,7 @@ class ChangePassword extends Component {
 
           <ChangePassword_IFrame 
             src="https://sso.centinela.k12.ca.us/adfs/portal/updatepassword"
+            sandbox={true}
           />
         </Modal>
       </div>
