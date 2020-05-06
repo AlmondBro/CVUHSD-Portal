@@ -122,35 +122,6 @@ class App extends Component {
     this.clearState();
   };
 
-  isAuthenticated = () => {
-    //event.preventDefault();
-    console.log("Checking if authenticated...");
-
-    let logIn_URL = `${isDev ? "" : "/server" }/isloggedin`
-
-    this.setState({isLoading: true, message: "Loading..."});
-
-    //let isDev = false;
-    let headers = {
-        'Content-Type': 'application/json',
-        'credentials': 'include',
-        'Access-Control-Allow-Origin': '*',
-    };
-
-    fetch(logIn_URL, {
-        method: 'GET',
-        headers: headers,
-    }).then((response) => {
-        return response.json();
-    }).then((response) => {
-        console.log("App.js fetch block 1");
-        console.log("Response:!!\t" + JSON.stringify(response) );
-        response.Authenticated ? this.modifyLogInStatus(true) : this.modifyLogInStatus(null);
-    }).catch((err) => {
-        console.log(`Catching error:\t ${err}`);
-    });
-};
-
   modifyRootAccountInfo = (newAccountInfo) => {
     console.log("updateRootAccountInfo()");
     this.setState({accountInfo: newAccountInfo});
@@ -244,20 +215,14 @@ class App extends Component {
   }; //end getUserInfo()
 
   componentDidMount = () => {
-   // this.isAuthenticated();
     this.getUserInfo(); 
+
     console.log("App.js window.location.pathname:\t" + window.location.pathname);
     console.log("App.js window.location.pathname true student:\t" + (window.location.pathname === "/student") );
     console.log("Route render window.location.pathname:\t" + window.location.pathname !== "/staff");
+    
     this.setState({pathname: window.location.pathname});
-
-   
-    //console.log("Graph info:\t" + JSON.stringify(graphInfo) );
-  };
-
-  componentDidUpdate = () => {
- 
-  }; //end componentDidUpdate
+  }; //end componentDidMount
 
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;
