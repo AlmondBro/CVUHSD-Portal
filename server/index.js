@@ -337,9 +337,8 @@ let getOU = async (req, res, next) =>  {
 
   let { user } = req.body;
   
-  console.log("User\t" + user);
+  console.log("\nUser\t\n" + user);
 
-  
   userLocation = await activeDirectory.user(user).location();
 
   let waitInterval = 2000; //2k milliseconds -- 2 seconds
