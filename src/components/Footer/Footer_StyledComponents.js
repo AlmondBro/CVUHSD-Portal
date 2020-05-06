@@ -7,11 +7,6 @@ let FooterStyled = styled("footer")`
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
                         };
-    /* display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    line-height: 2em; */
 
     ul {
         margin: 0;

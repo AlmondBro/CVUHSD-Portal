@@ -397,10 +397,16 @@ class App extends Component {
             // component={Troubleshooting}
           /> */}
         </Switch>
-        <Footer 
+        {
+          this.state.title ? 
+          (
+            <Footer 
                title={this.state.title}
                renderAsStudent={this.state.renderAsStudent}
-        />
+            />
+          ) : null
+        }
+        
       </StyledContainer>); //end return statement
   }
 }

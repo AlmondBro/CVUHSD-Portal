@@ -19,7 +19,7 @@ let Footer = (props) => {
                 <a href="https://www.centinela.k12.ca.us" target="_blank">CVUHSD Home</a>
                 <a href="https://helpdesk.centinela.k12.ca.us" target="_blank">Helpdesk</a>
                 <a href="https://sso.centinela.k12.ca.us/adfs/portal/updatepassword" target="_blank">Update Password</a>
-                <a href="https://portal.centinela.k12.ca.us/staff.html" target="_blank">Troubleshooting</a>
+                <a href="https://portal.centinela.k12.ca.us/troubleshooting.html" target="_blank">Troubleshooting</a>
             </ul>
         </FooterStyled>
     ); //emnd return statement
