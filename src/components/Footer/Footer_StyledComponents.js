@@ -7,6 +7,7 @@ let FooterStyled = styled("footer")`
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
                         };
+    margin-top: 0.1%;
 
     ul {
         margin: 0;
