@@ -10,6 +10,7 @@ import { authProvider, authProvider_noDomainHint } from "./../../authProvider.js
 import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
 import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
 import PageContent from "../PageContent.js";
+import Footer from "./../Footer/Footer.js";
 
 import {  Redirect } from "react-router";
 import { Route, Switch } from "react-router-dom";
@@ -396,6 +397,10 @@ class App extends Component {
             // component={Troubleshooting}
           /> */}
         </Switch>
+        <Footer 
+               title={this.state.title}
+               renderAsStudent={this.state.renderAsStudent}
+        />
       </StyledContainer>); //end return statement
   }
 }
