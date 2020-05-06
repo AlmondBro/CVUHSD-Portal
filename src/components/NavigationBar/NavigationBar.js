@@ -118,7 +118,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                                 className="img-responsive" 
                                 id="navbar-logo" 
                                 href="#" 
-                                src={ ( (props.districtPosition === "Student") || props.renderAsStudent ) ? "/images/CV-600x600.png" : "/images/CV-600x600-portal.png"} />
+                                src={ ( (props.districtPosition === "Student") || props.renderAsStudent ) ? "/images/CV-600x600-portal-red.png" : "/images/CV-600x600-portal.png"} />
                 </Link>
             </NavBarImageWrapper>
             { props.districtPosition ? 
