@@ -176,6 +176,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                             <NavBarListItemLi 
                                 bulletPointInMobile={true}
                                 renderAsStudent={props.renderAsStudent}
+                                onClick={() => toggleModal(true) }
                             >
                                 <Tooltip
                                     placement={"bottom"}
@@ -190,7 +191,6 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                                             title={"Change Password"} 
                                             districtPosition={props.districtPosition}
                                             renderAsStudent={props.renderAsStudent}
-                                            onClick={() => toggleModal(true) }
                                     >
                                         <object 
                                             type="image/svg+xml" 
@@ -208,6 +208,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                         <NavBarListItemLi 
                             bulletPointInMobile={true}
                             renderAsStudent={props.renderAsStudent}
+                            onClick={signOutClearState}
                         >
                             <Tooltip
                                 placement={"bottom"}
@@ -219,8 +220,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                                 transitionName={"rc-tooltip-zoom"}
                             >
                                 <NavBarButton   
-                                        title={"Log Out"} 
-                                        onClick={signOutClearState} 
+                                        title={"Log Out"}  
                                         districtPosition={props.districtPosition}
                                         renderAsStudent={props.renderAsStudent}
                                 >
