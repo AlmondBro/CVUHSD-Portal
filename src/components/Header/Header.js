@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 //Import components
 import NavigationBar from "../NavigationBar/NavigationBar.js";
@@ -57,7 +57,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
     let schoolName = parseSchoolName(site);
 
 
-    return ([
+    return (<Fragment>
         <NavigationBarHeader 
             className="app-header navigation-bar-header"
             districtPosition={districtPosition}
@@ -72,7 +72,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                 clearState={clearState}
                 logOut={logOut}
             />
-        </NavigationBarHeader>,
+        </NavigationBarHeader>
 
         <DashboardHeaderContainer className="dashboard-header-container" id="back-to-top" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
             <DashboardHeader className="dashboard-header" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
@@ -155,20 +155,9 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                             Stay put, warming your cup of coffee! 
                         </Greeting>
                 }
-              
-                <AddToHomeScreenButton  id="addToHomeScreenButton" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >Add to Home Screen</AddToHomeScreenButton>
-                <ToolTip districtPosition={districtPosition} renderAsStudent={renderAsStudent}  className="tooltip" id="addToHomeScreenTooltip">
-                    <p>
-                        Create a shortcut to the portal app on your desktop. 
-                    </p>
-                    <p>
-                        Be notified when a service such as Destiny is down, and 
-                        conversely when it comes back up.
-                    </p> 
-                </ToolTip>
             </DashboardHeader>
         </DashboardHeaderContainer>
-    ]);   
+    </Fragment>);   
 }; //end Header
 
 export default Header;
