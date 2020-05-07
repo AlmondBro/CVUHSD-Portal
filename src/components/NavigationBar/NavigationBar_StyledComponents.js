@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 let NavBar = styled.nav`
         display: inline-block;
+        padding: 0.5% 0%;
 
         & ul li {
             display: inline-block;
@@ -24,7 +25,7 @@ let NavBar = styled.nav`
                 left: 15%;
                 margin-bottom: -52px;
                 z-index: 1;
-                max-height: 320px;
+                max-height: 350px;
                 overflow-y: auto;
                 /*Used to be -25px, now it's -50px */
                 /*margin-bottom Used to be -10px */
@@ -87,7 +88,7 @@ let NavBar = styled.nav`
         margin-left: 50%;
         margin-top: 8px;
 
-        @media only screen and (max-width: 705px) { 
+        @media only screen and (max-width: 785px) { 
             display: inline;
             vertical-align: middle;
             margin-left: 25%;

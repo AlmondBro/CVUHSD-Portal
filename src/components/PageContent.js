@@ -107,7 +107,7 @@ class PageContent extends Component {
                             logOut={this.props.logOut}
                             clearState={this.props.clearState}
                             renderAsStudent={(window.location.pathname === "/student")}
-                    />,
+                    />
                     { (this.props.title) ? 
                         (
                             <div className="page-content">

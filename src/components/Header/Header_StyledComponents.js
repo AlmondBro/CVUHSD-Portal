@@ -7,7 +7,6 @@ let NavigationBarHeader = styled("header")`
         width: 100%;
         /* Bottom three BG-color and margin bottom rules, and border-bottom were not here before */
         /* background-color: #f4f7f9; */
-        margin-bottom: 20px;
         /* border-bottom: 1px solid #1e6c93; */
         /* background-color: white; */
         line-height: 1.0em;
@@ -41,6 +40,7 @@ let NavigationBarHeader = styled("header")`
     @media only screen and (max-width: 833px) {
         /* margin-top: -95px; */
         display: inline-block;
+        padding: 0px;
     }
 `//end NavigationBarHeader
 
@@ -65,15 +65,10 @@ let DashboardHeader = styled("header")`
     text-align: center;
     /* background-image: url('../images/Night-shot-w-lights_cropped.jpg');
     background-size: cover; */
-    margin-top: -40px;
 
     @media only screen and (max-width: 765px) {
-        margin-top: 95px;
+        margin-top: 115px;
         /*Used to be 150px*/
-    }
-
-    @media only screen and (max-width: 833px) {
-        margin-top: 0px;
     }
 
     ::after {
@@ -146,7 +141,7 @@ let ToolTip = styled("div")`
 let PortalHeaderText = styled("h1")`
     position: relative;
     z-index: 1;
-    display:  ${props => props.display || "inline-block" } ;
+    display:  ${props => props.display || "block" } ;
     text-align: center;
     color: ${ props => props.districtPosition ? 
                         ( (props.districtPosition === "Student") || props.renderAsStudent) ? 

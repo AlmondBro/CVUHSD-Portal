@@ -91,10 +91,6 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                     </strong>
                 </PortalHeaderText>
 
-                <section>
-
-                </section>
-
                 { districtPosition ? (
                         <PositionSiteInfo 
                             className="position-site-info" 
