@@ -18,7 +18,16 @@ let Footer = (props) => {
                 </li> */}
                 <a href="https://www.centinela.k12.ca.us" target="_blank" className="col-sm-3">CVUHSD Home</a>
                 <a href="https://helpdesk.centinela.k12.ca.us" target="_blank" className="col-sm-3">Helpdesk</a>
-                <a href="https://sso.centinela.k12.ca.us/adfs/portal/updatepassword" target="_blank" className="col-sm-3">Update Password</a>
+                {
+                    props.title ?
+                        (props.title === ("Student") || props.renderAsStudent) ? 
+                           null:  (<a href="https://sso.centinela.k12.ca.us/adfs/portal/updatepassword" 
+                                        target="_blank" 
+                                        className="col-sm-3">
+                                            Change Password
+                                    </a>)
+                        : null 
+                }
                 <a href="https://portal.centinela.k12.ca.us/troubleshooting.html" target="_blank" className="col-sm-3">Troubleshooting</a>
             </ul>
         </FooterStyled>
