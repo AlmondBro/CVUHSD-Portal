@@ -128,11 +128,6 @@ class PageContent extends Component {
                                 </this.PageContentLoading>
                             )
                     }
-                    
-          
-           
-          
-        
                 </Fragment>
             );
     }; //end render()
