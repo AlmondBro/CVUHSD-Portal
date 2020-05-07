@@ -13,6 +13,8 @@ import { blueSectionInfo_Staff , redSectionInfo_Student} from "./../objectFiles/
 
 import undefsafe from "undefsafe";
 
+import Footer from "./Footer/Footer.js";
+
 //TODO: Bug -- Changing from the staff to the student portal does not change the page title.
 //TODO: Save passed props from <Redirect> into state.
 //TODO: Enlarge the All links embedded google sheet
@@ -110,6 +112,10 @@ class PageContent extends Component {
                         (
                             <div className="page-content">
                                 { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
+                                <Footer 
+                                    title={this.props.title}
+                                    renderAsStudent={this.props.renderAsStudent}
+                                />
                             </div>
                         )
                         :   (
@@ -122,6 +128,11 @@ class PageContent extends Component {
                                 </this.PageContentLoading>
                             )
                     }
+                    
+          
+           
+          
+        
                 </Fragment>
             );
     }; //end render()

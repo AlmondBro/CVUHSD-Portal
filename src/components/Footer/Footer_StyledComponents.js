@@ -20,6 +20,10 @@ let FooterStyled = styled("footer")`
 
     a {
         color: white;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
         /* margin: 0% 0.5%; */
     }
 

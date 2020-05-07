@@ -5,8 +5,8 @@ import { FooterStyled } from "./Footer_StyledComponents.js";
 
 let Footer = (props) => {
     return (
-        <FooterStyled {...props}>
-            <ul>
+        <FooterStyled {...props} className="footer">
+            <ul className="row"> 
                 {/* <li>
                     <a href='https://play.google.com/store/apps/details?id=com.cvuhsd.portalMobile&hl=en_US&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
                         <img    id="mobile-portal-ad"
@@ -16,10 +16,10 @@ let Footer = (props) => {
                     </a>
                     
                 </li> */}
-                <a href="https://www.centinela.k12.ca.us" target="_blank">CVUHSD Home</a>
-                <a href="https://helpdesk.centinela.k12.ca.us" target="_blank">Helpdesk</a>
-                <a href="https://sso.centinela.k12.ca.us/adfs/portal/updatepassword" target="_blank">Update Password</a>
-                <a href="https://portal.centinela.k12.ca.us/troubleshooting.html" target="_blank">Troubleshooting</a>
+                <a href="https://www.centinela.k12.ca.us" target="_blank" className="col-sm-3">CVUHSD Home</a>
+                <a href="https://helpdesk.centinela.k12.ca.us" target="_blank" className="col-sm-3">Helpdesk</a>
+                <a href="https://sso.centinela.k12.ca.us/adfs/portal/updatepassword" target="_blank" className="col-sm-3">Update Password</a>
+                <a href="https://portal.centinela.k12.ca.us/troubleshooting.html" target="_blank" className="col-sm-3">Troubleshooting</a>
             </ul>
         </FooterStyled>
     ); //emnd return statement
