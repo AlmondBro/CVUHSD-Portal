@@ -65,7 +65,6 @@ let Footer = (props) => {
                         target="_blank" 
                         rel="noopener noreferrer"
                         title="Troubleshooting"
-                    
                     >
                     Troubleshooting
                     </a>

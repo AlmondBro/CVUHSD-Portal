@@ -137,7 +137,7 @@ let NavBar = styled.nav`
             transform: rotate(45deg) translate(-8px, -8px);
         }
 
-        @media only screen and (max-width: 705px) {
+        @media only screen and (max-width: 775px) {
             &:checked~li {
                 /*margin: 0 60px; */
                 display: block;
