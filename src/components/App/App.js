@@ -208,8 +208,6 @@ class App extends Component {
     console.log("getUserInfo()");
     const token = await authProvider_noDomainHint.getAccessToken();
 
-   
-    
     getGraphInfo();
 
   }; //end getUserInfo()
@@ -248,7 +246,7 @@ class App extends Component {
         renderAsStudent={this.state.renderAsStudent}
       >
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
-        <AzureAD provider={authProvider} forceLogin={true}>
+        <AzureAD provider={this.state.title ? authProvider_noDomainHint : authProvider } forceLogin={true}>
           {
             ({ login, logout, accountInfo, authenticationState, error }) => {
               //console.log("Account info:\t" + JSON.stringify(accountInfo));

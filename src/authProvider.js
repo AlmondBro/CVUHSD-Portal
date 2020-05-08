@@ -17,7 +17,7 @@ const config = {
   cache: {
     cacheLocation: "localStorage",
     storeAuthStateInCookie: true, // Set this to "true" if you are having issues on IE11 or Edge
-    forceRefresh: false // Set this to "true" to skip a cached token and go to the server to get a new
+    forceRefresh: true // Set this to "true" to skip a cached token and go to the server to get a new
   },
   // Enable logging of MSAL events for easier troubleshooting.
     // This should be disabled in production builds.
