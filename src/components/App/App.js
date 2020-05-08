@@ -224,6 +224,16 @@ class App extends Component {
     this.setState({pathname: window.location.pathname});
   }; //end componentDidMount
 
+  componentDidUpdate = () => {
+    const favicon = document.getElementById("favicon");
+    
+    if (this.state.title === "Student" || this.state.renderAsStudent) {
+      favicon.href = "./images/CV-600x600-portal-red.png";
+    } else {
+      favicon.href = "./images/CV-600x600-portal.png"
+    }
+  }; //end componentDidUpdate()
+
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;
 
