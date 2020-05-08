@@ -102,8 +102,6 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
 
    //TODO: Look at image link. It should redirect to the student or staff portal.
 
-     let test = false;
-
     return ([
         <NavBar className="navigation-bar" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
             <NavBarImageWrapper 
@@ -118,7 +116,11 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                                 className="img-responsive" 
                                 id="navbar-logo" 
                                 href="#" 
-                                src={ ( (props.districtPosition === "Student") || props.renderAsStudent ) ? "/images/CV-600x600-portal-red.png" : "/images/CV-600x600-portal.png"} />
+                                src={  props.districtPosition ? 
+                                       ( ( (props.districtPosition === "Student") || props.renderAsStudent ) ? "/images/CV-600x600-portal-red.png" : "/images/CV-600x600-portal.png")
+                                        : "/images/CV-600x600-portal-red.png"
+                                    } 
+                    />
                 </Link>
             </NavBarImageWrapper>
             { props.districtPosition ? 
