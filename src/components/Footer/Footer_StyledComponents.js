@@ -35,7 +35,7 @@ let FooterStyled = styled("footer")`
 `; //end Footer
 
 const AppButtonsSection = styled("section")`
-    padding: 2% 0%;
+    padding: 0.5% 0%;
 `;
 
 
