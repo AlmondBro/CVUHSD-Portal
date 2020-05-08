@@ -165,15 +165,17 @@ let NavBar = styled.nav`
         margin: 6px auto;
         transition: 0.4s;
 
-        background-color: ${ props => 
-                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
-                                    "#931E1D": "#1E6C93"
+        background-color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
+                                        "#931E1D": "#1E6C93" 
+                                    : "#931E1D"
                             };
         
-        color: ${ props => 
-                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
-                                    "#931E1D": "#1E6C93"
-                            };
+        color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
+                                        "#931E1D": "#1E6C93" 
+                                    : "#931E1D"
+                };
         transition: background-color 0.5s, color 0.5s;
         
     `;

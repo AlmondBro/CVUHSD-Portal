@@ -30,9 +30,10 @@ let NavigationBarHeader = styled("header")`
         position: fixed;
         /* Bottom two BG-color and border-bottom were not here before */
         background: #f4f7f9;
-        border-bottom: ${ props => 
-                            ((props.districtPosition === "Student") || props.renderAsStudent ) ? 
-                                "5px solid #931E1D": "5px solid #1E6C93"
+        border-bottom: ${ props => props.districtPosition ?
+                                   ( ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
+                                        "5px solid #931E1D": "5px solid #1E6C93")
+                                    : "5px solid #931E1D"
                         };
         transition: border-color 0.5s;
     }
