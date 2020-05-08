@@ -20,6 +20,7 @@ let FooterStyled = styled("footer")`
 
     a {
         color: white;
+        display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -33,4 +34,22 @@ let FooterStyled = styled("footer")`
     }
 `; //end Footer
 
-export { FooterStyled };
+const AppButtonsSection = styled("section")`
+    padding: 2% 0%;
+`;
+
+
+const MobileStoreImgLink = styled("a")`
+    padding:  1% 0%;
+`;
+
+const MobileStoreImg = styled("img")`
+    max-width: 35%;
+
+    transition: transform .2s,margin .2s;
+
+    :hover, :active, :target {
+        transform: scale(1.1);
+    }
+`;
+export { FooterStyled, AppButtonsSection, MobileStoreImgLink, MobileStoreImg };

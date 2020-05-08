@@ -1,11 +1,11 @@
 import React from "react";
 
 //Import Footer styled components
-import { FooterStyled } from "./Footer_StyledComponents.js";
+import { FooterStyled, AppButtonsSection, MobileStoreImgLink, MobileStoreImg } from "./Footer_StyledComponents.js";
 
 let Footer = (props) => {
     return (
-        <FooterStyled {...props} className="footer">
+        <FooterStyled {...props} className="container-fluid footer">
             <ul className="row"> 
                 {/* <li>
                     <a href='https://play.google.com/store/apps/details?id=com.cvuhsd.portalMobile&hl=en_US&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
@@ -30,6 +30,23 @@ let Footer = (props) => {
                 }
                 <a href="https://portal.centinela.k12.ca.us/troubleshooting.html" target="_blank" className="col-sm-3">Troubleshooting</a>
             </ul>
+            <AppButtonsSection className="row">
+                <MobileStoreImgLink className="col-md-6">
+                    <MobileStoreImg 
+                        src="./images/google-play.svg" 
+                        alt="Download on Google Play Store" 
+                        title="Download on Google Play Store"
+                    />
+                </MobileStoreImgLink>
+                
+                <MobileStoreImgLink className="col-md-6">
+                    <MobileStoreImg 
+                        src="./images/apple-app-store.svg"
+                        alt="Download on Apple App Store" 
+                        title="Download on Apple App Play Store"
+                    />
+                </MobileStoreImgLink>
+            </AppButtonsSection>
         </FooterStyled>
     ); //emnd return statement
 };
