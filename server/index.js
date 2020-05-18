@@ -209,9 +209,21 @@ let getOU = async (req, res, next) =>  {
                     console.log("userLocation:\t" + userLocation); 
                   }, waitInterval
             ); 
-};
+}; //end getOU()
 
 app.post(getOU_URL, getOU);
+
+
+const redirectToExpoAuth_URL = `${isDev ? "" : "/server" }/mobile-app-auth`;
+let redirectToExpoAuth = (req, res, next) =>  {
+  let queryString = req._parsedUrl.query;
+  let expoRedirectURL = process.env.EXPO_REDIRECT_URL;
+
+  res.redirect(expoRedirectURL + queryString);
+}; //end getOU()
+
+app.get(redirectToExpoAuth_URL, redirectToExpoAuth);
+
 
 /*
   In Express, 404 responses are not the result of an error, so the 
