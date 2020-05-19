@@ -1,6 +1,7 @@
 require("dotenv")
-  .config({ path: __dirname + "./../.env", 
-            debug: false}); //Load environmental variables
+                .config({ path: __dirname + "./../.env", 
+                          debug: false
+                        }); //Load environmental variables
 
 const isDev = require("isDev"); //Load environmental variables
 
@@ -108,7 +109,6 @@ app.use(bodyParser.json());
 //https://stackoverflow.com/questions/44882535/warning-connect-session-memorystore-is-not-designed-for-a-production-environm/44884800#44884800
 //https://stackoverflow.com/questions/44882535/warning-connect-session-memorystore-is-not-designed-for-a-production-environm/44884800#44884800
 
-let username;
 
 let cookieSession_config = {
   name: "cvuhsd-portal-" + uuidv1(),
