@@ -5,8 +5,6 @@ const fs = require('fs'),
       path = require('path'),
       passport = require('passport'),
       SamlStrategy = require('passport-saml').Strategy,
-      wsfedsaml2 = require("passport-wsfed-saml2").Strategy,
-      ActiveDirectoryStrategy = require("passport-activedirectory"),
       AD = require('ad');
 
       require('dotenv').config({path: path.join(__dirname, './../../.env'), debug: true}) //Load environmental variables
@@ -95,22 +93,6 @@ let ADFS_SAML_CONFIG = {
     RACComparison: 'exact', // default to exact RequestedAuthnContext Comparison Type
   };
 
-  let WSFED_SAML2_CONFIG = {
-    // ADFS RP identifier
-    realm: process.env.ADFS_REALM,
-    identityProviderUrl: process.env.ADFS_IDP,
-    thumbprints: [ process.env.ADFS_THUMBPRINT ], //// ADFS token signing certificate
-    cert: fs.readFileSync(path.resolve(__dirname, "./../../certificates/ADFS_Signing.crt") )
-};
-
-//Define passport authentication strategies
-passport.use('wsfed-saml2', new wsfedsaml2(
-                  WSFED_SAML2_CONFIG,  
-                  (profile, done) => {
-                  console.log(profile);
-                  return done(null, profile);
-}));
-
 passport.use(new SamlStrategy(
     ADFS_SAML_CONFIG,
     (profile, done) => {
@@ -122,16 +104,5 @@ passport.use(new SamlStrategy(
         });
     }
 ));
-
-passport.use(new ActiveDirectoryStrategy({
-  integrated: false,
-  ldap: active_directory_config
-},  (profile, ad, done) => {
-  //This function is a verify callback -- strategies require this and the purpose is to find the user that possesses this set of credentials
-  ad.isUserMemberOf(profile._json.dn, 'Domain Users', (err, isMember) => {
-    if (err) return done(err);
-    return done(null, profile);
-  });
-}));
 
 module.exports = { passport, activeDirectory};
