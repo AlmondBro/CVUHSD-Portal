@@ -55,8 +55,8 @@ class PageContent extends Component {
                     renderAsStudent={(window.location.pathname === "/student")}
                     // {this.renderAsStudent || this.props.location.state.renderAsStudent}
                 />
-            );
-        });
+            ); //end return statement
+        }); //end outer return statement
     }; //end generateBlueSections()
 
     componentDidMount = () => {

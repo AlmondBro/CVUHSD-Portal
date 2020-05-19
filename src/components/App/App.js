@@ -4,17 +4,19 @@ import isDev from "isdev";
 import undefsafe from "undefsafe";
 
 import { AzureAD, AuthenticationState } from 'react-aad-msal';
+
+
 import { authProvider, authProvider_noDomainHint } from "./../../authProvider.js";
 
 //Import components
 import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
 import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
-import PageContent from "../PageContent.js";
+import PageContent from "./../PageContent.js";
 
 import {  Redirect } from "react-router";
 import { Route, Switch } from "react-router-dom";
 
-//Import styledcomponents
+//Import styled components
 import { StyledContainer } from "./App_StyledComponents.js";
 
 //Import pages
