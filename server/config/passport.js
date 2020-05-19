@@ -1,10 +1,8 @@
 
 //TODO: Fix serialize errors upon improper authentication
 
-const fs = require('fs'),
-      path = require('path'),
+const path = require('path'),
       passport = require('passport'),
-      SamlStrategy = require('passport-saml').Strategy,
       AD = require('ad');
 
       require('dotenv').config({path: path.join(__dirname, './../../.env'), debug: true}) //Load environmental variables
@@ -93,16 +91,6 @@ let ADFS_SAML_CONFIG = {
     RACComparison: 'exact', // default to exact RequestedAuthnContext Comparison Type
   };
 
-passport.use(new SamlStrategy(
-    ADFS_SAML_CONFIG,
-    (profile, done) => {
-        return done(null,
-        {
-            upn: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn'],
-            // e.g. if you added a Group claim
-            group: profile['http://schemas.xmlsoap.org/claims/Group']
-        });
-    }
-));
+
 
 module.exports = { passport, activeDirectory};
