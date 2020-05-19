@@ -13,14 +13,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const passport = require("passport");
-
-const session = require("express-session");
-
 const helmet = require("helmet");
-//const csp = require('helmet-csp');
-
-//const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 
 const sslRootCAs = require("ssl-root-cas/latest");
 
@@ -28,8 +21,6 @@ const requestIp = require("request-ip");
 
 const uuidv1 = require("uuid/v1"); //uuID based of timestamp
 const uuidv4 = require("uuid/v4"); //Random uuID
-
-const undefsafe = require("undefsafe");
 
 const AD = require("ad");
 
@@ -42,11 +33,7 @@ const app = express();
 //TODO: Add footer link to change password
 //TODO: Have helpdesk call link
 
-
 const port = process.env.PORT || 3001; 
-
-//const { activeDirectory } = require("./config/passport.js");
- 
 
 let ad_config = {
   url: process.env.ADFS_SERVER_URL,
@@ -58,17 +45,6 @@ const activeDirectory = new AD(ad_config);
 
 require("./config/passport.js"); //require passport configuration
 
-
-
-/*
-app.use(cors({
-  'allowedHeaders': ['sessionId', 'Content-Type'],
-  'exposedHeaders': ['sessionId'],
-  'origin': '*',
-  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  'preflightContinue': false
-})); */
-
 app.use(helmet());
 //app.use(csp()); 
 //Content Security Policy helps prevent unwanted content being injected into your webpages; 
@@ -78,14 +54,6 @@ app.use(helmet());
 app.use(cors());
 app.options('*', cors()) // include before other routes
 
-
-/*
-app.use( (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-*/
 
 const CVUHSD_CertificatePath = ("./../certificates/ssl-cvuhsd.cer");
 const ADFS_CertificatePath = ("./../certificates/ssl-cvuhsd.cer");
@@ -122,20 +90,7 @@ let cookieSession_config = {
 app.use(cookieSession(cookieSession_config));
 
 
-/*
-app.use(session({
-  secret: uuidv4(),
-  resave: false,
-  saveUninitialized: false,
-  key: uuidv1(),
-  cookie: { secure: isDev ? false : true, maxAge: 604800000 }
-}));
-*/
-
 app.use(requestIp.mw())
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 //Need to use absolute paths relative to where the web.config file is when using Express in IISNode. 
 // If not using url rewrite, specifiy extension
@@ -148,49 +103,8 @@ app.get(aboutIISNode_URL,  (req, res)  =>{
             \n isDev:\t ${isDev}`); 
 }); 
 
-let logIn_URL = `${isDev ? "" : "/server" }/login`;
-
-/*The following is a function that parses the string value from the 'dn' category 
-and extracts the key value pairs */
-let getSite = (dnString) => {
-  let site = "CVUHSD";
-  let dnKeyValueObject = {}; //Initialize key-value object. Will contain the OUs
-
-  let keyValuePairsArray = dnString.toString().split(',', 3);
-  let splitPair = [];
-
-  keyValuePairsArray.forEach((pair, index) => {
-    //TODO: Try to fix below error, if possible
-    let i = 0; //Mimic for loop since apparently the index variable from Array.forEach() breaks everything. 
-    console.log("Pair:\t" + pair + "\nIndex:\t" + index);
-    splitPair = pair.split('=');
-
-    dnKeyValueObject[splitPair[i]] = splitPair[i+1];
-    i++
-  });
-
-  console.log("\n\ndnString:\t" + dnString + "\ndnString Type of:\t" + typeof(dnString) + "\ndnStringisArray:\t" + Array.isArray(keyValuePairsArray));
-  console.log("\nkeyValuePairs:\t" + keyValuePairsArray + "\nkeyValuePairs Type of:\t" + typeof(keyValuePairsArray) + "\nkeyValuePairsIsArray:\t" + Array.isArray(keyValuePairsArray)  );
-  console.log("\nSplit Pair:\t" + splitPair + "\nType of:\t" + typeof(splitPair) + "\n\n");
-
-  console.log("\ndnKeyValueObject\t" + dnKeyValueObject );
-  console.dir(dnKeyValueObject);
-
-  site = dnKeyValueObject["OU"];
-  return site;
-}; 
-
-let getIP_URL = `${isDev ? "" : "/server" }/getIP`;
-app.get(getIP_URL, (req, res) => {
-  //https://stackoverflow.com/questions/8107856/how-to-determine-a-users-ip-address-in-node
-  //let IP = request.headers['x-forwarded-for']  || req.connection.remoteAddress;
-  const IP = req.clientIp;
-  console.log("IP:\t" + IP);
-  res.end(IP);
-});
-
-
 const getOU_URL = `${isDev ? "" : "/server" }/getOU`;
+
 let getOU = async (req, res, next) =>  {
 
   console.log("getOu()");
@@ -213,8 +127,8 @@ let getOU = async (req, res, next) =>  {
 
 app.post(getOU_URL, getOU);
 
-
 const redirectToExpoAuth_URL = `${isDev ? "" : "/server" }/mobile-app-auth`;
+
 let redirectToExpoAuth = (req, res, next) =>  {
   let queryString = req._parsedUrl.query;
   let expoRedirectURL = process.env.EXPO_REDIRECT_URL;
@@ -239,12 +153,6 @@ app.use((req, res, next) => {
   //res.status(404).send("Sorry can't find that!")
   res.status(404).end("Does not exist");
 });
-
-// app.use((req, res) => {
-//   res.setHeader("Content-Security-Policy", "font-src 'self' https://apis.google.com");
-//   res.setHeader("Content-Security-Policy", "img-src 'self' https://apis.google.com");
-// });
-
 
 if (process.env.NODE_ENV === 'production') {
   // Serve the static files from the React app (only in production?)
