@@ -60,7 +60,7 @@ let StyledContainer = styled(ModifiedContainer)`
   /*  Actual Scrollbar */
   ::-webkit-scrollbar-thumb {
       border-radius: 10px;
-      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
                                           "#931E1D": "#1E6C93"
