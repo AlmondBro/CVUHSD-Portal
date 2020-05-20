@@ -65,7 +65,7 @@
   ],
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
-    "concurrently": "^5.0.0",
+    "concurrently": "^5.2.0",
     "nodemon": "^2.0.2"
   },
   "proxy": "http://localhost:3001"
