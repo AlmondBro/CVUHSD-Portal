@@ -38,7 +38,8 @@ let FormInput = styled("input")`
     padding: 8px; /*was 8px */
     padding-left: 60px;
     text-align: left;
-
+    border: 0;
+    appearance: none;
     &::placeholder,
     &::-webkit-input-placeholder,
     &:-ms-input-placeholder  {
@@ -46,25 +47,29 @@ let FormInput = styled("input")`
         text-align: center;
         font-family: "Montserrat", sans-serif;
     }
-
 `;
 
 let FormInputLabel = styled("label")`
     cursor: pointer;
     background-color: #eeeeee;
-    color: #336186;
-    font-size: 1.38em;
+    color: ${ props => 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent ) ? 
+                                    "#6A1312": "#336186"
+                        };
+    font-size: 1.2em;
     position: absolute;
     padding: 4px;
     padding-right: 6px;
-    margin-top: 2px;
+    margin-top: 0px;
     border-right: 1px solid #182c3d;
     box-shadow: none;
     z-index: 1;
     transition: 0.5s;
-
     &:hover {
-        color: #4785b7;
+        color: ${ props => 
+                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                        "#BD2222": "#4785b7"
+                };
         background-color: white;
     }
 `
@@ -81,15 +86,16 @@ let FormButton = styled("button")`
     color: white;
     transition: background-color 0.5s;
     text-align: center;
-
     &:hover, &:active, &:focus  {
-        background-color: #3b709a;
+        background-color:  ${ props => 
+                                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                "#BD2222": "#4785b7"
+                            };
     }
 `;
 
 let ResetButton = styled(FormButton)`
     background-color: #757575;
-
     &:hover {
         background-color: #adadad;  
     }
@@ -116,7 +122,6 @@ let ResultButton = styled("span")`
     justify-content: center;
     align-content: center;
     align-items: center;
-
     cursor: pointer;
     font-size: 1.5em;
     margin: 0 auto;
@@ -152,7 +157,6 @@ let ResultMessage = styled("span")`
     font-size: 0.8em;
     color: white;
     font-family: "Montserrat", sans-serif;
-
     max-width: 80%;
     margin: 0 auto;
 `;
@@ -163,7 +167,6 @@ let IPAddress = styled("div")`
     display: inline-block;
     color: white;
     text-align: center;
-
     & span {
         font-weight: bolder;
     }

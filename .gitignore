@@ -110,3 +110,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 src/certificates/
+
+#Ignore x509 backup folder
+x509/

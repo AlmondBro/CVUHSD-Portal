@@ -1,4 +1,8 @@
-import React, { Component } from "react";
+import React, { Fragment, Component } from "react";
+
+//Import 3rd party modules
+import ReactLoading from "react-loading";
+import styled from "styled-components";
 
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
@@ -7,27 +11,36 @@ import Header from "./Header/Header.js";
 //Import list of buttons
 import { blueSectionInfo_Staff , redSectionInfo_Student} from "./../objectFiles/blueSectionInfo.js";
 
-import undefsafe from 'undefsafe';
+import undefsafe from "undefsafe";
 
+import Footer from "./Footer/Footer.js";
+
+//TODO: Bug -- Changing from the staff to the student portal does not change the page title.
 //TODO: Save passed props from <Redirect> into state.
 //TODO: Enlarge the All links embedded google sheet
+//TODO: Use undefsafe to add this.props.location.state as part of "portal switching". ALso find if this really necessary.
 class PageContent extends Component {
     constructor(props) {
         super(props);
 
-        this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
+        this.state = {
+          pathName: null  
+        }; //end state object
+
+        // this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
         this.modifyStudentStatus = this.props.modifyStudentStatus;
 
         this.modifyFullName = this.props.modifyFullName;
         
-        this.title = this.props.title;
-        
         this.blueSection_objectsArrayProps = {};
 
         this.renderAsStudent = undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
-
       } //end constructor
     
+      PageContentLoading = styled("div")`
+        margin: 0 auto;
+      `;
+
       generateBlueSections = (props) => {
         return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
             return (
@@ -38,54 +51,85 @@ class PageContent extends Component {
                     buttonRowID={blueSection_Object.buttonRowID}
                     buttons={blueSection_Object.buttons}
                     key={index}
-                    title={this.title || "student"}
-                    renderAsStudent={this.renderAsStudent || this.props.location.state.renderAsStudent}
+                    title={this.props.title || "Student"}
+                    renderAsStudent={(window.location.pathname === "/student")}
+                    // {this.renderAsStudent || this.props.location.state.renderAsStudent}
                 />
-            );
-        });
-    };
+            ); //end return statement
+        }); //end outer return statement
+    }; //end generateBlueSections()
 
     componentDidMount = () => {
-        console.log("PageContent Props Location:\t" + JSON.stringify(this.props.location) );
+        this.props.modifyRootAccountInfo(this.props.accountInfo);
+        this.props.changeContainerStyle({"background-image": `none` });
 
-        this.props.changeContainerStyle({"background-image": "none" });
-        console.log("Page content this.title:\t" + this.title);
+        console.log("PageContent.js window.location.pathname:\t" + window.location.pathname);
 
-        if (this.props.title === "student" || this.props.location.state.renderAsStudent === "true") {
+        this.setState({pathName: window.location.pathname});
+        if (this.props.title === "student" || undefsafe(this.props.location, "state", "renderAsStudent") == "true" || window.location.pathname === "/student") {
             document.title = "CVUHSD | Student Portal"
         } else {
             document.title = "CVUHSD | Staff Portal"
         }
-    };
+    };//end componentDidMount
+
+    componentDidUpdate = () => {
+        if (this.props.title.toLowerCase() === "student" ||  undefsafe(this.props.location, "state", "renderAsStudent") == "true" || window.location.pathname === "/student") {
+            document.title = "CVUHSD | Student Portal";
+        } else {
+            document.title = "CVUHSD | Staff Portal";
+        }
+    }; //end componentDidUpdate
     
     render = () => {
         let sectionInfoObject;
 
-        sectionInfoObject = (this.title === "student" || this.props.location.state.renderAsStudent === "true") ? 
+        sectionInfoObject = (this.props.title === "Student" ||  window.location.pathname === "/student") ? 
                                     redSectionInfo_Student : blueSectionInfo_Staff;
         
         this.blueSection_objectsArrayProps = {
             blueSection_objectsArray: sectionInfoObject
         };
 
-       return (
-           [
-                <Header districtName="CVUHSD" 
-                        headerTitle="Portal" 
-                        fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
-                        title={this.title}
-                        site={this.props.site}
+        return (
+                <Fragment>
+                    <Header districtName="CVUHSD" 
+                            headerTitle="Portal" 
+                            fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
+                            title={this.props.title}
+                            site={this.props.site}
+                            gradeLevel={this.props.gradeLevel}
 
-                        modifyLogInStatus={ this.modifyLogInStatus }
-                        modifyTitle={this.modifyTitle}
-                        modifySite={this.modifySite}
-                        renderAsStudent={this.props.location.state.renderAsStudent}
-                />,
-                <div className="page-content">
-                    { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
-                </div>
-            ]
-        );
+                            //modifyLogInStatus={ this.modifyLogInStatus }
+                            modifyTitle={this.modifyTitle}
+                            modifySite={this.modifySite}
+                            modifyRenderAsStudent={this.props.modifyRenderAsStudent}
+                            logOut={this.props.logOut}
+                            clearState={this.props.clearState}
+                            renderAsStudent={(window.location.pathname === "/student")}
+                    />
+                    { (this.props.title) ? 
+                        (
+                            <div className="page-content">
+                                { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
+                                <Footer 
+                                    title={this.props.title}
+                                    renderAsStudent={this.props.renderAsStudent}
+                                />
+                            </div>
+                        )
+                        :   (
+                                <this.PageContentLoading>
+                                    <ReactLoading 
+                                        type={"spinningBubbles"}
+                                        height={'60px'} width={'60px'} 
+                                        color={ (this.props.title !== "Student") ? "#931E1D": "#1E6C93"}
+                                    /> 
+                                </this.PageContentLoading>
+                            )
+                    }
+                </Fragment>
+            );
     }; //end render()
 } //end PageContent class
 

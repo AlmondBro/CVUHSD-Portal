@@ -1,13 +1,28 @@
 import React from "react"; //Import React since JSX is being used
 
+//Import 3rd-party APIs
 import styled from "styled-components";
+
+let AllLinksGoogleSheet = styled("iframe")`
+    width: 50%;
+    height: 90vh;
+`; //end AllLinksGoogleSheet
+
+let SystemStatuses = styled("iframe")`
+    align: "center";
+    height: 400px;
+    width: 1200px;
+    border: 0;
+`; //end SystemStatuses
+
 let StyledButton = styled("button")`
-    transition: transform .2s, margin .2s; 
     max-width: 300px;
     
+    transition: transform .2s, margin .2s; 
+    margin: 0.8% 0%;
+
     &:hover, &:active, &:focus {
         transform: scale(1.1);
-        margin: 0.5em 0.2em;
     } 
 `; //end StyledButton
 
@@ -29,4 +44,4 @@ const BlueSectionButton = (props) => {
     );
 }; //BlueSection()
 
-export default BlueSectionButton;
+export { BlueSectionButton, AllLinksGoogleSheet, SystemStatuses };

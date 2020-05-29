@@ -1,10 +1,10 @@
 import React from "react";
 
 //Import components
-import BlueSectionButton from "./BlueSectionButton.js";
+import { BlueSectionButton, AllLinksGoogleSheet, SystemStatuses }  from "./BlueSection_StyledComponents.js";
 
 //Import 3rd-party APIs
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const BlueSection = (props) => {
     let generateBlueSectionButtons = () => {
@@ -48,22 +48,19 @@ const BlueSection = (props) => {
             return buttonsArray; */
         
         } else if (props.buttonRowID === "systemStatusesButtonRow") {
-           return  (<iframe title="System Statuses"
-                            style={ {   align: "center",
-                                        height: "400px",
-                                        width: "1200px",
-                                        border: "0", 
-                                        frameborder: "0"}
-                                } 
-                src='https://www.site24x7.com/sv.do?id=-lTskTIBFC99AjBdJTzdd22ylcZvGBYnfGhcgwvt1-27W89lFFvf7WICSx8TdzUT6kB92hYLWdGYIInKaxcmHcJTzDPBf7IFLjpWmnUEJ18%3D&st=false' scrolling='yes'></iframe>);
-           // return <BlueSectionButton />
+           return  (<SystemStatuses 
+                        title="System Statuses"  
+                        src='https://www.site24x7.com/sv.do?id=-lTskTIBFC99AjBdJTzdd22ylcZvGBYnfGhcgwvt1-27W89lFFvf7WICSx8TdzUT6kB92hYLWdGYIInKaxcmHcJTzDPBf7IFLjpWmnUEJ18%3D&st=false' 
+                        scrolling='yes'
+                    />);
         } else if (props.buttonRowID === "webAdminButtonRow") {
             return (
-                    <iframe title="All Links Google Sheets"
+                    <AllLinksGoogleSheet title="All Links Google Sheets"
                             className="google-sheet" 
                             src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSOPMzFTLmTXsOzY172KN_3IaJqeO9bLPl_3TIgc_bBQiWEanznykV6cEiPBuV9WUHEnL2vesphHEWZ/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
-                    >
-                    </iframe>);
+                            scolling="yes"
+                    />
+                    );
         }//end else-statement
     }; //end generateBlueSectionButtons()
 
@@ -102,7 +99,7 @@ const BlueSection = (props) => {
 
     let SectionHeader = styled("div")`
         background-color: ${ props => 
-            (props.title === ("student") || props.renderAsStudent ) ? 
+            (props.title === ("Student") || props.renderAsStudent ) ? 
                 "rgb(147, 30, 30)": "rgb(30, 108, 147)"
         };
 
@@ -135,7 +132,7 @@ const BlueSection = (props) => {
         border-radius: 100%;
         background-color: white;
         color: ${ props => 
-            (props.title === ("student") || props.renderAsStudent ) ? 
+            (props.title === ("Student") || props.renderAsStudent ) ? 
                 "rgb(147, 30, 30)": "rgb(30, 108, 147)"
         };
 
@@ -161,7 +158,7 @@ const BlueSection = (props) => {
         double exclamation point to cast null or undefined to false, and register the checked 
         property as part of controlled form component. 
         https://stackoverflow.com/questions/39120007/setting-a-checkbox-check-property-in-react 
-    // */
+    */
 
     return (
         <BlueSectionContainer   className="blue-section" 

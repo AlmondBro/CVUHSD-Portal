@@ -26,6 +26,7 @@ let FooterStyled = styled('footer')`
     & ul li a {
         display: flex;
         flex-direction: row;
+        align-items: center;
         justify-content: space-evenly;
         color: white;
         text-decoration: none;
@@ -50,8 +51,8 @@ let FooterStyled = styled('footer')`
 
 let Footer = (props) => {
     return (
-        <FooterStyled>
-            <ul className="row">
+        <FooterStyled>  
+            <ul>
                 <li className="col-md-3">
                     <a href="https://www.centinela.k12.ca.us/" 
                         target="_blank"
@@ -65,7 +66,6 @@ let Footer = (props) => {
                         target="_blank" 
                         rel="noopener noreferrer"
                         title="Troubleshooting"
-                    
                     >
                     Troubleshooting
                     </a>
