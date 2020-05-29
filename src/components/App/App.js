@@ -4,8 +4,6 @@ import isDev from "isdev";
 import undefsafe from "undefsafe";
 
 import { AzureAD, AuthenticationState } from 'react-aad-msal';
-
-
 import { authProvider, authProvider_noDomainHint } from "./../../authProvider.js";
 
 //Import components
@@ -20,7 +18,6 @@ import { Route, Switch } from "react-router-dom";
 import { StyledContainer } from "./App_StyledComponents.js";
 
 //Import pages
-import LogIn from "./../LogIn/LogIn.js";
 import NotFound from "./../NotFound/NotFound.js";
 
 import PrivateRoute from "./../PrivateRoute.js";
@@ -262,24 +259,6 @@ class App extends Component {
                               { // Update routes to use server subdirectory in production
                                 //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
                               }
-                              <Route path={`${publicURL}/login`} 
-                                    render={ (props) => <LogIn  {...props} 
-                                                                loggedIn={ this.state.loggedIn}
-                                                                fullName={this.state.firstName + " " + this.state.lastName}
-                                                                isStudent={this.state.isStudent}
-                                                                title={this.state.title}
-                                                                renderAsStudent={this.state.renderAsStudent}
-                                                                modifyRenderAsStudent={this.modifyRenderAsStudent}
-                                                                modifyLogInStatus={this.modifyLogInStatus} 
-                                                                modifyStudentStatus={this.modifyStudentStatus}
-                                                                modifyFullName={this.modifyFullName}
-                                                                modifyTitle={this.modifyTitle}
-                                                                modifySite={this.modifySite}
-                                                                changeContainerStyle={this.changeContainerStyle} 
-                                                                clearState={this.clearState}
-                                                          /> 
-                                            } 
-                              />
                               <PrivateRoute path={`${publicURL}/${defaultURL}`}
                                             loggedIn={AuthenticationState.Authenticated}
                                             fullName={this.state.firstName + " " + this.state.lastName}
