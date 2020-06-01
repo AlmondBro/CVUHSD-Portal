@@ -47,6 +47,7 @@
   },
   "scripts": {
     "start": "set HTTPS=true && react-scripts start",
+    "start-reset": "rm -rf node_modules/ && npm install && npm audit fix && npm install && npm start --reset-cache",
     "build": "rm -rf build/ && react-scripts build",
     "build-serve": "npm run build && serve -s build/",
     "server": "nodemon server/index.js --inspect",
