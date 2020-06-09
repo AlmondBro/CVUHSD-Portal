@@ -43,7 +43,7 @@ let InputCheckBoxHack = styled("input")`
             content: '+';
     }
 
-    &:checked~div#${props => props.buttonRowID} {
+    &:checked~div#${props => props.buttonRow} {
         margin: 2.5% auto;
         height: 100%;
     }
