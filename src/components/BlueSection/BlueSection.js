@@ -62,6 +62,7 @@ const BlueSection = (props) => {
                 type            =   "checkbox" 
                 className       =   "checkbox-hack blueSection-collapseToggle" 
                 id              =   { props.blueSectionName + "-collapseToggle" } 
+                buttonRow       =   { props.blueSectionName + "ButtonRow" }
                 defaultChecked  =   { props.expanded } 
                 renderAsStudent =   { props.renderAsStudent }
             />
