@@ -64,7 +64,7 @@ sslRootCAs.inject()
           .addFile(__dirname + CVUHSD_CertificatePath)
           .addFile(__dirname + ADFS_CertificatePath);
 
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'; //Override certificate authorization check
+//process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'; //Override certificate authorization check
   
 //app.use(rateLimiterRedisMiddleware);
 
@@ -120,8 +120,8 @@ let getOU = async (req, res, next) =>  {
 
   let waitInterval = 2000; //2k milliseconds -- 2 seconds
   setTimeout(() => { 
-                    res.json(userLocation); 
                     console.log("userLocation:\t" + userLocation); 
+                    res.json(userLocation); 
                   }, waitInterval
             ); 
 }; //end getOU()
