@@ -131,11 +131,6 @@ const BlueSection = (props) => {
             ( (props.title === "Student") || props.renderAsStudent ) ? 
                 "rgb(147, 30, 30)": "rgb(30, 108, 147)"
         };
-
-        &::before, &::after {
-            content: '+';
-            /* \02295' */ 
-        }
     `; //end openColumnButton
 
     let ButtonRow = styled("div")`
