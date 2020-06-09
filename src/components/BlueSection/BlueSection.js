@@ -125,10 +125,6 @@ const BlueSection = (props) => {
         padding: 0px 9px 3px 9px;
         display: inline;
         margin-left: 20px;
-        /*  used to be 5px*/
-        /*  Padding when icons were being used :
-            padding: 0px 5px 5px 5px;
-        /*  padding: 5px 10px 10px 10px; */
         border-radius: 100%;
         background-color: white;
         color: ${ props => 
