@@ -70,7 +70,7 @@ const BlueSection = (props) => {
                 title           =   { props.title }
                 renderAsStudent =   { props.renderAsStudent }
             >
-                <h3>{props.headerTitle}</h3> 
+                <h3> { props.headerTitle } </h3> 
                 <label 
                     htmlFor =   { props.blueSectionName + "-collapseToggle" }
                 >
