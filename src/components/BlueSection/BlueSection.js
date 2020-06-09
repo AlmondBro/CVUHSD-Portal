@@ -78,9 +78,7 @@ const BlueSection = (props) => {
                         className       =   "open-column-button"  
                         title           =   { props.title }
                         renderAsStudent =   { props.renderAsStudent }
-                    >
-                        
-                    </OpenColumnButton>
+                    />
                 </label>
             </SectionHeader>
             <ButtonRow  
