@@ -149,7 +149,7 @@ const BlueSection = (props) => {
         text-align: center;
         height: 0;
         margin: 0 auto;
-        transition: height, margin 0.5s;
+        transition: margin 0.5s;
     `;
 
     /* 
