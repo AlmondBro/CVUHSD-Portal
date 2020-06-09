@@ -1,14 +1,15 @@
-require("dotenv")
-                .config({ path: __dirname + "./../.env", 
-                          debug: false
-                        }); //Load environmental variables
+const path = require("path");
 
-const isDev = require("isDev"); //Load environmental variables
+require("dotenv")
+                .config(  {    
+                        path    : path.join( __dirname, "./../.env" ), 
+                        debug   : true      
+                }); //Load environmental variables
+
+const isDev = require("isDev"); 
 
 const cookieSession = require("cookie-session");
 const express = require("express"); 
-
-const path = require("path");
 
 const bodyParser = require("body-parser");
 const cors = require("cors");

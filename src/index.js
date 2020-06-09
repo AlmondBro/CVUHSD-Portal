@@ -14,8 +14,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import path from "path";
 
 import dotenv from "dotenv";
-dotenv.config({ path: path.join( __dirname, "./.env" ), 
-          debug: true}); //Load environmental variables
+dotenv.config(  {   path    : path.join( __dirname, "./.env" ), 
+                    debug   : true
+                }); //Load environmental variables
 
 
 /*  Basename doc from React Training: 

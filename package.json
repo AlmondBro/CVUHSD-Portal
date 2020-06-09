@@ -35,6 +35,7 @@
     "react-dom": "^16.13.1",
     "react-loading": "^2.0.3",
     "react-modal": "^3.11.1",
+    "react-native-uuid-generator": "^6.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "react-simple-storage": "^1.4.1",
@@ -47,6 +48,7 @@
   },
   "scripts": {
     "start": "set HTTPS=true && react-scripts start",
+    "start-reset": "rm -rf node_modules/ && npm install && npm audit fix && npm install && npm start --reset-cache",
     "build": "rm -rf build/ && react-scripts build",
     "build-serve": "npm run build && serve -s build/",
     "server": "nodemon server/index.js --inspect",

@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
-
 import { Form, FormHeader, FormInput, FormButton, FormInputLabel, ResetButton, PortalLogo, 
     CVUHSDLogo, ResultButton, ErrorTextAlert, FormHeaderText, ResultMessage, IPAddress, 
-    IPLoadingContainer, StyledLoadingContainer, LoadingSpinner } from "./../../LogIn/LogIn_StyledComponents.js";
-
+    IPLoadingContainer, StyledLoadingContainer, LoadingSpinner } from "./../../LogIn/Login_StyledComponents.js";
 
 let ChangePassword_Form = styled(Form)`
     background-color: rgba(24,44,61, 0.9);
