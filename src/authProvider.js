@@ -15,8 +15,8 @@ import { Logger, LogLevel } from "msal";
 //login.microsoftonline will be deprecated: https://docs.microsoft.com/en-us/azure/active-directory-b2c/b2clogin
 const config = {
   auth: {
-    clientId: "3470eb69-479b-4be6-8d5e-0c5a11b78845",
-    authority: "https://login.microsoftonline.com/c9a48109-968f-43b9-9e1f-ce756542dbe2",
+    clientId: process.env.REACT_APP_AZURE_CLIENT_ID,
+    authority: process.env.REACT_APP_AZURE_AUTHORITY,
     redirectUri: window.location.origin,
     //validateAuthority: false
   },
