@@ -123,9 +123,16 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                                         ) : null
                                     
                                 }
-                                <span>{districtPosition.toLowerCase() || "User"}</span> 
-                                { " from " } 
-                                <span>{ site || "CVUHSD"}</span>
+                                { (districtPosition === "Student") ? 
+                                    (
+                                        <Fragment>
+                                            <span>{districtPosition.toLowerCase() || "User"}</span> 
+                                                {" from "}
+                                            <span>{ site || "CVUHSD"}</span>
+                                        </Fragment>
+                                    ) : null 
+                                }
+                             
                             </PositionGreeting>
                             {/*  //TODO: Add link the site of the school logo */}
 

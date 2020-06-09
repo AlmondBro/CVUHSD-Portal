@@ -20,8 +20,8 @@ const sslRootCAs = require("ssl-root-cas/latest");
 
 const requestIp = require("request-ip"); 
 
-const uuidv1 = require("uuid/v1"); //uuID based of timestamp
-const uuidv4 = require("uuid/v4"); //Random uuID
+const { v1: uuidv1 } = require('uuid');  //uuID based of timestamp
+const { v4: uuidv4 } = require('uuid'); //Random uuID
 
 const AD = require("ad");
 
