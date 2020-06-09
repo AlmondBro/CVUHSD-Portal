@@ -132,7 +132,7 @@ const BlueSection = (props) => {
         border-radius: 100%;
         background-color: white;
         color: ${ props => 
-            (props.title === ("Student") || props.renderAsStudent ) ? 
+            ( (props.title === "Student") || props.renderAsStudent ) ? 
                 "rgb(147, 30, 30)": "rgb(30, 108, 147)"
         };
 
