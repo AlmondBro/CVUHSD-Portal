@@ -183,8 +183,10 @@ class App extends Component {
           this.setState({ email: graphInfo.mail});
           
           
-          if (graphInfo.jobTitle) {
-            this.setState({title: graphInfo.jobTitle}); 
+          if (graphInfo.jobTitle !== null) {
+            this.setState({ title: graphInfo.jobTitle || "Staff Member" }); 
+          } else {
+            this.setState({title: "Staff Member"}); 
           }
 
           if ( (graphInfo.jobTitle !== "Student" || this.state.title !== "Student" ) && graphInfo.officeLocation) {
