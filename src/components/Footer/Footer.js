@@ -30,7 +30,7 @@ let Footer = (props) => {
                 }
                 <a href="https://portal.centinela.k12.ca.us/troubleshooting.html" target="_blank" className="col-sm-3">Troubleshooting</a>
             </ul>
-            <AppButtonsSection className="row">
+            {/* <AppButtonsSection className="row">
                 <MobileStoreImgLink className="col-md-6">
                     <MobileStoreImg 
                         src="./images/google-play.svg" 
@@ -46,7 +46,7 @@ let Footer = (props) => {
                         title="Download on Apple App Play Store"
                     />
                 </MobileStoreImgLink>
-            </AppButtonsSection>
+            </AppButtonsSection> */}
         </FooterStyled>
     ); //emnd return statement
 };
