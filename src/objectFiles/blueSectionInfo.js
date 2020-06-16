@@ -86,7 +86,7 @@ let blueSectionInfo_schoolWebsites = {
 };
 
 let blueSectionInfo_resourcesAndTraining = {
-    blueSectionName: "resourcesAndTraining ",
+    blueSectionName: "resourcesAndTraining",
     expanded: false,
     headerTitle: "RESOURCES AND TRAINING",
     buttonRowID: "resourcesAndTrainingButtonRow",
@@ -97,7 +97,7 @@ let blueSectionInfo_allLinks = {
     blueSectionName: "allTools",
     expanded: true,
     headerTitle: "ALL LINKS",
-    buttonRowID: "webAdminButtonRow"
+    buttonRowID: "allToolsButtonRow"
 };
 
 let blueSectionInfo_Staff = [
@@ -168,7 +168,7 @@ let redSectionInfo_allLinks = {
     blueSectionName: "allTools",
     expanded: true,
     headerTitle: "ALL LINKS",
-    buttonRowID: "webAdminButtonRow"
+    buttonRowID: "allToolsButtonRow"
 };
 
 let redSectionInfo_Student = [

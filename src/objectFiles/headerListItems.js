@@ -53,7 +53,7 @@ let schoolWebsites = {
 };
 
 let troubleShooting = {
-    to: "/troubleshooting",
+    href: "https://portal.centinela.k12.ca.us/troubleshooting.html",
     title: "Troubleshooting",
     navShow: true
 };
