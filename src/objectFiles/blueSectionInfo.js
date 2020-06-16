@@ -86,7 +86,7 @@ let blueSectionInfo_schoolWebsites = {
 };
 
 let blueSectionInfo_resourcesAndTraining = {
-    blueSectionName: "resourcesAndTraining ",
+    blueSectionName: "resourcesAndTraining",
     expanded: false,
     headerTitle: "RESOURCES AND TRAINING",
     buttonRowID: "resourcesAndTrainingButtonRow",
