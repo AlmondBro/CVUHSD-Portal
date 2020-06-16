@@ -97,7 +97,7 @@ let blueSectionInfo_allLinks = {
     blueSectionName: "allTools",
     expanded: true,
     headerTitle: "ALL LINKS",
-    buttonRowID: "webAdminButtonRow"
+    buttonRowID: "allToolsButtonRow"
 };
 
 let blueSectionInfo_Staff = [
@@ -168,7 +168,7 @@ let redSectionInfo_allLinks = {
     blueSectionName: "allTools",
     expanded: true,
     headerTitle: "ALL LINKS",
-    buttonRowID: "webAdminButtonRow"
+    buttonRowID: "allToolsButtonRow"
 };
 
 let redSectionInfo_Student = [

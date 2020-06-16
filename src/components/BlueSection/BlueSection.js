@@ -33,7 +33,7 @@ const BlueSection = (props) => {
                         src         = 'https://www.site24x7.com/sv.do?id=-lTskTIBFC99AjBdJTzdd22ylcZvGBYnfGhcgwvt1-27W89lFFvf7WICSx8TdzUT6kB92hYLWdGYIInKaxcmHcJTzDPBf7IFLjpWmnUEJ18%3D&st=false' 
                         scrolling   = 'yes'
                     />);
-        } else if (props.buttonRowID === "webAdminButtonRow") {
+        } else if (props.buttonRowID === "allToolsButtonRow") {
             return (
                     <AllLinksGoogleSheet 
                             title       = "All Links Google Sheets"
