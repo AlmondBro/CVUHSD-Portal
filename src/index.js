@@ -1,6 +1,18 @@
-import React from "react";
+/* 
 
+    Add the following polyfill for support in 
+    the Microsoft Edge browser:
+    
+    https://reactjs.org/docs/javascript-environment-requirements.html
+
+*/
+import 'core-js/es/map';
+import 'core-js/es/set';
+import 'raf/polyfill';
+
+import React from "react";
 import ReactDOM from "react-dom";
+
 import { BrowserRouter as Router } from "react-router-dom";
 
 import isDev from "isdev";

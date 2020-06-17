@@ -19,6 +19,12 @@ import Footer from "./Footer/Footer.js";
 //TODO: Save passed props from <Redirect> into state.
 //TODO: Enlarge the All links embedded google sheet
 //TODO: Use undefsafe to add this.props.location.state as part of "portal switching". ALso find if this really necessary.
+
+
+const PageContentLoading = styled("div")`
+    margin: 0 auto;
+`;
+
 class PageContent extends Component {
     constructor(props) {
         super(props);
@@ -37,10 +43,6 @@ class PageContent extends Component {
         this.renderAsStudent = undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
       } //end constructor
     
-      PageContentLoading = styled("div")`
-        margin: 0 auto;
-      `;
-
       generateBlueSections = (props) => {
         return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
             return (
@@ -119,13 +121,13 @@ class PageContent extends Component {
                             </div>
                         )
                         :   (
-                                <this.PageContentLoading>
+                                <PageContentLoading>
                                     <ReactLoading 
                                         type={"spinningBubbles"}
                                         height={'60px'} width={'60px'} 
                                         color={ (this.props.title !== "Student") ? "#931E1D": "#1E6C93"}
                                     /> 
-                                </this.PageContentLoading>
+                                </PageContentLoading>
                             )
                     }
                 </Fragment>
