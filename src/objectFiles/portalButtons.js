@@ -357,6 +357,18 @@ let staffPortalButtons = {
     }, //end teacherTools
 
     classroomTools : {
+        apex_button : {
+            buttonLink: "https://sso.centinela.k12.ca.us/adfs/ls/idpinitiatedsignon?LoginToRP=sp.apexlearning.com",
+            buttonImg: "apex.png",
+            description: "Apex Learning",
+            deepLink : "canvas-teacher://",
+            appLink_config : {
+                appName: "canvas-teacher",
+                appStoreId: "1257834464",
+                appStoreLocale: "us",
+                playStoreId: "com.instructure.teacher"
+            }
+        },
         canvas_button : {
             buttonLink: "https://centinela.instructure.com/",
             buttonImg: "canvas.png",
