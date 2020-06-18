@@ -29,6 +29,7 @@
     "helmet": "^3.22.0",
     "isdev": "^1.0.1",
     "msal": "^1.2.1",
+    "raf": "^3.4.1",
     "rc-tooltip": "^4.0.3",
     "react": "^16.13.1",
     "react-aad-msal": "^2.3.5",
@@ -61,8 +62,8 @@
   },
   "browserslist": [
     "defaults",
-    "not IE 11",
-    "not IE_Mob 11",
+    "IE 11",
+    "IE 10",
     "maintained node versions"
   ],
   "devDependencies": {
