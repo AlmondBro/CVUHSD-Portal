@@ -73,16 +73,27 @@ let DashboardHeader = styled("header")`
     }
 
     ::after {
-      position: absolute;
-      z-index: -1;
-  
-      
-      content: "";
+        content: "";
 
-      background-image: url("./images/cvuhsd-allStudents-ready.jpg");
-      background-repeat: "no-repeat";
-      background-size: "cover";
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0;
+        right: 0;
+        z-index: -1;
   
+        background-image: url("./images/cvuhsd-allStudents-ready.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        opacity: 0.1;
+        max-width: 100%;
+        width: 100%;
+
+        margin: 0 auto;
+      
     }
 `;//end DashboardHeader
 

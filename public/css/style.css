@@ -1,4 +1,4 @@
-body {
+body, #root {
     transition: all 700ms ease-in-out !important;
     font-family: 'Source Sans Pro', sans-serif;
 }
