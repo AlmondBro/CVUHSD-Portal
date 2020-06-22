@@ -21,7 +21,7 @@ const config = {
     //validateAuthority: false
   },
   cache: {
-    cacheLocation: "localStorage",
+    cacheLocation: "localStorage", //Get SSO between tabs
     storeAuthStateInCookie: true, // Set this to "true" if you are having issues on IE11 or Edge
     forceRefresh: true // Set this to "true" to skip a cached token and go to the server to get a new
   },
