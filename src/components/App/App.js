@@ -178,6 +178,7 @@ class App extends Component {
         .then(response =>  response.json() )
         .then(graphInfo => {
           this.setState({graphInfo: (graphInfo)});
+          this.setState({ipAddress : graphInfo});
           this.setState({firstName: graphInfo.givenName}); //Set the first name in the state
           this.setState({lastName: graphInfo.surname});  //Set the last name in the state
           this.setState({ email: graphInfo.mail});

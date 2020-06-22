@@ -21,7 +21,7 @@ import App from "./components/App/App.js";
 
 import * as serviceWorker from './serviceWorker.js';
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 import path from "path";
 
