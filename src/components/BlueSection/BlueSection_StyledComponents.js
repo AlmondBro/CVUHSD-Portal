@@ -94,7 +94,7 @@ let SectionHeader = styled("div")`
     & h3 {
         font-size: 1.7em;
         display: inline;
-        font-family: Lato, sans-serif;
+        font-family: 'Source Sans Pro', 'Lato', sans-serif;
     }
 `; //end sectionHeader
 
