@@ -1,6 +1,8 @@
-body, #root {
+body, #cvuhsd-portal-app {
     transition: all 700ms ease-in-out !important;
     font-family: 'Source Sans Pro', sans-serif;
+
+    overflow-y: auto;
 }
 
 body.ReactModal__Body--open {
