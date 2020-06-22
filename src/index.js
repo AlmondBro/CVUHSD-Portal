@@ -10,8 +10,10 @@ import 'core-js/es/map';
 import 'core-js/es/set';
 import 'raf/polyfill';
 
+
+
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM, { render } from "react-dom";
 
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -36,15 +38,22 @@ dotenv.config(  {   path    : path.join( __dirname, "./.env" ),
     you’ll want to set this to the sub-directory. A properly formatted basename should have \
     a leading slash, but no trailing slash.
 */
-let subDirectory = false;
-let baseName = isDev ? "" : (subDirectory ? "/build" : ""); 
+const subDirectory = false;
+const baseName = isDev ? "" : (subDirectory ? "/build" : ""); 
 
-ReactDOM.render(
+
+const CVUHSD_PORTAL_APP_ELEM = document.getElementById("cvuhsd-portal-app");
+
+
+let AppWithWrappedRouter = () => {
+    return (
         <Router basename={baseName}>
             <App />
         </Router>
-    , document.getElementById("root")
-);
+    ); //end return statement
+}; //end AppWithWrappedRouter
+
+render( <AppWithWrappedRouter/>, CVUHSD_PORTAL_APP_ELEM ); //end ReactDOM.render()
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
