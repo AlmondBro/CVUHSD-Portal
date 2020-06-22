@@ -88,7 +88,7 @@ let DashboardHeader = styled("header")`
         background-position: center;
         background-repeat: no-repeat;
 
-        opacity: 0.1;
+        opacity: ${props => props.districtPosition ? 0.1 : 0};
         max-width: 100%;
         width: 100%;
 

@@ -257,7 +257,6 @@ class App extends Component {
                   case AuthenticationState.Authenticated:
                   // if (this.state.title) {
                       return (
-                        <Fragment>
                           <Switch>
                               { // Update routes to use server subdirectory in production
                                 //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
@@ -348,7 +347,7 @@ class App extends Component {
                                     : null
                               }
                           </Switch>
-                        </Fragment> );
+                        );
                   
                   case AuthenticationState.Unauthenticated:
                     return (<LoadingSSOPage message="Loading CVUHSD Single Sign On Page"/>);
