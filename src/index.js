@@ -10,7 +10,10 @@ import 'core-js/es/map';
 import 'core-js/es/set';
 import 'raf/polyfill';
 
+import { polyfill as promisePolyfill } from 'es6-promise'; //Import this package for use of promises in IE11
 
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
 
 import React from "react";
 import ReactDOM, { render } from "react-dom";
@@ -32,6 +35,7 @@ dotenv.config(  {   path    : path.join( __dirname, "./.env" ),
                     debug   : true
                 }); //Load environmental variables
 
+promisePolyfill();
 
 /*  Basename doc from React Training: 
     The base URL for all locations. If your app is served from a sub-directory on your server, 
