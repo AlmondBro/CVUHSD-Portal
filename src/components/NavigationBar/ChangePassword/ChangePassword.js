@@ -5,9 +5,7 @@ import isDev from "isdev";
 
 import { ChangePassword_IFrame, FormHeaderText, ChangePassword_CloseButton, ChangePassword_FormHeader } from "./ChangePassword_StyledComponents";
 
-
 import { isEmpty } from "./../../../utilityFunctions.js";
-
 
 class ChangePassword extends Component {
   constructor(props) {
