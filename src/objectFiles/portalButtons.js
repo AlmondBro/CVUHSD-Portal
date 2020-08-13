@@ -800,6 +800,19 @@ let studentPortalButtons = {
                 playStoreId: "com.instructure.teacher"
             }
         },
+        
+        englishLearnerResources_Button : {
+            buttonLink: "https://sites.google.com/cvuhsd.org/englishlearnerstudentresources/home",
+            buttonImg: "english-learner-resources.jpg",
+            description: "English Learner Resources / Recursos Para Estudiantes de Inglés",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
+            // }
+        }
   
     }, //end quickLinks
 
