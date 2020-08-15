@@ -46,8 +46,8 @@ const subDirectory = false;
 const baseName = isDev ? "" : (subDirectory ? "/build" : ""); 
 
 
-const CVUHSD_PORTAL_APP_ELEM = document.body;
-//document.getElementById("cvuhsd-portal-app");
+const CVUHSD_PORTAL_APP_ELEM = document.getElementById("cvuhsd-sso-portal");
+// document.body;
 
 
 let AppWithWrappedRouter = () => {
