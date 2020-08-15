@@ -45,10 +45,8 @@ promisePolyfill();
 const subDirectory = false;
 const baseName = isDev ? "" : (subDirectory ? "/build" : ""); 
 
-
 const CVUHSD_PORTAL_APP_ELEM = document.getElementById("cvuhsd-sso-portal");
 // document.body;
-
 
 let AppWithWrappedRouter = () => {
     return (
