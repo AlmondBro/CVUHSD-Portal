@@ -110,8 +110,6 @@ class PageContent extends Component {
                             clearState={this.props.clearState}
                             renderAsStudent={(window.location.pathname === "/student")}
                     />
-                    { (this.props.title) ? 
-                        (
                             <div className="page-content">
                                 { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
                                 <Footer 
@@ -119,17 +117,6 @@ class PageContent extends Component {
                                     renderAsStudent={this.props.renderAsStudent}
                                 />
                             </div>
-                        )
-                        :   (
-                                <PageContentLoading>
-                                    <ReactLoading 
-                                        type={"spinningBubbles"}
-                                        height={'60px'} width={'60px'} 
-                                        color={ (this.props.title !== "Student") ? "#931E1D": "#1E6C93"}
-                                    /> 
-                                </PageContentLoading>
-                            )
-                    }
                 </Fragment>
             );
     }; //end render()
