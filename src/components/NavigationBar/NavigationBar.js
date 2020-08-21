@@ -147,7 +147,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                             : null
                         }
 
-                        {(props.districtPosition !== "Student") ? ( 
+                        {(props.districtPosition !== "Student" && window.location.pathname === "/staff") ? ( 
                             <NavBarListItemLi 
                                 to={
                                     {
