@@ -248,7 +248,7 @@ class App extends Component {
         renderAsStudent={this.state.renderAsStudent}
       >
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
-        <AzureAD provider={this.state.title ? authProvider_noDomainHint : authProvider } forceLogin={true}>
+        <AzureAD provider={ authProvider } forceLogin={true}>
           {
             ({ login, logout, accountInfo, authenticationState, error }) => {
               //console.log("Account info:\t" + JSON.stringify(accountInfo));
