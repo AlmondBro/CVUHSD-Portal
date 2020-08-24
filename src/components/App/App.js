@@ -132,7 +132,7 @@ class App extends Component {
     
     this.setState({pathname: window.location.pathname});
 
-    this.setState({title: (this.state.pathname === "/student") ? "student" : "staff" });
+    this.setState({title: (this.state.pathname === "/student" || window.location.pathname === "/" ) ? "student" : "staff" });
   }; //end componentDidMount
 
   componentDidUpdate = () => {
@@ -148,7 +148,7 @@ class App extends Component {
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;
 
-    let defaultURL = ( window.location.pathname === "/student" || (this.state.title.toLowerCase() === "student" ) || undefsafe(this.props.location, "state", "renderAsStudent") == "true" ) ? "student" : "staff";
+    let defaultURL = ( window.location.pathname === "/student" || window.location.pathname === "/" || (this.state.title.toLowerCase() === "student" ) || undefsafe(this.props.location, "state", "renderAsStudent") == "true" ) ? "student" : "staff";
     console.log("defaultURL:\t" + defaultURL);
 
     return (
