@@ -140,6 +140,13 @@ let staffPortalButtons = {
                 playStoreId: "com.google.android.apps.docs"
             }
         },
+        
+        //TODO: There is query state variable with the access token you can add dynamically
+        webExTeams_button : {
+            buttonLink: "https://teams.webex.com/",
+            buttonImg: "webex-teams.jpg",
+            description: "WebEx Teams"
+        }
     }, //end quickLinks
 
     standardStaffTools : {
@@ -800,6 +807,19 @@ let studentPortalButtons = {
                 playStoreId: "com.instructure.teacher"
             }
         },
+        
+        englishLearnerResources_Button : {
+            buttonLink: "https://sites.google.com/cvuhsd.org/englishlearnerstudentresources/home",
+            buttonImg: "english-learner-resources.jpg",
+            description: "English Learner Resources / Recursos Para Estudiantes de Inglés",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
+            // }
+        }
   
     }, //end quickLinks
 

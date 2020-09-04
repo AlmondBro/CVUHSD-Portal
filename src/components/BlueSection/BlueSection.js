@@ -1,9 +1,7 @@
 import React from "react";
 
 //Import components
-import {    BlueSectionContainer, InputCheckBoxHack, BlueSectionButton, 
-            SectionHeader, OpenColumnButton, ButtonRow, 
-            AllLinksGoogleSheet, SystemStatuses }  from "./BlueSection_StyledComponents.js";
+import { BlueSectionContainer, InputCheckBoxHack, BlueSectionButton, SectionHeader, OpenColumnButton, ButtonRow, AllLinksGoogleSheet, SystemStatuses }  from "./BlueSection_StyledComponents.js";
 
 const BlueSection = (props) => {
     let generateBlueSectionButtons = () => {
@@ -15,13 +13,13 @@ const BlueSection = (props) => {
             
                 let buttonsArray = Object.values(props.buttons);
                 
-                return [...buttonsArray].map( (buttonObject, index) => {
+                return [...buttonsArray].map( function(buttonObject, index)  {
                     return (<BlueSectionButton 
                                 key         =   { index } 
                                 buttonLink  =   { buttonObject.buttonLink} 
                                 buttonImg   =   { buttonObject.buttonImg } 
                                 description =   { buttonObject.description }
-                            />); //end inner return statement
+                            />)
             }); //return map() function
 
             /* For loop can work here, but it does not return any new values whereas map does: 

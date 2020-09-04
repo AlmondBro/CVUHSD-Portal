@@ -3,6 +3,25 @@ body, #cvuhsd-portal-app {
     font-family: 'Source Sans Pro', sans-serif;
 
     overflow-y: auto;
+    
+}
+
+/* html {
+    width: 100%;
+    height: 100%;
+    display: block;
+    table; 
+} */
+
+body {
+    width: 100%;
+    display: block;
+    /* table-cell; */
+}
+
+html, body {
+    margin: 0px;
+    padding: 0px;
 }
 
 body.ReactModal__Body--open {
@@ -55,4 +74,31 @@ iframe {
 .ReactModal__Content--before-close {
     transform: scale(0.0);
     /* transition: transform 700ms ease-in-out; */
+}
+
+body > div#external_sdp_chat {
+    background: rgb(51, 51, 51) none repeat scroll 0% 0%;
+    border-radius: 4px;
+    bottom: 0px;
+    color: white;
+    cursor: pointer;
+    position: sticky !important;
+    left: 85%;
+    z-index: 2;
+    height: 29px;
+    width: 100px; 
+}
+
+body > div#me_sdp_chat_content_div {
+    bottom: 0px;
+    position: sticky ! important;
+    left: 47% !important;
+    width: 360px !important;
+    min-width: 360px;
+    height: auto;
+    line-height: 40px;
+    box-shadow: rgb(119, 119, 119) 0px 1px 8px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
 }
