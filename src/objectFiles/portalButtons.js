@@ -140,6 +140,13 @@ let staffPortalButtons = {
                 playStoreId: "com.google.android.apps.docs"
             }
         },
+        
+        //TODO: There is query state variable with the access token you can add dynamically
+        webExTeams_button : {
+            buttonLink: "https://teams.webex.com/",
+            buttonImg: "webex-teams.jpg",
+            description: "WebEx Teams"
+        }
     }, //end quickLinks
 
     standardStaffTools : {
