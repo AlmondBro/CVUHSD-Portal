@@ -434,11 +434,6 @@ let staffPortalButtons = {
             description: "Read 180/System 44-LX Teacher"
         },
 
-        schmoop_button : {
-            buttonLink: "https://schools.shmoop.com/login/centinela-valley-UHSD",
-            buttonImg: "shmoop.png",
-            description: "Schmoop"
-        },
 
         //TODO: Need to find deep link for clever. NOTE: Appears to only be available on iOS!!
         everfi_button : {
@@ -947,13 +942,7 @@ let studentPortalButtons = {
             buttonImg: "Read180LZ-Teacher.png",
             description: "Read 180/System 44-LX Teacher"
         },
-
-        schmoop_button : {
-            buttonLink: "https://schools.shmoop.com/login/centinela-valley-UHSD",
-            buttonImg: "shmoop.png",
-            description: "Schmoop"
-        },
-
+        
         //TODO: Need to find deep link for clever. NOTE: Appears to only be available on iOS!!
         everfi_button : {
                 buttonLink: "https://clever.com/oauth/instant-login?client_id=2b024c690549687be970&district_id=5283beba2c067cd50b000031",
