@@ -40,19 +40,6 @@ let staffPortalButtons = {
             }
         },
     
-        //TODO: Need to find hero deep link!! Looksl they use cordova as well.
-        hero_button : {
-            buttonLink: "https://access.heropowered.com/login/centinelavalley-usd",
-            buttonImg: "hero.png",
-            description: "Hero (PBIS System)",
-            deepLink: "hero://",
-            appLink_config : {
-                appName: "hero-k12",
-                appStoreId: "980722195",
-                appStoreLocale: "us",
-                playStoreId: "com.plascotrac.app.hero"
-            }
-        },
         
         //TODO: Need to find deep link for school messenger!
         schoolMessenger_button : {
@@ -419,19 +406,6 @@ let staffPortalButtons = {
             buttonImg: "GoGuardian.png",
             description: "Go Guardian"
         },
-
-        hero_button : {
-            buttonLink: "https://access.heropowered.com/login/centinelavalley-usd",
-            buttonImg: "hero.png",
-            description: "Hero (PBIS System)",
-            deepLink: "hero://",
-            appLink_config : {
-                appName: "hero-k12",
-                appStoreId: "980722195",
-                appStoreLocale: "us",
-                playStoreId: "com.plascotrac.app.hero"
-            }
-        }
     }, //end classroomTools
 
     learningTools : {
