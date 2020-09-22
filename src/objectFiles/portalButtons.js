@@ -376,12 +376,6 @@ let staffPortalButtons = {
             }
         },
 
-        edgenuity_button : {
-            buttonLink: "https://centinela.learn.edgenuity.com/",
-            buttonImg: "edgenuity.png",
-            description: "Edgenuity (Online Courses)"
-        },
-
         turnItIn_button : {
             buttonLink: "https://turnitin.com/",
             buttonImg: "turnitin.png",
@@ -877,20 +871,6 @@ let studentPortalButtons = {
                 appStoreId: "1257834464",
                 appStoreLocale: "us",
                 playStoreId: "com.instructure.teacher"
-            }
-        },
-
-        //TODO: FInd appLink & deepLink for edgenuity
-        edgenuity_button : {
-            buttonLink: "https://centinela.learn.edgenuity.com/",
-            buttonImg: "edgenuity.png",
-            description: "Edgenuity (Online Courses)",
-            deepLink: "illuminate://",
-            appLink_config : {
-                appName: "illuminate-hc",
-                appStoreId: "1082772020",
-                appStoreLocale: "us",
-                playStoreId: "com.illuminateed.gd.conferences"
             }
         },
 
