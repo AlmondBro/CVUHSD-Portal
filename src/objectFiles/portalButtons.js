@@ -383,7 +383,7 @@ let staffPortalButtons = {
         },
 
         illuminate_button : {
-            buttonLink: "https://centinela.illuminateed.com/dna/?prev_page=Main_NotDashboardPage&amp;page=SisLogin",
+            buttonLink: "https://accounts.illuminateed.net/saml/sp/form/899bd2d4-f0c6-4743-a647-9bdcdf7352d1?relayState=aHR0cHM6Ly9jZW50aW5lbGEuaWxsdW1pbmF0ZWVkLmNvbS9kbmEvP1NhbWxWZXJpZnk=&accountType=staff",
             buttonImg: "illuminate.png",
             description: "Illuminate (Assessments)",
             deepLink: "illuminate://",
@@ -858,7 +858,7 @@ let studentPortalButtons = {
         },
 
         illuminate_button : {
-            buttonLink: "https://centinela.illuminatehc.com/login",
+            buttonLink: "https://accounts.illuminateed.net/saml/sp/form/899bd2d4-f0c6-4743-a647-9bdcdf7352d1?relayState=aHR0cHM6Ly9jZW50aW5lbGEuaWxsdW1pbmF0ZWhjLmNvbS9zYW1sL3ZlcmlmeQ==&accountType=student",
             buttonImg: "illuminate.png",
             description: "Illuminate (Student Portal)",
             deepLink: "illuminate://",
