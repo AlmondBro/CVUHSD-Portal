@@ -28,7 +28,7 @@ let staffPortalButtons = {
         },
         //TODO : Need to get illuminate (quickLinks) deep link working!Examined APK, looks like they put no effort into the cordova app. Look like tere is no deep link
         illuminate_button : {
-            buttonLink: "https://centinela.illuminateed.com/dna/?prev_page=Main_NotDashboardPage&amp;page=SisLogin",
+            buttonLink: "https://accounts.illuminateed.net/saml/sp/form/899bd2d4-f0c6-4743-a647-9bdcdf7352d1?relayState=aHR0cHM6Ly9jZW50aW5lbGEuaWxsdW1pbmF0ZWVkLmNvbS9kbmEvP1NhbWxWZXJpZnk=&accountType=staff",
             buttonImg: "illuminate.png",
             description: "Illuminate (Assessments)",
             deepLink: "com.illuminatehc.portal://",
@@ -40,19 +40,6 @@ let staffPortalButtons = {
             }
         },
     
-        //TODO: Need to find hero deep link!! Looksl they use cordova as well.
-        hero_button : {
-            buttonLink: "https://access.heropowered.com/login/centinelavalley-usd",
-            buttonImg: "hero.png",
-            description: "Hero (PBIS System)",
-            deepLink: "hero://",
-            appLink_config : {
-                appName: "hero-k12",
-                appStoreId: "980722195",
-                appStoreLocale: "us",
-                playStoreId: "com.plascotrac.app.hero"
-            }
-        },
         
         //TODO: Need to find deep link for school messenger!
         schoolMessenger_button : {
@@ -389,12 +376,6 @@ let staffPortalButtons = {
             }
         },
 
-        edgenuity_button : {
-            buttonLink: "https://centinela.learn.edgenuity.com/",
-            buttonImg: "edgenuity.png",
-            description: "Edgenuity (Online Courses)"
-        },
-
         turnItIn_button : {
             buttonLink: "https://turnitin.com/",
             buttonImg: "turnitin.png",
@@ -402,7 +383,7 @@ let staffPortalButtons = {
         },
 
         illuminate_button : {
-            buttonLink: "https://centinela.illuminateed.com/dna/?prev_page=Main_NotDashboardPage&amp;page=SisLogin",
+            buttonLink: "https://accounts.illuminateed.net/saml/sp/form/899bd2d4-f0c6-4743-a647-9bdcdf7352d1?relayState=aHR0cHM6Ly9jZW50aW5lbGEuaWxsdW1pbmF0ZWVkLmNvbS9kbmEvP1NhbWxWZXJpZnk=&accountType=staff",
             buttonImg: "illuminate.png",
             description: "Illuminate (Assessments)",
             deepLink: "illuminate://",
@@ -419,19 +400,6 @@ let staffPortalButtons = {
             buttonImg: "GoGuardian.png",
             description: "Go Guardian"
         },
-
-        hero_button : {
-            buttonLink: "https://access.heropowered.com/login/centinelavalley-usd",
-            buttonImg: "hero.png",
-            description: "Hero (PBIS System)",
-            deepLink: "hero://",
-            appLink_config : {
-                appName: "hero-k12",
-                appStoreId: "980722195",
-                appStoreLocale: "us",
-                playStoreId: "com.plascotrac.app.hero"
-            }
-        }
     }, //end classroomTools
 
     learningTools : {
@@ -466,11 +434,6 @@ let staffPortalButtons = {
             description: "Read 180/System 44-LX Teacher"
         },
 
-        schmoop_button : {
-            buttonLink: "https://schools.shmoop.com/login/centinela-valley-UHSD",
-            buttonImg: "shmoop.png",
-            description: "Schmoop"
-        },
 
         //TODO: Need to find deep link for clever. NOTE: Appears to only be available on iOS!!
         everfi_button : {
@@ -864,18 +827,6 @@ let studentPortalButtons = {
             }
         },
     
-        hero_button : {
-            buttonLink: "https://access.heropowered.com/login/centinelavalley-usd",
-            buttonImg: "hero.png",
-            description: "Hero (PBIS System)",
-            deepLink: "hero://",
-            appLink_config : {
-                appName: "hero-k12",
-                appStoreId: "980722195",
-                appStoreLocale: "us",
-                playStoreId: "com.plascotrac.app.hero"
-            }
-        }
     }, //end standardStudentTools
 
     //TODO: Find Deep Link & app config for apex!
@@ -906,22 +857,8 @@ let studentPortalButtons = {
             }
         },
 
-        //TODO: FInd appLink & deepLink for edgenuity
-        edgenuity_button : {
-            buttonLink: "https://centinela.learn.edgenuity.com/",
-            buttonImg: "edgenuity.png",
-            description: "Edgenuity (Online Courses)",
-            deepLink: "illuminate://",
-            appLink_config : {
-                appName: "illuminate-hc",
-                appStoreId: "1082772020",
-                appStoreLocale: "us",
-                playStoreId: "com.illuminateed.gd.conferences"
-            }
-        },
-
         illuminate_button : {
-            buttonLink: "https://centinela.illuminatehc.com/login",
+            buttonLink: "https://accounts.illuminateed.net/saml/sp/form/899bd2d4-f0c6-4743-a647-9bdcdf7352d1?relayState=aHR0cHM6Ly9jZW50aW5lbGEuaWxsdW1pbmF0ZWhjLmNvbS9zYW1sL3ZlcmlmeQ==&accountType=student",
             buttonImg: "illuminate.png",
             description: "Illuminate (Student Portal)",
             deepLink: "illuminate://",
@@ -992,12 +929,6 @@ let studentPortalButtons = {
             buttonLink: "https://lxread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
             buttonImg: "Read180LZ-Teacher.png",
             description: "Read 180/System 44-LX Teacher"
-        },
-
-        schmoop_button : {
-            buttonLink: "https://schools.shmoop.com/login/centinela-valley-UHSD",
-            buttonImg: "shmoop.png",
-            description: "Schmoop"
         },
 
         //TODO: Need to find deep link for clever. NOTE: Appears to only be available on iOS!!
