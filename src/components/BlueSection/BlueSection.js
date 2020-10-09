@@ -1,7 +1,7 @@
 import React from "react";
 
 //Import components
-import { BlueSectionContainer, InputCheckBoxHack, BlueSectionButton, SectionHeader, OpenColumnButton, ButtonRow, AllLinksGoogleSheet, SystemStatuses }  from "./BlueSection_StyledComponents.js";
+import { BlueSectionContainer, InputCheckBoxHack, BlueSectionButton, SectionHeader, OpenColumnButton, ButtonRow, LACountyHotSpotLocator, AllLinksGoogleSheet, SystemStatuses }  from "./BlueSection_StyledComponents.js";
 
 const BlueSection = (props) => {
     let generateBlueSectionButtons = () => {
@@ -37,6 +37,17 @@ const BlueSection = (props) => {
                             title       = "All Links Google Sheets"
                             className   = "google-sheet" 
                             src         = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSOPMzFTLmTXsOzY172KN_3IaJqeO9bLPl_3TIgc_bBQiWEanznykV6cEiPBuV9WUHEnL2vesphHEWZ/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+                            scolling    = "yes"
+                    />
+                    );
+        }//end else-statement
+
+        else if (props.buttonRowID === "laCountyHotSpotLocatorButtonRow") {
+            return (
+                    <LACountyHotSpotLocator 
+                            title       = "All Links Google Sheets"
+                            className   = "google-sheet" 
+                            src         = "https://lacounty.maps.arcgis.com/apps/webappviewer/index.html?id=26159b0526e64bea94533e89da583b89&utm_content=&utm_medium=email&utm_name=&utm_source=govdelivery&utm_term="
                             scolling    = "yes"
                     />
                     );

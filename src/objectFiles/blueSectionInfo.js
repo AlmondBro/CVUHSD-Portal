@@ -164,6 +164,13 @@ let redSectionInfo_schoolWebsites = {
     buttons: studentPortalButtons.schoolWebsites
 };
 
+let redSectionInfo_laCountyHotspotLocator = {
+    blueSectionName: "laCountyHotSpotLocator",
+    expanded: true,
+    headerTitle: "Los Angeles County Hotspot Locator",
+    buttonRowID: "laCountyHotSpotLocatorButtonRow"
+};
+
 let redSectionInfo_allLinks = {
     blueSectionName: "allTools",
     expanded: true,
@@ -172,6 +179,7 @@ let redSectionInfo_allLinks = {
 };
 
 let redSectionInfo_Student = [
+    redSectionInfo_laCountyHotspotLocator,
     redSectionInfo_quickLinks,
     redSectionInfo_standardStudentTools,
     redSectionInfo_classRoomTools,
