@@ -60,7 +60,9 @@ function loadSDPChat()
 	var chat_notFrame = document.createElement("iframe"); //No I18N
         chat_notFrame.id = "sdp_external_chat"; //No I18N
         chat_notFrame.name = "sdp_external_chat"; //No I18N
+        // chat_notFrame.src = sdp_url+""; //No I18N
         chat_notFrame.src = sdp_url+"externalCommFrame.do"; //No I18N
+
 	chat_notFrame.setAttribute("style", "visibility: visible; overflow: hidden;");
 	chat_notFrame.setAttribute("width", "115");
 	chat_notFrame.setAttribute("height", "33");
