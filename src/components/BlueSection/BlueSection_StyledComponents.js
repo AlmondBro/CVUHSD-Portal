@@ -61,6 +61,10 @@ let StyledButton = styled("button")`
     transition: transform .2s, margin .2s; 
     margin: 0.8% 0%;
 
+    img {
+        border-radius: 10px;
+    }
+
     &:hover, &:active, &:focus {
         transform: scale(1.1);
     } 
