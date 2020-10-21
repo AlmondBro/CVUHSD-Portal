@@ -8,6 +8,12 @@ let AllLinksGoogleSheet = styled("iframe")`
     height: 90vh;
 `; //end AllLinksGoogleSheet
 
+
+let LACountyHotSpotLocator = styled("iframe")`
+    width: 75%;
+    height: 90vh;
+`; //end AllLinksGoogleSheet
+
 let SystemStatuses = styled("iframe")`
     align: "center";
     height: 400px;
@@ -124,4 +130,4 @@ let ButtonRow = styled("div")`
     transition: margin 0.5s;
 `;
 
-export { BlueSectionContainer, InputCheckBoxHack, BlueSectionButton, SectionHeader, OpenColumnButton, ButtonRow, AllLinksGoogleSheet, SystemStatuses };
+export { BlueSectionContainer, InputCheckBoxHack, BlueSectionButton, SectionHeader, OpenColumnButton, ButtonRow, LACountyHotSpotLocator, AllLinksGoogleSheet, SystemStatuses };
