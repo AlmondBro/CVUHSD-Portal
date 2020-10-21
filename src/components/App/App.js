@@ -134,7 +134,7 @@ class App extends Component {
 
     this.setState({title: (this.state.pathname === "/student" || window.location.pathname === "/" ) ? "student" : "staff" });
   
-    require("./SDPChat.js");
+    //require("./SDPChat.js");
   
   }; //end componentDidMount
 
