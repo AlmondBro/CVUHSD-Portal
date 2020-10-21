@@ -88,12 +88,6 @@ let staffPortalButtons = {
             description: "Printer Center"
         },
     
-        helpDesk_button : {
-            buttonLink: "https://helpdesk.centinela.k12.ca.us",
-            buttonImg: "helpdesk.png",
-            description: "Helpdesk (C.V. I.T. Department)"
-        },
-
         helpDesk_live_chat_button : {
             buttonLink: "https://cvhelpdesk.centinela.k12.ca.us:450/HomePage.do",
             buttonImg: "helpdesk-live-chat.png",
@@ -169,10 +163,10 @@ let staffPortalButtons = {
             }
         },
 
-        helpDesk_button : {
-            buttonLink: "https://helpdesk.centinela.k12.ca.us",
-            buttonImg: "Helpdesk.png",
-            description: "Helpdesk (CV It Department)"
+        helpDesk_live_chat_button : {
+            buttonLink: "https://cvhelpdesk.centinela.k12.ca.us:450/HomePage.do",
+            buttonImg: "helpdesk-live-chat.png",
+            description: "CV Helpdesk Live Chat"
         },
 
         outlook_button : {
