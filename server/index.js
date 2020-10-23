@@ -20,6 +20,9 @@ const sslRootCAs = require("ssl-root-cas/latest");
 
 const requestIp = require("request-ip"); 
 
+const jwt = require("jsonwebtoken");
+const { OAuth2Strategy } = require('passport-oauth');
+
 const { v1: uuidv1 } = require('uuid');  //uuID based of timestamp
 const { v4: uuidv4 } = require('uuid'); //Random uuID
 
@@ -141,6 +144,17 @@ let redirectToExpoAuth = (req, res, next) =>  {
 
 app.get(redirectToExpoAuth_URL, redirectToExpoAuth);
 
+const validateAccessToken = (accessToken) => {
+  let payload = null;
+
+  try {
+      payload = jwt.verify(accessToken, adfsSigningPublicKey);
+  }
+  catch(e) {
+      console.warn('Dropping unverified accessToken', e);
+  }
+  return payload;
+}; 
 
 /*
   In Express, 404 responses are not the result of an error, so the 
