@@ -59,6 +59,8 @@ app.options('*', cors()) // include before other routes
 const CVUHSD_CertificatePath = ("./../certificates/ssl-cvuhsd.cer");
 const ADFS_CertificatePath = ("./../certificates/ssl-cvuhsd.cer");
 
+const adfsSigningPublicKey = fs.readFileSync('./../certificates/ADFS_Signing.crt')
+
 //Inject certificates
 sslRootCAs.inject()
           .addFile(__dirname + CVUHSD_CertificatePath)

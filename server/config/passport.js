@@ -4,7 +4,7 @@
 const path = require('path'),
       AD = require('ad');
 
-      require('dotenv').config({path: path.join(__dirname, './../../.env'), debug: true}) //Load environmental variables
+      require('dotenv').config({path: path.join(__dirname, './../../.env'), debug: false}) //Load environmental variables
 
 
 const username = process.env.ADFS_USER_NAME;
