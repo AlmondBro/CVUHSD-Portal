@@ -1,22 +1,38 @@
+const passport = require("passport");
+const { OAuth2Strategy } = require('passport-oauth');
 
-//TODO: Fix serialize errors upon improper authentication
+// Configure passport to integrate with ADFS
+const strategy = new OAuth2Strategy({
+        authorizationURL: process.env.OAUTH_AUTH_URL,
+        tokenURL: process.env.OAUTH_TOKEN_URL,
+        clientID: process.env.OAUTH_CLIENT_ID, // This is just a UID I generated and registered
+        clientSecret: process.env.OAUTH_CLIENT_SECRET, // This is ignored but required by the OAuth2Strategy
+        callbackURL: process.env.OAUTH_CALLBACK_URL
+    },
+    (accessToken, refreshToken, profile, done) => {
+        if (refreshToken) {
+            console.log('Received but ignoring refreshToken (truncated)', refreshToken.substr(0, 25));
+        } else {
+            console.log('No refreshToken received');
+        }
+        done(null, profile);
+    });
 
-const path = require('path'),
-      AD = require('ad');
-
-      require('dotenv').config({path: path.join(__dirname, './../../.env'), debug: false}) //Load environmental variables
-
-
-const username = process.env.ADFS_USER_NAME;
-const pass = process.env.ADFS_USER_PASSWORD;
-
-let ad_config = {
-  url: process.env.ADFS_SERVER_URL,
-  user: username,
-  pass: pass
+    strategy.authorizationParams = (options) => {
+    return {
+        resource: 'http://localhost:3000/' // An identifier corresponding to the RPT
+    };
 };
 
-const activeDirectory = new AD(ad_config);
+strategy.userProfile = (accessToken, done) => {
+    done(null, accessToken);
+};
 
+passport.use('provider', strategy);
 
-module.exports = { activeDirectory};
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
