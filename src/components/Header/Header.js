@@ -91,7 +91,6 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                     </strong>
                 </PortalHeaderText>
 
-                { districtPosition ? (
                         <PositionSiteInfo 
                             className="position-site-info" 
                             display={portalHeaderTextDisplay}
@@ -150,14 +149,6 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                             }
                                          
                         </PositionSiteInfo>
-                    ) : <Greeting 
-                            className="loading-greeting"
-                            districtPosition={districtPosition} 
-                            renderAsStudent={renderAsStudent} 
-                        >
-                            Stay put, warming your cup of coffee! 
-                        </Greeting>
-                }
             </DashboardHeader>
         </DashboardHeaderContainer>
     </Fragment>);   
