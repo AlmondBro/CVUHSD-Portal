@@ -87,7 +87,6 @@ require("./config/ad-setup.js"); //require passport configuration
 app.use(requestIp.mw());
 
 app.use("/", mainRoutes); //Middleware to route to all the main routes
-
 app.use("/auth", authRoutes); //Middleware to route to all authorization routes
 
 

@@ -114,9 +114,76 @@ class App extends Component {
     resetParentState(this, this.initialState);
   };
 
+  logIn = async () => {
+    const logOut_URL = `/auth/login`; 
+
+     const logOut_headers = {
+         'Content-Type': 'application/json',
+         'credentials': 'include',
+         'Access-Control-Allow-Origin': '*',
+         'redirect' : 'follow'
+     };
+
+     let url = await fetch(logOut_URL, {
+         method: 'GET',
+         headers: logOut_headers,
+         "Access-Control-Allow-Credentials": true,
+         redirect: 'follow'
+     })
+     .then((response) => {
+        console.dir(response);
+         //return response.json(); //Parse the JSON of the response
+
+        // const url = response.response.url;
+
+        // console.log("response url:\t", url);
+         
+        // return url;
+
+      if (response.redirected) {
+         window.location.href = response.url;
+      }
+
+        return;
+     })
+     .catch((error) => {
+         console.error(`fetchOUInfo() Catching error:\t ${error}`);
+     });
+
+     //window.location = url;
+     return;
+  }; //end logIn
+
   logOut = () => {
     this.clearState();
   };
+
+  checkForLogIn = async () => {
+    const getOU_URL = `/auth/callback`; 
+
+    let urlParams = new URLSearchParams(window.location.search);
+    let code = urlParams.get('code'); 
+
+    const getOU_headers = {
+        "Accept": "application/json",
+        'Content-Type': 'application/json',
+        'credentials': 'include',
+        'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Credentials": true
+    };
+
+    await fetch(getOU_URL + `?code=${code}`, {
+        method: 'GET',
+        credentials: "include",
+        headers: getOU_headers,
+    })
+    .then((response) => response.json())
+    .then((userInfo) => console.dir(userInfo))
+    .catch((error) => {
+        console.error(`fetchOUInfo() Catching error:\t ${error}`);
+    });
+  };
+
 
   modifyRootAccountInfo = (newAccountInfo) => {
     console.log("updateRootAccountInfo()");
@@ -134,6 +201,12 @@ class App extends Component {
 
     this.setState({title: (this.state.pathname === "/student" || window.location.pathname === "/" ) ? "student" : "staff" });
   
+    if (window.location.pathname === "/callback") {
+      this.checkForLogIn();
+    }
+
+
+    this.logIn();
     //require("./SDPChat.js");
   
   }; //end componentDidMount
@@ -162,7 +235,9 @@ class App extends Component {
         renderAsStudent={this.state.renderAsStudent}
       >
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
-          <Switch>
+        {
+          this.state.loggedIn ? (
+            <Switch>
               { // Update routes to use server subdirectory in production
                 //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
               }
@@ -252,7 +327,10 @@ class App extends Component {
                     : null
               }
           </Switch>
-        );
+          ) : <LoadingSSOPage/>
+        }
+          
+        
       </StyledContainer>); //end return statement
   }
 }
