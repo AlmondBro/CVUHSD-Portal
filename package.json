@@ -58,7 +58,7 @@
     "start-reset": "rm -rf node_modules/ && npm install && npm audit fix && npm install && npm start --reset-cache",
     "build": "rm -rf build/ && react-scripts build",
     "build-serve": "npm run build && serve -s build/",
-    "server": "nodemon server/index.js --inspect",
+    "server": "nodemon esm server/entry.js --inspect",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm start\""
