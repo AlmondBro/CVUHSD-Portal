@@ -23,9 +23,8 @@ const requestIp = require("request-ip");
 const { v1: uuidv1 } = require('uuid');  //uuID based of timestamp
 const { v4: uuidv4 } = require('uuid'); //Random uuID
 
-
 const authRoutes = require('./routes/auth/auth-routes.js');
-const mainRoutes = require('./routes/auth/main-routes.js');
+const mainRoutes = require('./routes/main/main-routes.js');
 
 const app = express(); 
 
@@ -65,7 +64,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //TODO: Use cookieSession to use as a client-side memory store since connect.session() MemoryStore is not designed for production
-//Cookie-ssession stores data on the client while expression-session stores on the server. 
+//Cookie-session stores data on the client while expression-session stores on the server. 
 
 //Source: https://stackoverflow.com/questions/10760620/using-memorystore-in-production/37022764#37022764
 //https://stackoverflow.com/questions/44882535/warning-connect-session-memorystore-is-not-designed-for-a-production-environm/44884800#44884800

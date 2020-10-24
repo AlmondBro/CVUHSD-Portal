@@ -46,3 +46,5 @@ let redirectToExpoAuth = (req, res, next) =>  {
 }; //end getOU()
 
 router.get(redirectToExpoAuth_URL, redirectToExpoAuth);
+
+module.exports = router;
