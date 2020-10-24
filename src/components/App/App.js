@@ -245,9 +245,32 @@ class App extends Component {
      return;
   }; //end logIn
 
-  logOut = () => {
-    this.clearState();
-  };
+  logOut = async () => {
+    const logOut_URL = `/auth/logout`; 
+
+    const getOU_headers = {
+        'credentials': 'include',
+        'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Credentials": true
+    };
+
+    await fetch(logOut_URL, {
+        method: 'GET',
+        credentials: "include",
+        headers: getOU_headers,
+    })
+    .then((response) => {
+       console.dir(response);
+
+       if (response.redirected) {
+         window.location.href = response.url;
+       }
+       return ;
+    })
+    .catch((error) => {
+        console.error(`fetchOUInfo() Catching error:\t ${error}`);
+    });
+  }; //end logOut
 
   checkForLogIn = async () => {
     const getOU_URL = `/auth/callback`; 
@@ -388,7 +411,7 @@ class App extends Component {
                             modifyTitle={this.modifyTitle}
                             modifySite={this.modifySite}
                             changeContainerStyle={this.changeContainerStyle} 
-                            logOut={this.logout}
+                            logOut={this.logOut}
                             clearState={this.clearState}
                             accountInfo={this.state.accountInfo}
                             modifyRootAccountInfo={this.modifyRootAccountInfo}
@@ -443,7 +466,7 @@ class App extends Component {
                       modifyTitle={this.modifyTitle}
                       modifySite={this.modifySite}
                       changeContainerStyle={this.changeContainerStyle} 
-                      logOut={this.logout}
+                      logOut={this.logOut}
                       clearState={this.clearState}
                       accountInfo={this.state.accountInfo}
                       modifyRootAccountInfo={this.modifyRootAccountInfo}
