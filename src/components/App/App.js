@@ -215,25 +215,17 @@ class App extends Component {
          'redirect' : 'follow'
      };
 
-     let url = await fetch(logOut_URL, {
+     await fetch(logOut_URL, {
          method: 'GET',
          headers: logOut_headers,
          "Access-Control-Allow-Credentials": true,
          redirect: 'follow'
      })
      .then((response) => {
-        console.dir(response);
-         //return response.json(); //Parse the JSON of the response
-
-        // const url = response.response.url;
-
-        // console.log("response url:\t", url);
-         
-        // return url;
-
-      if (response.redirected) {
-         window.location.href = response.url;
-      }
+        if (response.redirected) {
+          let { url } = response;
+          window.location.href = url;
+        }
 
         return;
      })
