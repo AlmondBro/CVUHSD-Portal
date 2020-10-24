@@ -233,11 +233,11 @@ class App extends Component {
 
     this.setState({title: (this.state.pathname === "/student" || window.location.pathname === "/" ) ? "student" : "staff" });
   
-    if (window.location.pathname === "/callback") {
+    if ( !this.state.loggedIn && (window.location.pathname === "/callback") ) {
       this.checkForLogIn();
     }
 
-    if (window.location.pathname === "/") {
+    if (!this.state.loggedIn && (window.location.pathname === "/") ) {
       this.logIn();
     }
 
