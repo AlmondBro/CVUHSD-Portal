@@ -178,12 +178,44 @@ class App extends Component {
         headers: getOU_headers,
     })
     .then((response) => response.json())
-    .then((userInfo) => console.dir(userInfo))
+    .then((userInfo) => {
+
+      if (userInfo) {
+        /*
+          loggedIn: "",
+      accountInfo: "",
+      organizationalUnit: "",
+     //TODO: Eliminate redudant fullName and first/lastName from state
+  
+      firstName: "",
+      lastName: "",
+      fullName: "",
+      title: "",
+      site: "",
+      school: null,
+      gradeLevel: null,
+      email: "",
+      phoneNumber: "",
+        */
+
+        const { email, family_name, givenName, jobTitle} = userInfo;
+        
+        this.setState({
+          loggedIn: true,
+          firstName:  givenName,
+          lastName: family_name,
+          email: email
+        });
+      }
+
+      console.dir(userInfo); 
+
+      
+    })
     .catch((error) => {
         console.error(`fetchOUInfo() Catching error:\t ${error}`);
     });
   };
-
 
   modifyRootAccountInfo = (newAccountInfo) => {
     console.log("updateRootAccountInfo()");
@@ -205,8 +237,10 @@ class App extends Component {
       this.checkForLogIn();
     }
 
+    if (window.location.pathname === "/") {
+      this.logIn();
+    }
 
-    this.logIn();
     //require("./SDPChat.js");
   
   }; //end componentDidMount

@@ -20,6 +20,8 @@ const sslRootCAs = require("ssl-root-cas/latest");
 
 const requestIp = require("request-ip"); 
 
+const passport = require("passport");
+
 const { v1: uuidv1 } = require('uuid');  //uuID based of timestamp
 const { v4: uuidv4 } = require('uuid'); //Random uuID
 
@@ -83,6 +85,10 @@ let cookieSession_config = {
 app.use(cookieSession(cookieSession_config));
 
 require("./config/ad-setup.js"); //require passport configuration
+require("./config/passport.js"); //require passport configuration
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(requestIp.mw());
 
