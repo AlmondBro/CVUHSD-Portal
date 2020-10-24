@@ -1,4 +1,4 @@
-import React, { useState, Fragment }  from "react"; //Import React 
+import React, { useState, useEffect }  from "react"; //Import React 
 
 import { withRouter, Link } from "react-router-dom";
 
@@ -102,8 +102,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
 
    //TODO: Look at image link. It should redirect to the student or staff portal.
 
-    return (
-        <Fragment>
+    return ([
         <NavBar className="navigation-bar" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
             <NavBarImageWrapper 
                 className="navigation-bar-image-wrapper" 
@@ -124,6 +123,8 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                     />
                 </Link>
             </NavBarImageWrapper>
+            { props.districtPosition ? 
+                (
                     <NavBarUL className="navigation-bar-ul" districtPosition={props.districtPosition} renderAsStudent={props.renderAsStudent}>
                         <MenuToggle type="checkbox" id="menu-toggle" renderAsStudent={props.renderAsStudent} />
                         <label id="nav-menu-icon-label" htmlFor="menu-toggle" >
@@ -147,7 +148,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                             : null
                         }
 
-                        {(props.districtPosition !== "Student" && window.location.pathname === "/staff") ? ( 
+                        {(props.districtPosition !== "Student") ? ( 
                             <NavBarListItemLi 
                                 to={
                                     {
@@ -171,8 +172,83 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                         }
 
                         { generateNavBarListItems(staff_HeaderLinks) }
+
+                        
+                        {(props.districtPosition !== "Student") ? ( 
+                            <NavBarListItemLi 
+                                bulletPointInMobile={true}
+                                renderAsStudent={props.renderAsStudent}
+                                onClick={() => toggleModal(true) }
+                            >
+                                <Tooltip
+                                    placement={"bottom"}
+                                    mouseEnterDelay={0}
+                                    mouseLeaveDelay={0.03}
+                                    destroyTooltipOnHide={true}
+                                    trigger={['hover','click','focus']}
+                                    overlay={<div style={{ height: "100%", width: "100%" }}>Change Password</div>}
+                                    transitionName={"rc-tooltip-zoom"}
+                                >
+                                    <NavBarButton   
+                                            title={"Change Password"} 
+                                            districtPosition={props.districtPosition}
+                                            renderAsStudent={props.renderAsStudent}
+                                    >
+                                        <object 
+                                            type="image/svg+xml" 
+                                            data="/images/icons/change-password.svg" 
+                                            className="change-password-icon svg-inline--fa fa-w-16 icon"
+                                        >
+                                            Change Password
+                                        </object>
+                                    </NavBarButton> 
+                                </Tooltip>
+                            </NavBarListItemLi>)  
+                            : null
+                        }
+
+                        <NavBarListItemLi 
+                            bulletPointInMobile={true}
+                            renderAsStudent={props.renderAsStudent}
+                            onClick={signOutClearState}
+                        >
+                            <Tooltip
+                                placement={"bottom"}
+                                mouseEnterDelay={0}
+                                mouseLeaveDelay={0.03}
+                                destroyTooltipOnHide={true}
+                                trigger={['hover','click','focus']}
+                                overlay={<div style={{ height: "100%", width: "100%" }}>Log Out</div>}
+                                transitionName={"rc-tooltip-zoom"}
+                            >
+                                <NavBarButton   
+                                        title={"Log Out"}  
+                                        districtPosition={props.districtPosition}
+                                        renderAsStudent={props.renderAsStudent}
+                                >
+                                    <FontAwesomeIcon 
+                                        icon={signOut} 
+                                        className="icon"
+                                    /> 
+                                </NavBarButton>
+                        </Tooltip>
+                        
+                        </NavBarListItemLi>
                     </NavBarUL>
-        </NavBar>
+                ) 
+                : (
+                    <NavBarUL_Loading>
+                        {/* hello */}
+                        <ReactLoading 
+                            type={"cubes"}
+                            height={'30px'} width={'30px'} 
+                            color={(props.title !== "Student") ? "#931E1D": "#1E6C93"}
+                        /> 
+                    </NavBarUL_Loading>
+                  )
+            }
+            
+        </NavBar>,
         <ChangePassword 
             modalIsOpen={modalIsOpen}
             toggleModal={toggleModal}
@@ -181,8 +257,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
             renderAsStudent={props.renderAsStudent}
             {...props}
         />
-        </Fragment>
-    );
+    ]);
 }; //end NavigationBar();
 
 export default withRouter(NavigationBar);
