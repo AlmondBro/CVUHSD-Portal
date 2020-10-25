@@ -1,29 +1,27 @@
-const path = require("path");
+import path from 'path';
+import dotenv from 'dotenv';
 
-require("dotenv")
-                .config(  {    
-                        path    : path.join( __dirname, "./../.env" ), 
-                        debug   : false      
-                }); //Load environmental variables
+import isDev from 'isdev';
 
-const isDev = require("isDev"); 
 
-const cookieSession = require("cookie-session");
-const express = require("express"); 
+import express from 'express';
+import cookieSession from 'cookie-session';
+import bodyParser from 'body-parser';
 
-const bodyParser = require("body-parser");
-const cors = require("cors");
+import cors from 'cors';
+import helmet from 'helmet';
+import sslRootCAs from 'ssl-root-cas/latest';
 
-const helmet = require("helmet");
+import requestIp from  'request-ip';
 
-const sslRootCAs = require("ssl-root-cas/latest");
+import passport from 'passport';
 
-const requestIp = require("request-ip"); 
+import { v1 as uuidv1, v4 as uuidv4 } from 'uuid';  //uuID based of timestamp
 
-const passport = require("passport");
-
-const { v1: uuidv1 } = require('uuid');  //uuID based of timestamp
-const { v4: uuidv4 } = require('uuid'); //Random uuID
+dotenv.config({    
+  path    : path.join( __dirname, "./../.env" ), 
+  debug   : false      
+}); //Load environmental variables
 
 const authRoutes = require('./routes/auth/auth-routes.js');
 const mainRoutes = require('./routes/main/main-routes.js');
@@ -39,7 +37,6 @@ const app = express();
 
 const port = process.env.PORT || 3001; 
 
-
 app.use(helmet());
 //app.use(csp()); 
 //Content Security Policy helps prevent unwanted content being injected into your webpages; 
@@ -48,7 +45,6 @@ app.use(helmet());
 
 app.use(cors());
 app.options('*', cors()) // include before other routes
-
 
 const CVUHSD_CertificatePath = ("./../certificates/ssl-cvuhsd.cer");
 const ADFS_CertificatePath = ("./../certificates/ssl-cvuhsd.cer");
@@ -71,7 +67,6 @@ app.use(bodyParser.json());
 //Source: https://stackoverflow.com/questions/10760620/using-memorystore-in-production/37022764#37022764
 //https://stackoverflow.com/questions/44882535/warning-connect-session-memorystore-is-not-designed-for-a-production-environm/44884800#44884800
 //https://stackoverflow.com/questions/44882535/warning-connect-session-memorystore-is-not-designed-for-a-production-environm/44884800#44884800
-
 
 let cookieSession_config = {
   name: "cvuhsd-portal-" + uuidv1(),
@@ -132,4 +127,4 @@ process.on('uncaughtException', (error) => {
 
 
 //Listen to this server.
-app.listen(port, () => console.log(`\nApp listening on port ${port}!\n`));
+//app.listen(port, () => console.log(`\nApp listening on port ${port}!\n`));
