@@ -59,6 +59,7 @@ class App extends Component {
      isStudent: null,
      renderAsStudent: false,
      pathname: "",
+     accessToken: "",
       containerStyle: {
         "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
@@ -198,7 +199,7 @@ class App extends Component {
         });
     }; //end getGraphInfo()
     
-    const token = "";
+    const token = this.state.accessToken;
     // await authProvider_noDomainHint.getAccessToken();
 
     getGraphInfo();
@@ -304,7 +305,7 @@ class App extends Component {
       phoneNumber: "",
         */
 
-        const { email, family_name, givenName, jobTitle } = userInfo;
+        const { email, family_name, givenName, jobTitle, accessToken } = userInfo;
         
         //TODO: Set student ID or UID
         this.setState({
@@ -312,7 +313,8 @@ class App extends Component {
           firstName:  givenName,
           lastName: family_name,
           email: email,
-          title: jobTitle
+          title: jobTitle,
+          accessToken
         });
       }
 

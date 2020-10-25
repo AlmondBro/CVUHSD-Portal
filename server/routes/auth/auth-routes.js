@@ -24,9 +24,10 @@ router.get('/callback', passport.authenticate('provider'), async (req, res) => {
     // Beware XSRF...
     res.cookie('accessToken', req.user);
 
-    const userInfo = validateAccessToken(req.user);
+    const accessToken = req.user;
+    const userInfo = validateAccessToken(accessToken);
   
-    res.json(userInfo);
+    res.json({ ...userInfo, accessToken });
     return;
 });
 
