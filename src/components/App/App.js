@@ -114,8 +114,10 @@ class App extends Component {
     resetParentState(this, this.initialState);
   };
 
-  /*
+  ///*
   getUserInfo = async () => {
+    console.log("getUserInfo()");
+
     let getStudentSchool = () => {
       console.log("getStudentSchool()");
 
@@ -152,7 +154,6 @@ class App extends Component {
       });
     }; //end getStudentSchool
     
-
     let getGraphInfo = async () => {
       const headers = new Headers({ 
         'Authorization': `Bearer ${token.accessToken}`,  
@@ -197,13 +198,12 @@ class App extends Component {
         });
     }; //end getGraphInfo()
     
-    console.log("getUserInfo()");
-    const token = await authProvider_noDomainHint.getAccessToken();
+    const token = "";
+    // await authProvider_noDomainHint.getAccessToken();
 
     getGraphInfo();
-
   }; //end getUserInfo()
-  */
+  //*/
 
   logIn = async () => {
     const logOut_URL = `/auth/login`; 
@@ -304,18 +304,19 @@ class App extends Component {
       phoneNumber: "",
         */
 
-        const { email, family_name, givenName, jobTitle} = userInfo;
+        const { email, family_name, givenName, jobTitle } = userInfo;
         
+        //TODO: Set student ID or UID
         this.setState({
           loggedIn: true,
           firstName:  givenName,
           lastName: family_name,
-          email: email
+          email: email,
+          title: jobTitle
         });
       }
 
       console.dir(userInfo); 
-
       
     })
     .catch((error) => {
