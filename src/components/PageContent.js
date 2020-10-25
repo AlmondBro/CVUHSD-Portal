@@ -4,6 +4,8 @@ import React, { Fragment, Component } from "react";
 import ReactLoading from "react-loading";
 import styled from "styled-components";
 
+import isDev from 'isdev';
+
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header/Header.js";
@@ -61,6 +63,98 @@ class PageContent extends Component {
         }); //end outer return statement
     }; //end generateBlueSections()
 
+
+  ///*
+  getUserInfo = async () => {
+    console.log("getUserInfo()");
+
+    let getStudentSchool = () => {
+      console.log("getStudentSchool()");
+
+      let parseOUforSchool = (organizationalUnit) => {
+        console.log("parseOUforSchool()");
+        let splitDirectoriesArray = organizationalUnit.split("/");
+
+        let school = splitDirectoriesArray[1];
+        let gradeLevel = splitDirectoriesArray[2];
+
+        console.log("splitDirectoriesArray:\t" + splitDirectoriesArray);
+        this.setState({site: school, gradeLevel: gradeLevel});
+      }; //end parseOUforSchool()
+
+      const getOU_URL = `${isDev ? "" : "/server" }/getOU`; 
+
+      const getOU_headers = {
+          'Content-Type': 'application/json',
+          'credentials': 'include',
+          'Access-Control-Allow-Origin': '*',
+      };
+  
+      let OU = fetch(getOU_URL, {
+          method: 'POST',
+          headers: getOU_headers,
+          body: JSON.stringify({user: this.state.email})
+      }).then((response) => {
+          return response.json();     //Parse the JSON of the response
+      }).then((OU) => {
+        parseOUforSchool(OU);
+        this.setState({organizationalUnit:  OU})
+      }).catch((error) => {
+          console.error(`Catching error:\t ${error}`);
+      });
+    }; //end getStudentSchool
+    
+    let getGraphInfo = async () => {
+      const headers = new Headers({ 
+        'Authorization': `Bearer ${token.accessToken}`,  
+        'Content-Type': 'application/json'
+      });
+
+      const options = {
+        method: "GET",
+        headers: headers
+      };
+
+      let graphInfo = await fetch(`https://graph.microsoft.com/v1.0/me`, options)
+        .then(response =>  response.json() )
+        .then(graphInfo => {
+          this.setState({graphInfo: (graphInfo)});
+          this.setState({ipAddress : graphInfo});
+          this.setState({firstName: graphInfo.givenName}); //Set the first name in the state
+          this.setState({lastName: graphInfo.surname});  //Set the last name in the state
+          this.setState({ email: graphInfo.mail});
+          
+          
+          if (graphInfo.jobTitle !== null) {
+            this.setState({ title: graphInfo.jobTitle || "Staff Member" }); 
+          } else {
+            this.setState({title: "Staff Member"}); 
+          }
+
+          if ( (graphInfo.jobTitle !== "Student" || this.state.title !== "Student" ) && graphInfo.officeLocation) {
+            this.setState({site: graphInfo.officeLocation}); 
+          } else {
+            this.setState({isStudent: true});
+            getStudentSchool();
+          }
+
+          if (graphInfo.businessPhones) {
+            this.setState({phoneNumber: graphInfo.businessPhones[0]}); 
+          }
+        })
+        .catch(response => {
+          this.setState({graphInfo: response.text()});
+          throw new Error(response.text());
+        });
+    }; //end getGraphInfo()
+    
+    const token = this.props.accessToken;
+    // await authProvider_noDomainHint.getAccessToken();
+
+    getGraphInfo();
+  }; //end getUserInfo()
+  //*/
+
     componentDidMount = () => {
         this.props.modifyRootAccountInfo(this.props.accountInfo);
         this.props.changeContainerStyle({"background-image": `none` });
@@ -70,6 +164,8 @@ class PageContent extends Component {
         this.setState({pathName: window.location.pathname});
         if (this.props.title === "student" || undefsafe(this.props.location, "state", "renderAsStudent") == "true" || window.location.pathname === "/student") {
             document.title = "CVUHSD | Student Portal"
+
+            this.getUserInfo();
         } else {
             document.title = "CVUHSD | Staff Portal"
         }
