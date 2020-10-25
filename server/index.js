@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 
 import isDev from 'isdev';
 
-
 import express from 'express';
 import cookieSession from 'cookie-session';
 import bodyParser from 'body-parser';
@@ -125,6 +124,5 @@ process.on('uncaughtException', (error) => {
   process.exit(1);
 });  
 
-
 //Listen to this server.
-//app.listen(port, () => console.log(`\nApp listening on port ${port}!\n`));
+app.listen(port, () => console.log(`\nApp listening on port ${port}!\n`));
