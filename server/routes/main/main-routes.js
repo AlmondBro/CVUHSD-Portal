@@ -1,9 +1,21 @@
-const router = require("express").Router();
-const isDev = require("isDev"); 
+import { Router } from 'express';
+import AD from 'ad';
+
+import isDev from 'isdev';
+
+const router = Router();
 
 //Need to use absolute paths relative to where the web.config file is when using Express in IISNode. 
 // If not using url rewrite, specifiy extension
 let aboutIISNode_URL = `${isDev ? "" : "/server"}/about-IIS-Node`;
+
+let ad_config = {
+  url: process.env.ADFS_SERVER_URL,
+  user: process.env.ADFS_USER_NAME,
+  pass: process.env.ADFS_USER_PASSWORD
+};
+
+const activeDirectory = new AD(ad_config);
 
 //Routes
 router.get(aboutIISNode_URL,  (req, res)  =>{

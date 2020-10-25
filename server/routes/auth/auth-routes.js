@@ -1,8 +1,10 @@
-const passport = require("passport");
-const router = require("express").Router();
-const jwt = require("jsonwebtoken");
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { Router } from 'express';
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
+
+const router = Router();
 
 var adfsSigningPublicKey = fs.readFileSync(path.join(__dirname, './../../../certificates/ADFS_Signing.crt')); // Exported from ADFS
 
