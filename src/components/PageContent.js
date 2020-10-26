@@ -133,7 +133,7 @@ const PageContent = ({fullName, title, site, renderAsStudent, gradeLevel, locati
   useEffect(() => {
     changeContainerStyle({"background-image": `none` });
 
-    if (title === "student" || undefsafe(location, "state", "renderAsStudent") == "true" || window.location.pathname === "/student") {
+    if ( (title === "student" || undefsafe(location, "state", "renderAsStudent") == "true" || window.location.pathname === "/student") && !gradeLevel) {
         document.title = "CVUHSD | Student Portal"
         getUserInfo();
     } else {
