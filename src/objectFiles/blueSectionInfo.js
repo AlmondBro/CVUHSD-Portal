@@ -166,7 +166,7 @@ let redSectionInfo_schoolWebsites = {
 
 let redSectionInfo_laCountyHotspotLocator = {
     blueSectionName: "laCountyHotSpotLocator",
-    expanded: true,
+    expanded: false,
     headerTitle: "Los Angeles County Hotspot Locator",
     buttonRowID: "laCountyHotSpotLocatorButtonRow"
 };
