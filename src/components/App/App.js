@@ -248,8 +248,10 @@ class App extends Component {
     
     if (this.state.title === "Student" || this.state.renderAsStudent) {
       favicon.href = "./images/CV-600x600-portal-red.png";
+      document.title = "CVUHSD | Student Portal"
     } else {
       favicon.href = "./images/CV-600x600-portal.png";
+      document.title = "CVUHSD | Staff Portal"
     }
   }; //end componentDidUpdate()
 
