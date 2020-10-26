@@ -64,14 +64,13 @@ class PageContent extends Component {
     }; //end generateBlueSections()
 
 
-  ///*
-  getUserInfo = async () => {
+  getUserInfo = () => {
     console.log("getUserInfo()");
 
-    let getStudentSchool = () => {
+    let getStudentSchool = async () => {
       console.log("getStudentSchool()");
 
-      let parseOUforSchool = (organizationalUnit) => {
+      let parseOUforSchool = async (organizationalUnit) => {
         console.log("parseOUforSchool()");
         let splitDirectoriesArray = organizationalUnit.split("/");
 
@@ -90,23 +89,23 @@ class PageContent extends Component {
           'Access-Control-Allow-Origin': '*',
       };
   
-      let OU = fetch(getOU_URL, {
+      let OU = await fetch(getOU_URL, {
           method: 'POST',
           headers: getOU_headers,
-          body: JSON.stringify({user: this.state.email})
+          body: JSON.stringify({user: this.props.username})
       }).then((response) => {
           return response.json();     //Parse the JSON of the response
-      }).then((OU) => {
-        parseOUforSchool(OU);
-        this.setState({organizationalUnit:  OU})
-      }).catch((error) => {
+      }).then((OU) => OU).catch((error) => {
           console.error(`Catching error:\t ${error}`);
       });
+
+      parseOUforSchool(OU);
+      this.setState({organizationalUnit:  OU});
     }; //end getStudentSchool
     
-    let getGraphInfo = async () => {
+    let getGraphInfo = async (accessToken) => {
       const headers = new Headers({ 
-        'Authorization': `Bearer ${token.accessToken}`,  
+        'Authorization': `Bearer ${accessToken}`,  
         'Content-Type': 'application/json'
       });
 
@@ -148,12 +147,11 @@ class PageContent extends Component {
         });
     }; //end getGraphInfo()
     
-    const token = this.props.accessToken;
+    const accessToken = this.props.accessToken;
     // await authProvider_noDomainHint.getAccessToken();
 
-    getGraphInfo();
+    getGraphInfo(accessToken);
   }; //end getUserInfo()
-  //*/
 
     componentDidMount = () => {
         this.props.modifyRootAccountInfo(this.props.accountInfo);

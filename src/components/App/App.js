@@ -53,6 +53,7 @@ class App extends Component {
       site: "",
       school: null,
       gradeLevel: null,
+      username: "",
       email: "",
       phoneNumber: "",
 
@@ -135,6 +136,7 @@ class App extends Component {
         if (response.redirected) {
           let { url } = response;
           window.location.href = url;
+          //TODO: Use the react router library to push this mechanism
         }
 
         return;
@@ -195,40 +197,20 @@ class App extends Component {
     })
     .then((response) => response.json())
     .then((userInfo) => {
-
       if (userInfo) {
-        /*
-          loggedIn: "",
-      accountInfo: "",
-      organizationalUnit: "",
-     //TODO: Eliminate redudant fullName and first/lastName from state
-  
-      firstName: "",
-      lastName: "",
-      fullName: "",
-      title: "",
-      site: "",
-      school: null,
-      gradeLevel: null,
-      email: "",
-      phoneNumber: "",
-        */
-
-        const { email, family_name, givenName, jobTitle, accessToken } = userInfo;
+        const { username, email, family_name, givenName, jobTitle, accessToken } = userInfo;
         
         //TODO: Set student ID or UID
         this.setState({
           loggedIn: true,
           firstName:  givenName,
           lastName: family_name,
+          username: username,
           email: email,
           title: jobTitle,
-          accessToken
+          accessToken,
         });
       }
-
-      console.dir(userInfo); 
-      
     })
     .catch((error) => {
         console.error(`fetchOUInfo() Catching error:\t ${error}`);
@@ -319,6 +301,7 @@ class App extends Component {
                             clearState={this.clearState}
                             accountInfo={this.state.accountInfo}
                             modifyRootAccountInfo={this.modifyRootAccountInfo}
+                            username={this.state.username}
                             accessToken={this.state.accessToken}
                             component={ PageContent} 
               />
@@ -377,14 +360,13 @@ class App extends Component {
                       modifyRootAccountInfo={this.modifyRootAccountInfo}
                       defaultURL={defaultURL}
                       accessToken={this.state.accessToken}
+                      username={this.state.username}
                       component={ NotFound } /> ) 
                     : null
               }
           </Switch>
           ) : <LoadingSSOPage/>
         }
-          
-        
       </StyledContainer>); //end return statement
   }
 }
