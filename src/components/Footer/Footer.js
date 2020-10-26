@@ -3,9 +3,13 @@ import React from "react";
 //Import Footer styled components
 import { FooterStyled, AppButtonsSection, MobileStoreImgLink, MobileStoreImg } from "./Footer_StyledComponents.js";
 
-let Footer = (props) => {
+let Footer = ({ title, renderAsStudent }) => {
     return (
-        <FooterStyled {...props} className="container-fluid footer">
+        <FooterStyled 
+            title           =   { title }
+            renderAsStudent =   { renderAsStudent }
+            className       =   "container-fluid footer"
+        >
             <ul className="row"> 
                 {/* <li>
                     <a href='https://play.google.com/store/apps/details?id=com.cvuhsd.portalMobile&hl=en_US&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
@@ -19,8 +23,8 @@ let Footer = (props) => {
                 <a href="https://www.centinela.k12.ca.us" target="_blank" className="col-sm-3">CVUHSD Home</a>
                 <a href="https://helpdesk.centinela.k12.ca.us" target="_blank" className="col-sm-3">Helpdesk</a>
                 {
-                    props.title ?
-                        (props.title === ("Student") || props.renderAsStudent) ? 
+                    title ?
+                        ( (title.toLowerCase() === "student") || renderAsStudent) ? 
                            null:  (<a href="https://sso.centinela.k12.ca.us/adfs/portal/updatepassword" 
                                         target="_blank" 
                                         className="col-sm-3">
