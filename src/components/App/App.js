@@ -117,8 +117,8 @@ class App extends Component {
 
   //TODO: Pass this function down to the logOut() function
   clearState = () => {
-    //clearStorage("PortalStorage");
     resetParentState(this, this.initialState);
+    clearStorage("PortalStorage");
   };
 
   logIn = async () => {
@@ -164,16 +164,15 @@ class App extends Component {
         "Access-Control-Allow-Credentials": true
     };
 
-    await fetch(logOut_URL, {
+    return await fetch(logOut_URL, {
         method: 'GET',
         credentials: "include",
         headers: getOU_headers,
     })
     .then((response) => {
-       console.dir(response);
-
        if (response.redirected) {
-         window.location.href = response.url;
+         const { url } = response;
+         window.location.href = url;
        }
        return ;
     })
@@ -232,7 +231,7 @@ class App extends Component {
     
     this.setState({pathname: window.location.pathname});
   
-    if ( !this.state.loggedIn && (window.location.pathname === "/staff") ) {
+    if ( !this.state.loggedIn && ( (window.location.pathname === "/staff") || (window.location.pathname === "/staff") ) ) {
       this.checkForLogIn();
     }
 
