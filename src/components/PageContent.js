@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from "react";
+import React, { Fragment, Component, useEffect, useState } from "react";
 
 //Import 3rd party modules
 import ReactLoading from "react-loading";
@@ -11,7 +11,7 @@ import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header/Header.js";
 
 //Import list of buttons
-import { blueSectionInfo_Staff , redSectionInfo_Student} from "./../objectFiles/blueSectionInfo.js";
+import { blueSectionInfo_Staff , redSectionInfo_Student } from "./../objectFiles/blueSectionInfo.js";
 
 import undefsafe from "undefsafe";
 
@@ -27,59 +27,34 @@ const PageContentLoading = styled("div")`
     margin: 0 auto;
 `;
 
-class PageContent extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-          pathName: null  
-        }; //end state object
-
-        // this.modifyLogInStatus = this.props.modifyLogInStatus|| this.props.location.state.modifyLogInStatus;
-        this.modifyStudentStatus = this.props.modifyStudentStatus;
-
-        this.modifyFullName = this.props.modifyFullName;
-        
-        this.blueSection_objectsArrayProps = {};
-
-        this.renderAsStudent = undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
-      } //end constructor
-    
-      generateBlueSections = (props) => {
-        return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
-            return (
-                <BlueSection 
-                    blueSectionName={blueSection_Object.blueSectionName}
-                    expanded={ blueSection_Object.expanded }
-                    headerTitle={blueSection_Object.headerTitle}
-                    buttonRowID={blueSection_Object.buttonRowID}
-                    buttons={blueSection_Object.buttons}
-                    key={index}
-                    title={this.props.title || "Student"}
-                    renderAsStudent={(window.location.pathname === "/student")}
-                    // {this.renderAsStudent || this.props.location.state.renderAsStudent}
-                />
-            ); //end return statement
-        }); //end outer return statement
-    }; //end generateBlueSections()
+const PageContent = ({fullName, title, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent,...props }) => {
+  //let [ renderAsStudentTwo, setRenderAsStudent ] = useState(renderAsStudent || location.state.renderAsStudent);
+  //undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
+  
+  let sectionInfoObject = (title === "Student" ||  window.location.pathname === "/student") ? 
+                              redSectionInfo_Student : blueSectionInfo_Staff;
+  
+  let blueSection_objectsArrayProps = {
+      blueSection_objectsArray: sectionInfoObject
+  };
 
 
-  getUserInfo = () => {
+  const getUserInfo = () => {
     console.log("getUserInfo()");
 
-    let getStudentSchool = async () => {
+    const parseOUforSchool = async (organizationalUnit) => {
+      console.log("parseOUforSchool()");
+      let splitDirectoriesArray = organizationalUnit.split("/");
+
+      let school = splitDirectoriesArray[1];
+      let gradeLevel = splitDirectoriesArray[2];
+
+      modifySite(school); //TODO: this should be a separate function, modifySchool
+      modifyGradeLevel(gradeLevel);
+    }; //end parseOUforSchool()
+
+    const getStudentSchool = async () => {
       console.log("getStudentSchool()");
-
-      let parseOUforSchool = async (organizationalUnit) => {
-        console.log("parseOUforSchool()");
-        let splitDirectoriesArray = organizationalUnit.split("/");
-
-        let school = splitDirectoriesArray[1];
-        let gradeLevel = splitDirectoriesArray[2];
-
-        console.log("splitDirectoriesArray:\t" + splitDirectoriesArray);
-        this.setState({site: school, gradeLevel: gradeLevel});
-      }; //end parseOUforSchool()
 
       const getOU_URL = `${isDev ? "" : "/server" }/getOU`; 
 
@@ -89,10 +64,10 @@ class PageContent extends Component {
           'Access-Control-Allow-Origin': '*',
       };
   
-      let OU = await fetch(getOU_URL, {
+      const OU = await fetch(getOU_URL, {
           method: 'POST',
           headers: getOU_headers,
-          body: JSON.stringify({user: this.props.username})
+          body: JSON.stringify({user: username})
       }).then((response) => {
           return response.json();     //Parse the JSON of the response
       }).then((OU) => OU).catch((error) => {
@@ -100,10 +75,9 @@ class PageContent extends Component {
       });
 
       parseOUforSchool(OU);
-      this.setState({organizationalUnit:  OU});
     }; //end getStudentSchool
     
-    let getGraphInfo = async (accessToken) => {
+    const getGraphInfo = async (accessToken) => {
       const headers = new Headers({ 
         'Authorization': `Bearer ${accessToken}`,  
         'Content-Type': 'application/json'
@@ -117,104 +91,84 @@ class PageContent extends Component {
       let graphInfo = await fetch(`https://graph.microsoft.com/v1.0/me`, options)
         .then(response =>  response.json() )
         .then(graphInfo => {
-          this.setState({graphInfo: (graphInfo)});
-          this.setState({ipAddress : graphInfo});
-          this.setState({firstName: graphInfo.givenName}); //Set the first name in the state
-          this.setState({lastName: graphInfo.surname});  //Set the last name in the state
-          this.setState({ email: graphInfo.mail});
           
-          
-          if (graphInfo.jobTitle !== null) {
-            this.setState({ title: graphInfo.jobTitle || "Staff Member" }); 
-          } else {
-            this.setState({title: "Staff Member"}); 
-          }
 
           if ( (graphInfo.jobTitle !== "Student" || this.state.title !== "Student" ) && graphInfo.officeLocation) {
-            this.setState({site: graphInfo.officeLocation}); 
+            modifySite(graphInfo.officeLocation)
           } else {
-            this.setState({isStudent: true});
+            modifyIsStudent(true);
             getStudentSchool();
           }
 
-          if (graphInfo.businessPhones) {
-            this.setState({phoneNumber: graphInfo.businessPhones[0]}); 
-          }
+          // if (graphInfo.businessPhones) {
+          //   this.setState({phoneNumber: graphInfo.businessPhones[0]}); 
+          // }
         })
         .catch(response => {
-          this.setState({graphInfo: response.text()});
           throw new Error(response.text());
         });
     }; //end getGraphInfo()
     
-    const accessToken = this.props.accessToken;
-    // await authProvider_noDomainHint.getAccessToken();
-
     getGraphInfo(accessToken);
   }; //end getUserInfo()
 
-    componentDidMount = () => {
-        this.props.modifyRootAccountInfo(this.props.accountInfo);
-        this.props.changeContainerStyle({"background-image": `none` });
-
-        console.log("PageContent.js window.location.pathname:\t" + window.location.pathname);
-
-        this.setState({pathName: window.location.pathname});
-        if (this.props.title === "student" || undefsafe(this.props.location, "state", "renderAsStudent") == "true" || window.location.pathname === "/student") {
-            document.title = "CVUHSD | Student Portal"
-
-            this.getUserInfo();
-        } else {
-            document.title = "CVUHSD | Staff Portal"
-        }
-    };//end componentDidMount
-
-    componentDidUpdate = () => {
-        if (this.props.title.toLowerCase() === "student" ||  undefsafe(this.props.location, "state", "renderAsStudent") == "true" || window.location.pathname === "/student") {
-            document.title = "CVUHSD | Student Portal";
-        } else {
-            document.title = "CVUHSD | Staff Portal";
-        }
-    }; //end componentDidUpdate
-    
-    render = () => {
-        let sectionInfoObject;
-
-        sectionInfoObject = (this.props.title === "Student" ||  window.location.pathname === "/student") ? 
-                                    redSectionInfo_Student : blueSectionInfo_Staff;
-        
-        this.blueSection_objectsArrayProps = {
-            blueSection_objectsArray: sectionInfoObject
-        };
-
+  const generateBlueSections = (props) => {
+    return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
         return (
-                <Fragment>
-                    <Header districtName="CVUHSD" 
-                            headerTitle="Portal" 
-                            fullName={ this.props.fullName || undefsafe(this.state, "fullName")|| "CVUHSD User"} 
-                            title={this.props.title}
-                            site={this.props.site}
-                            gradeLevel={this.props.gradeLevel}
+            <BlueSection 
+                blueSectionName={blueSection_Object.blueSectionName}
+                expanded={ blueSection_Object.expanded }
+                headerTitle={blueSection_Object.headerTitle}
+                buttonRowID={blueSection_Object.buttonRowID}
+                buttons={blueSection_Object.buttons}
+                key={index}
+                title={title || "Student"}
+                renderAsStudent={(window.location.pathname === "/student")}
+                // {this.renderAsStudent || this.props.location.state.renderAsStudent}
+            />
+        ); //end return statement
+    }); //end outer return statement
+}; //end generateBlueSections()
 
-                            //modifyLogInStatus={ this.modifyLogInStatus }
-                            modifyTitle={this.modifyTitle}
-                            modifySite={this.modifySite}
-                            modifyRenderAsStudent={this.props.modifyRenderAsStudent}
-                            logOut={this.props.logOut}
-                            clearState={this.props.clearState}
-                            renderAsStudent={(window.location.pathname === "/student")}
+  useEffect(() => {
+    changeContainerStyle({"background-image": `none` });
+
+    if (title === "student" || undefsafe(location, "state", "renderAsStudent") == "true" || window.location.pathname === "/student") {
+        document.title = "CVUHSD | Student Portal"
+        getUserInfo();
+    } else {
+        document.title = "CVUHSD | Staff Portal"
+    }
+
+  }, [ title, location]); //end useEffect
+
+
+  return (
+    <Fragment>
+        <Header districtName="CVUHSD" 
+                headerTitle="Portal" 
+                fullName={ fullName || "CVUHSD User"} 
+                title={title}
+                site={site}
+                gradeLevel={gradeLevel}
+
+                //modifyLogInStatus={ this.modifyLogInStatus }
+                modifyTitle={modifyTitle}
+                modifySite={modifySite}
+                modifyRenderAsStudent={modifyRenderAsStudent}
+                logOut={logOut}
+                clearState={clearState}
+                renderAsStudent={(window.location.pathname === "/student")}
+        />
+                <div className="page-content">
+                    { generateBlueSections(blueSection_objectsArrayProps) } 
+                    <Footer 
+                        title={title}
+                        renderAsStudent={renderAsStudent}
                     />
-                            <div className="page-content">
-                                { this.generateBlueSections(this.blueSection_objectsArrayProps)} 
-                                <Footer 
-                                    title={this.props.title}
-                                    renderAsStudent={this.props.renderAsStudent}
-                                />
-                            </div>
-                </Fragment>
-            );
-    }; //end render()
-} //end PageContent class
-
+                </div>
+    </Fragment>
+  ); //end return statement
+}; //end PageContent
 
 export default PageContent;

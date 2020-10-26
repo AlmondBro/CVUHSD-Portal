@@ -40,9 +40,9 @@ import SimpleStorage, { resetParentState, clearStorage } from "react-simple-stor
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       loggedIn: "",
-      accountInfo: "",
       organizationalUnit: "",
      //TODO: Eliminate redudant fullName and first/lastName from state
   
@@ -51,24 +51,25 @@ class App extends Component {
       fullName: "",
       title: "",
       site: "",
+
       school: null,
       gradeLevel: null,
+
       username: "",
       email: "",
       phoneNumber: "",
 
-     isStudent: null,
-     renderAsStudent: false,
-     pathname: "",
-     accessToken: "",
+      isStudent: null,
+      renderAsStudent: false,
+      pathname: "",
+      accessToken: "",
       containerStyle: {
-        "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
+          "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
     }; //end state object
 
     // store the component's initial state to reset it
     this.initialState = this.state;
-    console.log("Props:\t" + JSON.stringify(this.props) );
   } //end constructor
 
   changeContainerStyle = (styleObject) => {
@@ -81,7 +82,7 @@ class App extends Component {
     this.setState({loggedIn: trueOrFalse});
   }; //end modifyLogInStatus()
 
-  modifyStudentStatus = (trueOrFalse) => {
+  modifyIsStudent = (trueOrFalse) => {
     console.log("modifyStudentStatus() from App.js");
     this.setState({isStudent: trueOrFalse});  
   }; //end modifyFullName()
@@ -104,6 +105,11 @@ class App extends Component {
   modifySite = (newSite) => {
     console.log("modifySite() from App.js");
     this.setState({site: newSite});  
+  }; //end modifyFullName()
+
+  modifyGradeLevel = (newGradeLevel) => {
+    console.log("modifGradeLevel() from App.js");
+    this.setState({ gradeLevel: newGradeLevel });  
   }; //end modifyFullName()
 
   modifyRenderAsStudent = (newRenderAsStudent) => { 
@@ -217,11 +223,6 @@ class App extends Component {
     });
   };
 
-  modifyRootAccountInfo = (newAccountInfo) => {
-    console.log("updateRootAccountInfo()");
-    this.setState({accountInfo: newAccountInfo});
-  };
-
   componentDidMount = () => {
     //this.getUserInfo(); 
 
@@ -292,15 +293,14 @@ class App extends Component {
                             modifyPathname={this.modifyPathname}
                             modifyRenderAsStudent={this.modifyRenderAsStudent}
                             modifyLogInStatus={this.modifyLogInStatus} 
-                            modifyStudentStatus={this.modifyStudentStatus}
+                            modifyIsStudent={this.modifyIsStudent}
                             modifyFullName={this.modifyFullName}
                             modifyTitle={this.modifyTitle}
                             modifySite={this.modifySite}
+                            modifyGradeLevel={this.modifyGradeLevel}
                             changeContainerStyle={this.changeContainerStyle} 
                             logOut={this.logOut}
                             clearState={this.clearState}
-                            accountInfo={this.state.accountInfo}
-                            modifyRootAccountInfo={this.modifyRootAccountInfo}
                             username={this.state.username}
                             accessToken={this.state.accessToken}
                             component={ PageContent} 
@@ -349,15 +349,14 @@ class App extends Component {
                       modifyPathname={this.modifyPathname}
                       modifyRenderAsStudent={this.modifyRenderAsStudent}
                       modifyLogInStatus={this.modifyLogInStatus} 
-                      modifyStudentStatus={this.modifyStudentStatus}
+                      modifyIsStudent={this.modifyIsStudent}
                       modifyFullName={this.modifyFullName}
                       modifyTitle={this.modifyTitle}
                       modifySite={this.modifySite}
+                      modifyGradeLevel={this.modifyGradeLevel}
                       changeContainerStyle={this.changeContainerStyle} 
                       logOut={this.logOut}
                       clearState={this.clearState}
-                      accountInfo={this.state.accountInfo}
-                      modifyRootAccountInfo={this.modifyRootAccountInfo}
                       defaultURL={defaultURL}
                       accessToken={this.state.accessToken}
                       username={this.state.username}
