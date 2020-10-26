@@ -65,7 +65,7 @@ const Header = ( { fullName, modifyLogInStatus, renderAsStudent, logOut, clearSt
             >
                 <NavigationBar
                     className="navigation-bar"
-                    districtPosition={districtPosition}
+                    districtPosition={title}
                     modifyLogInStatus={modifyLogInStatus}
                     renderAsStudent={renderAsStudent}  
                     modifyRenderAsStudent={modifyRenderAsStudent}

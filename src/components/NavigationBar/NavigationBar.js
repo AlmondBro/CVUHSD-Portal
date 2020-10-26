@@ -148,7 +148,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                             : null
                         }
 
-                        {(props.districtPosition !== "Student") ? ( 
+                        {(props.districtPosition.toLowerCase() !== "student") ? ( 
                             <NavBarListItemLi 
                                 to={
                                     {
@@ -174,7 +174,7 @@ const NavigationBar = ({modifyLogInStatus, modifyRenderAsStudent, clearState, lo
                         { generateNavBarListItems(staff_HeaderLinks) }
 
                         
-                        {(props.districtPosition !== "Student") ? ( 
+                        {(props.districtPosition.toLowerCase() !== "student") ? ( 
                             <NavBarListItemLi 
                                 bulletPointInMobile={true}
                                 renderAsStudent={props.renderAsStudent}

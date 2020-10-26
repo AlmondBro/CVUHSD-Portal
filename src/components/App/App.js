@@ -231,8 +231,6 @@ class App extends Component {
     console.log("Route render window.location.pathname:\t" + window.location.pathname !== "/staff");
     
     this.setState({pathname: window.location.pathname});
-
-    this.setState({title: (this.state.pathname === "/student" || window.location.pathname === "/" ) ? "student" : "staff" });
   
     if ( !this.state.loggedIn && (window.location.pathname === "/staff") ) {
       this.checkForLogIn();
