@@ -11,9 +11,7 @@ import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader,
 //Import 3rd-party APIs
 import greeting from 'greeting';
 
-const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title, site, gradeLevel, modifyRenderAsStudent, portalHeaderTextDisplay,...props }) => {
-    console.log("Header props:\t" + JSON.stringify(props) );
-
+const Header = ( { fullName, modifyLogInStatus, renderAsStudent, logOut, clearState, title, site, gradeLevel, modifyRenderAsStudent, portalHeaderTextDisplay, districtName, headerTitle }) => {
     let parseSchoolName = (site) => {
         if (site && (site !== "Centinela Valley Independent Study School" )) {
             console.log("Site:\t" + site);
@@ -56,41 +54,40 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
 
     let schoolName = parseSchoolName(site);
 
-
-    return (<Fragment>
-        <NavigationBarHeader 
-            className="app-header navigation-bar-header"
-            districtPosition={districtPosition}
-            renderAsStudent={renderAsStudent} 
-        >
-            <NavigationBar
-                className="navigation-bar"
+    return (
+        <Fragment>
+            <NavigationBarHeader 
+                className="app-header navigation-bar-header"
                 districtPosition={districtPosition}
-                modifyLogInStatus={modifyLogInStatus}
-                renderAsStudent={renderAsStudent}  
-                modifyRenderAsStudent={modifyRenderAsStudent}
-                clearState={clearState}
-                logOut={logOut}
-            />
-        </NavigationBarHeader>
+                renderAsStudent={renderAsStudent} 
+            >
+                <NavigationBar
+                    className="navigation-bar"
+                    districtPosition={districtPosition}
+                    modifyLogInStatus={modifyLogInStatus}
+                    renderAsStudent={renderAsStudent}  
+                    modifyRenderAsStudent={modifyRenderAsStudent}
+                    clearState={clearState}
+                    logOut={logOut}
+                />
+            </NavigationBarHeader>
 
-        <DashboardHeaderContainer className="dashboard-header-container" id="back-to-top" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
-            <DashboardHeader className="dashboard-header" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
-                <PortalHeaderText 
-                    className="portal-header-text" 
-                    districtPosition={districtPosition} 
-                    renderAsStudent={renderAsStudent}    
-                >
-                    <strong>
-                        {props.districtName || "District"}
-                        <span>
-                            <h2>
-                                {props.headerTitle|| "Portal"}
-                            </h2>
-                        </span>
-                    </strong>
-                </PortalHeaderText>
-
+            <DashboardHeaderContainer className="dashboard-header-container" id="back-to-top" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
+                <DashboardHeader className="dashboard-header" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
+                    <PortalHeaderText 
+                        className="portal-header-text" 
+                        districtPosition={districtPosition} 
+                        renderAsStudent={renderAsStudent}    
+                    >
+                        <strong>
+                            {districtName || "District"}
+                            <span>
+                                <h2>
+                                    { headerTitle|| "Portal"}
+                                </h2>
+                            </span>
+                        </strong>
+                    </PortalHeaderText>
                         <PositionSiteInfo 
                             className="position-site-info" 
                             display={portalHeaderTextDisplay}
@@ -100,7 +97,7 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                                         className="greeting"
                             >
                                 { greeting.random() || "Hi"}
-                             <span> {props.fullName || "CVUHSD User"}<span>&#9786;</span></span>
+                            <span> { fullName || "CVUHSD User"}<span>&#9786;</span></span>
                             </Greeting>
                             <PositionGreeting 
                                 districtPosition={districtPosition} 
@@ -112,17 +109,17 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                                         seniors.
                                 */}
                                 {
-                                    ( (districtPosition === "Student") && gradeLevel ) ?
+                                    ( (districtPosition.toLowerCase() === "student") && gradeLevel ) ?
                                         (
                                             <span>
-                                                { 
-                                                    (gradeLevel &&  gradeLevel < 13 ) ? `${gradeLevel}th grade ` : null
-                                                }
+                                            { 
+                                                (gradeLevel &&  gradeLevel < 13 ) ? `${gradeLevel}th grade ` : null
+                                            }
                                             </span>
                                         ) : null
                                     
                                 }
-                                { (districtPosition === "Student") ? 
+                                { (districtPosition.toLowerCase() === "student") ? 
                                     (
                                         <Fragment>
                                             <span>{districtPosition.toLowerCase() || "User"}</span> 
@@ -131,27 +128,28 @@ const Header = ( { modifyLogInStatus, renderAsStudent, logOut, clearState, title
                                         </Fragment>
                                     ) : null 
                                 }
-                             
+                            
                             </PositionGreeting>
                             {/*  //TODO: Add link the site of the school logo */}
 
                             { 
                                 (districtPosition === "Student") && schoolName ? 
                                     (   <a href={() => getSchoolLogoSite(schoolName)}>
-                                             <SchoolLogo  
+                                            <SchoolLogo  
                                                 className="school-logo" 
                                                 src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
                                             />  
                                         </a>
-                                       
+                                    
                                     )
                                     : null
                             }
-                                         
+                                        
                         </PositionSiteInfo>
-            </DashboardHeader>
-        </DashboardHeaderContainer>
-    </Fragment>);   
+                </DashboardHeader>
+            </DashboardHeaderContainer>
+        </Fragment>
+    );  //end return statement
 }; //end Header
 
 export default Header;
