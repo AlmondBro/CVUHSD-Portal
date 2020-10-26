@@ -140,7 +140,7 @@ const PageContent = ({fullName, title, site, renderAsStudent, gradeLevel, locati
         document.title = "CVUHSD | Staff Portal"
     }
 
-  }, [ title, location]); //end useEffect
+  }, [ title, location ]); //end useEffect
 
 
   return (

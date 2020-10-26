@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
-import isDev from "isdev";
 import undefsafe from "undefsafe";
 
 //Import components
