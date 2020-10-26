@@ -1,5 +1,6 @@
-const passport = require("passport");
-const { OAuth2Strategy } = require('passport-oauth');
+import isDev from 'isdev';
+import passport from 'passport';
+import { OAuth2Strategy }  from 'passport-oauth';
 
 // Configure passport to integrate with ADFS
 const strategy = new OAuth2Strategy({
@@ -7,7 +8,7 @@ const strategy = new OAuth2Strategy({
         tokenURL: process.env.OAUTH_TOKEN_URL,
         clientID: process.env.OAUTH_CLIENT_ID, // This is just a UID I generated and registered
         clientSecret: process.env.OAUTH_CLIENT_SECRET, // This is ignored but required by the OAuth2Strategy
-        callbackURL: process.env.OAUTH_CALLBACK_URL
+        callbackURL: isDev ? process.env.OAUTH_CALLBACK_URL_DEV ? OAUTH_CALLBACK_URL_PROD
     },
     (accessToken, refreshToken, profile, done) => {
         if (refreshToken) {
