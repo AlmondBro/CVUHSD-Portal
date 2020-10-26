@@ -139,9 +139,10 @@ class App extends Component {
      })
      .then((response) => {
         if (response.redirected) {
+          //TODO: Use the react router library to push this mechanism
+
           let { url } = response;
           window.location.href = url;
-          //TODO: Use the react router library to push this mechanism
         }
 
         return;
@@ -182,12 +183,12 @@ class App extends Component {
   }; //end logOut
 
   checkForLogIn = async () => {
-    const getOU_URL = `/auth/callback`; 
+    const checkForLogin_URL = `/auth/callback`; 
 
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code'); 
 
-    const getOU_headers = {
+    const checkForLogin_headers = {
         "Accept": "application/json",
         'Content-Type': 'application/json',
         'credentials': 'include',
@@ -195,10 +196,10 @@ class App extends Component {
         "Access-Control-Allow-Credentials": true
     };
 
-    await fetch(getOU_URL + `?code=${code}`, {
+    await fetch(checkForLogin_URL + `?code=${code}`, {
         method: 'GET',
         credentials: "include",
-        headers: getOU_headers,
+        headers: checkForLogin_headers,
     })
     .then((response) => response.json())
     .then((userInfo) => {
@@ -233,7 +234,7 @@ class App extends Component {
 
     this.setState({title: (this.state.pathname === "/student" || window.location.pathname === "/" ) ? "student" : "staff" });
   
-    if ( !this.state.loggedIn && (window.location.pathname === "/callback") ) {
+    if ( !this.state.loggedIn && (window.location.pathname === "/staff") ) {
       this.checkForLogIn();
     }
 
@@ -241,7 +242,7 @@ class App extends Component {
       this.logIn();
     }
 
-    //require("./SDPChat.js");
+    // require("./SDPChat.js");
   
   }; //end componentDidMount
 

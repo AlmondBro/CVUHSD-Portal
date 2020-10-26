@@ -54,6 +54,8 @@ const Header = ( { fullName, modifyLogInStatus, renderAsStudent, logOut, clearSt
 
     let schoolName = parseSchoolName(site);
 
+    let friendlyGreeting = greeting.random();
+
     return (
         <Fragment>
             <NavigationBarHeader 
@@ -96,7 +98,7 @@ const Header = ( { fullName, modifyLogInStatus, renderAsStudent, logOut, clearSt
                                         renderAsStudent={renderAsStudent} 
                                         className="greeting"
                             >
-                                { greeting.random() || "Hi"}
+                                { friendlyGreeting || "Hi"}
                             <span> { fullName || "CVUHSD User"}<span>&#9786;</span></span>
                             </Greeting>
                             <PositionGreeting 
