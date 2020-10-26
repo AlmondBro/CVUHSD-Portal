@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import isDev from 'isdev';
 import undefsafe from "undefsafe";
 
 //Import components
@@ -215,6 +216,9 @@ class App extends Component {
           title: jobTitle,
           accessToken,
         });
+
+        const productionDomain = `portal.centinela.k12.ca.us`;
+        window.location.href = `http://${isDev ? "localhost:3000" : productionDomain}/staff`;
       }
     })
     .catch((error) => {
@@ -231,7 +235,7 @@ class App extends Component {
     
     this.setState({pathname: window.location.pathname});
   
-    if ( !this.state.loggedIn && ( (window.location.pathname === "/staff") || (window.location.pathname === "/staff") ) ) {
+    if ( !this.state.loggedIn && ( (window.location.pathname === "/auth/success") ) ) {
       this.checkForLogIn();
     }
 
@@ -281,7 +285,7 @@ class App extends Component {
                     }
                 } 
               />
-              <PrivateRoute path={`${publicURL}/${defaultURL}`}
+              <PrivateRoute path={[`${publicURL}/${defaultURL}`, `${publicURL}/auth/success`]}
                             loggedIn={"true"}
                             fullName={this.state.firstName + " " + this.state.lastName}
                             isStudent={this.state.isStudent}
@@ -329,7 +333,7 @@ class App extends Component {
                       }
                   } 
               />
-                <Route path={`${publicURL}/troubleshooting`} 
+              <Route path={`${publicURL}/troubleshooting`} 
                       render={() => { return (<Troubleshooting/>)}}
                 
               />
