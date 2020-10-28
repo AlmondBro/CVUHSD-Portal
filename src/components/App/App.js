@@ -128,7 +128,6 @@ class App extends Component {
      const logIn_headers = {
          'Content-Type': 'application/json',
          'credentials': 'include',
-         'Access-Control-Allow-Origin': '*',
          'redirect' : 'follow'
      };
 
@@ -136,7 +135,6 @@ class App extends Component {
          method: 'GET',
          headers: logIn_headers,
          "Access-Control-Allow-Credentials": true,
-         redirect: 'follow'
      })
      .then((response) => {
         if (response.redirected) {
@@ -161,7 +159,6 @@ class App extends Component {
 
     const logOut_headers = {
         'credentials': 'include',
-        'Access-Control-Allow-Origin': '*',
         "Access-Control-Allow-Credentials": true
     };
 
@@ -194,7 +191,6 @@ class App extends Component {
         "Accept": "application/json",
         'Content-Type': 'application/json',
         'credentials': 'include',
-        'Access-Control-Allow-Origin': '*',
         "Access-Control-Allow-Credentials": true
     };
 
