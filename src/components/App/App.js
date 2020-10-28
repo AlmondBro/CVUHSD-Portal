@@ -182,7 +182,7 @@ class App extends Component {
   checkForLogIn = async (history) => {
     const checkForLogin_URL = `${isDev ? "" : "/server"}/auth/callback` 
 
-    const successfulAuthURL = `${isDev ? "" : "/server"}/auth-success` 
+    const successfulAuthURL = `${isDev ? "" : ""}/auth-success` 
 
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code'); 
@@ -244,8 +244,6 @@ class App extends Component {
    // alert(window.location.pathname);
   
     if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
-      alert("Authentication succesful");
-
       this.checkForLogIn(history);
     }
 
