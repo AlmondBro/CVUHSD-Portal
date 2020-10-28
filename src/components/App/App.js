@@ -295,7 +295,7 @@ class App extends Component {
                     }
                 } 
               />
-              <PrivateRoute path={[`${publicURL}/${defaultURL}`, `${publicURL}/auth/success`]}
+              <PrivateRoute path={[`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth/success`]}
                             loggedIn={"true"}
                             fullName={this.state.firstName + " " + this.state.lastName}
                             isStudent={this.state.isStudent}
@@ -333,7 +333,7 @@ class App extends Component {
               /> 
               <Route path={`${publicURL}/student`}
                       render={ () => {
-                          return (<Redirect to={`${publicURL}/${defaultURL}`} />);
+                          return (<Redirect to={`${publicURL}/${"student"}`} />);
                       }
                   } 
               />
