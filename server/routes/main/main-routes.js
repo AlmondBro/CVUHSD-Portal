@@ -5,10 +5,6 @@ import isDev from 'isdev';
 
 const router = Router();
 
-//Need to use absolute paths relative to where the web.config file is when using Express in IISNode. 
-// If not using url rewrite, specifiy extension
-let aboutIISNode_URL = `${isDev ? "" : "/server"}/about-IIS-Node`;
-
 let ad_config = {
   url: process.env.ADFS_SERVER_URL,
   user: process.env.ADFS_USER_NAME,
@@ -17,7 +13,12 @@ let ad_config = {
 
 const activeDirectory = new AD(ad_config);
 
-//Routes
+
+/* === ROUTES === */
+
+//Need to use absolute paths relative to where the web.config file is when using Express in IISNode. 
+// If not using url rewrite, specifiy extension
+let aboutIISNode_URL = `${isDev ? "" : "/server"}/about-IIS-Node`;
 router.get(aboutIISNode_URL,  (req, res)  =>{
   res.send(`IISNode version:\t ${process.env.IISNODE_VERSION} 
             \n NodeJS version:\t ${process.version}
