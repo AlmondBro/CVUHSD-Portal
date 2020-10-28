@@ -42,7 +42,7 @@ promisePolyfill();
     you’ll want to set this to the sub-directory. A properly formatted basename should have \
     a leading slash, but no trailing slash.
 */
-const subDirectory = false;
+const subDirectory = true;
 const baseName = isDev ? "" : (subDirectory ? "/build" : ""); 
 
 const CVUHSD_PORTAL_APP_ELEM = document.getElementById("cvuhsd-sso-portal");

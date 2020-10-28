@@ -182,7 +182,7 @@ class App extends Component {
   checkForLogIn = async (history) => {
     const checkForLogin_URL = `${isDev ? "" : "/server"}/auth/callback` 
 
-    const successfulAuthURL = `${isDev ? "" : "/server"}/auth/success` 
+    const successfulAuthURL = `${isDev ? "" : "/server"}/auth-success` 
 
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code'); 
@@ -240,13 +240,17 @@ class App extends Component {
     console.log("Route render window.location.pathname:\t" + window.location.pathname !== "/staff");
     
     this.setState({pathname: window.location.pathname});
+
+   // alert(window.location.pathname);
   
-    if ( !this.state.loggedIn && ( (window.location.pathname === "/auth/success") ) ) {
+    if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
+      alert("Authentication succesful");
+
       this.checkForLogIn(history);
     }
 
     if (!this.state.loggedIn && !this.state.title && 
-        (window.location.pathname !== "/auth/success") && 
+        (window.location.pathname !== "/auth-success") && 
         (window.location.pathname !== "/student") && 
         (window.location.pathname !== "/staff")
         ) {
@@ -297,7 +301,7 @@ class App extends Component {
                     }
                 } 
               />
-              <PrivateRoute path={[`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth/success`]}
+              <PrivateRoute path={[`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
                             loggedIn={"true"}
                             fullName={this.state.firstName + " " + this.state.lastName}
                             isStudent={this.state.isStudent}
