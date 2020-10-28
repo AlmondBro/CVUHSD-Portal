@@ -9,7 +9,7 @@ import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
 import PageContent from "./../PageContent.js";
 
 import {  Redirect } from "react-router";
-import { Route, Switch } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 
 //Import styled components
 import { StyledContainer } from "./App_StyledComponents.js";
@@ -182,7 +182,7 @@ class App extends Component {
     });
   }; //end logOut
 
-  checkForLogIn = async () => {
+  checkForLogIn = async (history) => {
     const checkForLogin_URL = `/auth/callback`; 
 
     let urlParams = new URLSearchParams(window.location.search);
@@ -216,10 +216,16 @@ class App extends Component {
           title: jobTitle,
           accessToken,
         });
-
-        const productionDomain = `portal.centinela.k12.ca.us`;
-        window.location.href = `http://${isDev ? "localhost:3000" : productionDomain}/staff`;
       }
+    })
+    .then(() => {
+      const productionDomain = `portal.centinela.k12.ca.us`;
+
+      if (window.location.pathname === "/auth/success") {
+        //window.location.href = `http://${isDev ? "localhost:3000" : productionDomain}/staff`;
+        history.push(`/`);
+
+      } 
     })
     .catch((error) => {
         console.error(`fetchOUInfo() Catching error:\t ${error}`);
@@ -229,6 +235,8 @@ class App extends Component {
   componentDidMount = () => {
     //this.getUserInfo(); 
 
+    let { history } = this.props;
+
     console.log("App.js window.location.pathname:\t" + window.location.pathname);
     console.log("App.js window.location.pathname true student:\t" + (window.location.pathname === "/student") );
     console.log("Route render window.location.pathname:\t" + window.location.pathname !== "/staff");
@@ -236,10 +244,10 @@ class App extends Component {
     this.setState({pathname: window.location.pathname});
   
     if ( !this.state.loggedIn && ( (window.location.pathname === "/auth/success") ) ) {
-      this.checkForLogIn();
+      this.checkForLogIn(history);
     }
 
-    if (!this.state.loggedIn && (window.location.pathname === "/") ) {
+    if (!this.state.loggedIn && !this.state.title && (window.location.pathname !== "/auth/success") ) {
       this.logIn();
     }
 
@@ -338,9 +346,8 @@ class App extends Component {
                 
               />
               {
-                (this.state.pathname !== "/student" || window.location.pathname !== "/student") ||
-                (this.state.pathname !== "/staff" || window.location.pathname !== "/student") ||
-                (this.state.pathname !== "/troubleshooting" || window.location.pathname !== "/troubleshooting") ?   
+                (window.location.pathname !== "/staff") || (window.location.pathname !== "/student") 
+                || (window.location.pathname !== "/troubleshooting") ?   
                   (<PrivateRoute 
                       loggedIn={"true"}
                       fullName={this.state.firstName + " " + this.state.lastName}
@@ -373,4 +380,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
