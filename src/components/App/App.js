@@ -270,7 +270,9 @@ class App extends Component {
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;
 
-    let defaultURL = ( window.location.pathname === "/student" || window.location.pathname === "/" || (this.state.title.toLowerCase() === "student" ) || undefsafe(this.props.location, "state", "renderAsStudent") == "true" ) ? "student" : "staff";
+    let defaultURL = this.state.title ? (this.state.title.toLowerCase() === "student" ? "student" : "staff") : "staff";
+    // ( window.location.pathname === "/student" || window.location.pathname === "/" || (this.state.title.toLowerCase() === "student" ) || undefsafe(this.props.location, "state", "renderAsStudent") == "true" ) ? "student" : "staff";
+
     console.log("defaultURL:\t" + defaultURL);
 
     return (
