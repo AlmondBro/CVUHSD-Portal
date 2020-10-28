@@ -123,18 +123,18 @@ class App extends Component {
   };
 
   logIn = async () => {
-    const logOut_URL = `/auth/login`; 
+    const logIn_URL = `${isDev ? "" : "/server"}/auth/login`; 
 
-     const logOut_headers = {
+     const logIn_headers = {
          'Content-Type': 'application/json',
          'credentials': 'include',
          'Access-Control-Allow-Origin': '*',
          'redirect' : 'follow'
      };
 
-     await fetch(logOut_URL, {
+     await fetch(logIn_URL, {
          method: 'GET',
-         headers: logOut_headers,
+         headers: logIn_headers,
          "Access-Control-Allow-Credentials": true,
          redirect: 'follow'
      })
@@ -157,9 +157,9 @@ class App extends Component {
   }; //end logIn
 
   logOut = async () => {
-    const logOut_URL = `/auth/logout`; 
+    const logOut_URL = `${isDev ? "" : "/server"}/auth/logout`;
 
-    const getOU_headers = {
+    const logOut_headers = {
         'credentials': 'include',
         'Access-Control-Allow-Origin': '*',
         "Access-Control-Allow-Credentials": true
@@ -168,7 +168,7 @@ class App extends Component {
     return await fetch(logOut_URL, {
         method: 'GET',
         credentials: "include",
-        headers: getOU_headers,
+        headers: logOut_headers,
     })
     .then((response) => {
        if (response.redirected) {
@@ -183,7 +183,9 @@ class App extends Component {
   }; //end logOut
 
   checkForLogIn = async (history) => {
-    const checkForLogin_URL = `/auth/callback`; 
+    const checkForLogin_URL = `${isDev ? "" : "/server"}/auth/callback` 
+
+    const successfulAuthURL = `${isDev ? "" : "/server"}/auth/success` 
 
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code'); 
@@ -221,7 +223,7 @@ class App extends Component {
     .then(() => {
       const productionDomain = `portal.centinela.k12.ca.us`;
 
-      if (window.location.pathname === "/auth/success") {
+      if (window.location.pathname === successfulAuthURL) {
         //window.location.href = `http://${isDev ? "localhost:3000" : productionDomain}/staff`;
         history.push(`/`);
 
