@@ -86,8 +86,8 @@ app.use(passport.session());
 
 app.use(requestIp.mw());
 
-const mainRoutesURL = `${isDev ? "" : "/server"}/`;
-const authRoutesURL = `${isDev ? "" : "/server"}/auth`
+const mainRoutesURL = `/`;
+const authRoutesURL = `/auth`
 
 app.use(mainRoutesURL, mainRoutes); //Middleware to route to all the main routes
 app.use(authRoutesURL, authRoutes); //Middleware to route to all authorization routes
