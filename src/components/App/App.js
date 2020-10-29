@@ -247,11 +247,7 @@ class App extends Component {
       this.checkForLogIn(history);
     }
 
-    if (!this.state.loggedIn && !this.state.title && 
-        (window.location.pathname !== "/auth-success") && 
-        (window.location.pathname !== "/student") && 
-        (window.location.pathname !== "/staff")
-        ) {
+    if (!this.state.loggedIn && !this.state.title && (window.location.pathname !== "/auth-success") ) {
       this.logIn();
     }
 
