@@ -16,16 +16,15 @@ import { staff_HeaderLinks } from "./../../objectFiles/headerListItems.js";
 import ChangePassword from "./ChangePassword/ChangePassword.js";
 
 //Import styled components
-import { NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, NavBarUL_Loading, MenuToggle, 
-    NavMenuIcon, FirstBar, NavBarListItem, NavBarButton, NavBarListItem_Link, 
-    NavBarListItem_StyledLink, NavBarListItem_Li, NavBarListItemLi 
-   } from "./NavigationBar_StyledComponents.js";
+import  {    
+            NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, NavBarUL_Loading,
+            NavMenuIcon, FirstBar, NavBarButton, NavBarListItemLi, MenuToggle 
+        }   from "./NavigationBar_StyledComponents.js";
 
-import isDev from 'isdev';
 
 //TODO: Figure out why bullet point is not rendering
 
-const NavigationBar = ({ title, districtPosition, renderAsStudent, modifyLogInStatus, modifyRenderAsStudent, clearState, logOut, ...props }) => {
+const NavigationBar = ({ title, districtPosition, renderAsStudent, location, modifyLogInStatus, modifyRenderAsStudent, clearState, logOut }) => {
     const  [modalIsOpen, setIsOpen] = useState(false);
 
     let signOutClearState = () => {
@@ -42,13 +41,13 @@ const NavigationBar = ({ title, districtPosition, renderAsStudent, modifyLogInSt
             (listItemArrayObject, index) => {
                 return ( listItemArrayObject.navShow === true ?
                     <NavBarListItemLi 
-                        key={index} 
-                        href={listItemArrayObject.href}
-                        to={listItemArrayObject.to}
-                        linkName={listItemArrayObject.title}
-                        districtPosition={props.districtPosition}
-                        bulletPointInMobile={true}
-                        renderAsStudent={props.renderAsStudent}
+                        key                 =   { index} 
+                        href                =   { listItemArrayObject.href}
+                        to                  =   { listItemArrayObject.to}
+                        linkName            =   { listItemArrayObject.title}
+                        districtPosition    =   { districtPosition}
+                        bulletPointInMobile =   { true}
+                        renderAsStudent     =   { renderAsStudent}
                     />: null);
             }
         ); //end map()
@@ -143,31 +142,30 @@ const NavigationBar = ({ title, districtPosition, renderAsStudent, modifyLogInSt
                                 <NavBarListItemLi 
                                     to={
                                         {
-                                            pathname    : props.renderAsStudent ? "/staff" : "/student",
-                                            state       : { renderAsStudent: (props.location.pathname === "/staff") ? "true" : false } 
+                                            pathname    : renderAsStudent ? "/staff" : "/student",
+                                            state       : { renderAsStudent: (location.pathname === "/staff") ? "true" : false } 
                                         }
                                     }
-                                    renderAsStudent     =   { props.renderAsStudent }
+                                    renderAsStudent     =   { renderAsStudent }
                                     bulletPointInMobile =   { true } 
-                                    title               =   { (props.location.pathname === "/staff") ? "Student Portal" : "Staff Portal" }        
-                                    onClick             =   { () => modifyRenderAsStudent(!props.renderAsStudent) }
+                                    title               =   { (location.pathname === "/staff") ? "Student Portal" : "Staff Portal" }        
+                                    onClick             =   { () => modifyRenderAsStudent(renderAsStudent) }
                                 >
                                 
                                     <FontAwesomeIcon 
-                                        icon        =   { (props.location.pathname === "/staff") ? student : user } 
+                                        icon        =   { (location.pathname === "/staff") ? student : user } 
                                         className   =   "icon"
                                     /> Portal 
                                 </NavBarListItemLi>
                                 ) : null
                         }
                         { generateNavBarListItems(staff_HeaderLinks) }
-                        
                         { 
                             (districtPosition.toLowerCase() !== "student") ? 
                             ( 
                                 <NavBarListItemLi 
                                     bulletPointInMobile =   { true}
-                                    renderAsStudent     =   { renderAsStudent}
+                                    renderAsStudent     =   { renderAsStudent }
                                     onClick             =   { () => toggleModal(true) }
                                 >
                                     <Tooltip
@@ -235,7 +233,7 @@ const NavigationBar = ({ title, districtPosition, renderAsStudent, modifyLogInSt
                                 <NavBarButton   
                                         title               =   { "Log Out"}  
                                         districtPosition    =   { districtPosition }
-                                        renderAsStudent     =   { props.renderAsStudent }
+                                        renderAsStudent     =   { renderAsStudent }
                                 >
                                     <FontAwesomeIcon 
                                         icon        =   { signOut } 
@@ -262,12 +260,12 @@ const NavigationBar = ({ title, districtPosition, renderAsStudent, modifyLogInSt
             
         </NavBar>,
         <ChangePassword 
-            modalIsOpen         =   {modalIsOpen}
-            toggleModal         =   {toggleModal}
+            modalIsOpen         =   { modalIsOpen}
+            toggleModal         =   { toggleModal}
 
             districtPosition    =   { districtPosition }
             renderAsStudent     =   { renderAsStudent }
-                                    {...props}
+                                   
         />
     ]);
 }; //end NavigationBar();
