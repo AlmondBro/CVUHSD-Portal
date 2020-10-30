@@ -133,7 +133,7 @@ const PageContent = ({fullName, title, site, renderAsStudent, gradeLevel, locati
   useEffect(() => {
     changeContainerStyle({"background-image": `none` });
 
-    if ( (title === "student" || ( undefsafe(location, "state", "renderAsStudent") == "true" && title === "student")|| window.location.pathname === "/student" && title === "student") && !gradeLevel) {
+    if ( (title === "Student" || ( undefsafe(location, "state", "renderAsStudent") == "true" && title === "Student")|| window.location.pathname === "/student" && title === "Student") && !gradeLevel) {
         getUserInfo();
     } 
 
