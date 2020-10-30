@@ -6,18 +6,15 @@
     https://reactjs.org/docs/javascript-environment-requirements.html
 
 */
-import 'core-js/es/map';
-import 'core-js/es/set';
-import 'raf/polyfill';
-
-import { polyfill as promisePolyfill } from 'es6-promise'; //Import this package for use of promises in IE11
-
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 
-import React from "react";
-import ReactDOM, { render } from "react-dom";
+import 'core-js';
 
+import { polyfill as promisePolyfill } from 'es6-promise'; //Import this package for use of promises in IE11
+
+import React from "react";
+import { render } from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import isDev from "isdev";
@@ -26,13 +23,11 @@ import App from "./components/App/App.js";
 
 import * as serviceWorker from './serviceWorker.js';
 
-// import "bootstrap/dist/css/bootstrap.min.css";
-
 import path from "path";
 
 import dotenv from "dotenv";
 dotenv.config(  {   path    : path.join( __dirname, "./.env" ), 
-                    debug   : true
+                    debug   : false
                 }); //Load environmental variables
 
 promisePolyfill();

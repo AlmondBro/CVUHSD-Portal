@@ -20,6 +20,10 @@ const validateAccessToken = (accessToken) => {
     return payload;
 }; //end //validateAccessToken
 
+router.get('/login-ie', (req, res) => {
+    return res.json({ url: `https://sso.centinela.k12.ca.us/adfs/oauth2/authorize?resource=http%3A%2F%2Flocalhost%3A3000%2F&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth-success&client_id=2ea7058a-3b74-428d-8829-30c4101bdc9c`});
+});
+
 router.get('/login', passport.authenticate('provider'));
 
 router.get('/callback', passport.authenticate('provider'), async (req, res) => {
