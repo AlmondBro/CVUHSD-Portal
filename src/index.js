@@ -10,9 +10,9 @@ import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 
 import 'core-js';
-import 'core-js/es/map';
-import 'core-js/es/set';
-import 'raf/polyfill';
+// import 'core-js/es/map';
+// import 'core-js/es/set';
+// import 'raf/polyfill';
 
 import { polyfill as promisePolyfill } from 'es6-promise'; //Import this package for use of promises in IE11
 
