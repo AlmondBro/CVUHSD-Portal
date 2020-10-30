@@ -251,6 +251,15 @@ class App extends Component {
       this.logIn();
     }
 
+    const favicon = document.getElementById("favicon");
+
+    if (this.state.title === "Student" || this.state.renderAsStudent || window.location.pathname === "/student") {
+      favicon.href = "./images/CV-600x600-portal-red.png";
+      document.title = "CVUHSD | Student Portal"
+    } else {
+      favicon.href = "./images/CV-600x600-portal.png";
+      document.title = "CVUHSD | Staff Portal"
+    }
     // require("./SDPChat.js");
   
   }; //end componentDidMount
@@ -258,7 +267,7 @@ class App extends Component {
   componentDidUpdate = () => {
     const favicon = document.getElementById("favicon");
     
-    if (this.state.title === "Student" || this.state.renderAsStudent) {
+    if (this.state.title === "Student" || this.state.renderAsStudent || window.location.pathname === "/student") {
       favicon.href = "./images/CV-600x600-portal-red.png";
       document.title = "CVUHSD | Student Portal"
     } else {
@@ -295,28 +304,28 @@ class App extends Component {
                     }
                 } 
               />
-              <PrivateRoute path={[`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
-                            loggedIn={"true"}
-                            fullName={this.state.firstName + " " + this.state.lastName}
-                            isStudent={this.state.isStudent}
-                            title={this.state.title}
-                            site={this.state.site}
-                            gradeLevel={this.state.gradeLevel}
-                            renderAsStudent={this.state.renderAsStudent}
-                            modifyPathname={this.modifyPathname}
-                            modifyRenderAsStudent={this.modifyRenderAsStudent}
-                            modifyLogInStatus={this.modifyLogInStatus} 
-                            modifyIsStudent={this.modifyIsStudent}
-                            modifyFullName={this.modifyFullName}
-                            modifyTitle={this.modifyTitle}
-                            modifySite={this.modifySite}
-                            modifyGradeLevel={this.modifyGradeLevel}
-                            changeContainerStyle={this.changeContainerStyle} 
-                            logOut={this.logOut}
-                            clearState={this.clearState}
-                            username={this.state.username}
-                            accessToken={this.state.accessToken}
-                            component={ PageContent} 
+              {/* fullName, title, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, 
+              changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent */}
+              <PrivateRoute 
+                            path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
+                            component             = { PageContent} 
+                            fullName              = { this.state.firstName + " " + this.state.lastName }
+                            title                 = { this.state.title }
+                            site                  = { this.state.site }
+                            renderAsStudent       = { this.state.renderAsStudent }
+                            gradeLevel            = { this.state.gradeLevel }
+                            location              = { this.props.location }
+                            username              = { this.state.username }
+                            accessToken           = { this.state.accessToken }
+                            clearState            = { this.clearState }
+                            logOut                = { this.logOut}
+                            changeContainerStyle  = { this.changeContainerStyle }
+
+                            modifySite            = { this.modifySite }
+                            modifyGradeLevel      = { this.modifyGradeLevel }
+                            modifyTitle           = { this.modifyTitle }
+                            modifyRenderAsStudent = { this.modifyRenderAsStudent }
+                            modifyIsStudent       = { this.modifyIsStudent }
               />
 
               <Route path={`${publicURL}/staff`}
@@ -347,33 +356,31 @@ class App extends Component {
                       render={() => { return (<Troubleshooting/>)}}
                 
               />
+
+              {/* defaultURL, history, fullName, title, site, gradeLevel, clearState, logOut, 
+              changeContainerStyle, modifySite, modifyTitle, modifyRenderAsStudent */}
               {
                 (window.location.pathname !== "/staff") || (window.location.pathname !== "/student") 
                 || (window.location.pathname !== "/troubleshooting") ?   
                   (<PrivateRoute 
-                      loggedIn={"true"}
-                      fullName={this.state.firstName + " " + this.state.lastName}
-                      isStudent={this.state.isStudent}
-                      title={this.state.title}
-                      site={this.state.site}
-                      gradeLevel={this.state.gradeLevel}
-                      renderAsStudent={this.state.renderAsStudent}
-                      modifyPathname={this.modifyPathname}
-                      modifyRenderAsStudent={this.modifyRenderAsStudent}
-                      modifyLogInStatus={this.modifyLogInStatus} 
-                      modifyIsStudent={this.modifyIsStudent}
-                      modifyFullName={this.modifyFullName}
-                      modifyTitle={this.modifyTitle}
-                      modifySite={this.modifySite}
-                      modifyGradeLevel={this.modifyGradeLevel}
-                      changeContainerStyle={this.changeContainerStyle} 
-                      logOut={this.logOut}
-                      clearState={this.clearState}
-                      defaultURL={defaultURL}
-                      accessToken={this.state.accessToken}
-                      username={this.state.username}
-                      component={ NotFound } /> ) 
-                    : null
+                      component             = { NotFound } 
+                      path                  = { [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
+                      
+                      defaultURL            = { defaultURL }
+
+                      history               = { this.props.history }
+                      fullName              = { this.state.firstName + " " + this.state.lastName }
+                      title                 = { this.state.title }
+                      site                  = { this.state.site }
+                      gradeLevel            = { this.state.gradeLevel }
+                      clearState            = { this.clearState }
+                      logOut                = { this.logOut}
+                      changeContainerStyle  = { this.changeContainerStyle }
+
+                      modifySite            = { this.modifySite }
+                      modifyTitle           = { this.modifyTitle }
+                      modifyRenderAsStudent = { this.modifyRenderAsStudent }
+                    /> ) : null
               }
           </Switch>
           ) : <LoadingSSOPage/>

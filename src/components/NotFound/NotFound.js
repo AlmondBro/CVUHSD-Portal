@@ -12,7 +12,7 @@ import { withRouter } from "react-router-dom";
 import { NotFoundContainer } from "./NotFound_StyledComponents.js";
 
 //TODO: Make this wayyy more decorative!
-const NotFound_404 = ({defaultURL, ...props}) => {
+const NotFound_404 = ({ defaultURL, history, fullName, title, site, gradeLevel, clearState, logOut, changeContainerStyle, modifySite, modifyTitle, modifyRenderAsStudent }) => {
 
     //Initialize hooks:
     const countDownTime = 7;
@@ -31,15 +31,16 @@ const NotFound_404 = ({defaultURL, ...props}) => {
         if (seconds === 0) {
             console.log("Pushing history");
             clearInterval(interval);
-            props.history.push(`/${defaultURL}`);
+            history.push(`/${defaultURL}`);
             return;
         }
 
-        props.changeContainerStyle({
+        changeContainerStyle(
+                                {
                                     "background-image": `url("./images/lw-high.jpg")`,
                                     "opacity": "0.2"
-                                    }
-        ); //end props.changeContainerStyle()
+                                }
+        ); //end changeContainerStyle()
 
 
     }, [seconds]);
@@ -48,22 +49,22 @@ const NotFound_404 = ({defaultURL, ...props}) => {
         <Fragment>
             <Header districtName="CVUHSD" 
                 headerTitle="404 Not Found" 
-                fullName={ props.fullName } 
-                title={props.title}
-                site={props.site}
-                gradeLevel={props.gradeLevel}
+                fullName={ fullName } 
+                title={title}
+                site={site}
+                gradeLevel={gradeLevel}
                 portalHeaderTextDisplay={"none"}
                 //modifyLogInStatus={ this.modifyLogInStatus }
-                modifyTitle={props.modifyTitle}
-                modifySite={props.modifySite}
-                modifyRenderAsStudent={props.modifyRenderAsStudent}
-                logOut={props.logOut}
-                clearState={props.clearState}
+                modifyTitle={modifyTitle}
+                modifySite={modifySite}
+                modifyRenderAsStudent={modifyRenderAsStudent}
+                logOut={logOut}
+                clearState={clearState}
                 renderAsStudent={(window.location.pathname === "/student")}
             />
             <NotFoundContainer 
                 className="notFound-container"
-                title={props.title}
+                title={title}
             >
                 <h4>Oops!</h4>
                 <p>It seems you may have gotten lost off the trail.</p>
