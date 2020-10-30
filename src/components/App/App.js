@@ -139,8 +139,8 @@ class App extends Component {
         "Access-Control-Allow-Credentials": true,
     })
     .then((response) => response.json())
-    .then((response) => {
-      let { url } = response;
+    .then((returnObject) => {
+      let { url } = returnObject;
       window.location.href = url;
      
        return;
@@ -248,8 +248,6 @@ class App extends Component {
       }
     })
     .then(() => {
-      const productionDomain = `portal.centinela.k12.ca.us`;
-
       if (window.location.pathname === successfulAuthURL) {
         //window.location.href = `http://${isDev ? "localhost:3000" : productionDomain}/staff`;
         history.push(`/`);
@@ -264,15 +262,13 @@ class App extends Component {
   componentDidMount = () => {
     let { history } = this.props;
     
-    this.setState({pathname: window.location.pathname});
-  
     if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
       this.checkForLogIn(history);
     }
 
-  
     if (!this.state.loggedIn && !this.state.title && (window.location.pathname !== "/auth-success") ) {
       if (isIE) {
+        console.log("loginIE response");
         this.loginIE();
       } else {
         this.logIn();

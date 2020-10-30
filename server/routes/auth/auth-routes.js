@@ -4,6 +4,8 @@ import { Router } from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
+import isDev from 'isdev';
+
 const router = Router();
 
 var adfsSigningPublicKey = fs.readFileSync(path.join(__dirname, './../../../certificates/ADFS_Signing.crt')); // Exported from ADFS
@@ -20,8 +22,14 @@ const validateAccessToken = (accessToken) => {
     return payload;
 }; //end //validateAccessToken
 
+
+
 router.get('/login-ie', (req, res) => {
-    return res.json({ url: `https://sso.centinela.k12.ca.us/adfs/oauth2/authorize?resource=http%3A%2F%2Flocalhost%3A3000%2F&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth-success&client_id=2ea7058a-3b74-428d-8829-30c4101bdc9c`});
+    return res.json(
+                        { 
+                            url: `${process.env.OAUTH_AUTH_URL}?resource=${encodeURIComponent("http://localhost:3000")}&response_type=${encodeURIComponent("code")}&redirect_uri=${isDev ? encodeURIComponent(process.env.OAUTH_CALLBACK_URL_DEV) : encodeURIComponent(process.env.OAUTH_CALLBACK_URL_PROD)}&client_id=${encodeURIComponent(process.env.OAUTH_CLIENT_ID)}`
+                        }
+                    );
 });
 
 router.get('/login', passport.authenticate('provider'));
