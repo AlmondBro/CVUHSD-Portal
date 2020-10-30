@@ -2,7 +2,9 @@ import React, { Fragment, useState } from 'react';
 
 import { faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
 
-import { TransferToITModalContainer, CloseButton, Form, ModalTitle, SelectDropDownArrow, Select, TransferButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
+import { 
+    ModalTextInputField,
+    TransferToITModalContainer, CloseButton, Form, ModalTitle, SelectDropDownArrow, Select, TransferButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
 
 
 const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
@@ -58,12 +60,46 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
         <CloseButton onClick={ () => toggleModal(false) } title="Close modal">&times;</CloseButton>
         <Form onSubmit={ () => console.log }>
           <label htmlFor="it-transfer-select">
-              <ModalTitle ref={_subtitle => (subtitle = _subtitle)}>Transfer to Other IT</ModalTitle>
+              <ModalTitle ref={_subtitle => (subtitle = _subtitle)}>Support Request</ModalTitle>
               <FAIconStyled
                     icon    =   { faExchangeAlt }
               />
           </label>
-          {
+
+         <ModalTextInputField
+            title       =   "Title:" 
+            inputType   =   "text"
+            placeholder =   "Support Request Title"
+         />
+        <ModalTextInputField
+            title       =   "Description:" 
+            inputType   =   "text"
+            placeholder =   "What is the issue at hand?"
+            textArea
+         />
+        <SelectDropDownArrow className="select-drop-down-arrow">
+            <Select 
+                name="it-transfer-select" 
+                id="it-transfer-select"
+                onChange= { onChange }
+            >
+            <option>hello</option>
+            </Select> 
+        </SelectDropDownArrow>
+
+        <ModalTextInputField
+            title       =   "Phone Extension:" 
+            inputType   =   "text"
+            placeholder =   "Office Phone Ext."
+        />
+
+        <ModalTextInputField
+            title       =   "Office/ Room Number:" 
+            inputType   =   "text"
+            placeholder =   "Your location"
+        />
+
+        {
               isLoading ? (
                 <p>Loading CVTechs...</p>
               ) : (

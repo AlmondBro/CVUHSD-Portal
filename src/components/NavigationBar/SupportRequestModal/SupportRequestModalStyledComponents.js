@@ -37,22 +37,22 @@ const TransferToITModalContainer = styled(Modal).attrs(props => ({
     }
   }))
 `
-    position              : absolute;
-    top                   : 50%;
-    left                  : 50%; 
-    transform             : translate(-50%, -50%);  
+    position            : absolute;
+    top                 : 50%;
+    left                : 50%; 
+    transform           : translate(-50%, -50%);  
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
+    display             : flex;
+    flex-direction      : column;
+    justify-content     : center;
+    align-content       : center;
 
    
   
-    width: 30%;
+    width               : 30%;
 
-    border: 0px;
-    border-radius: 10px;
+    border              : 0px;
+    border-radius       : 10px;
 
     background-color: white;
 
@@ -208,4 +208,109 @@ const NoCVTechsMessage = styled('p')`
     text-align: center;
 `;
 
-export { TransferToITModalContainer, CloseButton, Form, ModalTitle, SelectDropDownArrow, Select, TransferButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage };
+const InputSection = styled('p')`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    
+    width: 100%;
+    padding: 0% 5%;
+
+`;
+
+const StyledLabel = styled('label')`
+    width: 30%;
+`;
+
+const StyledHeader = styled('h3')`
+    font-size: 1em;
+    font-weight: bold;
+    margin-right: 10px;
+    color:      ${ props => props.title ?
+                                    ( (props.title === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
+                        }; 
+`;
+
+const StyledInput = styled('input')`
+    width: 70%;
+
+    border: 1px;
+    border-style: solid;
+    border-color: rgba(147, 30, 29, 0.21);
+    /* #d8d8d8 */
+    border-radius: 10px;
+
+    outline: 0px; 
+
+    padding: 5px 5px 5px 10px;
+   
+    /* #EFEFEF; */
+    
+    /* ${ props => props.title ?
+                                    ( (props.title === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
+                        }; */
+
+    color: black;
+`;
+
+const StyledTextArea = styled('textarea')`
+    width: 70%;
+
+    border: 1px;
+    border-style: solid;
+    border-color: rgba(147, 30, 29, 0.21);
+    /* #d8d8d8 */
+    border-radius: 10px;
+
+    outline: 0px; 
+
+    padding: 5px 5px 5px 10px;
+   
+    /* #EFEFEF; */
+    
+    /* ${ props => props.title ?
+                                    ( (props.title === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
+                        }; */
+
+    color: black;
+`;
+
+const ModalTextInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, onChange }) => {
+    return (
+        <InputSection>
+            <StyledLabel>
+                <StyledHeader> { title } </StyledHeader>
+            </StyledLabel>
+            {
+                textArea ? (
+                    <StyledTextArea
+                        placeholder = { placeholder }
+                        rows        = { rows || "4"}
+                        cols        = { cols || "30"}
+                        onChange    =   { onChange }
+                    >
+                        { description }
+                    </StyledTextArea>
+                ) : ( 
+                    <StyledInput 
+                            type        =   { inputType || "text" } 
+                            placeholder =   { placeholder } 
+                            // onChange    =   { onChange }
+                    />
+                )
+            }
+        </InputSection>
+    ); //end return statement
+}; //end ModalInputField
+
+
+export { 
+    ModalTextInputField,
+    TransferToITModalContainer, CloseButton, Form, ModalTitle, SelectDropDownArrow, Select, TransferButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage };
