@@ -133,7 +133,7 @@ class App extends Component {
         'redirect' : 'follow'
     };
 
-    await fetch(logInIE_URL, {
+    return await fetch(logInIE_URL, {
         method: 'GET',
         headers: logInIE_headers,
         "Access-Control-Allow-Credentials": true,
@@ -148,9 +148,6 @@ class App extends Component {
     .catch((error) => {
         console.error(`loginIE() Catching error:\t ${error}`);
     });
-
-    //window.location = url;
-    return;
   }; //end loginIE
 
   logIn = async () => {
@@ -162,7 +159,7 @@ class App extends Component {
          'redirect' : 'follow'
      };
 
-     await fetch(logIn_URL, {
+     return await fetch(logIn_URL, {
          method: 'GET',
          headers: logIn_headers,
          "Access-Control-Allow-Credentials": true,
@@ -180,9 +177,6 @@ class App extends Component {
      .catch((error) => {
          console.error(`fetchOUInfo() Catching error:\t ${error}`);
      });
-
-     //window.location = url;
-     return;
   }; //end logIn
 
   logOut = async () => {
@@ -225,7 +219,7 @@ class App extends Component {
         "Access-Control-Allow-Credentials": true
     };
 
-    await fetch(checkForLogin_URL + `?code=${code}`, {
+    return await fetch(checkForLogin_URL + `?code=${code}`, {
         method: 'GET',
         credentials: "include",
         headers: checkForLogin_headers,
@@ -328,8 +322,6 @@ class App extends Component {
                     }
                 } 
               />
-              {/* fullName, title, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, 
-              changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent */}
               <PrivateRoute 
                             path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
                             component             = { PageContent} 
@@ -380,9 +372,6 @@ class App extends Component {
                       render={() => { return (<Troubleshooting/>)}}
                 
               />
-
-              {/* defaultURL, history, fullName, title, site, gradeLevel, clearState, logOut, 
-              changeContainerStyle, modifySite, modifyTitle, modifyRenderAsStudent */}
               {
                 (window.location.pathname !== "/staff") || (window.location.pathname !== "/student") 
                 || (window.location.pathname !== "/troubleshooting") ?   
