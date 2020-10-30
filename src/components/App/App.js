@@ -133,14 +133,14 @@ class App extends Component {
         'redirect' : 'follow'
     };
 
-    await fetch(logInIE_URL, {
+    return await fetch(logInIE_URL, {
         method: 'GET',
         headers: logInIE_headers,
         "Access-Control-Allow-Credentials": true,
     })
     .then((response) => response.json())
-    .then((response) => {
-      let { url } = response;
+    .then((returnObject) => {
+      let { url } = returnObject;
       window.location.href = url;
      
        return;
@@ -148,9 +148,6 @@ class App extends Component {
     .catch((error) => {
         console.error(`loginIE() Catching error:\t ${error}`);
     });
-
-    //window.location = url;
-    return;
   }; //end loginIE
 
   logIn = async () => {
@@ -162,7 +159,7 @@ class App extends Component {
          'redirect' : 'follow'
      };
 
-     await fetch(logIn_URL, {
+     return await fetch(logIn_URL, {
          method: 'GET',
          headers: logIn_headers,
          "Access-Control-Allow-Credentials": true,
@@ -180,9 +177,6 @@ class App extends Component {
      .catch((error) => {
          console.error(`fetchOUInfo() Catching error:\t ${error}`);
      });
-
-     //window.location = url;
-     return;
   }; //end logIn
 
   logOut = async () => {
@@ -225,7 +219,7 @@ class App extends Component {
         "Access-Control-Allow-Credentials": true
     };
 
-    await fetch(checkForLogin_URL + `?code=${code}`, {
+    return await fetch(checkForLogin_URL + `?code=${code}`, {
         method: 'GET',
         credentials: "include",
         headers: checkForLogin_headers,
@@ -248,8 +242,6 @@ class App extends Component {
       }
     })
     .then(() => {
-      const productionDomain = `portal.centinela.k12.ca.us`;
-
       if (window.location.pathname === successfulAuthURL) {
         //window.location.href = `http://${isDev ? "localhost:3000" : productionDomain}/staff`;
         history.push(`/`);
@@ -264,15 +256,13 @@ class App extends Component {
   componentDidMount = () => {
     let { history } = this.props;
     
-    this.setState({pathname: window.location.pathname});
-  
     if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
       this.checkForLogIn(history);
     }
 
-  
     if (!this.state.loggedIn && !this.state.title && (window.location.pathname !== "/auth-success") ) {
       if (isIE) {
+        console.log("loginIE response");
         this.loginIE();
       } else {
         this.logIn();
@@ -332,8 +322,6 @@ class App extends Component {
                     }
                 } 
               />
-              {/* fullName, title, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, 
-              changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent */}
               <PrivateRoute 
                             path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
                             component             = { PageContent} 
@@ -384,9 +372,6 @@ class App extends Component {
                       render={() => { return (<Troubleshooting/>)}}
                 
               />
-
-              {/* defaultURL, history, fullName, title, site, gradeLevel, clearState, logOut, 
-              changeContainerStyle, modifySite, modifyTitle, modifyRenderAsStudent */}
               {
                 (window.location.pathname !== "/staff") || (window.location.pathname !== "/student") 
                 || (window.location.pathname !== "/troubleshooting") ?   
