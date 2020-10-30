@@ -3,9 +3,9 @@ import styled from "styled-components";
 let FooterStyled = styled("footer")`
     width: 100%;
     background-color: ${ props => props.title ?
-                                    ( (props.title.toLowerCase() === "student") || props.renderAsStudent) ? 
+                                    ( (props.title === "student") || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
-                                    : "#931E1D" 
+                                    : "#1E6C93" 
                         };
     margin-top: 0.1%;
 

@@ -4,8 +4,6 @@ import React from "react";
 import { FooterStyled, AppButtonsSection, MobileStoreImgLink, MobileStoreImg } from "./Footer_StyledComponents.js";
 
 let Footer = ({ title, renderAsStudent }) => {
-    // window.alert(title);
-
     return (
         <FooterStyled 
             title           =   { title }
