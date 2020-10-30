@@ -160,8 +160,8 @@ const PageContent = ({fullName, title, site, renderAsStudent, gradeLevel, locati
                 <div className="page-content">
                     { generateBlueSections(blueSection_objectsArrayProps) } 
                     <Footer 
-                        title={title}
-                        renderAsStudent={renderAsStudent}
+                        title           = { title }
+                        renderAsStudent = { renderAsStudent }
                     />
                 </div>
     </Fragment>

@@ -49,9 +49,12 @@ let FooterStyled = styled('footer')`
     }
 `;
 
-let Footer = (props) => {
+let Footer = ({ title, renderAsStudent }) => {
     return (
-        <FooterStyled>  
+        <FooterStyled
+            title           =   { title }
+            renderAsStudent =   { renderAsStudent }
+        >  
             <ul>
                 <li className="col-md-3">
                     <a href="https://www.centinela.k12.ca.us/" 
