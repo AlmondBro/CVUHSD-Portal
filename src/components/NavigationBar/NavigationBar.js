@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from "react"; //Import React 
+import React, { useState, Fragment }  from "react"; //Import React 
 
 import { withRouter, Link } from "react-router-dom";
 
@@ -9,12 +9,12 @@ import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap.css"; //default tooltip styling
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome as home, faLock as lock, faGraduationCap as student, faUser as user, faSignOutAlt as signOut, faUndo as undo } from '@fortawesome/free-solid-svg-icons';
+import { faHome as home, faGraduationCap as student, faUser as user, faSignOutAlt as signOut, faLaptop } from '@fortawesome/free-solid-svg-icons';
 
 import { staff_HeaderLinks } from "./../../objectFiles/headerListItems.js";
 
 import ChangePassword from "./ChangePassword/ChangePassword.js";
-
+import SupportRequestModal from './SupportRequestModal/SupportRequestModal.js';
 //Import styled components
 import  {    
             NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, NavBarUL_Loading,
@@ -25,15 +25,21 @@ import  {
 //TODO: Figure out why bullet point is not rendering
 
 const NavigationBar = ({ title, districtPosition, renderAsStudent, location, modifyLogInStatus, modifyRenderAsStudent, clearState, logOut }) => {
-    const  [modalIsOpen, setIsOpen] = useState(false);
+    const  [ changePasswordModalIsOpen, setChangePasswordModalIsOpen ] = useState(false);
+    const  [ supportRequestModalIsOpen, setSupportRequestModalIsOpen ] = useState(true);
 
     let signOutClearState = () => {
         clearState();
         logOut();
     }; //end signOut()
 
-    let toggleModal = (toggleValue) => {
-        setIsOpen(toggleValue);
+    let toggleChangePasswordModal = (toggleValue) => {
+        setChangePasswordModalIsOpen(toggleValue);
+    }; //end toggleModal
+
+    
+    let toggleSupportRequestModal = (toggleValue) => {
+        setSupportRequestModalIsOpen(toggleValue);
     }; //end toggleModal
 
     let generateNavBarListItems = (listItemsArray) => {
@@ -60,7 +66,7 @@ const NavigationBar = ({ title, districtPosition, renderAsStudent, location, mod
 
    //TODO: Look at image link. It should redirect to the student or staff portal.
 
-    return ([
+    return (<Fragment>
         <NavBar 
             className           =   "navigation-bar" 
             districtPosition    =   { districtPosition } 
@@ -159,14 +165,67 @@ const NavigationBar = ({ title, districtPosition, renderAsStudent, location, mod
                                 </NavBarListItemLi>
                                 ) : null
                         }
+
                         { generateNavBarListItems(staff_HeaderLinks) }
+
+                        <NavBarListItemLi 
+                            bulletPointInMobile =   {   true    }
+                            renderAsStudent     =   {   renderAsStudent }
+                            onClick             =   {   () => toggleSupportRequestModal(true) }
+                        >
+                            <Tooltip
+                                placement               =   { "bottom" }
+                                mouseEnterDelay         =   { 0 }
+                                mouseLeaveDelay         =   { 0.03 }   
+                                destroyTooltipOnHide    =   { true }
+                                trigger                 =   { ['hover','click','focus'] }
+                                overlay                 =   {
+                                                                <div 
+                                                                    style={
+                                                                        { 
+                                                                            height: "100%", 
+                                                                            width: "100%" 
+                                                                        }
+                                                                    }
+                                                                >
+                                                                    Submit a helpdesk request for tech support 
+                                                                    <div  style={
+                                                                            {
+                                                                                display: "inline-block",
+                                                                                marginLeft: "5px"
+                                                                            }
+                                                                        }>
+                                                                        <FontAwesomeIcon 
+                                                                            icon        =   { faLaptop } 
+                                                                            className   =   "icon"
+                                                                        /> 
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            }
+                                transitionName={"rc-tooltip-zoom"}
+                            >
+                                <NavBarButton   
+                                        title               =   { "Support Request"}  
+                                        districtPosition    =   { districtPosition }
+                                        renderAsStudent     =   { renderAsStudent }
+
+                                >   Support Request
+                                    {/* <FontAwesomeIcon 
+                                        icon        =   { faLaptop } 
+                                        className   =   "icon"
+                                    />  */}
+                                </NavBarButton>
+                        </Tooltip>
+                        
+                        </NavBarListItemLi>
                         { 
                             (districtPosition.toLowerCase() !== "student") ? 
                             ( 
                                 <NavBarListItemLi 
                                     bulletPointInMobile =   { true}
                                     renderAsStudent     =   { renderAsStudent }
-                                    onClick             =   { () => toggleModal(true) }
+                                    onClick             =   { () => toggleChangePasswordModal(true) }
                                 >
                                     <Tooltip
                                         placement               =   { "bottom" }
@@ -258,16 +317,23 @@ const NavigationBar = ({ title, districtPosition, renderAsStudent, location, mod
                   )
             }
             
-        </NavBar>,
-        <ChangePassword 
-            modalIsOpen         =   { modalIsOpen}
-            toggleModal         =   { toggleModal}
+        </NavBar>
+            <ChangePassword 
+                modalIsOpen         =   { changePasswordModalIsOpen }
+                toggleModal         =   { toggleChangePasswordModal }
 
-            districtPosition    =   { districtPosition }
-            renderAsStudent     =   { renderAsStudent }
-                                   
-        />
-    ]);
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }
+                                    
+            />,
+            <SupportRequestModal 
+                modalIsOpen         =   { supportRequestModalIsOpen }
+                toggleModal         =   { toggleSupportRequestModal }
+
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }                  
+            />
+            </Fragment>);
 }; //end NavigationBar();
 
 export default withRouter(NavigationBar);
