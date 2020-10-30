@@ -21,6 +21,8 @@ import PrivateRoute from "./../PrivateRoute.js";
 
 import SimpleStorage, { resetParentState, clearStorage } from "react-simple-storage";
 
+import { isIE } from './../../utilityFunctions.js';
+
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
 //TODO: Fix Dashboard "digial" typon on quick links buttons
@@ -122,6 +124,35 @@ class App extends Component {
     clearStorage("PortalStorage");
   };
 
+  loginIE = async() => {
+    const logInIE_URL = `${isDev ? "" : "/server"}/auth/login-ie`; 
+
+    const logInIE_headers = {
+        'Content-Type': 'application/json',
+        'credentials': 'include',
+        'redirect' : 'follow'
+    };
+
+    await fetch(logInIE_URL, {
+        method: 'GET',
+        headers: logInIE_headers,
+        "Access-Control-Allow-Credentials": true,
+    })
+    .then((response) => response.json())
+    .then((response) => {
+      let { url } = response;
+      window.location.href = url;
+     
+       return;
+    })
+    .catch((error) => {
+        console.error(`loginIE() Catching error:\t ${error}`);
+    });
+
+    //window.location = url;
+    return;
+  }; //end loginIE
+
   logIn = async () => {
     const logIn_URL = `${isDev ? "" : "/server"}/auth/login`; 
 
@@ -175,7 +206,7 @@ class App extends Component {
        return ;
     })
     .catch((error) => {
-        console.error(`fetchOUInfo() Catching error:\t ${error}`);
+        console.error(`logOut() Catching error:\t ${error}`);
     });
   }; //end logOut
 
@@ -226,29 +257,26 @@ class App extends Component {
       } 
     })
     .catch((error) => {
-        console.error(`fetchOUInfo() Catching error:\t ${error}`);
+        console.error(`checkForLogIn() Catching error:\t ${error}`);
     });
   };
 
   componentDidMount = () => {
-    //this.getUserInfo(); 
-
     let { history } = this.props;
-
-    console.log("App.js window.location.pathname:\t" + window.location.pathname);
-    console.log("App.js window.location.pathname true student:\t" + (window.location.pathname === "/student") );
-    console.log("Route render window.location.pathname:\t" + window.location.pathname !== "/staff");
     
     this.setState({pathname: window.location.pathname});
-
-   // alert(window.location.pathname);
   
     if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
       this.checkForLogIn(history);
     }
 
+  
     if (!this.state.loggedIn && !this.state.title && (window.location.pathname !== "/auth-success") ) {
-      this.logIn();
+      if (isIE) {
+        this.loginIE();
+      } else {
+        this.logIn();
+      }
     }
 
     const favicon = document.getElementById("favicon");
