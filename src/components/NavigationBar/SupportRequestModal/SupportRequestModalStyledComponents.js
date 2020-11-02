@@ -111,6 +111,8 @@ const ModalTitle = styled('h3')`
     font-size: 1.5em;
 
     margin: 0px;
+    margin-bottom: 10px;
+
     padding: 0px;
 `; 
 

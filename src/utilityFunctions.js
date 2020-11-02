@@ -1,8 +1,8 @@
-const isIe = require("@braintree/browser-detection/is-ie");
-const isChromeOS = require("@braintree/browser-detection/is-chrome-os");
-const isChrome = require("@braintree/browser-detection/is-chrome");
-const isEdge = require("@braintree/browser-detection/is-edge");
-const isIosSafari = require("@braintree/browser-detection/is-ios-safari");
+import isIe from '@braintree/browser-detection/is-ie';
+import isChromeOS from '@braintree/browser-detection/is-chrome-os';
+import isChrome from '@braintree/browser-detection/is-chrome';
+import isEdge from '@braintree/browser-detection/is-edge';
+import isIosSafari from '@braintree/browser-detection/is-ios-safari';
 
 let isEmpty  = (string) => {
     let that = this;

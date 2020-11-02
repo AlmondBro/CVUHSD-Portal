@@ -37,6 +37,10 @@ body {
     transition: 700ms filter linear;
 }
 
+body.transfer-to-it-modal-body--open {
+    overflow-y: hidden;
+}
+
 
 iframe {
     display: block;  
