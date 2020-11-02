@@ -49,7 +49,7 @@ const TransferToITModalContainer = styled(Modal).attrs(props => ({
 
    
   
-    width               : 30%;
+    width               : 80%;
 
     border              : 0px;
     border-radius       : 10px;
@@ -211,7 +211,7 @@ const NoCVTechsMessage = styled('p')`
 const InputSection = styled('p')`
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     
     width: 100%;
@@ -282,6 +282,7 @@ const StyledTextArea = styled('textarea')`
     color: black;
 `;
 
+
 const ModalTextInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, onChange }) => {
     return (
         <InputSection>
@@ -310,7 +311,30 @@ const ModalTextInputField = ({ title, inputType, placeholder, textArea, descript
     ); //end return statement
 }; //end ModalInputField
 
+const SelectInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, onChange }) => {
+    return (
+        <InputSection>
+            <StyledLabel>
+                <StyledHeader> { title } </StyledHeader>
+            </StyledLabel>
+
+            <SelectDropDownArrow className="select-drop-down-arrow">
+                <Select 
+                    name="it-transfer-select" 
+                    id="it-transfer-select"
+                    onChange= { onChange }
+                >
+                <option>hello</option>
+                </Select> 
+            </SelectDropDownArrow>
+            {/* <select style={{width: "70%"}}>
+                <option>test</option>
+            </select> */}
+        </InputSection>
+    ); //end return statement
+};
+
 
 export { 
     ModalTextInputField,
-    TransferToITModalContainer, CloseButton, Form, ModalTitle, SelectDropDownArrow, Select, TransferButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage };
+    TransferToITModalContainer, SelectInputField, CloseButton, Form, ModalTitle, SelectDropDownArrow, Select, TransferButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage };

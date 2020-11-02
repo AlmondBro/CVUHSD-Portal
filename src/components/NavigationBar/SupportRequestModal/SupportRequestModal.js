@@ -3,12 +3,12 @@ import React, { Fragment, useState } from 'react';
 import { faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { 
-    ModalTextInputField,
+    ModalTextInputField, SelectInputField, 
     TransferToITModalContainer, CloseButton, Form, ModalTitle, SelectDropDownArrow, Select, TransferButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
 
 
 const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
-  let [ isLoading, setIsLoading ] = useState(true);
+  let [ isLoading, setIsLoading ] = useState(false);
   let [ cvTechOptions, setCVTechOptions] = useState([]);
 
   let [ changedITUID, setChangedITUID ] = useState(itUID);
@@ -77,15 +77,7 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
             placeholder =   "What is the issue at hand?"
             textArea
          />
-        <SelectDropDownArrow className="select-drop-down-arrow">
-            <Select 
-                name="it-transfer-select" 
-                id="it-transfer-select"
-                onChange= { onChange }
-            >
-            <option>hello</option>
-            </Select> 
-        </SelectDropDownArrow>
+        <SelectInputField title = { "Category:" }/>
 
         <ModalTextInputField
             title       =   "Phone Extension:" 
@@ -98,36 +90,6 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
             inputType   =   "text"
             placeholder =   "Your location"
         />
-
-        {
-              isLoading ? (
-                <p>Loading CVTechs...</p>
-              ) : (
-                
-                   (cvTechOptions.length > 0) ? (
-                     <Fragment>
-                       <SelectDropDownArrow className="select-drop-down-arrow">
-                          <Select 
-                              name="it-transfer-select" 
-                              id="it-transfer-select"
-                              onChange= { onChange }
-                          >
-                            { cvTechOptions }
-                          </Select> 
-                       </SelectDropDownArrow>
-                     
-                      <TransferButton 
-                        className="transfer-button" 
-                        title="Transfer to Selected IT" 
-                        type="submit"
-                      >
-                        Transfer
-                      </TransferButton>
-                     </Fragment>
-                  )
-                  : ( <NoCVTechsMessage className="no-cv-techs-message">No Other CV Techs available</NoCVTechsMessage> )
-              )
-            }
         </Form>
         <TransferResultMessage className="transfer-result-message">
           {
