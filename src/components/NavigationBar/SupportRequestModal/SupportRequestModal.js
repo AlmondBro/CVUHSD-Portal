@@ -19,7 +19,7 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
     // let [ phoneExt, setPhoneExt ] = useState("");
     // let [ room, setRoom ] = useState("");
 
-    const [  formField, setFormField ] = useState({
+    const [ formField, setFormField ] = useState({
         supportRequestTitle :   "",
         category            :   "",
         description         :   "",
@@ -105,13 +105,15 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 inputType   =   "text"
                 placeholder =   "Support Request Title"
                 
-                onChange    =   { supportRequestTitle }
+                onChange    =   { onChange }   
+                value       =   { supportRequestTitle }
             />
             <SelectInputField
                 name        =   "category" 
                 title       =   { "Category:" }
-
-                onChange    =   {  category }
+                
+                onChange    =   { onChange }  
+                value       =   {  category }
             />
 
             <ModalTextInputField
@@ -119,15 +121,18 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 title       =   "Description:" 
                 inputType   =   "text"
                 placeholder =   "What is the issue at hand?"
-
-                onChange    =   { description }
+                
+                onChange    =   { onChange }  
+                value       =   { description }
             />
 
             <SelectInputField 
                 name        = "location"
                 title       = "Location:" 
 
-                onChange    =   { location}
+                value       =   { location }
+                onChange    =   { onChange }
+
             />
             
             <ModalTextInputField
@@ -136,7 +141,8 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 inputType   =   "text"
                 placeholder =   "Office Phone Ext."
 
-                onChange    =   { phoneExt }
+                value       =   { phoneExt }
+                onChange    =   { onChange }  
             />
 
             <ModalTextInputField
@@ -145,7 +151,8 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 inputType   =   "text"
                 placeholder =   "Your location"
 
-                onChange    =   { room }
+                value       =   { room }
+                onChange    =   { onChange }
             />
             <SubmitButton 
                 type    =   "submit"

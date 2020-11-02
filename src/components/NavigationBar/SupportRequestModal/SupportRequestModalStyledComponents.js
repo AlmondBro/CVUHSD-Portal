@@ -303,7 +303,7 @@ const StyledTextArea = styled('textarea')`
 `;
 
 
-const ModalTextInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, onChange }) => {
+const ModalTextInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange }) => {
     return (
         <InputSection>
             <StyledLabel>
@@ -312,18 +312,24 @@ const ModalTextInputField = ({ title, inputType, placeholder, textArea, descript
             {
                 textArea ? (
                     <StyledTextArea
-                        placeholder = { placeholder }
-                        rows        = { rows || "4"}
-                        cols        = { cols || "30"}
-                        onChange    =  { onChange }
+                        name        =   { name }
+                        placeholder =   { placeholder }
+                        rows        =   { rows || "4"}
+                        cols        =   { cols || "30"}
+
+                        value       =   { value }
+                        onChange    =   { onChange }
                     >
                         { description }
                     </StyledTextArea>
                 ) : ( 
                     <StyledInput 
-                            type        =   { inputType || "text" } 
-                            placeholder =   { placeholder } 
-                            onChange    =   { onChange }
+                        name        =   { name }
+                        type        =   { inputType || "text" } 
+                        placeholder =   { placeholder } 
+                        
+                        value       =   { value }
+                        onChange    =   { onChange }
                     />
                 )
             }
@@ -331,7 +337,7 @@ const ModalTextInputField = ({ title, inputType, placeholder, textArea, descript
     ); //end return statement
 }; //end ModalInputField
 
-const SelectInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, onChange }) => {
+const SelectInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange }) => {
     return (
         <InputSection>
             <StyledLabel>
@@ -340,9 +346,11 @@ const SelectInputField = ({ title, inputType, placeholder, textArea, description
 
             <SelectDropDownArrow className="select-drop-down-arrow">
                 <Select 
-                    name="it-transfer-select" 
-                    id="it-transfer-select"
-                    onChange= { onChange }
+                    name        =   { name } 
+                    id          =   "it-transfer-select"
+
+                    value       =   { value }
+                    onChange    =   { onChange }
                 >
                 <option>hello</option>
                 </Select> 
