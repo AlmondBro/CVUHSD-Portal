@@ -34,8 +34,10 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
   var subtitle;
 
   const onChange = (event) => {
-    setFormField( { [ event.target.name ] : event.target.value });
-    console.log(`${[ event.target.name ]} : ${event.target.value}`);
+    setFormField( { ...formField, [ event.target.name ] : event.target.value });
+    //console.log(`${[ event.target.name ]} : ${event.target.value}`);
+
+    console.log("Form field", formField);
   }; //end onChange() handler
 
 
@@ -47,11 +49,13 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
   }; //afterOpenModal()
 
   const submitRequest = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
     console.log("submit Request");
 
     alert(JSON.stringify(formField));
-    event.preventDefault();
-    event.stopPropagation();
+  
   }; //end submitRequest
 
   const bodyOpenClassName="transfer-to-it-modal-body--open",
@@ -106,14 +110,14 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 placeholder =   "Support Request Title"
                 
                 onChange    =   { onChange }   
-                value       =   { supportRequestTitle }
+                value       =   { formField.supportRequestTitle }
             />
             <SelectInputField
                 name        =   "category" 
                 title       =   { "Category:" }
                 
                 onChange    =   { onChange }  
-                value       =   {  category }
+                value       =   {  formField.category }
             />
 
             <ModalTextInputField
@@ -123,14 +127,14 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 placeholder =   "What is the issue at hand?"
                 
                 onChange    =   { onChange }  
-                value       =   { description }
+                value       =   { formField.description }
             />
 
             <SelectInputField 
                 name        = "location"
                 title       = "Location:" 
 
-                value       =   { location }
+                value       =   { formField.location }
                 onChange    =   { onChange }
 
             />
@@ -141,7 +145,7 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 inputType   =   "text"
                 placeholder =   "Office Phone Ext."
 
-                value       =   { phoneExt }
+                value       =   { formField.phoneExt }
                 onChange    =   { onChange }  
             />
 
@@ -151,7 +155,7 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 inputType   =   "text"
                 placeholder =   "Your location"
 
-                value       =   { room }
+                value       =   { formField.room }
                 onChange    =   { onChange }
             />
             <SubmitButton 

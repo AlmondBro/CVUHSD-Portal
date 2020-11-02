@@ -347,7 +347,7 @@ const SelectInputField = ({ title, inputType, placeholder, textArea, description
             <SelectDropDownArrow className="select-drop-down-arrow">
                 <Select 
                     name        =   { name } 
-                    id          =   "it-transfer-select"
+                    id          =   { `support-request-${name}`}
 
                     value       =   { value }
                     onChange    =   { onChange }
