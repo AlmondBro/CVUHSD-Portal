@@ -80,6 +80,10 @@ iframe {
     /* transition: transform 700ms ease-in-out; */
 }
 
+/* Prevent Buttons from having an outlined when clicked or focused */
+html > * button:focus {
+    outline: 0px;
+}
 
 /* Manage Engine Chat  */
 body > div#external_sdp_chat {

@@ -22,8 +22,9 @@ dotenv.config({
   debug   : false      
 }); //Load environmental variables
 
-const authRoutes = require('./routes/auth/auth-routes.js');
-const mainRoutes = require('./routes/main/main-routes.js');
+const authRoutes      = require('./routes/auth/auth-routes.js');
+const mainRoutes      = require('./routes/main/main-routes.js');
+const helpdeskRoutes  = require('./routes/helpdesk/helpdesk-routes.js');
 
 const app = express(); 
 
@@ -45,8 +46,8 @@ app.use(helmet());
 app.use(cors());
 app.options('*', cors()) // include before other routes
 
-const CVUHSD_CertificatePath = ("./../certificates/ssl-cvuhsd.cer");
-const ADFS_CertificatePath = ("./../certificates/ssl-cvuhsd.cer");
+const CVUHSD_CertificatePath  = ("./../certificates/ssl-cvuhsd.cer");
+const ADFS_CertificatePath    = ("./../certificates/ssl-cvuhsd.cer");
 
 //Inject certificates
 sslRootCAs.inject()
@@ -86,12 +87,13 @@ app.use(passport.session());
 
 app.use(requestIp.mw());
 
-const mainRoutesURL = `/`;
-const authRoutesURL = `${isDev ? "" : "/server"}/auth`
+const mainRoutesURL     = `/`;
+const authRoutesURL     = `${isDev ? "" : "/server"}/auth`;
+const helpdeskRoutesURL = `${isDev ? "" : "/server"}/helpdesk`;
 
-app.use(mainRoutesURL, mainRoutes); //Middleware to route to all the main routes
-app.use(authRoutesURL, authRoutes); //Middleware to route to all authorization routes
-
+app.use(mainRoutesURL, mainRoutes); //Middleware to route to all the main requests
+app.use(authRoutesURL, authRoutes); //Middleware to route to all authorization requests
+app.use(helpdeskRoutesURL, helpdeskRoutes);//Middleware to route to all helpdesk requests
 
 /*
   In Express, 404 responses are not the result of an error, so the 
