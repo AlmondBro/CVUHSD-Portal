@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { faLaptop } from '@fortawesome/free-solid-svg-icons';
 
 import { 
@@ -8,16 +8,11 @@ import {
 
 const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
     let [ isLoading, setIsLoading ] = useState(false);
-    let [ cvTechOptions, setCVTechOptions] = useState([]);
 
-    let [ changedITUID, setChangedITUID ] = useState(itUID);
+    let [ categories, setCategories ] = useState([]);
+    let [ locations, setLocations ] = useState([]);
 
-    // let [ supportRequestTitle, setSupportRequestTitle ] = useState("");
-    // let [ category, setCategory ] = useState("");
-    // let [ description, setDescription ] = useState("");
-    // let [ location, setLocation ] = useState("");
-    // let [ phoneExt, setPhoneExt ] = useState("");
-    // let [ room, setRoom ] = useState("");
+    let [ isRequestSuccessful, setIsRequestSuccessful ] = useState(null);
 
     const [ formField, setFormField ] = useState({
         supportRequestTitle :   "",
@@ -29,15 +24,10 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
         attachment          :   "",
     });
 
-  let [ isTransferSuccessful, setIsTransferSuccessful ] = useState(null);
-
   var subtitle;
 
   const onChange = (event) => {
     setFormField( { ...formField, [ event.target.name ] : event.target.value });
-    //console.log(`${[ event.target.name ]} : ${event.target.value}`);
-
-    console.log("Form field", formField);
   }; //end onChange() handler
 
 
@@ -52,11 +42,28 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
     event.preventDefault();
     event.stopPropagation();
 
-    console.log("submit Request");
-
     alert(JSON.stringify(formField));
-  
   }; //end submitRequest
+
+  const createDropdownOptions = (optionsArray) => {
+    let createdOptionsArray = [];
+
+    optionsArray.forEach((option, index) => {
+        let createdOption = (
+            <option
+                value   =   { option}
+                key     =   { index }
+            >
+                { option }
+            </option>
+        ); //end createdOption
+
+        createdOptionsArray.push(createdOption);
+    }); //end forEach()
+
+    return createdOptionsArray;
+  }; //end createDropdownOptions
+
 
   const bodyOpenClassName="transfer-to-it-modal-body--open",
         htmlOpenClassName="transfer-to-it-modal-html--open",
@@ -74,6 +81,24 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
         room,
         attachment 
     } = formField;
+
+    useEffect(() => {
+        const categoriesList =  [   "Computer Issue", "Printer Issue", "Projector Issue", "Password Issue", 
+                                    "Canvas", "PowerSchool", "Illuminate", "Google", "Wi-fi Issue", 
+                                    "Eno Pen -- Board", "Software Installation", "Student Chromebook",
+                                    "Phone Issue", "Other"
+                                ];
+
+        const locationsList =   [   "Lawndale", "Leuzinger", "Hawthorne", "District Office", "Lloyde", 
+                                    "CVISS", "Adult Ed", "Service Center"
+                                ];
+
+        const categoriesOptions =   createDropdownOptions(categoriesList);
+        const locationsOptions  =   createDropdownOptions(locationsList);
+
+        setCategories(categoriesOptions);
+        setLocations(locationsOptions);
+    }, []); //end useEffect()
 
   return (
       <TransferToITModalContainer
@@ -93,8 +118,13 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
         shouldCloseOnOverlayClick   =   { false }
         closeTimeoutMS              =   { 300 }
       >
+        <CloseButton 
+            title   =   "Close modal"
+            onClick =   { () => toggleModal(false) } 
 
-        <CloseButton onClick={ () => toggleModal(false) } title="Close modal">&times;</CloseButton>
+        >
+            &times;
+        </CloseButton>
         <Form onSubmit={ submitRequest }>
             <label htmlFor="it-transfer-select">
                 <ModalTitle ref={_subtitle => (subtitle = _subtitle)}>Tech Support Request</ModalTitle>
@@ -110,14 +140,16 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 placeholder =   "Support Request Title"
                 
                 onChange    =   { onChange }   
-                value       =   { formField.supportRequestTitle }
+                value       =   { supportRequestTitle }
             />
             <SelectInputField
                 name        =   "category" 
                 title       =   { "Category:" }
                 
+                options     =   { categories }
+
                 onChange    =   { onChange }  
-                value       =   {  formField.category }
+                value       =   {  category }
             />
 
             <ModalTextInputField
@@ -127,15 +159,16 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 placeholder =   "What is the issue at hand?"
                 
                 onChange    =   { onChange }  
-                value       =   { formField.description }
+                value       =   { description }
             />
 
             <SelectInputField 
                 name        = "location"
                 title       = "Location:" 
 
-                value       =   { formField.location }
-                onChange    =   { onChange }
+                options     =   { locations }
+                value       =   { location  }
+                onChange    =   { onChange  }
 
             />
             
@@ -145,7 +178,7 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 inputType   =   "text"
                 placeholder =   "Office Phone Ext."
 
-                value       =   { formField.phoneExt }
+                value       =   { phoneExt }
                 onChange    =   { onChange }  
             />
 
@@ -155,7 +188,7 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 inputType   =   "text"
                 placeholder =   "Your location"
 
-                value       =   { formField.room }
+                value       =   { room }
                 onChange    =   { onChange }
             />
             <SubmitButton 
@@ -167,8 +200,8 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
 
         <TransferResultMessage className="transfer-result-message">
           {
-            (isTransferSuccessful !== null) ?
-              ( (isTransferSuccessful === true) ? "Transfer successful \u2714" : 
+            (isRequestSuccessful !== null) ?
+              ( (isRequestSuccessful === true) ? "Transfer successful \u2714" : 
                   "Could not complete transfer \u00D7" 
               )
               : null

@@ -123,7 +123,7 @@ const SelectDropDownArrow = styled('div')`
     &:after {
         position: absolute;
         top: ${ (isSafari || isChrome) ? `0%;` : `0%;`};
-        left: 80%;
+        left: 95%;
 
         color: #B41A1F;
     
@@ -337,7 +337,7 @@ const ModalTextInputField = ({ title, inputType, placeholder, textArea, descript
     ); //end return statement
 }; //end ModalInputField
 
-const SelectInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange }) => {
+const SelectInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange, options }) => {
     return (
         <InputSection>
             <StyledLabel>
@@ -352,7 +352,7 @@ const SelectInputField = ({ title, inputType, placeholder, textArea, description
                     value       =   { value }
                     onChange    =   { onChange }
                 >
-                <option>hello</option>
+                    { options }
                 </Select> 
             </SelectDropDownArrow>
             {/* <select style={{width: "70%"}}>
