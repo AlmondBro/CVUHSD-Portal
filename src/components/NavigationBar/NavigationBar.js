@@ -26,7 +26,7 @@ import  {
 
 const NavigationBar = ({ title, districtPosition, renderAsStudent, location, modifyLogInStatus, modifyRenderAsStudent, clearState, logOut }) => {
     const  [ changePasswordModalIsOpen, setChangePasswordModalIsOpen ] = useState(false);
-    const  [ supportRequestModalIsOpen, setSupportRequestModalIsOpen ] = useState(true);
+    const  [ supportRequestModalIsOpen, setSupportRequestModalIsOpen ] = useState(false);
 
     let signOutClearState = () => {
         clearState();
