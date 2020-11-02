@@ -175,19 +175,24 @@ const Select = styled('select')`
     }
 `;
 
-const TransferButton = styled('button')`
+const SubmitButton = styled('button')`
+    max-width: 150px;
     color: white;
     background-color: #B41A1F;
 
-    padding: 10px;
+    padding: 8px;
     border-radius: 10px;
 
     outline: 0px;
     border: 0px;
     margin-top: 15px;
 
+
+    transition: 350ms ease-in-out background-color;
+
     :hover {
         cursor: pointer;
+        background-color: rgba(180, 26, 31, 0.9);
     }
 `;
 
@@ -352,4 +357,4 @@ const SelectInputField = ({ title, inputType, placeholder, textArea, description
 
 export { 
     ModalTextInputField,
-    TransferToITModalContainer, SelectInputField, CloseButton, Form, ModalTitle, SelectDropDownArrow, Select, TransferButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage };
+    TransferToITModalContainer, SelectInputField, CloseButton, Form, ModalTitle, SelectDropDownArrow, Select, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage };

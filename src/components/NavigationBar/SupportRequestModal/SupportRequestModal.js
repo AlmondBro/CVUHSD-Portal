@@ -6,7 +6,7 @@ import { faLaptop } from '@fortawesome/free-solid-svg-icons';
 
 import { 
     ModalTextInputField, SelectInputField, 
-    TransferToITModalContainer, CloseButton, Form, ModalTitle, SelectDropDownArrow, Select, TransferButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
+    TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
 
 
 const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
@@ -31,6 +31,10 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
 
       setIsLoading(false);
   }; //afterOpenModal()
+
+  const submitRequest = async () => {
+
+  }; //end submitRequest
 
   const bodyOpenClassName="transfer-to-it-modal-body--open",
         htmlOpenClassName="transfer-to-it-modal-html--open",
@@ -61,41 +65,47 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
 
         <CloseButton onClick={ () => toggleModal(false) } title="Close modal">&times;</CloseButton>
         <Form onSubmit={ () => console.log }>
-          <label htmlFor="it-transfer-select">
-              <ModalTitle ref={_subtitle => (subtitle = _subtitle)}>Support Request</ModalTitle>
-              <FAIconStyled
+            <label htmlFor="it-transfer-select">
+                <ModalTitle ref={_subtitle => (subtitle = _subtitle)}>Support Request</ModalTitle>
+                <FAIconStyled
                     icon    =   { faLaptop }
-              />
-          </label>
+                />
+            </label>
 
-         <ModalTextInputField
+            <ModalTextInputField
             title       =   "Title:" 
             inputType   =   "text"
             placeholder =   "Support Request Title"
-         />
-        <SelectInputField title = { "Category:" }/>
+            />
+            <SelectInputField title = { "Category:" }/>
 
-        <ModalTextInputField
-            title       =   "Description:" 
-            inputType   =   "text"
-            placeholder =   "What is the issue at hand?"
-            textArea
-         />
+            <ModalTextInputField
+                title       =   "Description:" 
+                inputType   =   "text"
+                placeholder =   "What is the issue at hand?"
+                textArea
+                />
 
-        <SelectInputField title = { "Location:" }/>
-        
-        <ModalTextInputField
-            title       =   "Phone Extension:" 
-            inputType   =   "text"
-            placeholder =   "Office Phone Ext."
-        />
+            <SelectInputField title = { "Location:" }/>
+            
+            <ModalTextInputField
+                title       =   "Phone Extension:" 
+                inputType   =   "text"
+                placeholder =   "Office Phone Ext."
+            />
 
-        <ModalTextInputField
-            title       =   "Office/ Room Number:" 
-            inputType   =   "text"
-            placeholder =   "Your location"
-        />
+            <ModalTextInputField
+                title       =   "Office/ Room Number:" 
+                inputType   =   "text"
+                placeholder =   "Your location"
+            />
+            <SubmitButton 
+                type    =   "submit"
+            >
+                Submit Request
+            </SubmitButton>
         </Form>
+
         <TransferResultMessage className="transfer-result-message">
           {
             (isTransferSuccessful !== null) ?
