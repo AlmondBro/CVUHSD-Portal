@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from 'react-modal';
 
@@ -338,10 +339,38 @@ const ModalTextInputField = ({ title, inputType, placeholder, textArea, descript
 }; //end ModalInputField
 
 const SelectInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange, options }) => {
+    
+    const [ optionsDropdowns, setOptions] = useState([]);
+
+    const createDropdownOptions = (options) => {
+        let createdOptionsArray = [];
+    
+        options.forEach((option, index) => {
+            let createdOption = (
+                <option
+                    value   =   { option}
+                    key     =   { index }
+                >
+                    { option }
+                </option>
+            ); //end createdOption
+    
+            createdOptionsArray.push(createdOption);
+        }); //end forEach()
+    
+        return createdOptionsArray;
+    }; //end createDropdownOptions()
+
+    useEffect(() => {
+        const createdOptions = createDropdownOptions(options);
+
+        setOptions(createdOptions);
+    }, []); //end useEffect()
+
     return (
         <InputSection>
             <StyledLabel>
-                <StyledHeader> { title } </StyledHeader>
+                <StyledHeader>{ title }</StyledHeader>
             </StyledLabel>
 
             <SelectDropDownArrow className="select-drop-down-arrow">
@@ -352,7 +381,7 @@ const SelectInputField = ({ title, inputType, placeholder, textArea, description
                     value       =   { value }
                     onChange    =   { onChange }
                 >
-                    { options }
+                    { optionsDropdowns }
                 </Select> 
             </SelectDropDownArrow>
             {/* <select style={{width: "70%"}}>

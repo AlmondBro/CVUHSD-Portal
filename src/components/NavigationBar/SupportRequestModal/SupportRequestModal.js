@@ -45,26 +45,6 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
     alert(JSON.stringify(formField));
   }; //end submitRequest
 
-  const createDropdownOptions = (optionsArray) => {
-    let createdOptionsArray = [];
-
-    optionsArray.forEach((option, index) => {
-        let createdOption = (
-            <option
-                value   =   { option}
-                key     =   { index }
-            >
-                { option }
-            </option>
-        ); //end createdOption
-
-        createdOptionsArray.push(createdOption);
-    }); //end forEach()
-
-    return createdOptionsArray;
-  }; //end createDropdownOptions
-
-
   const bodyOpenClassName="transfer-to-it-modal-body--open",
         htmlOpenClassName="transfer-to-it-modal-html--open",
         overlayClassName="transfer-to-it-modal-overlay",
@@ -82,22 +62,20 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
         attachment 
     } = formField;
 
+    const categoriesList =  [   "Computer Issue", "Printer Issue", "Projector Issue", "Password Issue", 
+                                "Canvas", "PowerSchool", "Illuminate", "Google", "Wi-fi Issue", 
+                                "Eno Pen -- Board", "Software Installation", "Student Chromebook",
+                                "Phone Issue", "Other"
+                            ];
+
+    const locationsList =   [   "Lawndale", "Leuzinger", "Hawthorne", "District Office", "Lloyde", 
+                                "CVISS", "Adult Ed", "Service Center"
+                            ];
+
+
     useEffect(() => {
-        const categoriesList =  [   "Computer Issue", "Printer Issue", "Projector Issue", "Password Issue", 
-                                    "Canvas", "PowerSchool", "Illuminate", "Google", "Wi-fi Issue", 
-                                    "Eno Pen -- Board", "Software Installation", "Student Chromebook",
-                                    "Phone Issue", "Other"
-                                ];
-
-        const locationsList =   [   "Lawndale", "Leuzinger", "Hawthorne", "District Office", "Lloyde", 
-                                    "CVISS", "Adult Ed", "Service Center"
-                                ];
-
-        const categoriesOptions =   createDropdownOptions(categoriesList);
-        const locationsOptions  =   createDropdownOptions(locationsList);
-
-        setCategories(categoriesOptions);
-        setLocations(locationsOptions);
+        setCategories(categoriesList);
+        setLocations(locationsList);
     }, []); //end useEffect()
 
   return (
