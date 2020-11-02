@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
 
-import { faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
+import { faLaptop } from '@fortawesome/free-solid-svg-icons';
+
+
 
 import { 
     ModalTextInputField, SelectInputField, 
@@ -62,7 +64,7 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
           <label htmlFor="it-transfer-select">
               <ModalTitle ref={_subtitle => (subtitle = _subtitle)}>Support Request</ModalTitle>
               <FAIconStyled
-                    icon    =   { faExchangeAlt }
+                    icon    =   { faLaptop }
               />
           </label>
 
@@ -71,14 +73,17 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
             inputType   =   "text"
             placeholder =   "Support Request Title"
          />
+        <SelectInputField title = { "Category:" }/>
+
         <ModalTextInputField
             title       =   "Description:" 
             inputType   =   "text"
             placeholder =   "What is the issue at hand?"
             textArea
          />
-        <SelectInputField title = { "Category:" }/>
 
+        <SelectInputField title = { "Location:" }/>
+        
         <ModalTextInputField
             title       =   "Phone Extension:" 
             inputType   =   "text"

@@ -3,11 +3,11 @@ import Modal from 'react-modal';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-// import { isSafari, isChrome } from  './../../../utilityFunctions.js'
+import { isSafari, isChromeBrowser as isChrome } from  './../../../utilityFunctions.js';
 
 Modal.setAppElement('#cvuhsd-sso-portal');
 
-let isSafari, isChrome = false;
+// let isSafari, isChrome = false;
 
 const TransferToITModalContainer = styled(Modal).attrs(props => ({
     // title: (props) => props.title,
@@ -30,7 +30,7 @@ const TransferToITModalContainer = styled(Modal).attrs(props => ({
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.25)',
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
               zIndex: 10,
             }
 
@@ -69,20 +69,28 @@ const TransferToITModalContainer = styled(Modal).attrs(props => ({
 `; //end TransferToITModalContainer
 
 const CloseButton = styled('button')`
-    border: 0px;
-    outline: 0px;
-    background-color: transparent;
-    font-size: 1.4em;
-    color: #B41A1F;
+    position: absolute;
+    top: 0;
+    left: 97%;
+
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+
+    color: #B41A1F;
+    background-color: transparent;
+
+    font-size: 1.4em;
+
     margin: 0;
-    padding: 0;
     margin-left: auto;
+
+    padding: 0;
     padding-right: 15px;
     padding-top: 7px;
 
+    border: 0px;
+    outline: 0px;
 
     :hover {
         cursor: pointer;
@@ -109,18 +117,18 @@ const ModalTitle = styled('h3')`
 const SelectDropDownArrow = styled('div')`
     position: relative;
   /*Don't really need this just for demo styling*/
-  
-    float: left;
 
     &:after {
+        position: absolute;
+        top: ${ (isSafari || isChrome) ? `0%;` : `0%;`};
+        left: 80%;
+
+        color: #B41A1F;
+    
         ${ (isSafari || isChrome) ? null : `font-family: "Font Awesome 5 Free"`};
         ${ (isSafari || isChrome) ? `font-weight: bold;` : null};
         ${ (isSafari || isChrome) ? `content: "\u2193"` : `content: '\f107';`};
 
-        color: #B41A1F;
-        right: -5px;
-        top: ${ (isSafari || isChrome) ? `20px;` : `25px;`};
-        position: absolute;
         pointer-events: none;
     }
 `;
@@ -132,12 +140,17 @@ const Select = styled('select')`
 
     max-width: 100%;
 
-    border: 0px;
+    border-width: 0px;
+    border-color: rgba(147,30,29,0.21);
+    border-radius: 10px;
+
     outline: 0px;
 
-    margin-top: 15px;
+    margin-top: 0px;
 
-    padding: 10px;
+    padding: 0px 15px;
+    padding-left: 5px;
+    /* 10px 15px 10px 4px; */
 
     /* box-shadow: 5px 5px 30px -11px rgba(0,0,0,0.75); */
 
