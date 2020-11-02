@@ -146,12 +146,12 @@ const NavigationBar = ({ title, districtPosition, renderAsStudent, location, mod
                         {   
                             (districtPosition.toLowerCase() !== "student") ? ( 
                                 <NavBarListItemLi 
-                                    to={
-                                        {
-                                            pathname    : renderAsStudent ? "/staff" : "/student",
-                                            state       : { renderAsStudent: (location.pathname === "/staff") ? "true" : false } 
-                                        }
-                                    }
+                                    to                  =   {
+                                                                {
+                                                                    pathname    : renderAsStudent ? "/staff" : "/student",
+                                                                    state       : { renderAsStudent: (location.pathname === "/staff") ? "true" : false } 
+                                                                }
+                                                            }
                                     renderAsStudent     =   { renderAsStudent }
                                     bulletPointInMobile =   { true } 
                                     title               =   { (location.pathname === "/staff") ? "Student Portal" : "Staff Portal" }        

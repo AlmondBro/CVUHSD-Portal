@@ -315,7 +315,7 @@ const ModalTextInputField = ({ title, inputType, placeholder, textArea, descript
                         placeholder = { placeholder }
                         rows        = { rows || "4"}
                         cols        = { cols || "30"}
-                        onChange    =   { onChange }
+                        onChange    =  { onChange }
                     >
                         { description }
                     </StyledTextArea>
@@ -323,7 +323,7 @@ const ModalTextInputField = ({ title, inputType, placeholder, textArea, descript
                     <StyledInput 
                             type        =   { inputType || "text" } 
                             placeholder =   { placeholder } 
-                            // onChange    =   { onChange }
+                            onChange    =   { onChange }
                     />
                 )
             }
