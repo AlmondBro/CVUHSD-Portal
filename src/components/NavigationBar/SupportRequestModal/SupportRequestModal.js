@@ -91,9 +91,11 @@ const SupportRequestModal = ({ fullName, email, toggleModal, modalIsOpen, itUID 
     window.alert(JSON.stringify(submitReqResponse));
 
     if (submitReqResponse) {
-        const responseStatus = submitReqResponse["response_status"].status_code;
+        const responseStatus = submitReqResponse["response_status"].status;
 
         setIsLoading(false);
+
+        alert("responseStatus:\t", responseStatus);
 
         if (responseStatus === "success") {
             setIsRequestSuccessful(true);
@@ -149,11 +151,16 @@ const SupportRequestModal = ({ fullName, email, toggleModal, modalIsOpen, itUID 
         setLocations(locationsList);
     }, []); //end useEffect()
 
+    const onClose = () => {
+        setIsRequestSuccessful(null);
+        toggleModal(false);
+    }; //end onClose
+
   return (
       <TransferToITModalContainer
         isOpen                      =   { modalIsOpen }
         onAfterOpen                 =   { afterOpenModal }
-        onRequestClose              =   { () => toggleModal(false) }
+        onRequestClose              =   { onClose }
 
         contentLabel                =   { "Transfer to IT Modal" }
         portalClassName             =   { portalClassName }
