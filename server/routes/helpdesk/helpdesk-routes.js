@@ -20,31 +20,35 @@ const createSDPRequest = async (
         'technician_key'    :   process.env.SDP_TECH_KEY
     };
 
-    const input_data = {
+    const request_details = {
         request: {
-            subject: "Test Ticket 1",
-            description: "Test Ticket 1",
+            subject: "Test Ticket 3",
+            description: "Test Ticket 3",
             requester: {
-                id: "4",
                 name: "Lopez, Juan David",
-                email_id: "lopezj@centinela.k12.ca.us"
+                email_id: "lopezj@centinela.k12.ca.us",
+            },
+            site: { 
+                name: "Lawndale High School"
+            },
+            category: {
+                name: "Computer Issue"
             },
             status: {
                 name: "Open"
-            }
+            },
+            // phone: "(310) 263-3288",
+            // profile_pic_url: "https://www.zooborns.com/.a/6a010535647bf3970b015433fc97e2970c-500wi"
         }
     };
 
     let sdpCreateReqResponse = await fetch(sdpCreateRequestsURL, {
         method: 'POST',
         headers: sdpCreateRequestsURLHeaders,
-        body: `input_data=${JSON.stringify(input_data)}`
+        body: `input_data=${JSON.stringify(request_details)}`
     })
     .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
-    .then((response) => {
-        console.log("response JSON:\t", response);
-        return response;
-    })
+    .then((jsonResponse) => jsonResponse)
     .catch((error) => {
         toastNotify(error);
         console.error(`Catching error:\t ${error}`);

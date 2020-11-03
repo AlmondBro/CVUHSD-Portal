@@ -138,6 +138,7 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 
                 onChange    =   { onChange }  
                 value       =   { description }
+                textArea
             />
 
             <SelectInputField 

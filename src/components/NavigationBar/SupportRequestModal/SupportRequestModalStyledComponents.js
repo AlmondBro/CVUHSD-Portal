@@ -269,17 +269,15 @@ const StyledInput = styled('input')`
     padding: 5px 5px 5px 10px;
    
     /* #EFEFEF; */
-    
-    /* ${ props => props.title ?
+    color: ${ props => props.title ?
                                     ( (props.title === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
-                        }; */
-
-    color: black;
+            };
 `;
 
 const StyledTextArea = styled('textarea')`
+    max-height: 100%;
     width: 70%;
 
     border: 1px;
@@ -291,16 +289,14 @@ const StyledTextArea = styled('textarea')`
     outline: 0px; 
 
     padding: 5px 5px 5px 10px;
-   
-    /* #EFEFEF; */
-    
-    /* ${ props => props.title ?
+
+    resize: none;
+
+    color: ${ props => props.title ?
                                     ( (props.title === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
-                        }; */
-
-    color: black;
+        };
 `;
 
 
@@ -315,7 +311,7 @@ const ModalTextInputField = ({ title, inputType, placeholder, textArea, descript
                     <StyledTextArea
                         name        =   { name }
                         placeholder =   { placeholder }
-                        rows        =   { rows || "4"}
+                        rows        =   { rows || "3"}
                         cols        =   { cols || "30"}
 
                         value       =   { value }
