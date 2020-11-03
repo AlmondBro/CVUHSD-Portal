@@ -31,7 +31,7 @@ const TransferToITModalContainer = styled(Modal).attrs(props => ({
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
               zIndex: 10,
             }
 
@@ -256,7 +256,7 @@ const StyledHeader = styled('h3')`
 `;
 
 const StyledInput = styled('input')`
-    width: 70%;
+    width: ${props => props.width};
 
     border: 1px;
     border-style: solid;
@@ -300,7 +300,7 @@ const StyledTextArea = styled('textarea')`
 `;
 
 
-const ModalTextInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange }) => {
+const ModalTextInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }) => {
     return (
         <InputSection>
             <StyledLabel>
@@ -316,6 +316,7 @@ const ModalTextInputField = ({ title, inputType, placeholder, textArea, descript
 
                         value       =   { value }
                         onChange    =   { onChange }
+                        required    =   { required }
                     >
                         { description }
                     </StyledTextArea>
@@ -323,10 +324,12 @@ const ModalTextInputField = ({ title, inputType, placeholder, textArea, descript
                     <StyledInput 
                         name        =   { name }
                         type        =   { inputType || "text" } 
-                        placeholder =   { placeholder } 
+                        placeholder =   { placeholder }
+                        width       =   { width || "70%"} 
                         
                         value       =   { value }
                         onChange    =   { onChange }
+                        required    =   { required }
                     />
                 )
             }

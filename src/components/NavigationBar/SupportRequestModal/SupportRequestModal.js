@@ -85,11 +85,11 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
         onRequestClose              =   { () => toggleModal(false) }
 
         contentLabel                =   { "Transfer to IT Modal" }
-        portalClassName             =   { portalClassName }
-        overlayClassName            =   { overlayClassName }
-        className                   =   { contentClassName }
-        bodyOpenClassName           =   { bodyOpenClassName }
-        htmlOpenClassName           =   "transfer-to-it-modal-html--open"
+        // portalClassName             =   { portalClassName }
+        // overlayClassName            =   { overlayClassName }
+        // className                   =   { contentClassName }
+        // bodyOpenClassName           =   { bodyOpenClassName }
+        // htmlOpenClassName           =   "transfer-to-it-modal-html--open"
         
         // parentSelector           =   { () => document.getElementById(parentSelectorID)}
 
@@ -119,6 +119,8 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 
                 onChange    =   { onChange }   
                 value       =   { supportRequestTitle }
+
+                required
             />
             <SelectInputField
                 name        =   "category" 
@@ -138,7 +140,9 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
                 
                 onChange    =   { onChange }  
                 value       =   { description }
+                required
                 textArea
+                
             />
 
             <SelectInputField 
@@ -153,9 +157,9 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
             
             <ModalTextInputField
                 name        =   "phoneExt"
-                title       =   "Phone Extension:" 
+                title       =   "Phone Ext./ Number:" 
                 inputType   =   "text"
-                placeholder =   "Office Phone Ext."
+                placeholder =   "A telephone/cell number to reach you by. Leave extension if staff member. "
 
                 value       =   { phoneExt }
                 onChange    =   { onChange }  
