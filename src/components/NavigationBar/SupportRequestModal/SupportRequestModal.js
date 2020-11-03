@@ -158,7 +158,7 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
             <ModalTextInputField
                 name        =   "phoneExt"
                 title       =   "Phone Ext./ Number:" 
-                inputType   =   "number"
+                inputType   =   "tel"
                 placeholder =   "A telephone/cell number to reach you by (no parentheses). Leave extension if staff member. "
 
                 value       =   { phoneExt }

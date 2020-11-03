@@ -274,6 +274,20 @@ const StyledInput = styled('input')`
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
             };
+
+    /* Hide increment arrow spinners on number text fields */
+     /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        /* margin: 0; */
+    }
+
+    /* Firefox */
+    input[type=number] {
+        appearance: textfield;
+        -moz-appearance: textfield;
+    }       
 `;
 
 const StyledTextArea = styled('textarea')`
