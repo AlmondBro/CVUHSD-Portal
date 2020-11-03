@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { faLaptop } from '@fortawesome/free-solid-svg-icons';
 
 import isDev from 'isdev';
+import ReactLoading from 'react-loading';
+
 import { 
     ModalTextInputField, SelectInputField, 
     TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
@@ -42,6 +44,8 @@ const SupportRequestModal = ({ fullName, email, toggleModal, modalIsOpen, itUID 
   const submitRequest = async (event) => {
     event.preventDefault();
     event.stopPropagation();
+
+    setIsLoading(true);
 
     alert(JSON.stringify(formField));
 
@@ -85,6 +89,30 @@ const SupportRequestModal = ({ fullName, email, toggleModal, modalIsOpen, itUID 
     });
 
     window.alert(JSON.stringify(submitReqResponse));
+
+    if (submitReqResponse) {
+        const responseStatus = submitReqResponse["response_status"].status_code;
+
+        setIsLoading(false);
+
+        if (responseStatus === "success") {
+            setIsRequestSuccessful(true);
+        } else {
+            setIsRequestSuccessful(false);
+        }
+
+        //Reset the form field after submitting.
+        setFormField({
+            supportRequestTitle :   "",
+            category            :   "",
+            description         :   "",
+            location            :   "",
+            phoneExt            :   "",
+            room                :   "",
+            attachment          :   "",
+        });
+    }
+
     return submitReqResponse;
   }; //end submitRequest
 
@@ -112,7 +140,7 @@ const SupportRequestModal = ({ fullName, email, toggleModal, modalIsOpen, itUID 
                             ];
 
     const locationsList =   [   "Lawndale High School", "Leuzinger High School", "Hawthorne High School", "District Office", "Lloyde High School", 
-                                "CV Indepedent Study", "Adult Ed", "Service Center"
+                                "CV Independent Study", "Adult Ed", "Service Center"
                             ];
 
 
@@ -220,15 +248,23 @@ const SupportRequestModal = ({ fullName, email, toggleModal, modalIsOpen, itUID 
             <SubmitButton 
                 type    =   "submit"
             >
-                Submit Request
+                {
+                    isLoading ? (
+                        <ReactLoading 
+                            type    =   "bubbles"
+                            width   =   "30px" 
+                            height  =   "30px" 
+                            color   =   "white"
+                        /> ) : "Submit Request"
+                }
             </SubmitButton>
         </Form>
 
         <TransferResultMessage className="transfer-result-message">
           {
             (isRequestSuccessful !== null) ?
-              ( (isRequestSuccessful === true) ? "Transfer successful \u2714" : 
-                  "Could not complete transfer \u00D7" 
+              ( (isRequestSuccessful === true) ? "Success! Submitted Request \u2714" : 
+                  "Submitting request failed \u00D7" 
               )
               : null
           }
