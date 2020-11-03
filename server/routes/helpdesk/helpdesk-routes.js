@@ -5,23 +5,25 @@ import fetch from 'node-fetch';
 
 const router = Router();
 
-const createSDPRequest = async ()  => {
-    /* //Headers:
-    'Content-Type': 'application/json',
-        'credentials': 'include',
-        'Access-Control-Allow-Origin': '*',
-    */
+const createSDPRequest = async (
+    supportRequestTitle,
+    category,
+    description,
+    location,
+    phoneExt,
+    room,
+    attachment )  => {
     const sdpCreateRequestsURL = `${process.env.SDP_URL}/api/v3/requests`; 
 
     const sdpCreateRequestsURLHeaders = {
-        'Content-Type'      : 'application/json',
+        'Content-Type'      :   'application/x-www-form-urlencoded',
         'technician_key'    :   process.env.SDP_TECH_KEY
     };
 
     const input_data = {
         request: {
-            subject: "Test Ticket",
-            description: "Test Ticket",
+            subject: "Test Ticket 1",
+            description: "Test Ticket 1",
             requester: {
                 id: "4",
                 name: "Lopez, Juan David",
@@ -36,7 +38,7 @@ const createSDPRequest = async ()  => {
     let sdpCreateReqResponse = await fetch(sdpCreateRequestsURL, {
         method: 'POST',
         headers: sdpCreateRequestsURLHeaders,
-        body: JSON.stringify(input_data)
+        body: `input_data=${JSON.stringify(input_data)}`
     })
     .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
     .then((response) => {
