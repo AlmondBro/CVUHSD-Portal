@@ -6,6 +6,7 @@ import fetch from 'node-fetch';
 const router = Router();
 
 const createSDPRequest = async (
+    email,
     supportRequestTitle,
     category,
     description,
@@ -22,17 +23,17 @@ const createSDPRequest = async (
 
     const request_details = {
         request: {
-            subject: "Test Ticket 3",
-            description: "Test Ticket 3",
+            subject: supportRequestTitle || "Test Ticket 3",
+            description:  description || "Test Ticket 3",
             requester: {
-                name: "Lopez, Juan David",
-                email_id: "lopezj@centinela.k12.ca.us",
+                //name: "Lopez, Juan David",
+                email_id: email,
             },
             site: { 
-                name: "Lawndale High School"
+                name: location || "Lawndale High School"
             },
             category: {
-                name: "Computer Issue"
+                name: category || "Computer Issue"
             },
             status: {
                 name: "Open"
@@ -50,7 +51,6 @@ const createSDPRequest = async (
     .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
     .then((jsonResponse) => jsonResponse)
     .catch((error) => {
-        toastNotify(error);
         console.error(`Catching error:\t ${error}`);
     });
 
@@ -58,7 +58,8 @@ const createSDPRequest = async (
 };
 
 router.post('/request/create', async (req, res) => {
-    let {     
+    let {   
+        email,  
         supportRequestTitle,
         category,
         description,
@@ -68,8 +69,15 @@ router.post('/request/create', async (req, res) => {
         attachment 
     } = req.body;
 
-
-    const sdpCreateReqResponse = await createSDPRequest();
+    const sdpCreateReqResponse = await createSDPRequest(
+                                    email,
+                                    supportRequestTitle,
+                                    category,
+                                    description,
+                                    location,
+                                    phoneExt,
+                                    room,
+                                    attachment );
     return res.json({ ...sdpCreateReqResponse });
 });
 

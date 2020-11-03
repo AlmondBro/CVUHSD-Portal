@@ -11,7 +11,7 @@ import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader,
 //Import 3rd-party APIs
 import greeting from 'greeting';
 
-const Header = ( { location, fullName, modifyLogInStatus, renderAsStudent, logOut, clearState, title, site, gradeLevel, modifyRenderAsStudent, portalHeaderTextDisplay, districtName, headerTitle }) => {
+const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent, logOut, clearState, title, site, gradeLevel, modifyRenderAsStudent, portalHeaderTextDisplay, districtName, headerTitle }) => {
     let parseSchoolName = (site) => {
         if (site && (site !== "Centinela Valley Independent Study School" )) {
             console.log("Site:\t" + site);
@@ -59,18 +59,19 @@ const Header = ( { location, fullName, modifyLogInStatus, renderAsStudent, logOu
     return (
         <Fragment>
             <NavigationBarHeader 
-                className="app-header navigation-bar-header"
-                districtPosition={districtPosition}
-                renderAsStudent={renderAsStudent} 
+                className           =   "app-header navigation-bar-header"
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent } 
             >
                 <NavigationBar
-                    className="navigation-bar"
-                    districtPosition={title}
-                    modifyLogInStatus={modifyLogInStatus}
-                    renderAsStudent={renderAsStudent}  
-                    modifyRenderAsStudent={modifyRenderAsStudent}
-                    clearState={clearState}
-                    logOut={logOut}
+                    className               =   "navigation-bar"
+                    districtPosition        =   { title }
+                    email                   =   { email }
+                    modifyLogInStatus       =   { modifyLogInStatus }
+                    renderAsStudent         =   { renderAsStudent }  
+                    modifyRenderAsStudent   =   { modifyRenderAsStudent }
+                    clearState              =   { clearState }
+                    logOut                  =   { logOut }
                 />
             </NavigationBarHeader>
 

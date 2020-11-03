@@ -27,7 +27,7 @@ const PageContentLoading = styled("div")`
     margin: 0 auto;
 `;
 
-const PageContent = ({fullName, title, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent }) => {
+const PageContent = ({fullName, email, title, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent }) => {
   //let [ renderAsStudentTwo, setRenderAsStudent ] = useState(renderAsStudent || location.state.renderAsStudent);
   //undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
   
@@ -142,20 +142,22 @@ const PageContent = ({fullName, title, site, renderAsStudent, gradeLevel, locati
 
   return (
     <Fragment>
-        <Header districtName="CVUHSD" 
-                headerTitle="Portal" 
-                fullName={ fullName || "CVUHSD User"} 
-                title={title}
-                site={site}
-                gradeLevel={gradeLevel}
+        <Header 
+                districtName          = "CVUHSD" 
+                headerTitle           = "Portal" 
+                fullName              = { fullName || "CVUHSD User"}
+                email                 = { email } 
+                title                 = { title }
+                site                  = { site  }
+                gradeLevel            = { gradeLevel }
 
                 //modifyLogInStatus={ this.modifyLogInStatus }
-                modifyTitle={modifyTitle}
-                modifySite={modifySite}
-                modifyRenderAsStudent={modifyRenderAsStudent}
-                logOut={logOut}
-                clearState={clearState}
-                renderAsStudent={(window.location.pathname === "/student")}
+                modifyTitle           = { modifyTitle }
+                modifySite            = { modifySite }
+                modifyRenderAsStudent = { modifyRenderAsStudent}
+                logOut                = { logOut}
+                clearState            = { clearState}
+                renderAsStudent       = { (window.location.pathname === "/student") }
         />
                 <div className="page-content">
                     { generateBlueSections(blueSection_objectsArrayProps) } 

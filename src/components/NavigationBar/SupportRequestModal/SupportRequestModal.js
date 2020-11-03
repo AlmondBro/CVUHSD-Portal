@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { faLaptop } from '@fortawesome/free-solid-svg-icons';
 
+import isDev from 'isdev';
 import { 
     ModalTextInputField, SelectInputField, 
     TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
 
 
-const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
+const SupportRequestModal = ({ email, toggleModal, modalIsOpen, itUID }) => {
     let [ isLoading, setIsLoading ] = useState(false);
 
     let [ categories, setCategories ] = useState([]);
@@ -43,6 +44,46 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
     event.stopPropagation();
 
     alert(JSON.stringify(formField));
+
+    let {     
+        supportRequestTitle,
+        category,
+        description,
+        location,
+        phoneExt,
+        room,
+        attachment 
+    } = formField;
+
+    let supportReqDetails = {
+        email,
+        supportRequestTitle,
+        category,
+        description,
+        location,
+        phoneExt,
+        room
+    }
+
+    const submitRequest_URL = `${isDev ? "" : "/server"}/helpdesk/request/create`;
+    const submitRequest_headers = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Credentials": true
+    };
+
+    let submitReqResponse = await fetch(submitRequest_URL, {
+        method: 'POST',
+        headers: submitRequest_headers,
+        body: JSON.stringify({ ...supportReqDetails} )
+    })
+    .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
+    .then((jsonResponse) => jsonResponse)
+    .catch((error) => {
+        console.error(`Catching error:\t ${error}`);
+    });
+
+    return submitReqResponse;
   }; //end submitRequest
 
   const bodyOpenClassName="transfer-to-it-modal-body--open",

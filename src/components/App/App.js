@@ -326,6 +326,7 @@ class App extends Component {
                             path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
                             component             = { PageContent} 
                             fullName              = { this.state.firstName + " " + this.state.lastName }
+                            email                 = { this.state.email }
                             title                 = { this.state.title }
                             site                  = { this.state.site }
                             renderAsStudent       = { this.state.renderAsStudent }
