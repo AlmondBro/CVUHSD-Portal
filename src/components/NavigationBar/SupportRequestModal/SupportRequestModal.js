@@ -83,6 +83,7 @@ const SupportRequestModal = ({ email, toggleModal, modalIsOpen, itUID }) => {
         console.error(`Catching error:\t ${error}`);
     });
 
+    window.alert(JSON.stringify(submitReqResponse));
     return submitReqResponse;
   }; //end submitRequest
 
@@ -109,8 +110,8 @@ const SupportRequestModal = ({ email, toggleModal, modalIsOpen, itUID }) => {
                                 "Phone Issue", "Other"
                             ];
 
-    const locationsList =   [   "Lawndale", "Leuzinger", "Hawthorne", "District Office", "Lloyde", 
-                                "CVISS", "Adult Ed", "Service Center"
+    const locationsList =   [   "Lawndale High School", "Leuzinger High School", "Hawthorne High School", "District Office", "Lloyde High School", 
+                                "CV Indepedent Study", "Adult Ed", "Service Center"
                             ];
 
 
@@ -187,8 +188,8 @@ const SupportRequestModal = ({ email, toggleModal, modalIsOpen, itUID }) => {
             />
 
             <SelectInputField 
-                name        = "location"
-                title       = "Location:" 
+                name        =   "location"
+                title       =   "Location:" 
 
                 options     =   { locations }
                 value       =   { location  }
