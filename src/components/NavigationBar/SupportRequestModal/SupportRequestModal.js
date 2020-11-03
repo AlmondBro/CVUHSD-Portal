@@ -85,11 +85,11 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
         onRequestClose              =   { () => toggleModal(false) }
 
         contentLabel                =   { "Transfer to IT Modal" }
-        // portalClassName             =   { portalClassName }
-        // overlayClassName            =   { overlayClassName }
-        // className                   =   { contentClassName }
-        // bodyOpenClassName           =   { bodyOpenClassName }
-        // htmlOpenClassName           =   "transfer-to-it-modal-html--open"
+        portalClassName             =   { portalClassName }
+        overlayClassName            =   { overlayClassName }
+        className                   =   { contentClassName }
+        bodyOpenClassName           =   { bodyOpenClassName }
+        htmlOpenClassName           =   "transfer-to-it-modal-html--open"
         
         // parentSelector           =   { () => document.getElementById(parentSelectorID)}
 
@@ -158,8 +158,8 @@ const SupportRequestModal = ({ toggleModal, modalIsOpen, itUID }) => {
             <ModalTextInputField
                 name        =   "phoneExt"
                 title       =   "Phone Ext./ Number:" 
-                inputType   =   "text"
-                placeholder =   "A telephone/cell number to reach you by. Leave extension if staff member. "
+                inputType   =   "number"
+                placeholder =   "A telephone/cell number to reach you by (no parentheses). Leave extension if staff member. "
 
                 value       =   { phoneExt }
                 onChange    =   { onChange }  
