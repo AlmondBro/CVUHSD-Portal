@@ -7,7 +7,7 @@ import {
     TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
 
 
-const SupportRequestModal = ({ email, toggleModal, modalIsOpen, itUID }) => {
+const SupportRequestModal = ({ fullName, email, toggleModal, modalIsOpen, itUID }) => {
     let [ isLoading, setIsLoading ] = useState(false);
 
     let [ categories, setCategories ] = useState([]);
@@ -56,6 +56,7 @@ const SupportRequestModal = ({ email, toggleModal, modalIsOpen, itUID }) => {
     } = formField;
 
     let supportReqDetails = {
+        fullName,
         email,
         supportRequestTitle,
         category,

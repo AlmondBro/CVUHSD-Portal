@@ -6,6 +6,7 @@ import fetch from 'node-fetch';
 const router = Router();
 
 const createSDPRequest = async (
+    fullName,
     email,
     supportRequestTitle,
     category,
@@ -21,12 +22,13 @@ const createSDPRequest = async (
         'technician_key'    :   process.env.SDP_TECH_KEY
     };
 
+    console.log("\nfullName:\t", fullName);
     const request_details = {
         request: {
             subject: supportRequestTitle || "Test Ticket 3",
             description:  description || "Test Ticket 3",
             requester: {
-                //name: "Lopez, Juan David",
+                name: fullName,
                 email_id: email,
             },
             site: { 
@@ -59,6 +61,7 @@ const createSDPRequest = async (
 
 router.post('/request/create', async (req, res) => {
     let {   
+        fullName,
         email,  
         supportRequestTitle,
         category,
@@ -70,6 +73,7 @@ router.post('/request/create', async (req, res) => {
     } = req.body;
 
     const sdpCreateReqResponse = await createSDPRequest(
+                                    fullName,
                                     email,
                                     supportRequestTitle,
                                     category,
