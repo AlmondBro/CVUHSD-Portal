@@ -210,7 +210,7 @@ const NavigationBar = ({ title, email, districtPosition, renderAsStudent, locati
                                         districtPosition    =   { districtPosition }
                                         renderAsStudent     =   { renderAsStudent }
 
-                                >   Support Request
+                                >   Submit Support Request
                                     {/* <FontAwesomeIcon 
                                         icon        =   { faLaptop } 
                                         className   =   "icon"
