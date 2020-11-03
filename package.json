@@ -32,6 +32,7 @@
     "isdev": "^1.0.1",
     "jquery": "^3.4.1",
     "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.1",
     "passport": "^0.4.1",
     "passport-oauth": "^1.0.0",
     "raf": "^3.4.1",
