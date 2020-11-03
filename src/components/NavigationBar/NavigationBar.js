@@ -330,6 +330,7 @@ const NavigationBar = ({ fullName, title, email, districtPosition, renderAsStude
                 modalIsOpen         =   { supportRequestModalIsOpen }
                 toggleModal         =   { toggleSupportRequestModal }
 
+                title               =   { title }
                 fullName            =   { fullName }
                 email               =   { email }
                 districtPosition    =   { districtPosition }
