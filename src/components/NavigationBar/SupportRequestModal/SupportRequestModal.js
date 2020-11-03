@@ -99,20 +99,21 @@ const SupportRequestModal = ({ fullName, email, toggleModal, modalIsOpen, itUID 
 
         if (responseStatus === "success") {
             setIsRequestSuccessful(true);
+
+            //Reset the form field after submitting.
+            setFormField({
+                supportRequestTitle :   "",
+                category            :   "",
+                description         :   "",
+                location            :   "",
+                phoneExt            :   "",
+                room                :   "",
+                attachment          :   "",
+            });
         } else {
             setIsRequestSuccessful(false);
         }
 
-        //Reset the form field after submitting.
-        setFormField({
-            supportRequestTitle :   "",
-            category            :   "",
-            description         :   "",
-            location            :   "",
-            phoneExt            :   "",
-            room                :   "",
-            attachment          :   "",
-        });
     }
 
     return submitReqResponse;
@@ -269,11 +270,10 @@ const SupportRequestModal = ({ fullName, email, toggleModal, modalIsOpen, itUID 
 
         <TransferResultMessage className="transfer-result-message">
           {
-            (isRequestSuccessful !== null) ?
+            (isRequestSuccessful === null) ? null :
               ( (isRequestSuccessful === true) ? "Success! Submitted Request \u2714" : 
                   "Submitting request failed \u00D7" 
               )
-              : null
           }
         </TransferResultMessage>
       </TransferToITModalContainer>
