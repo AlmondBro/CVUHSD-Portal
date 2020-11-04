@@ -152,7 +152,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     useEffect(() => {
         setCategories(categoriesList);
         setLocations(locationsList);
-    }, [ ]); //end useEffect()
+    }, [ site ]); //end useEffect()
 
     const onClose = () => {
         setIsRequestSuccessful(null);

@@ -168,69 +168,56 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
 
                         { generateNavBarListItems(staff_HeaderLinks) }
 
-                        {
-                            site ? 
-                                (
-                                    <NavBarListItemLi 
-                                    bulletPointInMobile =   {   true    }
-                                    renderAsStudent     =   {   renderAsStudent }
-                                    onClick             =   {   () => toggleSupportRequestModal(true) }
-                                >
-                                    <Tooltip
-                                        placement               =   { "bottom" }
-                                        mouseEnterDelay         =   { 0 }
-                                        mouseLeaveDelay         =   { 0.03 }   
-                                        destroyTooltipOnHide    =   { true }
-                                        trigger                 =   { ['hover','click','focus'] }
-                                        overlay                 =   {
-                                                                        <div 
-                                                                            style={
-                                                                                { 
-                                                                                    height: "100%", 
-                                                                                    width: "100%" 
-                                                                                }
-                                                                            }
-                                                                        >
-                                                                            Submit a helpdesk request for tech support 
-                                                                            <div  style={
-                                                                                    {
-                                                                                        display: "inline-block",
-                                                                                        marginLeft: "5px"
-                                                                                    }
-                                                                                }>
-                                                                                <FontAwesomeIcon 
-                                                                                    icon        =   { faLaptop } 
-                                                                                    className   =   "icon"
-                                                                                /> 
-                                                                            </div>
-                                                                            
-                                                                        </div>
+                        <NavBarListItemLi 
+                            bulletPointInMobile =   {   true    }
+                            renderAsStudent     =   {   renderAsStudent }
+                            onClick             =   {   () => toggleSupportRequestModal(true) }
+                        >
+                            <Tooltip
+                                placement               =   { "bottom" }
+                                mouseEnterDelay         =   { 0 }
+                                mouseLeaveDelay         =   { 0.03 }   
+                                destroyTooltipOnHide    =   { true }
+                                trigger                 =   { ['hover','click','focus'] }
+                                overlay                 =   {
+                                                                <div 
+                                                                    style={
+                                                                        { 
+                                                                            height: "100%", 
+                                                                            width: "100%" 
+                                                                        }
                                                                     }
-                                        transitionName={"rc-tooltip-zoom"}
-                                    >
-                                        <NavBarButton   
-                                                title               =   { "Support Request"}  
-                                                districtPosition    =   { districtPosition }
-                                                renderAsStudent     =   { renderAsStudent }
-        
-                                        >   Submit Support Request
-                                            {/* <FontAwesomeIcon 
-                                                icon        =   { faLaptop } 
-                                                className   =   "icon"
-                                            />  */}
-                                        </NavBarButton>
-                                    </Tooltip>
-                                </NavBarListItemLi>
-                            ) : (
-                                <ReactLoading 
-                                    type    =   { "cubes" }
-                                    height  =   { '30px' } 
-                                    width   =   { '30px' } 
-                                    color   =   { (title !== "Student") ? "#931E1D": "#1E6C93" }
-                                /> 
-                            )
-                        }
-                      
+                                                                >
+                                                                    Submit a helpdesk request for tech support 
+                                                                    <div  style={
+                                                                            {
+                                                                                display: "inline-block",
+                                                                                marginLeft: "5px"
+                                                                            }
+                                                                        }>
+                                                                        <FontAwesomeIcon 
+                                                                            icon        =   { faLaptop } 
+                                                                            className   =   "icon"
+                                                                        /> 
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            }
+                                transitionName={"rc-tooltip-zoom"}
+                            >
+                                <NavBarButton   
+                                        title               =   { "Support Request"}  
+                                        districtPosition    =   { districtPosition }
+                                        renderAsStudent     =   { renderAsStudent }
+
+                                >   Submit Support Request
+                                    {/* <FontAwesomeIcon 
+                                        icon        =   { faLaptop } 
+                                        className   =   "icon"
+                                    />  */}
+                                </NavBarButton>
+                            </Tooltip>
+                        </NavBarListItemLi>
                         { 
                             (districtPosition.toLowerCase() !== "student") ? 
                             ( 
@@ -330,21 +317,17 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
             }
             
         </NavBar>
-        <Fragment>
-        {
-                site ? (
-                    <SupportRequestModal 
-                        modalIsOpen         =   { supportRequestModalIsOpen }
-                        toggleModal         =   { toggleSupportRequestModal }
-        
-                        fullName            =   { fullName }
-                        email               =   { email }
-                        site                =   { site }
-                        districtPosition    =   { districtPosition }
-                        renderAsStudent     =   { renderAsStudent }                  
-                    />
-                ) : null
-        }
+        <Fragment>  
+            <SupportRequestModal 
+                modalIsOpen         =   { supportRequestModalIsOpen }
+                toggleModal         =   { toggleSupportRequestModal }
+
+                fullName            =   { fullName }
+                email               =   { email }
+                site                =   { site }
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }                  
+            />
         </Fragment>
             <ChangePassword 
                 modalIsOpen         =   { changePasswordModalIsOpen }
