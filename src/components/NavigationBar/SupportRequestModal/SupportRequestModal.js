@@ -156,7 +156,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                                         "District Office", "Lloyde High School", "CV Independent Study", "Adult Ed", 
                                         "Service Center"
                                     ];
-                                    
+
         setCategories(categoriesList);
         setLocations(locationsList);
     }, [ site, districtPosition ]); //end useEffect()
@@ -253,15 +253,20 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                 onChange    =   { onChange }  
             />
 
-            <ModalTextInputField
-                name        =   "room"
-                title       =   "Office/ Room Number:" 
-                inputType   =   "text"
-                placeholder =   "Your location"
-
-                value       =   { room }
-                onChange    =   { onChange }
-            />
+            {
+                (districtPosition.toLowerCase() === "student") ? null : (
+                    <ModalTextInputField
+                        name        =   "room"
+                        title       =   "Office/ Room Number:" 
+                        inputType   =   "text"
+                        placeholder =   "Your location"
+        
+                        value       =   { room }
+                        onChange    =   { onChange }
+                    />
+                ) 
+            }
+         
             <SubmitButton 
                 type    =   "submit"
             >
