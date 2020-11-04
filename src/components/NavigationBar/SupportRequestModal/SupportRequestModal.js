@@ -153,7 +153,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     
         const locationsList =   (districtPosition.toLowerCase() === "student") ? [ site.toString() ] :
                                     [   "Lawndale High School", "Leuzinger High School", "Hawthorne High School", 
-                                        "District Office", "Lloyde High School", "CV Independent Study", "Adult Ed", 
+                                        "District Office", "Lloyde High School", "CV Independent Study", 
                                         "Service Center"
                                     ];
 
