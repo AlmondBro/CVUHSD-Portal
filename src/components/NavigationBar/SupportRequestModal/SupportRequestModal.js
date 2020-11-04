@@ -185,12 +185,14 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         shouldReturnFocusAfterClose =   { true }
         //onRequestClose              =   { onClose }
 
-        contentLabel                =   { "Transfer to IT Modal" }
-        portalClassName             =   { portalClassName }
-        overlayClassName            =   { overlayClassName }
-        className                   =   { contentClassName }
-        bodyOpenClassName           =   { bodyOpenClassName }
-        htmlOpenClassName           =   "transfer-to-it-modal-html--open"
+        contentLabel                =   { "Support Request Modal" }
+
+        // portalClassName             =   { portalClassName }
+        // overlayClassName            =   { overlayClassName }
+        // bodyOpenClassName           =   { bodyOpenClassName }
+        // htmlOpenClassName           =   "transfer-to-it-modal-html--open"
+        // className                   =   { contentClassName }
+
         
         // parentSelector           =   { () => document.getElementById(parentSelectorID)}
 
