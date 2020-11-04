@@ -17,6 +17,8 @@ body {
     width: 100%;
     display: block;
     /* table-cell; */
+
+    transition: 300ms filter linear;
 }
 
 html, body {
@@ -24,23 +26,10 @@ html, body {
     padding: 0px;
 }
 
-body.ReactModal__Body--open {
-    overflow-y: hidden;
-}
-
-body.ReactModal__Body--open > :not(.ReactModalPortal) {
-/* filter: blur(5px); */
-}
-
 body {
     filter: blur(0px);
     transition: 700ms filter linear;
 }
-
-body.transfer-to-it-modal-body--open {
-    overflow-y: hidden;
-}
-
 
 iframe {
     display: block;  
@@ -49,6 +38,15 @@ iframe {
 }
 
 /* === TRANSFER TO IT MODAL === */
+
+body.ReactModal__Body--open > :not(.ReactModalPortal) {
+    filter: blur(3px);
+}
+
+/* body.ReactModal__Body--open > div.transfer-to-it-modal {
+    filter: blur(0px);
+}  */
+
 /* Prevent there from being a scroll to the Transfer to IT Modal */
 .ReactModal__Html--open,
 .ReactModal__Body--open {
