@@ -170,7 +170,8 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
       <TransferToITModalContainer
         isOpen                      =   { modalIsOpen }
         onAfterOpen                 =   { afterOpenModal }
-        onRequestClose              =   { onClose }
+        onAfterClose                =   { onClose }
+        //onRequestClose              =   { onClose }
 
         contentLabel                =   { "Transfer to IT Modal" }
         portalClassName             =   { portalClassName }
