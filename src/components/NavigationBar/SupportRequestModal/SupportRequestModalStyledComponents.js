@@ -80,7 +80,7 @@ const CloseButton = styled('button')`
     justify-content: flex-end;
 
     color: ${ props => props.districtPosition ?
-                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
             };
@@ -113,7 +113,7 @@ const Form = styled('form')`
 const ModalTitle = styled('h3')`
     display: inline-block;
     color: ${ props => props.districtPosition ?
-                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
             };
@@ -139,7 +139,7 @@ const SelectDropDownArrow = styled('div')`
         left: 95%;
 
         color: ${ props => props.districtPosition ?
-                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
             };
@@ -159,7 +159,7 @@ const SelectDropDownArrow = styled('div')`
 const Select = styled('select')`
     appearance: none;
     color: ${ props => props.districtPosition ?
-                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#B41A1F": "#1E6C93"
                                     :  "#B41A1F" 
                      };
@@ -204,7 +204,7 @@ const SubmitButton = styled('button')`
     max-width: 150px;
     color: white;
     background-color: ${ props => props.districtPosition ?
-                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#B41A1F": "#1E6C93"
                                     :  "#B41A1F" 
                      };
@@ -228,7 +228,7 @@ const SubmitButton = styled('button')`
 
 const FAIconStyled = styled(FontAwesomeIcon)`
    color: ${ props => props.districtPosition ?
-                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
             };
@@ -293,7 +293,7 @@ const StyledInput = styled('input')`
     border: 1px;
     border-style: solid;
     border-color: ${ props => props.districtPosition ?
-                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
                                     : " rgba(147, 30, 29, 0.21)" 
                      };
@@ -308,7 +308,7 @@ const StyledInput = styled('input')`
    
     /* #EFEFEF; */
     color: ${ props => props.districtPosition ?
-                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
             };
@@ -335,7 +335,7 @@ const StyledTextArea = styled('textarea')`
     border: 1px;
     border-style: solid;
     border-color: ${ props => props.districtPosition ?
-                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
                                     : " rgba(147, 30, 29, 0.21)" 
                      };
