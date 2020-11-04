@@ -47,7 +47,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
 
     setIsLoading(true);
 
-    alert(JSON.stringify(formField));
+    // window.alert(JSON.stringify(formField));
 
     let {     
         supportRequestTitle,
@@ -88,14 +88,14 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         console.error(`Catching error:\t ${error}`);
     });
 
-    window.alert(JSON.stringify(submitReqResponse));
+    // window.alert(JSON.stringify(submitReqResponse));
 
     if (submitReqResponse) {
         const responseStatus = submitReqResponse["response_status"].status;
 
         setIsLoading(false);
 
-        alert("responseStatus:\t", responseStatus);
+        // window.alert("responseStatus:\t", responseStatus);
 
         if (responseStatus === "success") {
             setIsRequestSuccessful(true);

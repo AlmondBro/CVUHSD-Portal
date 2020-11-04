@@ -1,6 +1,4 @@
 import { Router } from 'express';
-import isDev from 'isdev';
-
 import fetch from 'node-fetch';
 
 const router = Router();
@@ -25,17 +23,25 @@ const createSDPRequest = async (
     console.log("\nfullName:\t", fullName);
     const request_details = {
         request: {
-            subject: supportRequestTitle || "Test Ticket 3",
-            description:  description || "Test Ticket 3",
+            subject: supportRequestTitle || "Test Ticket 32",
+            description:  description || "Test Ticket 32",
             requester: {
-                name: fullName,
-                email_id: email,
+                name: fullName || "",
+                email_id: email || "lopezj@centinela.k12.ca.us",
             },
             site: { 
-                name: location || "Lawndale High School"
+                name: location || "Leuzinger High School"
+            },
+            template: {
+                name: "Helpdesk Ticket",
+            },
+            udf_fields: {
+                udf_pick_301: location || "Leuzinger High School",
+                udf_sline_601: phoneExt || 3288,
+                
             },
             category: {
-                name: category || "Computer Issue"
+                name: category || "Student Chromebook"
             },
             status: {
                 name: "Open"
