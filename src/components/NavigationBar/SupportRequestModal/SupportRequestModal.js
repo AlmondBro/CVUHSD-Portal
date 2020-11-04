@@ -88,7 +88,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         console.error(`Catching error:\t ${error}`);
     });
 
-    // window.alert(JSON.stringify(submitReqResponse));
+    window.alert(JSON.stringify(submitReqResponse));
 
     if (submitReqResponse) {
         const responseStatus = submitReqResponse["response_status"].status;
@@ -171,6 +171,8 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         isOpen                      =   { modalIsOpen }
         onAfterOpen                 =   { afterOpenModal }
         onAfterClose                =   { onClose }
+        shouldCloseOnEsc            =   { true }
+        shouldReturnFocusAfterClose =   { true }
         //onRequestClose              =   { onClose }
 
         contentLabel                =   { "Transfer to IT Modal" }

@@ -23,6 +23,7 @@ const TransferToITModalContainer = styled(Modal).attrs(props => ({
     bodyOpenClassName: props.bodyOpenClassName,
     htmlOpenClassName: props.htmlOpenClassName,
     parentSelector: props.parentSelector,
+    shouldCloseOnEsc: props.shouldCloseOnEsc,
 
     style:{
             overlay: {
