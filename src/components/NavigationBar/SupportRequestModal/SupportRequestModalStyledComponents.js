@@ -79,7 +79,11 @@ const CloseButton = styled('button')`
     flex-direction: row;
     justify-content: flex-end;
 
-    color: #B41A1F;
+    color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
+            };
     background-color: transparent;
 
     font-size: 1.4em;
@@ -108,9 +112,14 @@ const Form = styled('form')`
 
 const ModalTitle = styled('h3')`
     display: inline-block;
-    color: #B41A1F;
+    color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
+            };
 
     font-size: 1.5em;
+    font-weight: bold;
 
     margin: 0px;
     margin-bottom: 10px;
@@ -129,7 +138,11 @@ const SelectDropDownArrow = styled('div')`
         top: ${ (isSafari || isChrome) ? `0%;` : `0%;`};
         left: 95%;
 
-        color: #B41A1F;
+        color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
+            };
     
         ${ (isSafari || isChrome) ? null : `font-family: "Font Awesome 5 Free"`};
         ${ (isSafari || isChrome) ? `font-weight: bold;` : null};
@@ -145,7 +158,11 @@ const SelectDropDownArrow = styled('div')`
 
 const Select = styled('select')`
     appearance: none;
-    color: #B41A1F;
+    color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                        "#B41A1F": "#1E6C93"
+                                    :  "#B41A1F" 
+                     };
     font-style: italic;
 
     max-width: 100%;
@@ -186,7 +203,11 @@ const Select = styled('select')`
 const SubmitButton = styled('button')`
     max-width: 150px;
     color: white;
-    background-color: #B41A1F;
+    background-color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                        "#B41A1F": "#1E6C93"
+                                    :  "#B41A1F" 
+                     };
 
     padding: 8px;
     border-radius: 10px;
@@ -206,7 +227,11 @@ const SubmitButton = styled('button')`
 
 
 const FAIconStyled = styled(FontAwesomeIcon)`
-   color: #B41A1F;
+   color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
+            };
    margin-left: 10px;
 
    font-size: ${props => props.fontSize ? props.fontSize : "1.0em"};
@@ -255,8 +280,8 @@ const StyledHeader = styled('h3')`
     font-size: 1em;
     font-weight: bold;
     margin-right: 10px;
-    color:      ${ props => props.title ?
-                                    ( (props.title === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+    color:      ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
                         }; 
@@ -267,7 +292,13 @@ const StyledInput = styled('input')`
 
     border: 1px;
     border-style: solid;
-    border-color: rgba(147, 30, 29, 0.21);
+    border-color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                        " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
+                                    : " rgba(147, 30, 29, 0.21)" 
+                     };
+    
+   
     /* #d8d8d8 */
     border-radius: 10px;
 
@@ -276,8 +307,8 @@ const StyledInput = styled('input')`
     padding: 5px 5px 5px 10px;
    
     /* #EFEFEF; */
-    color: ${ props => props.title ?
-                                    ( (props.title === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+    color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
             };
@@ -303,7 +334,11 @@ const StyledTextArea = styled('textarea')`
 
     border: 1px;
     border-style: solid;
-    border-color: rgba(147, 30, 29, 0.21);
+    border-color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || props.pathname === "/student") ? 
+                                        " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
+                                    : " rgba(147, 30, 29, 0.21)" 
+                     };
     /* #d8d8d8 */
     border-radius: 10px;
 
@@ -313,44 +348,53 @@ const StyledTextArea = styled('textarea')`
 
     resize: none;
 
-    color: ${ props => props.title ?
-                                    ( (props.title === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+    color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
         };
 `;
 
 
-const ModalTextInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }) => {
+const ModalTextInputField = ({ districtPosition, title, pathname, inputType, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }) => {
     return (
         <InputSection>
             <StyledLabel>
-                <StyledHeader> { title } </StyledHeader>
+                <StyledHeader 
+                    districtPosition    =   { districtPosition.toLowerCase() }
+
+                > 
+                    { title } 
+                </StyledHeader>
             </StyledLabel>
             {
                 textArea ? (
                     <StyledTextArea
-                        name        =   { name }
-                        placeholder =   { placeholder }
-                        rows        =   { rows || "3"}
-                        cols        =   { cols || "30"}
+                        name                =   { name }
+                        placeholder         =   { placeholder }
+                        rows                =   { rows || "3"}
+                        cols                =   { cols || "30"}
 
-                        value       =   { value }
-                        onChange    =   { onChange }
-                        required    =   { required }
+                        value               =   { value }
+                        onChange            =   { onChange }
+                        required            =   { required }
+
+                        districtPosition    =   { districtPosition.toLowerCase() }
                     >
                         { description }
                     </StyledTextArea>
                 ) : ( 
                     <StyledInput 
-                        name        =   { name }
-                        type        =   { inputType || "text" } 
-                        placeholder =   { placeholder }
-                        width       =   { width || "70%"} 
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        name                =   { name }
+                        type                =   { inputType || "text" } 
+                        placeholder         =   { placeholder }
+                        width               =   { width || "70%"} 
+                        pathname            =   { pathname }
                         
-                        value       =   { value }
-                        onChange    =   { onChange }
-                        required    =   { required }
+                        value               =   { value }
+                        onChange            =   { onChange }
+                        required            =   { required }
                     />
                 )
             }
@@ -358,7 +402,7 @@ const ModalTextInputField = ({ title, inputType, placeholder, textArea, descript
     ); //end return statement
 }; //end ModalInputField
 
-const SelectInputField = ({ title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange, options }) => {
+const SelectInputField = ({ districtPosition, title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange, options }) => {
     
     const [ optionsDropdowns, setOptions] = useState([]);
 
@@ -390,19 +434,20 @@ const SelectInputField = ({ title, inputType, placeholder, textArea, description
     return (
         <InputSection>
             <StyledLabel>
-                <StyledHeader>{ title }</StyledHeader>
+                <StyledHeader districtPosition = { districtPosition }>{ title }</StyledHeader>
             </StyledLabel>
 
             <SelectDropDownArrow 
-                optionsDropdowns    =  { optionsDropdowns} 
+                districtPosition    =   { districtPosition.toLowerCase() }
+                optionsDropdowns    =   { optionsDropdowns} 
                 className           =   "select-drop-down-arrow"
             >
                 <Select 
-                    name        =   { name } 
-                    id          =   { `support-request-${name}`}
-
-                    value       =   { value }
-                    onChange    =   { onChange }
+                    name                =   { name } 
+                    id                  =   { `support-request-${name}`}
+                    districtPosition    =   { districtPosition }
+                    value               =   { value }
+                    onChange            =   { onChange }
                 >
                     { optionsDropdowns }
                 </Select> 

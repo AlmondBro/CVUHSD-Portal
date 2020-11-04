@@ -137,8 +137,6 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     } = formField;
 
     
-
-
     useEffect(() => {
         const categoriesList = (districtPosition.toLowerCase() === "student") ?   [ 
             "Password Issue", "Canvas", "PowerSchool", "Illuminate", "Google", "Wi-fi Issue", 
@@ -200,90 +198,106 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         closeTimeoutMS              =   { 300 }
       >
         <CloseButton 
-            title   =   "Close modal"
-            onClick =   { () => toggleModal(false) } 
-
+            title               =   "Close modal"
+            districtPosition    =   { districtPosition.toLowerCase() }
+            onClick             =   { () => toggleModal(false) } 
         >
             &times;
         </CloseButton>
         <Form onSubmit={ submitRequest }>
             <label htmlFor="it-transfer-select">
-                <ModalTitle ref={_subtitle => (subtitle = _subtitle)}>Tech Support Request</ModalTitle>
+                <ModalTitle 
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                    ref                 =   {_subtitle => (subtitle = _subtitle)} 
+                >
+                    Tech Support Request
+                </ModalTitle>
                 <FAIconStyled
-                    icon    =   { faLaptop }
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                    icon                =   { faLaptop }
                 />
             </label>
 
             <ModalTextInputField
-                name        =   "supportRequestTitle"
-                title       =   "Title:" 
-                inputType   =   "text"
-                placeholder =   "Support Request Title"
+                name                =   "supportRequestTitle"
+                title               =   "Title:" 
+                districtPosition    =   { districtPosition.toLowerCase() }
+                inputType           =   "text"
+                placeholder         =   "Support Request Title"
                 
-                onChange    =   { onChange }   
-                value       =   { supportRequestTitle }
+                onChange            =   { onChange }   
+                value               =   { supportRequestTitle }
 
                 required
             />
             <SelectInputField
-                name        =   "category" 
-                title       =   { "Category:" }
+                name                =   "category" 
+                title               =   { "Category:" }
+                districtPosition    =   { districtPosition.toLowerCase() }
                 
-                options     =   { categories }
+                options             =   { categories }
 
-                onChange    =   { onChange }  
-                value       =   {  category }
+                onChange            =   { onChange }  
+                value               =   {  category }
             />
 
             <ModalTextInputField
-                name        =   "description"
-                title       =   "Description:" 
-                inputType   =   "text"
-                placeholder =   "What is the issue at hand?"
+                name                =   "description"
+                title               =   "Description:" 
+                districtPosition    =   { districtPosition.toLowerCase() }
+
+                inputType           =   "text"
+                placeholder         =   "What is the issue at hand?"
                 
-                onChange    =   { onChange }  
-                value       =   { description }
+                onChange            =   { onChange }  
+                value               =   { description }
                 required
                 textArea
                 
             />
 
             <SelectInputField 
-                name        =   "location"
-                title       =   "Location:" 
-
-                options     =   { locations }
-                value       =   { location  }
-                onChange    =   { onChange  }
+                name                =   "location"
+                title               =   "Location:" 
+                districtPosition    =   { districtPosition.toLowerCase() }
+                
+                options             =   { locations }
+                value               =   { location  }
+                onChange            =   { onChange  }
 
             />
             
             <ModalTextInputField
-                name        =   "phoneExt"
-                title       =   "Phone Ext./ Number:" 
-                inputType   =   "tel"
-                placeholder =   "A telephone/cell number to reach you by (no parentheses). Leave extension if staff member. "
+                name                =   "phoneExt"
+                title               =   "Phone Ext./ Number:" 
+                districtPosition    =   { districtPosition.toLowerCase() }
 
-                value       =   { phoneExt }
-                onChange    =   { onChange }  
+                inputType           =   "tel"
+                placeholder         =   "A telephone/cell number to reach you by (no parentheses). Leave extension if staff member. "
+
+                value               =   { phoneExt }
+                onChange            =   { onChange }  
             />
 
             {
                 (districtPosition.toLowerCase() === "student") ? null : (
                     <ModalTextInputField
-                        name        =   "room"
-                        title       =   "Office/ Room Number:" 
-                        inputType   =   "text"
-                        placeholder =   "Your location"
+                        name                =   "room"
+                        title               =   "Office/ Room Number:" 
+                        districtPosition    =   { districtPosition }
+
+                        inputType           =   "text"
+                        placeholder         =   "Your location"
         
-                        value       =   { room }
-                        onChange    =   { onChange }
+                        value               =   { room }
+                        onChange            =   { onChange }
                     />
                 ) 
             }
          
             <SubmitButton 
-                type    =   "submit"
+                districtPosition    = { districtPosition.toLowerCase() }
+                type                =   "submit"
             >
                 {
                     isLoading ? (
