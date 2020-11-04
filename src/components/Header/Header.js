@@ -68,6 +68,7 @@ const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent
                     districtPosition        =   { title }
                     fullName                =   { fullName }
                     email                   =   { email }
+                    site                    =   { site }
                     modifyLogInStatus       =   { modifyLogInStatus }
                     renderAsStudent         =   { renderAsStudent }  
                     modifyRenderAsStudent   =   { modifyRenderAsStudent }

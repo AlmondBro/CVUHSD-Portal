@@ -116,15 +116,14 @@ const PageContent = ({fullName, email, title, site, renderAsStudent, gradeLevel,
     return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
         return (
             <BlueSection 
-                blueSectionName={blueSection_Object.blueSectionName}
-                expanded={ blueSection_Object.expanded }
-                headerTitle={blueSection_Object.headerTitle}
-                buttonRowID={blueSection_Object.buttonRowID}
-                buttons={blueSection_Object.buttons}
-                key={index}
-                title={title || "Student"}
-                renderAsStudent={(window.location.pathname === "/student")}
-                // {this.renderAsStudent || this.props.location.state.renderAsStudent}
+                blueSectionName = { blueSection_Object.blueSectionName }
+                expanded        = { blueSection_Object.expanded }
+                headerTitle     = { blueSection_Object.headerTitle  }
+                buttonRowID     = { blueSection_Object.buttonRowID  }
+                buttons         = { blueSection_Object.buttons  }
+                key             = { index }
+                title           = { title || "Student"  }
+                renderAsStudent = { (window.location.pathname === "/student") }
             />
         ); //end return statement
     }); //end outer return statement
@@ -151,7 +150,6 @@ const PageContent = ({fullName, email, title, site, renderAsStudent, gradeLevel,
                 site                  = { site  }
                 gradeLevel            = { gradeLevel }
 
-                //modifyLogInStatus={ this.modifyLogInStatus }
                 modifyTitle           = { modifyTitle }
                 modifySite            = { modifySite }
                 modifyRenderAsStudent = { modifyRenderAsStudent}

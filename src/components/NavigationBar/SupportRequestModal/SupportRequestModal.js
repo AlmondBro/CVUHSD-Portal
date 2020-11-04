@@ -9,11 +9,11 @@ import {
     TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
 
 
-const SupportRequestModal = ({ title, fullName, email, toggleModal, modalIsOpen, itUID }) => {
-    let [ isLoading, setIsLoading ] = useState(false);
+const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID }) => {
+    let [ isLoading, setIsLoading ]     = useState(false);
 
-    let [ categories, setCategories ] = useState([]);
-    let [ locations, setLocations ] = useState([]);
+    let [ categories, setCategories ]   = useState([]);
+    let [ locations, setLocations ]     = useState([]);
 
     let [ isRequestSuccessful, setIsRequestSuccessful ] = useState(null);
 
@@ -142,15 +142,17 @@ const SupportRequestModal = ({ title, fullName, email, toggleModal, modalIsOpen,
                                 "Phone Issue", "Other"
                             ];
 
-    const locationsList =   [   "Lawndale High School", "Leuzinger High School", "Hawthorne High School", "District Office", "Lloyde High School", 
-                                "CV Independent Study", "Adult Ed", "Service Center"
-                            ];
+    const locationsList =   (districtPosition.toLowerCase() === "student") ? [ site.toString() ] :
+                                [   "Lawndale High School", "Leuzinger High School", "Hawthorne High School", 
+                                    "District Office", "Lloyde High School", "CV Independent Study", "Adult Ed", 
+                                    "Service Center"
+                                ];
 
 
     useEffect(() => {
         setCategories(categoriesList);
         setLocations(locationsList);
-    }, []); //end useEffect()
+    }, [ ]); //end useEffect()
 
     const onClose = () => {
         setIsRequestSuccessful(null);
