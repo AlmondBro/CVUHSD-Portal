@@ -121,7 +121,9 @@ const SelectDropDownArrow = styled('div')`
     position: relative;
   /*Don't really need this just for demo styling*/
 
-    &:after {
+  ${props => props.optionsDropdowns.length > 1 ? (
+      `
+      &:after {
         position: absolute;
         top: ${ (isSafari || isChrome) ? `0%;` : `0%;`};
         left: 95%;
@@ -134,6 +136,10 @@ const SelectDropDownArrow = styled('div')`
 
         pointer-events: none;
     }
+    `
+  ): null };
+    
+    
 `;
 
 const Select = styled('select')`
@@ -386,7 +392,10 @@ const SelectInputField = ({ title, inputType, placeholder, textArea, description
                 <StyledHeader>{ title }</StyledHeader>
             </StyledLabel>
 
-            <SelectDropDownArrow className="select-drop-down-arrow">
+            <SelectDropDownArrow 
+                optionsDropdowns    =  { optionsDropdowns} 
+                className           =   "select-drop-down-arrow"
+            >
                 <Select 
                     name        =   { name } 
                     id          =   { `support-request-${name}`}
