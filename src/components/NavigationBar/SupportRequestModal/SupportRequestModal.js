@@ -159,6 +159,16 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
 
         setCategories(categoriesList);
         setLocations(locationsList);
+
+        //Set the dropdown's form field values to default to being the first one
+        setFormField( 
+                        { 
+                            ...formField, 
+                                category  : categoriesList[0],
+                                location  : locationsList[0]       
+                        }
+                    );
+
     }, [ site, districtPosition ]); //end useEffect()
 
     const onClose = () => {

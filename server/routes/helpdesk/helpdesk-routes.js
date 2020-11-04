@@ -20,7 +20,8 @@ const createSDPRequest = async (
         'technician_key'    :   process.env.SDP_TECH_KEY
     };
 
-    console.log("\nfullName:\t", fullName);
+    console.log("\ncategory:\t", category);
+    
     const request_details = {
         request: {
             subject: supportRequestTitle || "Test Ticket 32",
