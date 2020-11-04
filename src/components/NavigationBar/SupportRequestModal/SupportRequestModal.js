@@ -136,23 +136,30 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         attachment 
     } = formField;
 
-    const categoriesList =  [   "Computer Issue", "Printer Issue", "Projector Issue", "Password Issue", 
-                                "Canvas", "PowerSchool", "Illuminate", "Google", "Wi-fi Issue", 
-                                "Eno Pen -- Board", "Software Installation", "Student Chromebook",
-                                "Phone Issue", "Other"
-                            ];
-
-    const locationsList =   (districtPosition.toLowerCase() === "student") ? [ site.toString() ] :
-                                [   "Lawndale High School", "Leuzinger High School", "Hawthorne High School", 
-                                    "District Office", "Lloyde High School", "CV Independent Study", "Adult Ed", 
-                                    "Service Center"
-                                ];
+    
 
 
     useEffect(() => {
+        const categoriesList = (districtPosition.toLowerCase() === "student") ?   [ 
+            "Password Issue", "Canvas", "PowerSchool", "Illuminate", "Google", "Wi-fi Issue", 
+            "Software Installation", "Student Chromebook", "Other"
+        ] :     [   "Computer Issue", "Printer Issue", "Projector Issue", "Password Issue", 
+                    "Canvas", "PowerSchool", "Illuminate", "Google", "Wi-fi Issue", 
+                    "Eno Pen -- Board", "Software Installation", "Student Chromebook",
+                    "Phone Issue", "Other"
+                ];
+    
+                              
+    
+        const locationsList =   (districtPosition.toLowerCase() === "student") ? [ site.toString() ] :
+                                    [   "Lawndale High School", "Leuzinger High School", "Hawthorne High School", 
+                                        "District Office", "Lloyde High School", "CV Independent Study", "Adult Ed", 
+                                        "Service Center"
+                                    ];
+                                    
         setCategories(categoriesList);
         setLocations(locationsList);
-    }, [ site ]); //end useEffect()
+    }, [ site, districtPosition ]); //end useEffect()
 
     const onClose = () => {
         setIsRequestSuccessful(null);
