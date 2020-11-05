@@ -207,7 +207,7 @@ const SubmitButton = styled('button')`
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#B41A1F": "#1E6C93"
                                     :  "#B41A1F" 
-                     };
+                        };
 
     padding: 8px;
     border-radius: 10px;
@@ -221,7 +221,11 @@ const SubmitButton = styled('button')`
 
     :hover {
         cursor: pointer;
-        background-color: rgba(180, 26, 31, 0.9);
+        background-color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "rgba(147, 30, 29, 0.67)": "rgba(30, 108, 147, 0.67);"
+                                    :   "rgba(147, 30, 29, 0.67)" 
+                     };
     }
 `;
 
