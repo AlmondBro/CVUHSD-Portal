@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { faLaptop } from '@fortawesome/free-solid-svg-icons';
+import { faLaptop, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 
 import isDev from 'isdev';
 import ReactLoading from 'react-loading';
@@ -16,6 +16,8 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     let [ locations, setLocations ]     = useState([]);
 
     let [ isRequestSuccessful, setIsRequestSuccessful ] = useState(null);
+
+    let [ submitEnabled, setSubmitEnabled ] = useState(false);
 
     const [ formField, setFormField ] = useState({
         supportRequestTitle :   "",
@@ -38,6 +40,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
       console.log("<TransferToITModal/>afterOpenModal()");
       console.log("<TransferToITModal/>afterOpenModal() itUID:\t", itUID);
 
+      setSubmitEnabled(true);
       setIsLoading(false);
   }; //afterOpenModal()
 
@@ -45,76 +48,91 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     event.preventDefault();
     event.stopPropagation();
 
-    setIsLoading(true);
+    let submitReqResponse = "";
 
-    // window.alert(JSON.stringify(formField));
+    if (submitEnabled) {
+        setIsLoading(true);
 
-    let {     
-        supportRequestTitle,
-        category,
-        description,
-        location,
-        phoneExt,
-        room,
-        attachment 
-    } = formField;
-
-    let supportReqDetails = {
-        fullName,
-        email,
-        supportRequestTitle,
-        category,
-        description,
-        location,
-        phoneExt,
-        room
-    }
-
-    const submitRequest_URL = `${isDev ? "" : "/server"}/helpdesk/request/create`;
-    const submitRequest_headers = {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        "Access-Control-Allow-Credentials": true
-    };
-
-    let submitReqResponse = await fetch(submitRequest_URL, {
-        method: 'POST',
-        headers: submitRequest_headers,
-        body: JSON.stringify({ ...supportReqDetails} )
-    })
-    .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
-    .then((jsonResponse) => jsonResponse)
-    .catch((error) => {
-        console.error(`Catching error:\t ${error}`);
-    });
-
-    //window.alert(JSON.stringify(submitReqResponse));
-
-    if (submitReqResponse) {
-        const responseStatus = submitReqResponse["response_status"].status;
-
-        setIsLoading(false);
-
-        // window.alert("responseStatus:\t", responseStatus);
-
-        if (responseStatus === "success") {
-            setIsRequestSuccessful(true);
-
-            //Reset the form field after submitting.
-            setFormField({
-                supportRequestTitle :   "",
-                category            :   "",
-                description         :   "",
-                location            :   "",
-                phoneExt            :   "",
-                room                :   "",
-                attachment          :   "",
-            });
-        } else {
-            setIsRequestSuccessful(false);
+        // window.alert(JSON.stringify(formField));
+    
+        let {     
+            supportRequestTitle,
+            category,
+            description,
+            location,
+            phoneExt,
+            room,
+            attachment 
+        } = formField;
+    
+        let supportReqDetails = {
+            fullName,
+            email,
+            supportRequestTitle,
+            category,
+            description,
+            location,
+            phoneExt,
+            room
         }
-
+    
+        const submitRequest_URL = `${isDev ? "" : "/server"}/helpdesk/request/create`;
+        const submitRequest_headers = {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-Credentials": true
+        };
+    
+        submitReqResponse = await fetch(submitRequest_URL, {
+            method: 'POST',
+            headers: submitRequest_headers,
+            body: JSON.stringify({ ...supportReqDetails} )
+        })
+        .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
+        .then((jsonResponse) => jsonResponse)
+        .catch((error) => {
+            console.error(`Catching error:\t ${error}`);
+        });
+    
+        //window.alert(JSON.stringify(submitReqResponse));
+    
+        if (submitReqResponse) {
+            const responseStatus = submitReqResponse["response_status"].status;
+    
+            setIsLoading(false);
+            setSubmitEnabled(false);
+    
+            // window.alert("responseStatus:\t", responseStatus);
+    
+            if (responseStatus === "success") {
+    
+                setIsRequestSuccessful(true);
+    
+                setTimeout(() => {
+                         //Reset the form field after submitting.
+    
+                    toggleModal(false);
+                    
+                    setFormField({
+                        supportRequestTitle :   "",
+                        category            :   "",
+                        description         :   "",
+                        location            :   "",
+                        phoneExt            :   "",
+                        room                :   "",
+                        attachment          :   "",
+                    });
+                }, 800);
+           
+            } else {
+                setIsRequestSuccessful(false);
+            }
+    
+        }
+    } else{
+        window.alert("Submitting duplicate tickets prohibited.");
     }
+ 
 
     return submitReqResponse;
   }; //end submitRequest
@@ -296,7 +314,9 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
             }
          
             <SubmitButton 
-                districtPosition    = { districtPosition.toLowerCase() }
+                districtPosition    =   { districtPosition.toLowerCase() }
+                disabled            =   { !submitEnabled }
+                submitEnabled       =   {  submitEnabled }
                 type                =   "submit"
             >
                 {
@@ -314,7 +334,6 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         <TransferResultMessage 
             className           =   "transfer-result-message"
             districtPosition    =   { districtPosition.toLowerCase() }
-
         >
           {
             (isRequestSuccessful === null) ? null :

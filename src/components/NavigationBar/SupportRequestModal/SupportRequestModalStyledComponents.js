@@ -203,10 +203,11 @@ const Select = styled('select')`
 const SubmitButton = styled('button')`
     max-width: 150px;
     color: white;
-    background-color: ${ props => props.districtPosition ?
+    background-color: ${ props => props.submitEnabled ? props.districtPosition ?
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#B41A1F": "#1E6C93"
                                     :  "#B41A1F" 
+                                :   "grey"
                         };
 
     padding: 8px;
