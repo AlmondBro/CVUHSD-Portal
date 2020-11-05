@@ -95,16 +95,19 @@ const StyledToastContainer = styled(ToastContainer).attrs({
   // progressClassName: 'progress',
 })`
   .Toastify__toast-container {
+    position: relative;
+    z-index: 99999999999999999999999999999999;
   }
 
   /* The actual toast */
   .Toastify__toast {
     border-radius: 10px;
-    background-color: ${ props => props.districtPosition ?
+    background-color: white;
+    /*${ props => props.districtPosition ?
                                       ( (props.districtPosition === "student") || window.location.pathname === "/student") ? 
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
-                };
+                };*/
   }
   .Toastify__toast--error {}
   .Toastify__toast--warning {}
@@ -112,13 +115,11 @@ const StyledToastContainer = styled(ToastContainer).attrs({
 
   /* The actual content or text */
   .Toastify__toast-body {
-    color: white;
-    
-    /* ${ props => props.districtPosition ?
+    color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "student") || window.location.pathname === "/student") ? 
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
-        }; */
+          }; 
   }
   .Toastify__progress-bar {}
 
