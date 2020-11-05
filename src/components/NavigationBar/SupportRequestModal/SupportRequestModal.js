@@ -273,7 +273,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                 districtPosition    =   { districtPosition.toLowerCase() }
 
                 inputType           =   "tel"
-                placeholder         =   "A telephone/cell number to reach you by (no parentheses). Leave extension if staff member. "
+                placeholder         =   "XXX-XXX-XXX"
 
                 value               =   { phoneExt }
                 onChange            =   { onChange }  
