@@ -327,12 +327,12 @@ class App extends Component {
       >
         <StyledToastContainer
           position          = "top-right"
-          autoClose         = { 50000 }
+          autoClose         = { 1200 }
           hideProgressBar   = { true }
           newestOnTop       = { false }
           closeOnClick      = { true }
           rtl               = { false }
-          pauseOnFocusLoss  = { true }
+          pauseOnFocusLoss  = { false }
           draggable         = { true }
           pauseOnHover      = { true }
 

@@ -87,13 +87,23 @@ let StyledContainer = styled(ModifiedContainer)`
   `; //end StyledContainer
 
 
-const StyledToastContainer = styled(ToastContainer).attrs({
+const StyledToastContainer = styled(ToastContainer).attrs(props => ({
   // custom props
   // className: 'toast-container',
   // toastClassName: 'toast',
   // bodyClassName: 'body',
   // progressClassName: 'progress',
-})`
+
+  position          : props.position,
+  autoClose         : props.autoClose,
+  hideProgressBar   : props.hideProgressBar,
+  newestOnTop       : props.newestOnTop,
+  closeOnClick      : props.closeOnClick,
+  rtl               : props.rtl,
+  pauseOnFocusLoss  : props.pauseOnFocusLoss,
+  draggable         : props.draggable,
+  pauseOnHover      : props.pauseOnHover
+}))`
   .Toastify__toast-container {
     position: relative;
     z-index: 99999999999999999999999999999999;
