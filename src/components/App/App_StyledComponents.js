@@ -6,6 +6,8 @@ import css from 'styled-components';
 
 import { Container } from 'react-bootstrap';
 
+import { ToastContainer } from 'react-toastify';
+
 let ModifiedContainer = ({className, children, fluid}) => (
     <Container className={className + " app-container"} fluid={fluid}>
       { children }
@@ -84,4 +86,49 @@ let StyledContainer = styled(ModifiedContainer)`
     }
   `; //end StyledContainer
 
-export { StyledContainer }
+
+const StyledToastContainer = styled(ToastContainer).attrs({
+  // custom props
+  // className: 'toast-container',
+  // toastClassName: 'toast',
+  // bodyClassName: 'body',
+  // progressClassName: 'progress',
+})`
+  .Toastify__toast-container {
+  }
+
+  /* The actual toast */
+  .Toastify__toast {
+    border-radius: 10px;
+    background-color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "student") || window.location.pathname === "/student") ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
+                };
+  }
+  .Toastify__toast--error {}
+  .Toastify__toast--warning {}
+  .Toastify__toast--success {}
+
+  /* The actual content or text */
+  .Toastify__toast-body {
+    color: white;
+    
+    /* ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "student") || window.location.pathname === "/student") ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
+        }; */
+  }
+  .Toastify__progress-bar {}
+
+  .Toastify__close-button {
+    color:   ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "rgba(147, 30, 29, 0.8)": "rgba(30, 108, 147, 0.8)"
+                                    :   "rgba(147, 30, 29, 0.8)" 
+              };
+`;
+
+export { StyledContainer, StyledToastContainer }
+

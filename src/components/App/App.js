@@ -12,7 +12,7 @@ import {  Redirect } from "react-router";
 import { withRouter, Route, Switch } from "react-router-dom";
 
 //Import styled components
-import { StyledContainer } from "./App_StyledComponents.js";
+import { StyledContainer, StyledToastContainer } from "./App_StyledComponents.js";
 
 //Import pages
 import NotFound from "./../NotFound/NotFound.js";
@@ -321,13 +321,13 @@ class App extends Component {
     return (
       <StyledContainer 
         fluid={true} 
-        containerStyle={this.state.containerStyle} 
-        districtPosition={this.state.title}
-        renderAsStudent={this.state.renderAsStudent}
+        containerStyle    = { this.state.containerStyle} 
+        districtPosition  = { this.state.title}
+        renderAsStudent   = { this.state.renderAsStudent}
       >
-        <ToastContainer
+        <StyledToastContainer
           position          = "top-right"
-          autoClose         = { 12500 }
+          autoClose         = { 50000 }
           hideProgressBar   = { true }
           newestOnTop       = { false }
           closeOnClick      = { true }
@@ -335,7 +335,15 @@ class App extends Component {
           pauseOnFocusLoss  = { true }
           draggable         = { true }
           pauseOnHover      = { true }
+
+          districtPosition  = { this.state.title.toLowerCase() }
+          renderAsStudent   = { this.state.renderAsStudent}
         />
+        <div>
+          <button onClick = {() => this.notify("helllooooo")}>
+          Toast
+          </button>
+        </div>
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
         {
           this.state.loggedIn ? (

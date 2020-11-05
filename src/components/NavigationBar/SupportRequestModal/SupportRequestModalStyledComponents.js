@@ -224,7 +224,7 @@ const SubmitButton = styled('button')`
         cursor: pointer;
         background-color: ${ props => props.districtPosition ?
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
-                                        "rgba(147, 30, 29, 0.67)": "rgba(30, 108, 147, 0.67);"
+                                        "rgba(147, 30, 29, 0.67)": "rgba(30, 108, 147, 0.67)"
                                     :   "rgba(147, 30, 29, 0.67)" 
                      };
     }
