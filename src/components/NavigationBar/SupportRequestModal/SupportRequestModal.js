@@ -9,7 +9,7 @@ import {
     TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
 
 
-const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID }) => {
+const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]     = useState(false);
 
     let [ categories, setCategories ]   = useState([]);
@@ -101,6 +101,8 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     
             setIsLoading(false);
             setSubmitEnabled(false);
+
+            notify("Helpdesk Ticked Submitted");
     
             // window.alert("responseStatus:\t", responseStatus);
     

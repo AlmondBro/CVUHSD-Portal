@@ -11,7 +11,7 @@ import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader,
 //Import 3rd-party APIs
 import greeting from 'greeting';
 
-const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent, logOut, clearState, title, site, gradeLevel, modifyRenderAsStudent, portalHeaderTextDisplay, districtName, headerTitle }) => {
+const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent, logOut, clearState, title, site, gradeLevel, modifyRenderAsStudent, portalHeaderTextDisplay, districtName, headerTitle, notify }) => {
     let parseSchoolName = (site) => {
         if (site && (site !== "Centinela Valley Independent Study School" )) {
             console.log("Site:\t" + site);
@@ -72,6 +72,7 @@ const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent
                     modifyLogInStatus       =   { modifyLogInStatus }
                     renderAsStudent         =   { renderAsStudent }  
                     modifyRenderAsStudent   =   { modifyRenderAsStudent }
+                    notify                  =   { notify }
                     clearState              =   { clearState }
                     logOut                  =   { logOut }
                 />

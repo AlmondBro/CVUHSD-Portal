@@ -24,7 +24,7 @@ import  {
 
 //TODO: Figure out why bullet point is not rendering
 
-const NavigationBar = ({ fullName, title, email, site, districtPosition, renderAsStudent, location, modifyLogInStatus, modifyRenderAsStudent, clearState, logOut }) => {
+const NavigationBar = ({ fullName, title, email, site, districtPosition, renderAsStudent, location, modifyLogInStatus, modifyRenderAsStudent, notify, clearState, logOut }) => {
     const  [ changePasswordModalIsOpen, setChangePasswordModalIsOpen ] = useState(false);
     const  [ supportRequestModalIsOpen, setSupportRequestModalIsOpen ] = useState(false);
 
@@ -326,7 +326,8 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                 email               =   { email }
                 site                =   { site }
                 districtPosition    =   { districtPosition }
-                renderAsStudent     =   { renderAsStudent }                  
+                renderAsStudent     =   { renderAsStudent }  
+                notify              =   { notify }                
             />
         </Fragment>
             <ChangePassword 

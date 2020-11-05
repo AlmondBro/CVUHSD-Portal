@@ -27,7 +27,7 @@ const PageContentLoading = styled("div")`
     margin: 0 auto;
 `;
 
-const PageContent = ({fullName, email, title, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent }) => {
+const PageContent = ({ fullName, email, title, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent, notify }) => {
   //let [ renderAsStudentTwo, setRenderAsStudent ] = useState(renderAsStudent || location.state.renderAsStudent);
   //undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
   
@@ -156,6 +156,7 @@ const PageContent = ({fullName, email, title, site, renderAsStudent, gradeLevel,
                 logOut                = { logOut}
                 clearState            = { clearState}
                 renderAsStudent       = { (window.location.pathname === "/student") }
+                notify                = { notify }
         />
                 <div className="page-content">
                     { generateBlueSections(blueSection_objectsArrayProps) } 

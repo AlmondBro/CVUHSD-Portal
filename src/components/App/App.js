@@ -21,6 +21,9 @@ import PrivateRoute from "./../PrivateRoute.js";
 
 import SimpleStorage, { resetParentState, clearStorage } from "react-simple-storage";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { isIE } from './../../utilityFunctions.js';
 
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
@@ -253,6 +256,19 @@ class App extends Component {
     });
   };
 
+  notify = (notifyContent) => {
+    toast(notifyContent, {
+      position: "top-right",
+      autoClose: 12500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+    return;
+  };
+
   componentDidMount = () => {
     let { history } = this.props;
     
@@ -309,6 +325,17 @@ class App extends Component {
         districtPosition={this.state.title}
         renderAsStudent={this.state.renderAsStudent}
       >
+        <ToastContainer
+          position          = "top-right"
+          autoClose         = { 12500 }
+          hideProgressBar   = { true }
+          newestOnTop       = { false }
+          closeOnClick      = { true }
+          rtl               = { false }
+          pauseOnFocusLoss  = { true }
+          draggable         = { true }
+          pauseOnHover      = { true }
+        />
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
         {
           this.state.loggedIn ? (
@@ -325,6 +352,7 @@ class App extends Component {
               <PrivateRoute 
                             path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
                             component             = { PageContent} 
+
                             fullName              = { this.state.firstName + " " + this.state.lastName }
                             email                 = { this.state.email }
                             title                 = { this.state.title }
@@ -343,6 +371,8 @@ class App extends Component {
                             modifyTitle           = { this.modifyTitle }
                             modifyRenderAsStudent = { this.modifyRenderAsStudent }
                             modifyIsStudent       = { this.modifyIsStudent }
+
+                            notify                = { this.notify }
               />
 
               <Route path={`${publicURL}/staff`}
