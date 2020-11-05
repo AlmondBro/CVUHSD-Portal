@@ -311,7 +311,11 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
             </SubmitButton>
         </Form>
 
-        <TransferResultMessage className="transfer-result-message">
+        <TransferResultMessage 
+            className           =   "transfer-result-message"
+            districtPosition    =   { districtPosition.toLowerCase() }
+
+        >
           {
             (isRequestSuccessful === null) ? null :
               ( (isRequestSuccessful === true) ? "Success! Submitted Request \u2714" : 

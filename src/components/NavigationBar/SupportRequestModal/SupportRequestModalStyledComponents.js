@@ -246,7 +246,11 @@ const TransferResultMessage = styled('p')`
     margin-bottom: 8px;
 
     padding: 0px; 
-    color: #B41A1F;
+    color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
+            };
 
     font-weight: bold;
 
