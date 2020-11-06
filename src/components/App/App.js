@@ -318,6 +318,7 @@ class App extends Component {
 
     console.log("defaultURL:\t" + defaultURL);
 
+    const showPage = false;
     return (
       <StyledContainer 
         fluid={true} 
@@ -340,8 +341,6 @@ class App extends Component {
           renderAsStudent   = { this.state.renderAsStudent}
         />
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
-        {
-          this.state.loggedIn ? (
             <Switch>
               { // Update routes to use server subdirectory in production
                 //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
@@ -430,8 +429,6 @@ class App extends Component {
                     /> ) : null
               }
           </Switch>
-          ) : <LoadingSSOPage/>
-        }
       </StyledContainer>); //end return statement
   }
 }

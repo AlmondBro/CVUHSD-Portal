@@ -11,6 +11,8 @@ import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader,
 //Import 3rd-party APIs
 import greeting from 'greeting';
 
+import Skeleton from 'react-loading-skeleton';
+
 const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent, logOut, clearState, title, site, gradeLevel, modifyRenderAsStudent, portalHeaderTextDisplay, districtName, headerTitle, notify }) => {
     let parseSchoolName = (site) => {
         if (site && (site !== "Centinela Valley Independent Study School" )) {
@@ -56,6 +58,8 @@ const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent
 
     let friendlyGreeting = greeting.random();
 
+    let showHeader = false;
+
     return (
         <Fragment>
             <NavigationBarHeader 
@@ -78,21 +82,38 @@ const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent
                 />
             </NavigationBarHeader>
 
-            <DashboardHeaderContainer className="dashboard-header-container" id="back-to-top" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
-                <DashboardHeader className="dashboard-header" districtPosition={districtPosition} renderAsStudent={renderAsStudent} >
+            <DashboardHeaderContainer 
+                districtPosition    =   {   districtPosition    } 
+                renderAsStudent     =   {   renderAsStudent     } 
+                className           =   "dashboard-header-container" 
+                id                  =   "back-to-top" 
+            >
+                <DashboardHeader 
+                    districtPosition    =   { districtPosition } 
+                    renderAsStudent     =   { renderAsStudent } 
+                    className           =   "dashboard-header" 
+                 
+                >
                     <PortalHeaderText 
-                        className="portal-header-text" 
-                        districtPosition={districtPosition} 
-                        renderAsStudent={renderAsStudent}    
+                        className           =   "portal-header-text" 
+                        districtPosition    =   { districtPosition } 
+                        renderAsStudent     =   { renderAsStudent }    
                     >
-                        <strong>
-                            {districtName || "District"}
-                            <span>
-                                <h2>
-                                    { headerTitle|| "Portal"}
-                                </h2>
-                            </span>
-                        </strong>
+                        {
+                            districtPosition && districtName && headerTitle ? (
+                                <strong>
+                                {districtName || "District"}
+                                <span>
+                                    <h2>
+                                        { headerTitle|| "Portal"}
+                                    </h2>
+                                </span>
+                            </strong>
+                            ) : (
+                                <Skeleton width="100px" height="40px"/>
+                            )
+                        }
+                       
                     </PortalHeaderText>
                         <PositionSiteInfo 
                             className="position-site-info" 
@@ -103,12 +124,12 @@ const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent
                                         className="greeting"
                             >
                                 { friendlyGreeting || "Hi"}
-                            <span> { fullName || "CVUHSD User"}<span>&#9786;</span></span>
+                            <span> { fullName || "CVUHSD User" }<span>&#9786;</span></span>
                             </Greeting>
                             <PositionGreeting 
-                                districtPosition={districtPosition} 
-                                renderAsStudent={renderAsStudent} 
-                                className="position-greeting"
+                                districtPosition    =   { districtPosition} 
+                                renderAsStudent     =   { renderAsStudent } 
+                                className           =   "position-greeting"
                             >
                                 {/* TODO: Find a way to differentiate students such as student with
                                         id #46196, who is a special ed students. Special ed students are not always

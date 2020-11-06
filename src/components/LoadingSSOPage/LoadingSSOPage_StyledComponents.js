@@ -10,7 +10,7 @@ let LoadingSSOPageContainer = styled("div")`
         content: "";
         width: 100%;
         height: 100%;
-        background-image: url("./images/cvuhsd-allStudents-ready.jpg");
+        /* background-image: url("./images/cvuhsd-allStudents-ready.jpg"); */
         background-position: center;
         background-size: contain;
         background-repeat: no-repeat;
