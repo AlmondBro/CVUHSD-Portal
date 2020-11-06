@@ -26,10 +26,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { isIE } from './../../utilityFunctions.js';
 
-import { HelpdeskSubmitMessage } from './../NavigationBar/SupportRequestModal/SupportRequestModalStyledComponents.js';
-
-import { faLaptop, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
-
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
 //TODO: Fix Dashboard "digital" typon on quick links buttons
@@ -343,15 +339,6 @@ class App extends Component {
           districtPosition  = { this.state.title.toLowerCase() }
           renderAsStudent   = { this.state.renderAsStudent}
         />
-        <div>
-          <button onClick = {() => this.notify(<HelpdeskSubmitMessage
-                    districtPosition    =   { this.state.title }
-                    message             =   "Helpdesk Request Submitted"
-                    icon                =   { faTicketAlt }
-            />)}>
-          Toast
-          </button>
-        </div>
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
         {
           this.state.loggedIn ? (

@@ -49,7 +49,9 @@ body.ReactModal__Body--open > :not(.ReactModalPortal):not(.Toastify):not(.Toasti
 
 /* Prevent there from being a scroll to the Transfer to IT Modal */
 .ReactModal__Html--open,
-.ReactModal__Body--open {
+.ReactModal__Body--open,
+.support-request-modal-body--open
+{
     overflow: hidden;
 }
 

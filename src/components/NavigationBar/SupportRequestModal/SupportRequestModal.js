@@ -143,11 +143,11 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     return submitReqResponse;
   }; //end submitRequest
 
-  const bodyOpenClassName="transfer-to-it-modal-body--open",
-        htmlOpenClassName="transfer-to-it-modal-html--open",
-        overlayClassName="transfer-to-it-modal-overlay",
-        portalClassName="transfer-to-it-modal",
-        contentClassName="transfer-to-it-modal-content",
+  const bodyOpenClassName="support-request-modal-body--open",
+        htmlOpenClassName="support-request-modal-html--open",
+        overlayClassName="support-request-modal-overlay",
+        portalClassName="support-request-modal",
+        contentClassName="support-request-modal-content",
         parentSelectorID="chat-page-main-container";
 
   let {     
@@ -209,14 +209,14 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
 
         contentLabel                =   { "Support Request Modal" }
 
-        // portalClassName             =   { portalClassName }
-        // overlayClassName            =   { overlayClassName }
-        // bodyOpenClassName           =   { bodyOpenClassName }
-        // htmlOpenClassName           =   "transfer-to-it-modal-html--open"
-        // className                   =   { contentClassName }
+        portalClassName             =   { portalClassName }
+        overlayClassName            =   { overlayClassName }
+        bodyOpenClassName           =   { bodyOpenClassName }
+        htmlOpenClassName           =   "support-request-modal-html--open"
+        className                   =   { contentClassName }
 
         
-        // parentSelector           =   { () => document.getElementById(parentSelectorID)}
+        parentSelector           =   { () => document.getElementById("cvuhsd-sso-portal")}
 
         shouldCloseOnOverlayClick   =   { false }
         closeTimeoutMS              =   { 300 }
