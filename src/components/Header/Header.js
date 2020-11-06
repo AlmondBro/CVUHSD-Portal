@@ -156,22 +156,19 @@ const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent
                                     ) : null 
                                 }
                             
-                            </PositionGreeting>
-                            {/*  //TODO: Add link the site of the school logo */}
-
-                            { 
-                                (districtPosition === "Student") && schoolName ? 
-                                    (   <a href={() => getSchoolLogoSite(schoolName)}>
-                                            <SchoolLogo  
-                                                className="school-logo" 
-                                                src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
-                                            />  
-                                        </a>
-                                    
-                                    )
-                                    : null
-                            }
+                                { 
+                                    (districtPosition === "Student") && schoolName ? 
+                                        (   <a href={() => getSchoolLogoSite(schoolName)}>
+                                                <SchoolLogo  
+                                                    className="school-logo" 
+                                                    src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
+                                                />  
+                                            </a>
                                         
+                                        )
+                                        : null
+                                }
+                            </PositionGreeting>          
                         </PositionSiteInfo>
                 </DashboardHeader>
             </DashboardHeaderContainer>

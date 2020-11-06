@@ -195,6 +195,7 @@ let PositionGreeting = styled(Greeting)`
 let SchoolLogo = styled("img")`
     cursor: pointer;
     max-width: 60px;
+    margin-left: 10px;
     vertical-align: bottom;
 `;
 
