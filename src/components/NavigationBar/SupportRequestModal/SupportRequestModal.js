@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { faLaptop, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect, useRef } from 'react';
+import { faLaptop, faTicketAlt, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 import isDev from 'isdev';
 import ReactLoading from 'react-loading';
@@ -7,7 +7,6 @@ import ReactLoading from 'react-loading';
 import { 
     ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,
     TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
-
 
 const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]     = useState(false);
@@ -29,7 +28,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         attachment          :   "",
     });
 
-  var subtitle;
+  var titleInput = useRef(null);
 
   const onChange = (event) => {
     setFormField( { ...formField, [ event.target.name ] : event.target.value });
@@ -42,6 +41,8 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
 
       setSubmitEnabled(true);
       setIsLoading(false);
+
+      titleInput.current.focus();
   }; //afterOpenModal()
 
   const submitRequest = async (event) => {
@@ -50,11 +51,13 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
 
     let submitReqResponse = "";
 
-    if (submitEnabled) {
+    if (submitEnabled && (isLoading === false) ) {
         setIsLoading(true);
 
         // window.alert(JSON.stringify(formField));
     
+        setSubmitEnabled(false);
+
         let {     
             supportRequestTitle,
             category,
@@ -96,17 +99,19 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     
         //window.alert(JSON.stringify(submitReqResponse));
     
+
         if (submitReqResponse) {
             const responseStatus = submitReqResponse["response_status"].status;
     
             setIsLoading(false);
-            setSubmitEnabled(false);
 
-            notify(<HelpdeskSubmitMessage
+            notify(
+                    <HelpdeskSubmitMessage
                     districtPosition    =   { districtPosition }
                     message             =   "Helpdesk Request Submitted"
                     icon                =   { faTicketAlt }
-            />);
+                    />
+            );
     
             // window.alert("responseStatus:\t", responseStatus);
     
@@ -137,6 +142,13 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         }
     } else{
         window.alert("Submitting duplicate tickets prohibited.");
+        notify(
+            <HelpdeskSubmitMessage
+                districtPosition    =   { districtPosition }
+                message             =   "Submitting duplicate tickets prohibited"
+                icon                =   { faWindowClose }
+            />
+    );
     }
  
 
@@ -232,7 +244,6 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
             <label htmlFor="it-transfer-select">
                 <ModalTitle 
                     districtPosition    =   { districtPosition.toLowerCase() }
-                    ref                 =   {_subtitle => (subtitle = _subtitle)} 
                 >
                     Tech Support Request
                 </ModalTitle>
@@ -251,6 +262,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                 
                 onChange            =   { onChange }   
                 value               =   { supportRequestTitle }
+                ref                 =   { titleInput } 
 
                 required
             />

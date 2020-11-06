@@ -1,3 +1,4 @@
+import React, { forwardRef } from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from 'react-modal';
@@ -162,13 +163,17 @@ const Select = styled('select')`
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#B41A1F": "#1E6C93"
                                     :  "#B41A1F" 
-                     };
+            };
     font-style: italic;
 
     max-width: 100%;
 
     border-width: 0px;
-    border-color: rgba(147,30,29,0.21);
+    border-color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
+                                    : " rgba(147, 30, 29, 0.21)" 
+                     };
     border-radius: 10px;
 
     outline: 0px;
@@ -180,6 +185,9 @@ const Select = styled('select')`
     /* 10px 15px 10px 4px; */
 
     /* box-shadow: 5px 5px 30px -11px rgba(0,0,0,0.75); */
+
+    transition: border-width 300ms ease-in-out, margin-right 300ms ease-in-out,
+    padding-top 300ms ease-in-out,  padding-bottom 300ms ease-in-out;
 
     &:after {
         content: '\f078';
@@ -197,6 +205,17 @@ const Select = styled('select')`
     /* IE11 hide native button (thanks Matt!) */
     &::-ms-expand {
         display: none;
+    }
+
+    &:focus {
+        border-width: 1px;
+        margin-right: 10px;
+
+        padding-top: 2px;
+        padding-bottom: 2px;
+
+        box-shadow: 5px 5px 30px -15px rgba(0,0,0,0.75);
+       
     }
 `;
 
@@ -227,6 +246,14 @@ const SubmitButton = styled('button')`
                                         "rgba(147, 30, 29, 0.67)": "rgba(30, 108, 147, 0.67)"
                                     :   "rgba(147, 30, 29, 0.67)" 
                      };
+    }
+
+    :focus {
+        box-shadow: 0px 0px 11px 2px    ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "#B41A1F": "#1E6C93"
+                                    :  "#B41A1F" 
+            };          
     }
 `;
 
@@ -321,6 +348,7 @@ const StyledInput = styled('input')`
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
             };
+    transition: box-shadow 300ms ease-in-out;
 
     /* Hide increment arrow spinners on number text fields */
      /* Chrome, Safari, Edge, Opera */
@@ -335,6 +363,10 @@ const StyledInput = styled('input')`
         appearance: textfield;
         -moz-appearance: textfield;
     }       
+
+    &:focus {
+        box-shadow: 5px 5px 30px -15px rgba(0,0,0,0.75);
+    }
 `;
 
 const StyledTextArea = styled('textarea')`
@@ -362,10 +394,14 @@ const StyledTextArea = styled('textarea')`
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
         };
+
+    &:focus {
+        box-shadow: 5px 5px 20px -15px rgba(0,0,0,0.75);
+    }
 `;
 
 
-const ModalTextInputField = ({ districtPosition, title, pathname, inputType, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }) => {
+const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inputType, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }, ref) => {
     return (
         <InputSection>
             <StyledLabel>
@@ -389,6 +425,7 @@ const ModalTextInputField = ({ districtPosition, title, pathname, inputType, pla
                         required            =   { required }
 
                         districtPosition    =   { districtPosition.toLowerCase() }
+                        ref                 =   { ref }
                     >
                         { description }
                     </StyledTextArea>
@@ -404,12 +441,13 @@ const ModalTextInputField = ({ districtPosition, title, pathname, inputType, pla
                         value               =   { value }
                         onChange            =   { onChange }
                         required            =   { required }
+                        ref                 =   { ref }
                     />
                 )
             }
         </InputSection>
     ); //end return statement
-}; //end ModalInputField
+}); //end ModalInputField
 
 const SelectInputField = ({ districtPosition, title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange, options }) => {
     
