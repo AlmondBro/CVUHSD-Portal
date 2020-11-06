@@ -104,6 +104,7 @@ const StyledToastContainer = styled(ToastContainer).attrs(props => ({
   draggable         : props.draggable,
   pauseOnHover      : props.pauseOnHover
 }))`
+
   .Toastify__toast-container {
     position: relative;
     z-index: 99999999999999999999999999999999;
@@ -113,12 +114,13 @@ const StyledToastContainer = styled(ToastContainer).attrs(props => ({
   .Toastify__toast {
     border-radius: 10px;
     background-color: white;
-    /*${ props => props.districtPosition ?
-                                      ( (props.districtPosition === "student") || window.location.pathname === "/student") ? 
-                                          "#931E1D": "#1E6C93"
-                                    : "#931E1D"
-                };*/
+
+    
+    box-shadow: 5px 5px 30px -11px rgba(0,0,0,0.75);
+
+    outline: none;
   }
+
   .Toastify__toast--error {}
   .Toastify__toast--warning {}
   .Toastify__toast--success {}
@@ -135,10 +137,19 @@ const StyledToastContainer = styled(ToastContainer).attrs(props => ({
 
   .Toastify__close-button {
     color:   ${ props => props.districtPosition ?
-                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                    ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "rgba(147, 30, 29, 0.8)": "rgba(30, 108, 147, 0.8)"
                                     :   "rgba(147, 30, 29, 0.8)" 
               };
+  }
+
+  .Toastify__close-button:hover {
+    color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "student") || window.location.pathname === "/student") ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
+          }; 
+  }
 `;
 
 export { StyledContainer, StyledToastContainer }

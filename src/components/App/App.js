@@ -21,14 +21,18 @@ import PrivateRoute from "./../PrivateRoute.js";
 
 import SimpleStorage, { resetParentState, clearStorage } from "react-simple-storage";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { isIE } from './../../utilityFunctions.js';
 
+import { HelpdeskSubmitMessage } from './../NavigationBar/SupportRequestModal/SupportRequestModalStyledComponents.js';
+
+import { faLaptop, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
+
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
-//TODO: Fix Dashboard "digial" typon on quick links buttons
+//TODO: Fix Dashboard "digital" typon on quick links buttons
 
 //TODO: Extra thing: Add user profile picture: https://sharepoint.stackexchange.com/questions/215659/how-to-fetch-user-profile-image-from-azure-active-directory-from-sharepoint-onli
 //TODO: The hover in the 'All links' in the navbar
@@ -258,13 +262,13 @@ class App extends Component {
 
   notify = (notifyContent) => {
     toast(notifyContent, {
-      position: "top-right",
-      autoClose: 12500,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+        position: "top-right",
+        autoClose: 12500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
     return;
   };
@@ -340,7 +344,11 @@ class App extends Component {
           renderAsStudent   = { this.state.renderAsStudent}
         />
         <div>
-          <button onClick = {() => this.notify("helllooooo")}>
+          <button onClick = {() => this.notify(<HelpdeskSubmitMessage
+                    districtPosition    =   { this.state.title }
+                    message             =   "Helpdesk Request Submitted"
+                    icon                =   { faTicketAlt }
+            />)}>
           Toast
           </button>
         </div>

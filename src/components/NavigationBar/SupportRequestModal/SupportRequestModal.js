@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { faLaptop, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
+import { faLaptop, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
 
 import isDev from 'isdev';
 import ReactLoading from 'react-loading';
 
 import { 
-    ModalTextInputField, SelectInputField, 
+    ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,
     TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
 
 
@@ -102,7 +102,11 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
             setIsLoading(false);
             setSubmitEnabled(false);
 
-            notify("Helpdesk Ticked Submitted");
+            notify(<HelpdeskSubmitMessage
+                    districtPosition    =   { districtPosition }
+                    message             =   "Helpdesk Request Submitted"
+                    icon                =   { faTicketAlt }
+            />);
     
             // window.alert("responseStatus:\t", responseStatus);
     

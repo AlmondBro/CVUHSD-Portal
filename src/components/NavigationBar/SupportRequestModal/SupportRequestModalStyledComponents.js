@@ -468,7 +468,39 @@ const SelectInputField = ({ districtPosition, title, inputType, placeholder, tex
     ); //end return statement
 };
 
+const HelpdeskSubmitMessageContainer = styled('p')`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin: 0px;
+    padding: 0px;
+
+    color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
+            };
+`;
+
+const HelpdeskSubmitMessage = ({ districtPosition, message, icon }) => {
+    return (
+        <HelpdeskSubmitMessageContainer 
+            className           =   "helpdesk-submit-message"
+            districtPosition    =   { districtPosition }
+        >
+            { message } 
+            {icon ? ( 
+                        <FAIconStyled 
+                            icon                =   { icon }
+                            districtPosition    =   { districtPosition }
+                        /> 
+                        ) : null 
+            }
+        </HelpdeskSubmitMessageContainer>
+    )
+};
 
 export { 
-    ModalTextInputField,
+    ModalTextInputField, HelpdeskSubmitMessage,
     TransferToITModalContainer, SelectInputField, CloseButton, Form, ModalTitle, SelectDropDownArrow, Select, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage };
