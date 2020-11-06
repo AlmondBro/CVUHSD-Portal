@@ -247,6 +247,14 @@ const SubmitButton = styled('button')`
                                     :   "rgba(147, 30, 29, 0.67)" 
                      };
     }
+
+    :focus {
+        box-shadow: 0px 0px 11px 2px    ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "#B41A1F": "#1E6C93"
+                                    :  "#B41A1F" 
+            };          
+    }
 `;
 
 
