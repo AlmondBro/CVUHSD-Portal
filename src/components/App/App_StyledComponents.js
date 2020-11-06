@@ -107,7 +107,7 @@ const StyledToastContainer = styled(ToastContainer).attrs(props => ({
 
   .Toastify__toast-container {
     position: relative;
-    z-index: 99999999999999999999999999999999;
+    z-index: 3;
   }
 
   /* The actual toast */

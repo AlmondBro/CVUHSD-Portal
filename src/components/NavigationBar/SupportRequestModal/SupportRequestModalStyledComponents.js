@@ -162,13 +162,17 @@ const Select = styled('select')`
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#B41A1F": "#1E6C93"
                                     :  "#B41A1F" 
-                     };
+            };
     font-style: italic;
 
     max-width: 100%;
 
     border-width: 0px;
-    border-color: rgba(147,30,29,0.21);
+    border-color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
+                                    : " rgba(147, 30, 29, 0.21)" 
+                     };
     border-radius: 10px;
 
     outline: 0px;
@@ -180,6 +184,9 @@ const Select = styled('select')`
     /* 10px 15px 10px 4px; */
 
     /* box-shadow: 5px 5px 30px -11px rgba(0,0,0,0.75); */
+
+    transition: border-width 300ms ease-in-out, margin-right 300ms ease-in-out,
+    padding-top 300ms ease-in-out,  padding-bottom 300ms ease-in-out;
 
     &:after {
         content: '\f078';
@@ -197,6 +204,14 @@ const Select = styled('select')`
     /* IE11 hide native button (thanks Matt!) */
     &::-ms-expand {
         display: none;
+    }
+
+    &:focus {
+        border-width: 1px;
+        margin-right: 10px;
+
+        padding-top: 2px;
+        padding-bottom: 2px;
     }
 `;
 
@@ -321,6 +336,7 @@ const StyledInput = styled('input')`
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
             };
+    transition: box-shadow 300ms ease-in-out;
 
     /* Hide increment arrow spinners on number text fields */
      /* Chrome, Safari, Edge, Opera */
@@ -335,6 +351,10 @@ const StyledInput = styled('input')`
         appearance: textfield;
         -moz-appearance: textfield;
     }       
+
+    &:focus {
+        box-shadow: 5px 5px 30px -15px rgba(0,0,0,0.75);
+    }
 `;
 
 const StyledTextArea = styled('textarea')`
@@ -362,6 +382,10 @@ const StyledTextArea = styled('textarea')`
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
         };
+
+    &:focus {
+        box-shadow: 5px 5px 20px -15px rgba(0,0,0,0.75);
+    }
 `;
 
 
