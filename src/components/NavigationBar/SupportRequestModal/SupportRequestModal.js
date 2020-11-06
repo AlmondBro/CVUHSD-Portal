@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { faLaptop, faTicketAlt, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 import isDev from 'isdev';
@@ -7,7 +7,6 @@ import ReactLoading from 'react-loading';
 import { 
     ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,
     TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
-
 
 const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]     = useState(false);
@@ -29,7 +28,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         attachment          :   "",
     });
 
-  var subtitle;
+  var titleInput = useRef(null);
 
   const onChange = (event) => {
     setFormField( { ...formField, [ event.target.name ] : event.target.value });
@@ -42,6 +41,8 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
 
       setSubmitEnabled(true);
       setIsLoading(false);
+
+      titleInput.current.focus();
   }; //afterOpenModal()
 
   const submitRequest = async (event) => {
@@ -143,9 +144,9 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         window.alert("Submitting duplicate tickets prohibited.");
         notify(
             <HelpdeskSubmitMessage
-            districtPosition    =   { districtPosition }
-            message             =   "Submitting duplicate tickets prohibited"
-            icon                =   { faWindowClose }
+                districtPosition    =   { districtPosition }
+                message             =   "Submitting duplicate tickets prohibited"
+                icon                =   { faWindowClose }
             />
     );
     }
@@ -243,7 +244,6 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
             <label htmlFor="it-transfer-select">
                 <ModalTitle 
                     districtPosition    =   { districtPosition.toLowerCase() }
-                    ref                 =   {_subtitle => (subtitle = _subtitle)} 
                 >
                     Tech Support Request
                 </ModalTitle>
@@ -262,6 +262,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                 
                 onChange            =   { onChange }   
                 value               =   { supportRequestTitle }
+                ref                 =   { titleInput } 
 
                 required
             />

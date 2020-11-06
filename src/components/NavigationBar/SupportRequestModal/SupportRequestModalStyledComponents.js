@@ -1,3 +1,4 @@
+import React, { forwardRef } from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from 'react-modal';
@@ -212,6 +213,9 @@ const Select = styled('select')`
 
         padding-top: 2px;
         padding-bottom: 2px;
+
+        box-shadow: 5px 5px 30px -15px rgba(0,0,0,0.75);
+       
     }
 `;
 
@@ -389,7 +393,7 @@ const StyledTextArea = styled('textarea')`
 `;
 
 
-const ModalTextInputField = ({ districtPosition, title, pathname, inputType, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }) => {
+const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inputType, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }, ref) => {
     return (
         <InputSection>
             <StyledLabel>
@@ -413,6 +417,7 @@ const ModalTextInputField = ({ districtPosition, title, pathname, inputType, pla
                         required            =   { required }
 
                         districtPosition    =   { districtPosition.toLowerCase() }
+                        ref                 =   { ref }
                     >
                         { description }
                     </StyledTextArea>
@@ -428,12 +433,13 @@ const ModalTextInputField = ({ districtPosition, title, pathname, inputType, pla
                         value               =   { value }
                         onChange            =   { onChange }
                         required            =   { required }
+                        ref                 =   { ref }
                     />
                 )
             }
         </InputSection>
     ); //end return statement
-}; //end ModalInputField
+}); //end ModalInputField
 
 const SelectInputField = ({ districtPosition, title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange, options }) => {
     
