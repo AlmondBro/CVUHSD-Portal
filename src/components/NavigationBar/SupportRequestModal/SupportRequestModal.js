@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { faLaptop, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
+import { faLaptop, faTicketAlt, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 import isDev from 'isdev';
 import ReactLoading from 'react-loading';
@@ -50,11 +50,13 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
 
     let submitReqResponse = "";
 
-    if (submitEnabled) {
+    if (submitEnabled && (isLoading === false) ) {
         setIsLoading(true);
 
         // window.alert(JSON.stringify(formField));
     
+        setSubmitEnabled(false);
+
         let {     
             supportRequestTitle,
             category,
@@ -96,17 +98,19 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     
         //window.alert(JSON.stringify(submitReqResponse));
     
+
         if (submitReqResponse) {
             const responseStatus = submitReqResponse["response_status"].status;
     
             setIsLoading(false);
-            setSubmitEnabled(false);
 
-            notify(<HelpdeskSubmitMessage
+            notify(
+                    <HelpdeskSubmitMessage
                     districtPosition    =   { districtPosition }
                     message             =   "Helpdesk Request Submitted"
                     icon                =   { faTicketAlt }
-            />);
+                    />
+            );
     
             // window.alert("responseStatus:\t", responseStatus);
     
@@ -137,6 +141,13 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         }
     } else{
         window.alert("Submitting duplicate tickets prohibited.");
+        notify(
+            <HelpdeskSubmitMessage
+            districtPosition    =   { districtPosition }
+            message             =   "Submitting duplicate tickets prohibited"
+            icon                =   { faWindowClose }
+            />
+    );
     }
  
 
