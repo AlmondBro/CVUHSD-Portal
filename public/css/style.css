@@ -39,7 +39,7 @@ iframe {
 
 /* === TRANSFER TO IT MODAL === */
 
-body.ReactModal__Body--open > :not(.ReactModalPortal):not(.Toastify):not(.Toastify__toast-container):not(.Toastify__toast) {
+body.support-request-modal-body--open #cvuhsd-sso-portal > :not(.support-request-modal):not(.Toastify):not(.Toastify__toast-container):not(.Toastify__toast) {
     filter: blur(3px);
 }
 
