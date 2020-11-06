@@ -39,7 +39,7 @@ const createSDPRequest = async (
             udf_fields: {
                 udf_pick_301: location || "Leuzinger High School",
                 udf_sline_601: phoneExt || 3288,
-                
+                udf_sline_302: room || "Service Center (CV Warehouse)"
             },
             category: {
                 name: category || "Student Chromebook"
