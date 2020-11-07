@@ -152,7 +152,6 @@ const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent
                                             <span>{districtPosition.toLowerCase() + " " + `(${uid})` || "User"}</span> 
                                                 {" from "}
                                             <span>{ site || "CVUHSD"}</span>
-                                            <p>{ uid || "" }</p>
                                         </Fragment>
                                     ) : null 
                                 }
