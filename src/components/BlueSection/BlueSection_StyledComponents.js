@@ -117,13 +117,23 @@ let SectionHeader = styled("div")`
 
 let OpenColumnButton = styled("div")`
     cursor: pointer;
-    border: 0;
-    background: transparent;
-    font-size: 2.2em;
-    padding: 0px 9px 3px 9px;
-    display: inline;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    font-size: 1.5em;
+
+    padding: 0px;
     margin-left: 20px;
+
+    border: 0px;
     border-radius: 100%;
+
+    height: 30px;
+    width: 30px;
     background-color: white;
     color: ${ props => 
         ( (props.title === "Student") || props.renderAsStudent ) ? 
