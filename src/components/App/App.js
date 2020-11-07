@@ -68,6 +68,7 @@ class App extends Component {
       renderAsStudent: false,
       pathname: "",
       accessToken: "",
+      uid: "",
       containerStyle: {
           "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
@@ -230,9 +231,8 @@ class App extends Component {
     .then((response) => response.json())
     .then((userInfo) => {
       if (userInfo) {
-        const { username, email, family_name, givenName, jobTitle, accessToken } = userInfo;
-        
-        //TODO: Set student ID or UID
+        const { username, email, family_name, givenName, jobTitle, accessToken, uid } = userInfo;
+    
         this.setState({
           loggedIn: true,
           firstName:  givenName,
@@ -240,6 +240,7 @@ class App extends Component {
           username: username,
           email: email,
           title: jobTitle,
+          uid,
           accessToken,
         });
       }
@@ -357,6 +358,7 @@ class App extends Component {
 
                             fullName              = { this.state.firstName + " " + this.state.lastName }
                             email                 = { this.state.email }
+                            uid                   = { this.state.uid }
                             title                 = { this.state.title }
                             site                  = { this.state.site }
                             renderAsStudent       = { this.state.renderAsStudent }

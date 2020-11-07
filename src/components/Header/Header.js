@@ -13,7 +13,7 @@ import greeting from 'greeting';
 
 import Skeleton from 'react-loading-skeleton';
 
-const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent, logOut, clearState, title, site, gradeLevel, modifyRenderAsStudent, portalHeaderTextDisplay, districtName, headerTitle, notify }) => {
+const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent, logOut, clearState, title, uid, site, gradeLevel, modifyRenderAsStudent, portalHeaderTextDisplay, districtName, headerTitle, notify }) => {
     let parseSchoolName = (site) => {
         if (site && (site !== "Centinela Valley Independent Study School" )) {
             console.log("Site:\t" + site);
@@ -149,9 +149,10 @@ const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent
                                 { (districtPosition.toLowerCase() === "student") ? 
                                     (
                                         <Fragment>
-                                            <span>{districtPosition.toLowerCase() || "User"}</span> 
+                                            <span>{districtPosition.toLowerCase() + " " + `(${uid})` || "User"}</span> 
                                                 {" from "}
                                             <span>{ site || "CVUHSD"}</span>
+                                            <p>{ uid || "" }</p>
                                         </Fragment>
                                     ) : null 
                                 }

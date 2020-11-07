@@ -29,7 +29,7 @@ const PageContentLoading = styled("div")`
     margin: 0 auto;
 `;
 
-const PageContent = ({ fullName, email, title, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent, notify }) => {
+const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent, notify }) => {
   //let [ renderAsStudentTwo, setRenderAsStudent ] = useState(renderAsStudent || location.state.renderAsStudent);
   //undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
   
@@ -188,6 +188,7 @@ const PageContent = ({ fullName, email, title, site, renderAsStudent, gradeLevel
                 fullName              = { fullName || "CVUHSD User"}
                 email                 = { email } 
                 title                 = { title }
+                uid                   = { uid }
                 site                  = { site  }
                 gradeLevel            = { gradeLevel }
 
