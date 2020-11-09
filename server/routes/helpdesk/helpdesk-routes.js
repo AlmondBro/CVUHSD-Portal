@@ -24,22 +24,22 @@ const createSDPRequest = async (
     
     const request_details = {
         request: {
-            subject: supportRequestTitle || "Test Ticket 32",
-            description:  description || "Test Ticket 32",
+            subject: supportRequestTitle,
+            description:  description,
             requester: {
-                name: fullName || "",
-                email_id: email || "lopezj@centinela.k12.ca.us",
+                name: fullName,
+                email_id: email 
             },
             site: { 
-                name: location || "Leuzinger High School"
+                name: location 
             },
             template: {
                 name: "Helpdesk Ticket",
             },
             udf_fields: {
-                udf_pick_301: location || "Leuzinger High School",
-                udf_sline_601: phoneExt || 3288,
-                udf_sline_302: room || "Service Center (CV Warehouse)"
+                udf_pick_301: location,
+                udf_sline_601: phoneExt, 
+                udf_sline_302: room 
             },
             category: {
                 name: category || "Student Chromebook"
