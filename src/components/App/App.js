@@ -239,7 +239,7 @@ class App extends Component {
           lastName: family_name,
           username: username,
           email: email,
-          title: jobTitle,
+          title: jobTitle || "staff",
           uid,
           accessToken,
         });
