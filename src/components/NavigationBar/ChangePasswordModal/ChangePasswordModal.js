@@ -47,6 +47,8 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
 
     let submitReqResponse = "";
 
+    window.alert(JSON.stringify(formField));
+    /*
     if (submitEnabled && (isLoading === false) ) {
         setIsLoading(true);
 
@@ -126,6 +128,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
             />
     );
     }
+    // */
  
 
     return submitReqResponse;
@@ -201,7 +204,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 name                =   "oldPassword"
                 title               =   "Old Password:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
-                inputType           =   "text"
+                inputType           =   "password"
                 placeholder         =   "Old Password"
                 
                 onChange            =   { onChange }   
@@ -215,7 +218,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 name                =   "newPassword"
                 title               =   "New Password:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
-                inputType           =   "text"
+                inputType           =   "password"
                 placeholder         =   "New Password"
                 
                 onChange            =   { onChange }   
@@ -228,7 +231,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 name                =   "confirmNewPassword"
                 title               =   "" 
                 districtPosition    =   { districtPosition.toLowerCase() }
-                inputType           =   "text"
+                inputType           =   "password"
                 placeholder         =   "Confirm New Password"
                 
                 onChange            =   { onChange }   
