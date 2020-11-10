@@ -475,8 +475,8 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                                 
                                 value               =   { value }
                                 onChange            =   { onChange }
-                                onFocus             =   { () => setIsEyeVisible(true) }
-                                //onBlur              =   { (e) => setIsEyeVisible(false) }
+                                onFocus             =   { () => { setIsEyeVisible(true); console.log(ref); console.log(document.activeElement) } }
+                                // onBlur              =   { (e) => setIsEyeVisible(false) }
 
                                 required            =   { required }
                                 ref                 =   { ref }
@@ -484,7 +484,7 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                             />
 
                             {
-                                isEyeVisible ? (
+                                isEyeVisible && (document.activeElement) ? (
                                     <EyeSymbol 
                                         districtPosition    =   { districtPosition }
                                         className           =   "eye-symbol" 

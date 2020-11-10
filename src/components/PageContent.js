@@ -118,7 +118,7 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
   const LoadingSkeletons = () => {
     return(
       <Fragment>
-        <Skeleton height="60px"/>
+        <Skeleton height="60px"width="99%"/>
         <Skeleton height="60px"/>
         <Skeleton height="60px"/>
         <Skeleton height="60px"/>
@@ -200,7 +200,7 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
                 renderAsStudent       = { (window.location.pathname === "/student") }
                 notify                = { notify }
         />
-                <div className="page-content">
+                <div className="page-content" style={{textAlign: "center"} }>
                     { generateBlueSections(blueSection_objectsArrayProps) } 
                     { 
                       title ? (

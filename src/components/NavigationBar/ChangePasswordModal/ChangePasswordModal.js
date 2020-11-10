@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, createRef, useRef } from 'react';
 import { faLock, faTicketAlt, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 import isDev from 'isdev';
@@ -7,6 +7,7 @@ import ReactLoading from 'react-loading';
 import { 
     ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,
     ChangePasswordModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './ChangePasswordStyledComponents.js';
+import { create } from 'ssl-root-cas/ssl-root-cas-latest';
 
 const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]     = useState(false);
@@ -24,7 +25,10 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         newPassword         :   ""
     });
 
-  var firstFormField = useRef(null);
+  var formFieldRef = useRef({});
+
+  let oldPasswordRef, confirmNewPasswordRef, newPassswordRef = useRef();
+
 
   const onChange = (event) => {
     setFormField( { ...formField, [ event.target.name ] : event.target.value });
@@ -37,8 +41,8 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
 
       setSubmitEnabled(true);
       setIsLoading(false);
-
-      firstFormField.current.focus();
+   
+      formFieldRef.current['oldPassword'].focus(); //focus the firm form field element
   }; //afterOpenModal()
 
   const onSubmit = async (event) => {
@@ -209,7 +213,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 
                 onChange            =   { onChange }   
                 value               =   { oldPassword }
-                ref                 =   { firstFormField } 
+                ref                 =   { element => formFieldRef.current['oldPassword'] = element } 
 
                 isOfTypePassword
                 required
@@ -224,7 +228,8 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 
                 onChange            =   { onChange }   
                 value               =   { newPassword } 
-                // ref                 =   { firstFormField } 
+                ref                 =   { element => formFieldRef.current['newPassword'] = element } 
+
 
 
                 isOfTypePassword
@@ -240,7 +245,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 
                 onChange            =   { onChange }   
                 value               =   { confirmNewPassword }
-                // ref                 =   { firstFormField } 
+                ref                 =   { element => formFieldRef.current['confirmNewPassword'] = element } 
 
                 isOfTypePassword
                 required
