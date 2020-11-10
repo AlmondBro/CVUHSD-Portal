@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Modal from 'react-modal';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye } from "@fortawesome/free-solid-svg-icons";  
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";  
 
 import { isSafari, isChromeBrowser as isChrome } from  '../../../utilityFunctions.js';
 
@@ -420,6 +420,12 @@ const EyeSymbol = styled(FontAwesomeIcon)`
 `;
 
 const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inputType, isOfTypePassword, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }, ref) => {
+    const [ passwordVisible, setIsPasswordVisible ]  = useState(false);
+    
+    const toggleShowPassword = () => {
+        setIsPasswordVisible(!passwordVisible);
+    }; //end toggleShowPassword
+
     return (
         <InputSection>
             <StyledLabel>
@@ -453,7 +459,7 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                             <StyledInput 
                                 districtPosition    =   { districtPosition.toLowerCase() }
                                 name                =   { name }
-                                type                =   { "password" } 
+                                type                =   { passwordVisible ? "text" : "password" } 
                                 placeholder         =   { placeholder }
                                 width               =   { width || "70%"} 
                                 pathname            =   { pathname }
@@ -466,7 +472,9 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                             <EyeSymbol 
                                 districtPosition    =   { districtPosition }
                                 className           =   "eye-symbol" 
-                                icon                =   {faEye}
+                                icon                =   { passwordVisible ? faEye : faEyeSlash }
+
+                                onClick             =   { toggleShowPassword }
                             />
                         </Fragment>
                    
