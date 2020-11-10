@@ -60,8 +60,10 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
     let submitReqResponse = "";
 
     window.alert(JSON.stringify(formField));
-    /*
+    ///*
     if (submitEnabled && (isLoading === false) ) {
+
+        window.alert("changing password");
         setIsLoading(true);
 
         // window.alert(JSON.stringify(formField));
@@ -84,7 +86,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         submitReqResponse = await fetch(changePassword_URL, {
             method: 'POST',
             headers: changePassword_headers,
-            body: JSON.stringify({ ...formField} )
+            body: JSON.stringify(formField)
         })
         .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
         .then((jsonResponse) => jsonResponse)
@@ -95,21 +97,9 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         //window.alert(JSON.stringify(submitReqResponse));
     
         if (submitReqResponse) {
-            const responseStatus = submitReqResponse["response_status"].status;
-    
             setIsLoading(false);
 
-            notify(
-                    <HelpdeskSubmitMessage
-                        districtPosition    =   { districtPosition }
-                        message             =   "Helpdesk Request Submitted"
-                        icon                =   { faTicketAlt }
-                    />
-            );
-    
-            // window.alert("responseStatus:\t", responseStatus);
-    
-            if (responseStatus === "success") {
+            if (submitReqResponse.status === "success") {
     
                 setIsRequestSuccessful(true);
     

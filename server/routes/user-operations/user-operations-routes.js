@@ -21,14 +21,12 @@ const ad_config = {
 const activeDirectory = new AD(ad_config);
 
 router.put('/password/update', async (req, res) => {
-    let message, error;
+    let message, error = null;
 
     let { email, currentPassword, newPassword } = req.body;
     
 
     const isAuthenticated = await activeDirectory.user(email).isAuthenticated(currentPassword);
-
-
     let { success: authenticateSuccess } = isAuthenticated;
 
     if (authenticateSuccess === true) {
@@ -37,7 +35,7 @@ router.put('/password/update', async (req, res) => {
 
       const passwordChangeSuccess = await activeDirectory.user(email).password(newPassword);
       console.log("passwordChangeSuccess", passwordChangeSuccess);
-    }
+    } //end if-statement checking if normal password authentication was okay
 
     return res.json({ message: message, error: error});
 }); //end 

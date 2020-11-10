@@ -25,7 +25,7 @@ dotenv.config({
 const authRoutes            = require('./routes/auth/auth-routes.js');
 const mainRoutes            = require('./routes/main/main-routes.js');
 const helpdeskRoutes        = require('./routes/helpdesk/helpdesk-routes.js');
-const userOperationsRoutes  = require('./routes/user-operations/userOperationsRoutes.js');
+const userOperationsRoutes  = require('./routes/user-operations/user-operations-routes.js');
 
 const app = express(); 
 
