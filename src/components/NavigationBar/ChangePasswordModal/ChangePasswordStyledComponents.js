@@ -476,8 +476,7 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                                 value               =   { value }
                                 onChange            =   { onChange }
                                 onFocus             =   { () => { setIsEyeVisible(true); console.log(ref); console.log(document.activeElement) } }
-                                // onBlur              =   { (e) => setIsEyeVisible(false) }
-
+                                onBlur              =   { (e) => setTimeout(() => setIsEyeVisible(false), 50) }
                                 required            =   { required }
                                 ref                 =   { ref }
 
@@ -490,6 +489,8 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                                         className           =   "eye-symbol" 
                                         icon                =   { !isPasswordVisible ? faEye : faEyeSlash }
                                         onClick             =   { toggleShowPassword }
+                                        onMouseDown         = { (e) => e.preventDefault()}
+
                                     />
                                 ) : null
                             }
