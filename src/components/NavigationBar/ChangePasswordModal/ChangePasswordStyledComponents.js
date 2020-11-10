@@ -420,11 +420,18 @@ const EyeSymbol = styled(FontAwesomeIcon)`
 `;
 
 const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inputType, isOfTypePassword, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }, ref) => {
-    const [ passwordVisible, setIsPasswordVisible ]  = useState(false);
+    const [ isPasswordVisible, setIsPasswordVisible ]   =   useState(false);
+    const [ isEyeVisible, setIsEyeVisible ] =   useState(false);   
+
     
     const toggleShowPassword = () => {
-        setIsPasswordVisible(!passwordVisible);
+        setIsPasswordVisible(!isPasswordVisible);
     }; //end toggleShowPassword
+
+    const toggleEyeSymbol = () => {
+        setIsEyeVisible(!isEyeVisible);
+    }; //end toggleShowPassword
+
 
     return (
         <InputSection>
@@ -459,43 +466,48 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                             <StyledInput 
                                 districtPosition    =   { districtPosition.toLowerCase() }
                                 name                =   { name }
-                                type                =   { passwordVisible ? "text" : "password" } 
+                                type                =   { isPasswordVisible ? "text" : "password" } 
                                 placeholder         =   { placeholder }
                                 width               =   { width || "70%"} 
                                 pathname            =   { pathname }
                                 
                                 value               =   { value }
                                 onChange            =   { onChange }
+                                onFocus             =   { () => setIsEyeVisible(true) }
+                                onBlur              =   { () => setIsEyeVisible(false )}
+
                                 required            =   { required }
                                 ref                 =   { ref }
-                            />
-                            <EyeSymbol 
-                                districtPosition    =   { districtPosition }
-                                className           =   "eye-symbol" 
-                                icon                =   { passwordVisible ? faEye : faEyeSlash }
 
-                                onClick             =   { toggleShowPassword }
                             />
+
+                            {
+                                isEyeVisible ? (
+                                    <EyeSymbol 
+                                        districtPosition    =   { districtPosition }
+                                        className           =   "eye-symbol" 
+                                        icon                =   { isPasswordVisible ? faEye : faEyeSlash }
+                                        onClick             =   { toggleShowPassword }
+                                    />
+                                ) : null
+                            }
+                          
                         </Fragment>
                    
                 ) : (
-                    <Fragment>
-                        <StyledInput 
-                            districtPosition    =   { districtPosition.toLowerCase() }
-                            name                =   { name }
-                            type                =   { inputType || "text" } 
-                            placeholder         =   { placeholder }
-                            width               =   { width || "70%"} 
-                            pathname            =   { pathname }
-                            
-                            value               =   { value }
-                            onChange            =   { onChange }
-                            required            =   { required }
-                            ref                 =   { ref }
-                        /> 
-                
-                    </Fragment>
-               
+                    <StyledInput 
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        name                =   { name }
+                        type                =   { inputType || "text" } 
+                        placeholder         =   { placeholder }
+                        width               =   { width || "70%"} 
+                        pathname            =   { pathname }
+                        
+                        value               =   { value }
+                        onChange            =   { onChange }
+                        required            =   { required }
+                        ref                 =   { ref }
+                /> 
                 )
             }
         </InputSection>
