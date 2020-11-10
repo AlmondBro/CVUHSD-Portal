@@ -36,14 +36,22 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
 
 
   const afterOpenModal = async () => {
-      console.log("<TransferToITModal/>afterOpenModal()");
-      console.log("<TransferToITModal/>afterOpenModal() itUID:\t", itUID);
-
       setSubmitEnabled(true);
       setIsLoading(false);
    
-      formFieldRef.current['oldPassword'].focus(); //focus the firm form field element
+      formFieldRef.current['oldPassword'].focus(); //focus the first form field element
   }; //afterOpenModal()
+
+  const onClose = () => {
+    setIsRequestSuccessful(null);
+    toggleModal(false);
+
+    setFormField({
+        oldPassword         :   "",
+        confirmNewPassword  :   "",
+        newPassword         :   ""
+    });
+    }; //end onClose()
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -155,17 +163,6 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
     useEffect(() => {
 
     }, [ site, districtPosition ]); //end useEffect()
-
-    const onClose = () => {
-        setIsRequestSuccessful(null);
-        toggleModal(false);
-
-        setFormField({
-            oldPassword         :   "",
-            confirmNewPassword  :   "",
-            newPassword         :   ""
-        });
-    }; //end onClose
 
   return (
       <ChangePasswordModalContainer
