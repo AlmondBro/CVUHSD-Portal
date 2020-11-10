@@ -24,7 +24,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         newPassword         :   ""
     });
 
-  var titleInput = useRef(null);
+  var firstFormField = useRef(null);
 
   const onChange = (event) => {
     setFormField( { ...formField, [ event.target.name ] : event.target.value });
@@ -38,7 +38,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
       setSubmitEnabled(true);
       setIsLoading(false);
 
-      titleInput.current.focus();
+      firstFormField.current.focus();
   }; //afterOpenModal()
 
   const onSubmit = async (event) => {
@@ -209,7 +209,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 
                 onChange            =   { onChange }   
                 value               =   { oldPassword }
-                ref                 =   { titleInput } 
+                ref                 =   { firstFormField } 
 
                 isOfTypePassword
                 required
@@ -224,6 +224,8 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 
                 onChange            =   { onChange }   
                 value               =   { newPassword } 
+                // ref                 =   { firstFormField } 
+
 
                 isOfTypePassword
                 required
@@ -238,6 +240,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 
                 onChange            =   { onChange }   
                 value               =   { confirmNewPassword }
+                // ref                 =   { firstFormField } 
 
                 isOfTypePassword
                 required

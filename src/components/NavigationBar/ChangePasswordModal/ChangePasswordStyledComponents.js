@@ -424,7 +424,9 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
     const [ isEyeVisible, setIsEyeVisible ] =   useState(false);   
 
     
-    const toggleShowPassword = () => {
+    const toggleShowPassword = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         setIsPasswordVisible(!isPasswordVisible);
     }; //end toggleShowPassword
 
@@ -474,7 +476,7 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                                 value               =   { value }
                                 onChange            =   { onChange }
                                 onFocus             =   { () => setIsEyeVisible(true) }
-                                onBlur              =   { () => setIsEyeVisible(false )}
+                                //onBlur              =   { (e) => setIsEyeVisible(false) }
 
                                 required            =   { required }
                                 ref                 =   { ref }
@@ -486,7 +488,7 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                                     <EyeSymbol 
                                         districtPosition    =   { districtPosition }
                                         className           =   "eye-symbol" 
-                                        icon                =   { isPasswordVisible ? faEye : faEyeSlash }
+                                        icon                =   { !isPasswordVisible ? faEye : faEyeSlash }
                                         onClick             =   { toggleShowPassword }
                                     />
                                 ) : null
