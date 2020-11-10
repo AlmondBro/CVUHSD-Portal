@@ -57,7 +57,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
     event.preventDefault();
     event.stopPropagation();
 
-    let submitReqResponse = "";
+    let changePasswordServerResponse = "";
 
     window.alert(JSON.stringify(formField));
     ///*
@@ -76,17 +76,17 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
             newPassword 
         } = formField;
     
-        const changePassword_URL = `${isDev ? "" : "/server"}/helpdesk/request/create`;
+        const changePassword_URL = `${isDev ? "" : "/server"}/user-ops/password/update`;
         const changePassword_headers = {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             "Access-Control-Allow-Credentials": true
         };
     
-        submitReqResponse = await fetch(changePassword_URL, {
+        changePasswordServerResponse = await fetch(changePassword_URL, {
             method: 'POST',
             headers: changePassword_headers,
-            body: JSON.stringify(formField)
+            body: JSON.stringify({...formField, email})
         })
         .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
         .then((jsonResponse) => jsonResponse)
@@ -96,10 +96,12 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
     
         //window.alert(JSON.stringify(submitReqResponse));
     
-        if (submitReqResponse) {
+        console.log("changePasswordServerResponse", changePasswordServerResponse);
+
+        if (changePasswordServerResponse) {
             setIsLoading(false);
 
-            if (submitReqResponse.status === "success") {
+            if (changePasswordServerResponse.status === "success") {
     
                 setIsRequestSuccessful(true);
     
@@ -133,7 +135,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
     // */
  
 
-    return submitReqResponse;
+    return changePasswordServerResponse;
   }; //end submitRequest
 
   const bodyOpenClassName="change-password-modal-body--open",

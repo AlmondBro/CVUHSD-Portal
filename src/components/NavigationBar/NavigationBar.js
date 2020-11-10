@@ -337,6 +337,7 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                             toggleModal         =   { toggleChangePasswordModal }
             
                             districtPosition    =   { districtPosition }
+                            email               =   { email }
                             renderAsStudent     =   { renderAsStudent }                 
                         />
                     ) : null
