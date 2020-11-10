@@ -489,7 +489,7 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                                         className           =   "eye-symbol" 
                                         icon                =   { !isPasswordVisible ? faEye : faEyeSlash }
                                         onClick             =   { toggleShowPassword }
-                                        onMouseDown         = { (e) => e.preventDefault()}
+                                        onMouseDown         =   { (e) => e.preventDefault()}
 
                                     />
                                 ) : null

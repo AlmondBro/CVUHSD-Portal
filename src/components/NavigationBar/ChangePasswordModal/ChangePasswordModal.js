@@ -159,6 +159,12 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
     const onClose = () => {
         setIsRequestSuccessful(null);
         toggleModal(false);
+
+        setFormField({
+            oldPassword         :   "",
+            confirmNewPassword  :   "",
+            newPassword         :   ""
+        });
     }; //end onClose
 
   return (
