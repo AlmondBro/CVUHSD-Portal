@@ -211,6 +211,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 value               =   { oldPassword }
                 ref                 =   { titleInput } 
 
+                isOfTypePassword
                 required
             />
 
@@ -224,6 +225,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 onChange            =   { onChange }   
                 value               =   { newPassword } 
 
+                isOfTypePassword
                 required
             />
 
@@ -237,6 +239,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 onChange            =   { onChange }   
                 value               =   { confirmNewPassword }
 
+                isOfTypePassword
                 required
             />
 

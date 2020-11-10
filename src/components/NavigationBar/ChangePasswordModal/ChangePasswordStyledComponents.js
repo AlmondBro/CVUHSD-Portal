@@ -1,9 +1,10 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, Fragment } from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from 'react-modal';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from "@fortawesome/free-solid-svg-icons";  
 
 import { isSafari, isChromeBrowser as isChrome } from  '../../../utilityFunctions.js';
 
@@ -298,11 +299,13 @@ const NoCVTechsMessage = styled('p')`
 `;
 
 const InputSection = styled('p')`
+    position: relative;
+
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-    
+
     width: 100%;
     padding: 0% 5%;
 
@@ -324,6 +327,7 @@ const StyledHeader = styled('h3')`
 `;
 
 const StyledInput = styled('input')`
+    position: relative;
     width: ${props => props.width};
 
     border: 1px;
@@ -400,8 +404,22 @@ const StyledTextArea = styled('textarea')`
     }
 `;
 
+const EyeSymbol = styled(FontAwesomeIcon)`
+    cursor: pointer; 
 
-const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inputType, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }, ref) => {
+    position: absolute;
+    left: 90%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
+        };
+`;
+
+const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inputType, isOfTypePassword, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }, ref) => {
     return (
         <InputSection>
             <StyledLabel>
@@ -429,20 +447,47 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                     >
                         { description }
                     </StyledTextArea>
-                ) : ( 
-                    <StyledInput 
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                        name                =   { name }
-                        type                =   { inputType || "text" } 
-                        placeholder         =   { placeholder }
-                        width               =   { width || "70%"} 
-                        pathname            =   { pathname }
-                        
-                        value               =   { value }
-                        onChange            =   { onChange }
-                        required            =   { required }
-                        ref                 =   { ref }
-                    />
+                ) : 
+                    isOfTypePassword ? ( 
+                        <Fragment>
+                            <StyledInput 
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                name                =   { name }
+                                type                =   { "password" } 
+                                placeholder         =   { placeholder }
+                                width               =   { width || "70%"} 
+                                pathname            =   { pathname }
+                                
+                                value               =   { value }
+                                onChange            =   { onChange }
+                                required            =   { required }
+                                ref                 =   { ref }
+                            />
+                            <EyeSymbol 
+                                districtPosition    =   { districtPosition }
+                                className           =   "eye-symbol" 
+                                icon                =   {faEye}
+                            />
+                        </Fragment>
+                   
+                ) : (
+                    <Fragment>
+                        <StyledInput 
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            name                =   { name }
+                            type                =   { inputType || "text" } 
+                            placeholder         =   { placeholder }
+                            width               =   { width || "70%"} 
+                            pathname            =   { pathname }
+                            
+                            value               =   { value }
+                            onChange            =   { onChange }
+                            required            =   { required }
+                            ref                 =   { ref }
+                        /> 
+                
+                    </Fragment>
+               
                 )
             }
         </InputSection>
