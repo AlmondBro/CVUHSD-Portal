@@ -1,11 +1,5 @@
-import fs from 'fs';
-import path from 'path';
 import { Router } from 'express';
-import passport from 'passport';
-
 import AD from 'ad';
-
-import isDev from 'isdev';
 
 let router = Router();
 
@@ -24,15 +18,12 @@ router.put('/password/update', async (req, res) => {
     let message, error = null;
 
     let { username, currentPassword, newPassword } = req.body;
-    console.log({...req.body});
 
     const isAuthenticated = await activeDirectory.user(username).authenticate(currentPassword)
                             .catch((error) => { 
                               message = error.description || error;
                               error   = true;
                           });
-
-    console.log("\n\nisAuthenticated:\t", isAuthenticated);
 
     if (isAuthenticated === true) {
       let changePasswordResult = await activeDirectory.user(username).password(newPassword)
