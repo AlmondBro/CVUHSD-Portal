@@ -58,67 +58,87 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
     let changePasswordServerResponse = "";
     ///*
     if (submitEnabled && (isLoading === false) ) {
-        setIsLoading(true);
 
+        setIsLoading(true);
         setSubmitEnabled(false);
 
-        let {     
-            currentPassword,       
-            confirmNewPassword,
-            newPassword 
-        } = formField;
-
-        let username = email.split('@')[0];
-    
-        const changePassword_URL = `${isDev ? "" : "/server"}/user-ops/password/update`;
-        const changePassword_headers = {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            "Access-Control-Allow-Credentials": true
-        };
-    
-        changePasswordServerResponse = await fetch(changePassword_URL, {
-            method: 'PUT',
-            headers: changePassword_headers,
-            body: JSON.stringify({...formField, username})
-        })
-        .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
-        .then((jsonResponse) => jsonResponse)
-        .catch((error) => {
-            console.error(`Catching error:\t ${error}`);
-        });
-    
-
-        console.log("changePasswordServerResponse", changePasswordServerResponse);
-
-        if (changePasswordServerResponse) {
-
-            let { message, error } = changePasswordServerResponse;
-
-            setServerMessage(message);
-
-            setIsLoading(false);
-
-            if (error === false) {
-                setChangePasswordResult(true);
-    
-                setTimeout(() => {
-                    //Reset the form field after submitting.
-    
-                    toggleModal(false);
-                    
-                    setFormField({
-                        currentPassword         :   "",
-                        confirmNewPassword  :   "",
-                        newPassword         :   ""
-                    });
-                }, 800);
-           
+        if (newPassword.length >= 14 ) {
+            if (newPassword === confirmNewPassword) {
+                let {     
+                    currentPassword,       
+                    confirmNewPassword,
+                    newPassword 
+                } = formField;
+        
+                let username = email.split('@')[0];
+            
+                const changePassword_URL = `${isDev ? "" : "/server"}/user-ops/password/update`;
+                const changePassword_headers = {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    "Access-Control-Allow-Credentials": true
+                };
+            
+                changePasswordServerResponse = await fetch(changePassword_URL, {
+                    method: 'PUT',
+                    headers: changePassword_headers,
+                    body: JSON.stringify({...formField, username})
+                })
+                .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
+                .then((jsonResponse) => jsonResponse)
+                .catch((error) => {
+                    console.error(`Catching error:\t ${error}`);
+                });
+            
+        
+                console.log("changePasswordServerResponse", changePasswordServerResponse);
+        
+                if (changePasswordServerResponse) {
+        
+                    let { message, error } = changePasswordServerResponse;
+        
+                    setServerMessage(message);
+        
+                    setIsLoading(false);
+        
+                    if (error === false) {
+                        setChangePasswordResult(true);
+            
+                        setTimeout(() => {
+                            //Reset the form field after submitting.
+            
+                            toggleModal(false);
+                            
+                            setFormField({
+                                currentPassword         :   "",
+                                confirmNewPassword  :   "",
+                                newPassword         :   ""
+                            });
+                        }, 800);
+                
+                    } else {
+                        setChangePasswordResult(false);
+                        setSubmitEnabled(true);
+                    } //end inner-else statment
+                } //end if-statement
             } else {
                 setChangePasswordResult(false);
+                setServerMessage("New password and confirmation do not match");
+
+                setIsLoading(false);
                 setSubmitEnabled(true);
-            } //end inner-else statment
-        } //end if-statement
+                return;
+            } //end else if the password does not match
+        } else {
+            setChangePasswordResult(false);
+            setServerMessage("New password must be at least 14 characters long");
+
+            setIsLoading(false);
+            setSubmitEnabled(true);
+            return;
+        } //end else-statement
+     
+     
     } else{
         window.alert("Submitting duplicate tickets prohibited.");
         setServerMessage("Submitting duplicate tickets prohibited");
