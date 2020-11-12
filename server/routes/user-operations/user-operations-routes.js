@@ -23,27 +23,34 @@ const activeDirectory = new AD(ad_config);
 router.put('/password/update', async (req, res) => {
     let message, error = null;
 
-    let { email, currentPassword, newPassword } = req.body;
-    
+    let { username, currentPassword, newPassword } = req.body;
     console.log({...req.body});
 
-    const isAuthenticated = await activeDirectory.user(email).authenticate(currentPassword);
-    console.log("isAuthenticated:\t", isAuthenticated);
+    const isAuthenticated = await activeDirectory.user(username).authenticate(currentPassword);
+    console.log("\n\nisAuthenticated:\t", isAuthenticated);
 
-    let { success: authenticateSuccess } = isAuthenticated;
+    if (isAuthenticated === true) {
+      let changePasswordResult = await activeDirectory.user(username).password(newPassword)
+                                          .catch((error) => { 
+                                            console.log("Error:", error);
+                                            message = error;
+                                            error   = true;
+                                        });
+      console.log("\n\nchangePasswordResult:\t", changePasswordResult);
 
-    message = isAuthenticated;
+      if (changePasswordResult.success === true) {
+        message = "Changed password successfully";
+        error   = false;
+      } else {
+        message = changePasswordResult;
+        error   = true;
+      } 
+    } else {
+      message = "Authentication with current password failed.";
+      error   = true;
+    } //end if-else statement checking if normal password authentication was okay
 
-    if (authenticateSuccess === true) {
-
-      const passwordChangeSuccess = true;
-      //await activeDirectory.user(email).password(newPassword);
-      console.log("passwordChangeSuccess", passwordChangeSuccess);
-
-      //message = passwordChangeSuccess;
-    } //end if-statement checking if normal password authentication was okay
-
-    return res.json({ message: message, error: error});
+    return res.json({ message, error: error});
 }); //end 
 
 module.exports = router;

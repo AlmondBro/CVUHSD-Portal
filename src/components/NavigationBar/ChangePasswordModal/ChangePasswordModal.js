@@ -10,24 +10,18 @@ import {
 import { create } from 'ssl-root-cas/ssl-root-cas-latest';
 
 const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
-    let [ isLoading, setIsLoading ]     = useState(false);
+    let [ isLoading, setIsLoading ]                         = useState(false);
+    let [ changePasswordResult, setChangePasswordResult ]   = useState(null);
 
-    let [ categories, setCategories ]   = useState([]);
-    let [ locations, setLocations ]     = useState([]);
+    let [ submitEnabled, setSubmitEnabled ]                 = useState(false);
 
-    let [ isRequestSuccessful, setIsRequestSuccessful ] = useState(null);
+    const [ formField, setFormField ]                       = useState({
+                                                                    oldPassword         :   "",
+                                                                    confirmNewPassword  :   "",
+                                                                    newPassword         :   ""
+                                                                });
 
-    let [ submitEnabled, setSubmitEnabled ] = useState(false);
-
-    const [ formField, setFormField ] = useState({
-        oldPassword         :   "",
-        confirmNewPassword  :   "",
-        newPassword         :   ""
-    });
-
-  var formFieldRef = useRef({});
-
-  let oldPasswordRef, confirmNewPasswordRef, newPassswordRef = useRef();
+    var formFieldRef                                        = useRef({});
 
 
   const onChange = (event) => {
@@ -43,7 +37,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
   }; //afterOpenModal()
 
   const onClose = () => {
-    setIsRequestSuccessful(null);
+    setChangePasswordResult(null);
     toggleModal(false);
 
     setFormField({
@@ -58,16 +52,10 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
     event.stopPropagation();
 
     let changePasswordServerResponse = "";
-
-    window.alert(JSON.stringify(formField));
     ///*
     if (submitEnabled && (isLoading === false) ) {
-
-        window.alert("changing password");
         setIsLoading(true);
 
-        // window.alert(JSON.stringify(formField));
-    
         setSubmitEnabled(false);
 
         let {     
@@ -75,6 +63,8 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
             confirmNewPassword,
             newPassword 
         } = formField;
+
+        let username = email.split('@')[0];
     
         const changePassword_URL = `${isDev ? "" : "/server"}/user-ops/password/update`;
         const changePassword_headers = {
@@ -84,9 +74,9 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         };
     
         changePasswordServerResponse = await fetch(changePassword_URL, {
-            method: 'POST',
+            method: 'PUT',
             headers: changePassword_headers,
-            body: JSON.stringify({...formField, email})
+            body: JSON.stringify({...formField, username})
         })
         .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
         .then((jsonResponse) => jsonResponse)
@@ -94,16 +84,16 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
             console.error(`Catching error:\t ${error}`);
         });
     
-        //window.alert(JSON.stringify(submitReqResponse));
-    
+
         console.log("changePasswordServerResponse", changePasswordServerResponse);
 
         if (changePasswordServerResponse) {
+
+            let { message, error } = changePasswordServerResponse;
             setIsLoading(false);
 
-            if (changePasswordServerResponse.status === "success") {
-    
-                setIsRequestSuccessful(true);
+            if (error === false) {
+                setChangePasswordResult(true);
     
                 setTimeout(() => {
                          //Reset the form field after submitting.
@@ -118,10 +108,9 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 }, 800);
            
             } else {
-                setIsRequestSuccessful(false);
-            }
-    
-        }
+                setChangePasswordResult(false);
+            } //end inner-else statment
+        } //end if-statement
     } else{
         window.alert("Submitting duplicate tickets prohibited.");
         notify(
@@ -130,11 +119,10 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 message             =   "Submitting duplicate tickets prohibited"
                 icon                =   { faWindowClose }
             />
-    );
-    }
+        ); //end notify()
+    } //end outer else-statement
     // */
  
-
     return changePasswordServerResponse;
   }; //end submitRequest
 
@@ -269,10 +257,10 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
             districtPosition    =   { districtPosition.toLowerCase() }
         >
           {
-            (isRequestSuccessful === null) ? null :
-              ( (isRequestSuccessful === true) ? "Success! Password Changed \u2714" : 
-                  "Changing password failed \u00D7" 
-              )
+            (changePasswordResult === null) ? null :
+            ( (changePasswordResult === true) ? `Password changed successfully \u2714` : 
+                `Password change failed. \u00D7` 
+            )
           }
         </TransferResultMessage>
       </ChangePasswordModalContainer>
