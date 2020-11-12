@@ -13,10 +13,12 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
     let [ isLoading, setIsLoading ]                         = useState(false);
     let [ changePasswordResult, setChangePasswordResult ]   = useState(null);
 
+    let [ serverMessage, setServerMessage ]                 = useState("");
+
     let [ submitEnabled, setSubmitEnabled ]                 = useState(false);
 
     const [ formField, setFormField ]                       = useState({
-                                                                    oldPassword         :   "",
+                                                                    currentPassword         :   "",
                                                                     confirmNewPassword  :   "",
                                                                     newPassword         :   ""
                                                                 });
@@ -32,16 +34,18 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
   const afterOpenModal = async () => {
       setSubmitEnabled(true);
       setIsLoading(false);
+      setServerMessage("");
    
-      formFieldRef.current['oldPassword'].focus(); //focus the first form field element
+      formFieldRef.current['currentPassword'].focus(); //focus the first form field element
   }; //afterOpenModal()
 
   const onClose = () => {
     setChangePasswordResult(null);
+    setServerMessage("");
     toggleModal(false);
 
     setFormField({
-        oldPassword         :   "",
+        currentPassword         :   "",
         confirmNewPassword  :   "",
         newPassword         :   ""
     });
@@ -59,7 +63,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         setSubmitEnabled(false);
 
         let {     
-            oldPassword,       
+            currentPassword,       
             confirmNewPassword,
             newPassword 
         } = formField;
@@ -90,18 +94,21 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         if (changePasswordServerResponse) {
 
             let { message, error } = changePasswordServerResponse;
+
+            setServerMessage(message);
+
             setIsLoading(false);
 
             if (error === false) {
                 setChangePasswordResult(true);
     
                 setTimeout(() => {
-                         //Reset the form field after submitting.
+                    //Reset the form field after submitting.
     
                     toggleModal(false);
                     
                     setFormField({
-                        oldPassword         :   "",
+                        currentPassword         :   "",
                         confirmNewPassword  :   "",
                         newPassword         :   ""
                     });
@@ -109,10 +116,12 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
            
             } else {
                 setChangePasswordResult(false);
+                setSubmitEnabled(true);
             } //end inner-else statment
         } //end if-statement
     } else{
         window.alert("Submitting duplicate tickets prohibited.");
+        setServerMessage("Submitting duplicate tickets prohibited");
         notify(
             <HelpdeskSubmitMessage
                 districtPosition    =   { districtPosition }
@@ -134,7 +143,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         parentSelectorID="chat-page-main-container";
 
   let {     
-        oldPassword,
+        currentPassword,
         confirmNewPassword,
         newPassword         
     } = formField;
@@ -188,15 +197,15 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
             </label>
 
             <ModalTextInputField
-                name                =   "oldPassword"
+                name                =   "currentPassword"
                 title               =   "Old Password:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
                 inputType           =   "password"
                 placeholder         =   "Old Password"
                 
                 onChange            =   { onChange }   
-                value               =   { oldPassword }
-                ref                 =   { element => formFieldRef.current['oldPassword'] = element } 
+                value               =   { currentPassword }
+                ref                 =   { element => formFieldRef.current['currentPassword'] = element } 
 
                 isOfTypePassword
                 required
@@ -258,8 +267,8 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         >
           {
             (changePasswordResult === null) ? null :
-            ( (changePasswordResult === true) ? `Password changed successfully \u2714` : 
-                `Password change failed. \u00D7` 
+            ( (changePasswordResult === true) ? `${serverMessage} \u2714` : 
+                `${serverMessage} \u00D7` 
             )
           }
         </TransferResultMessage>

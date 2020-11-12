@@ -26,27 +26,28 @@ router.put('/password/update', async (req, res) => {
     let { username, currentPassword, newPassword } = req.body;
     console.log({...req.body});
 
-    const isAuthenticated = await activeDirectory.user(username).authenticate(currentPassword);
+    const isAuthenticated = await activeDirectory.user(username).authenticate(currentPassword)
+                            .catch((error) => { 
+                              message = error.description || error;
+                              error   = true;
+                          });
+
     console.log("\n\nisAuthenticated:\t", isAuthenticated);
 
     if (isAuthenticated === true) {
       let changePasswordResult = await activeDirectory.user(username).password(newPassword)
-                                          .catch((error) => { 
-                                            console.log("Error:", error);
-                                            message = error;
-                                            error   = true;
-                                        });
+                                         
       console.log("\n\nchangePasswordResult:\t", changePasswordResult);
 
       if (changePasswordResult.success === true) {
-        message = "Changed password successfully";
+        message = "Password Change Successful";
         error   = false;
       } else {
         message = changePasswordResult;
         error   = true;
       } 
     } else {
-      message = "Authentication with current password failed.";
+      message = "Current password incorrect";
       error   = true;
     } //end if-else statement checking if normal password authentication was okay
 
