@@ -52,7 +52,8 @@ body.change-password-modal-body--open #cvuhsd-sso-portal > :not(.change-password
 /* Prevent there from being a scroll to the Transfer to IT Modal */
 .ReactModal__Html--open,
 .ReactModal__Body--open,
-.support-request-modal-body--open
+.support-request-modal-body--open,
+.change-password-modal-body--open
 {
     overflow: hidden;
 }
