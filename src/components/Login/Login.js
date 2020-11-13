@@ -184,6 +184,13 @@ class LogIn extends Component {
                 
             let logIn_URL = `${isDev ? "" : "/server" }/login`
 
+            let headers = {
+                'Content-Type': 'application/json',
+                'credentials': 'include',
+                'Access-Control-Allow-Origin': '*',
+                'Cache-Control': 'no-cache'
+            };
+
             this.setState({isLoading: true, message: "Loading..."});
 
             //TODO: Remove in final production build -- only here to mimic successful login.
@@ -192,13 +199,7 @@ class LogIn extends Component {
             }; //end nullFunction()
 
             //let isDev = false;
-            let headers = {
-                'Content-Type': 'application/json',
-                'credentials': 'include',
-                'Access-Control-Allow-Origin': '*',
-                'Cache-Control': 'no-cache'
-            };
-            
+          
             //this.setState({username: this.state.usernameOnly});
             console.log(`this.user_name_only (from connect to server): ${this.user_name_only}`);
             console.log(`Username: ${this.state.username}`);

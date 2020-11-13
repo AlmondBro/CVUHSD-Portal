@@ -5,6 +5,9 @@ import ReactLoading from 'react-loading';
 import { CoffeeAnimation }  from "./../Header/Header_StyledComponents.js"
 
 import { LoadingSSOPageContainer, CoffeeAnimationContainer, LoadingMessage } from "./LoadingSSOPage_StyledComponents.js";
+
+import Skeleton from 'react-loading-skeleton';
+ 
 const LoadingSSOPage = ({message, error, title,...props}) => {
     // title={this.state.title}
     // site={this.state.site}
@@ -15,7 +18,7 @@ const LoadingSSOPage = ({message, error, title,...props}) => {
         <LoadingSSOPageContainer 
             className="loadingSSOPage-container"
         > 
-            <CoffeeAnimationContainer className="coffee-animation-container">
+            {/* <CoffeeAnimationContainer className="coffee-animation-container">
                 <LoadingMessage 
                     className="loading-message"
                     title={title}
@@ -33,8 +36,8 @@ const LoadingSSOPage = ({message, error, title,...props}) => {
                     }
                     </div>
                 }
-                {/* <img src="./cvuhsd-allStudents-ready.jpg"/> */}
-            </CoffeeAnimationContainer>
+            </CoffeeAnimationContainer> */}
+            <Skeleton height="60px"/>
         </LoadingSSOPageContainer>
     )
 }; //end LoadinSSOPage  

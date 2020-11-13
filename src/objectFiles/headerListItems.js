@@ -69,7 +69,7 @@ let staff_HeaderLinks = [
     standardStaffTools, administrativeTools,
     teacherTools, classroomTools,
     learningTools, digitalTextbooks,
-    schoolWebsites, troubleShooting, allTools
+    schoolWebsites, allTools
 
 ];
 

@@ -12,7 +12,7 @@ import {  Redirect } from "react-router";
 import { withRouter, Route, Switch } from "react-router-dom";
 
 //Import styled components
-import { StyledContainer } from "./App_StyledComponents.js";
+import { StyledContainer, StyledToastContainer } from "./App_StyledComponents.js";
 
 //Import pages
 import NotFound from "./../NotFound/NotFound.js";
@@ -21,11 +21,14 @@ import PrivateRoute from "./../PrivateRoute.js";
 
 import SimpleStorage, { resetParentState, clearStorage } from "react-simple-storage";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { isIE } from './../../utilityFunctions.js';
 
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
-//TODO: Fix Dashboard "digial" typon on quick links buttons
+//TODO: Fix Dashboard "digital" typon on quick links buttons
 
 //TODO: Extra thing: Add user profile picture: https://sharepoint.stackexchange.com/questions/215659/how-to-fetch-user-profile-image-from-azure-active-directory-from-sharepoint-onli
 //TODO: The hover in the 'All links' in the navbar
@@ -65,6 +68,7 @@ class App extends Component {
       renderAsStudent: false,
       pathname: "",
       accessToken: "",
+      uid: "",
       containerStyle: {
           "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
@@ -205,9 +209,9 @@ class App extends Component {
   }; //end logOut
 
   checkForLogIn = async (history) => {
-    const checkForLogin_URL = `${isDev ? "" : "/server"}/auth/callback` 
+    const checkForLogin_URL = `${isDev ? "" : "/server"}/auth/callback`; 
 
-    const successfulAuthURL = `${isDev ? "" : ""}/auth-success` 
+    const successfulAuthURL = `${isDev ? "" : ""}/auth-success`; 
 
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code'); 
@@ -227,16 +231,16 @@ class App extends Component {
     .then((response) => response.json())
     .then((userInfo) => {
       if (userInfo) {
-        const { username, email, family_name, givenName, jobTitle, accessToken } = userInfo;
-        
-        //TODO: Set student ID or UID
+        const { username, email, family_name, givenName, jobTitle, accessToken, uid } = userInfo;
+    
         this.setState({
           loggedIn: true,
           firstName:  givenName,
           lastName: family_name,
           username: username,
           email: email,
-          title: jobTitle,
+          title: jobTitle || "staff",
+          uid,
           accessToken,
         });
       }
@@ -251,6 +255,19 @@ class App extends Component {
     .catch((error) => {
         console.error(`checkForLogIn() Catching error:\t ${error}`);
     });
+  };
+
+  notify = (notifyContent) => {
+    toast(notifyContent, {
+        position: "top-right",
+        autoClose: 12500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    return;
   };
 
   componentDidMount = () => {
@@ -302,16 +319,29 @@ class App extends Component {
 
     console.log("defaultURL:\t" + defaultURL);
 
+    const showPage = false;
     return (
       <StyledContainer 
         fluid={true} 
-        containerStyle={this.state.containerStyle} 
-        districtPosition={this.state.title}
-        renderAsStudent={this.state.renderAsStudent}
+        containerStyle    = { this.state.containerStyle} 
+        districtPosition  = { this.state.title}
+        renderAsStudent   = { this.state.renderAsStudent}
       >
+        <StyledToastContainer
+          position          = "top-right"
+          autoClose         = { 1200 }
+          hideProgressBar   = { true }
+          newestOnTop       = { false }
+          closeOnClick      = { true }
+          rtl               = { false }
+          pauseOnFocusLoss  = { false }
+          draggable         = { true }
+          pauseOnHover      = { true }
+
+          districtPosition  = { this.state.title.toLowerCase() }
+          renderAsStudent   = { this.state.renderAsStudent}
+        />
         <SimpleStorage parent={this} prefix={"PortalStorage"} />
-        {
-          this.state.loggedIn ? (
             <Switch>
               { // Update routes to use server subdirectory in production
                 //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
@@ -325,7 +355,10 @@ class App extends Component {
               <PrivateRoute 
                             path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
                             component             = { PageContent} 
+
                             fullName              = { this.state.firstName + " " + this.state.lastName }
+                            email                 = { this.state.email }
+                            uid                   = { this.state.uid }
                             title                 = { this.state.title }
                             site                  = { this.state.site }
                             renderAsStudent       = { this.state.renderAsStudent }
@@ -342,6 +375,8 @@ class App extends Component {
                             modifyTitle           = { this.modifyTitle }
                             modifyRenderAsStudent = { this.modifyRenderAsStudent }
                             modifyIsStudent       = { this.modifyIsStudent }
+
+                            notify                = { this.notify }
               />
 
               <Route path={`${publicURL}/staff`}
@@ -396,8 +431,6 @@ class App extends Component {
                     /> ) : null
               }
           </Switch>
-          ) : <LoadingSSOPage/>
-        }
       </StyledContainer>); //end return statement
   }
 }

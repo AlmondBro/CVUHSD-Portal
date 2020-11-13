@@ -17,6 +17,8 @@ body {
     width: 100%;
     display: block;
     /* table-cell; */
+
+    transition: 300ms filter linear;
 }
 
 html, body {
@@ -24,19 +26,10 @@ html, body {
     padding: 0px;
 }
 
-body.ReactModal__Body--open {
-    overflow-y: hidden;
-}
-
-body.ReactModal__Body--open > :not(.ReactModalPortal) {
-/* filter: blur(5px); */
-}
-
 body {
     filter: blur(0px);
     transition: 700ms filter linear;
 }
-
 
 iframe {
     display: block;  
@@ -44,38 +37,74 @@ iframe {
     height: 100%;
 }
 
+/* === TRANSFER TO IT MODAL === */
+
+body.support-request-modal-body--open #cvuhsd-sso-portal > :not(.support-request-modal):not(.Toastify):not(.Toastify__toast-container):not(.Toastify__toast),
+body.change-password-modal-body--open #cvuhsd-sso-portal > :not(.change-password-modal):not(.Toastify):not(.Toastify__toast-container):not(.Toastify__toast) {
+    filter: blur(3px);
+}
+
+
+/* body.ReactModal__Body--open > div.transfer-to-it-modal {
+    filter: blur(0px);
+}  */
+
+/* Prevent there from being a scroll to the Transfer to IT Modal */
+.ReactModal__Html--open,
+.ReactModal__Body--open,
+.support-request-modal-body--open,
+.change-password-modal-body--open
+{
+    overflow: hidden;
+}
+
 .ReactModal__Overlay {
     opacity: 0;
-    /* transform: scale(0.0); */
-    transition: opacity 700ms ease-in-out;
-    /* transform 700ms ease-in-out; */
+    transition: opacity 300ms ease-in-out;
 }
 
+.ReactModal__Overlay--after-open{
+    opacity: 1;
+
+}
+
+.ReactModal__Overlay--before-close{
+    opacity: 0;
+}
+
+/* React Modal Content Animation */
 .ReactModal__Content {
-    transform: scale(0.0);
-    transition: opacity 700ms ease-in-out, transform 700ms ease-in-out
-    
-    /* opacity 700ms ease-in-out, transform 700ms ease-in-out */
-}
+    transform: scale(0) translate(-50%, -50%);
+    transform-origin: 0% 25%;
 
-.ReactModal__Overlay--after-open, .ReactModal__Content--after-open{
-    opacity: 1; 
+    max-height: 0px;
+    max-width: 0px;
+
+    transition: transform 300ms ease-in-out, max-width 300ms ease-in-out, max-height 300ms ease-in-out;
+
 }
 
 .ReactModal__Content--after-open {
-    transform: scale(3.0);
-}
+    transform: scale(1);
+    transform-origin: 0% 25%;
 
-.ReactModal__Overlay--before-close, .ReactModal__Content--before-close{
-    opacity: 0;
-    /* transition: opacity 700ms ease-in-out, transform 700ms ease-in-out */
+    max-height: 900px;
+    max-width: 900px;
 }
 
 .ReactModal__Content--before-close {
-    transform: scale(0.0);
-    /* transition: transform 700ms ease-in-out; */
+    transform: scale(0);
+    transform-origin: 0% 25%;
+
+    max-height: 0px;
+    max-width: 0px;
 }
 
+
+/* Prevent Buttons from having an outlined when clicked or focused */
+html > * button:focus {
+    outline: 0px;
+}
 
 /* Manage Engine Chat  */
 body > div#external_sdp_chat {

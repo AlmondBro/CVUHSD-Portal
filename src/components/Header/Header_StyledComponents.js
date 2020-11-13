@@ -164,6 +164,7 @@ let PortalHeaderText = styled("h1")`
 `;
 
 let Greeting = styled("h3")`
+    display: inline-block;
     font-size: 1.5em;
     margin: 4px 10px;
     padding: 5px;
@@ -186,7 +187,7 @@ let Greeting = styled("h3")`
 `; //end Greeting
 
 let PositionGreeting = styled(Greeting)`
-    display: inline-block;
+    display: ${props => props.districtPosition ? "block" : "inline-block"};
     font-size: 1.05em;
     transition: color 0.5s;
 `; //end PositionGreeting
@@ -194,6 +195,7 @@ let PositionGreeting = styled(Greeting)`
 let SchoolLogo = styled("img")`
     cursor: pointer;
     max-width: 60px;
+    margin-left: 10px;
     vertical-align: bottom;
 `;
 

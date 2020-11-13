@@ -6,6 +6,8 @@ import styled from "styled-components";
 
 import isDev from 'isdev';
 
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header/Header.js";
@@ -27,7 +29,7 @@ const PageContentLoading = styled("div")`
     margin: 0 auto;
 `;
 
-const PageContent = ({fullName, title, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent }) => {
+const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent, notify }) => {
   //let [ renderAsStudentTwo, setRenderAsStudent ] = useState(renderAsStudent || location.state.renderAsStudent);
   //undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
   
@@ -112,22 +114,47 @@ const PageContent = ({fullName, title, site, renderAsStudent, gradeLevel, locati
     getGraphInfo(accessToken);
   }; //end getUserInfo()
 
-  const generateBlueSections = (props) => {
-    return props.blueSection_objectsArray.map( (blueSection_Object, index) => {
-        return (
-            <BlueSection 
-                blueSectionName={blueSection_Object.blueSectionName}
-                expanded={ blueSection_Object.expanded }
-                headerTitle={blueSection_Object.headerTitle}
-                buttonRowID={blueSection_Object.buttonRowID}
-                buttons={blueSection_Object.buttons}
-                key={index}
-                title={title || "Student"}
-                renderAsStudent={(window.location.pathname === "/student")}
-                // {this.renderAsStudent || this.props.location.state.renderAsStudent}
-            />
-        ); //end return statement
-    }); //end outer return statement
+
+  const LoadingSkeletons = () => {
+    return(
+      <Fragment>
+        <Skeleton height="60px"width="99%"/>
+        <Skeleton height="60px"/>
+        <Skeleton height="60px"/>
+        <Skeleton height="60px"/>
+        <Skeleton height="60px"/>
+        <Skeleton height="60px"/>
+        <Skeleton height="60px"/>
+        <Skeleton height="60px"/>
+        <Skeleton height="60px"/>
+        <Skeleton height="60px"/>
+      </Fragment>
+    )
+  }; 
+  const generateBlueSections = (blueSection_objectsArrayProps) => {
+    const loadPage = false;
+
+    if (title) {
+        return blueSection_objectsArrayProps.blueSection_objectsArray.map( (blueSection_Object, index) => {
+
+          let { blueSectionName, expanded, headerTitle, buttonRowID, buttons } = blueSection_Object;
+
+          return (
+              <BlueSection 
+                  blueSectionName = { blueSectionName }
+                  expanded        = { expanded }
+                  headerTitle     = { headerTitle }
+                  buttonRowID     = { buttonRowID }
+                  buttons         = { buttons }
+                  key             = { index }
+                  title           = { title || "Student"  }
+                  renderAsStudent = { (window.location.pathname === "/student") }
+              />
+          ); //end return statement
+      }); //end outer return statement
+    } else {
+      return (<LoadingSkeletons/>); //end return statement
+    } //end if-else statement
 }; //end generateBlueSections()
 
   useEffect(() => {
@@ -135,36 +162,56 @@ const PageContent = ({fullName, title, site, renderAsStudent, gradeLevel, locati
 
     if ( (title === "Student" || ( undefsafe(location, "state", "renderAsStudent") == "true" && title === "Student")|| window.location.pathname === "/student" && title === "Student") && !gradeLevel) {
         getUserInfo();
-    } 
-
+    } //end if-statement
   }, [ title, location ]); //end useEffect
 
+  const showFooter = false;
 
   return (
-    <Fragment>
-        <Header districtName="CVUHSD" 
-                headerTitle="Portal" 
-                fullName={ fullName || "CVUHSD User"} 
-                title={title}
-                site={site}
-                gradeLevel={gradeLevel}
+    <SkeletonTheme 
+      color           = {
+                          title ?
+                            ( (title === "student") || renderAsStudent === true || window.location.pathname === "/student") ? 
+                                " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
+                            : "rgba(147, 30, 29, 0.21)" 
+                        }
+      highlightColor  = {
+                          title ?
+                            ( (title === "student") || renderAsStudent === true || window.location.pathname === "/student") ? 
+                                " rgba(147, 30, 29, 0.5)": "rgba(30, 108, 147, 0.5);"
+                            : "rgba(147, 30, 29, 0.5)" 
+      }
+    >
+        <Header 
+                districtName          = "CVUHSD" 
+                headerTitle           = "Portal" 
+                fullName              = { fullName || "CVUHSD User"}
+                email                 = { email } 
+                title                 = { title }
+                uid                   = { uid }
+                site                  = { site  }
+                gradeLevel            = { gradeLevel }
 
-                //modifyLogInStatus={ this.modifyLogInStatus }
-                modifyTitle={modifyTitle}
-                modifySite={modifySite}
-                modifyRenderAsStudent={modifyRenderAsStudent}
-                logOut={logOut}
-                clearState={clearState}
-                renderAsStudent={(window.location.pathname === "/student")}
+                modifyTitle           = { modifyTitle }
+                modifySite            = { modifySite }
+                modifyRenderAsStudent = { modifyRenderAsStudent}
+                logOut                = { logOut}
+                clearState            = { clearState}
+                renderAsStudent       = { (window.location.pathname === "/student") }
+                notify                = { notify }
         />
-                <div className="page-content">
+                <div className="page-content" style={{textAlign: "center"} }>
                     { generateBlueSections(blueSection_objectsArrayProps) } 
-                    <Footer 
-                        title           = { title }
-                        renderAsStudent = { renderAsStudent }
-                    />
+                    { 
+                      title ? (
+                        <Footer 
+                          title           = { title }
+                          renderAsStudent = { renderAsStudent }
+                        />
+                      ) : ( <Skeleton height="24px" />)
+                    }
                 </div>
-    </Fragment>
+    </SkeletonTheme>
   ); //end return statement
 }; //end PageContent
 

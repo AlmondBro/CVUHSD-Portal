@@ -196,12 +196,6 @@ let staffPortalButtons = {
             }
         },
 
-        passwordPortal_button: {
-            buttonLink: "https://updatemanager:9251/showLogin.cc",
-            buttonImg: "password-portal.png",
-            description: "Password Assistance"
-        },
-
         printCenter_button : {
             buttonLink: "https://cvprintcenter.myprintdesk.net/DSF/smartstore.aspx#!/Storefron",
             buttonImg: "print-center.png",
@@ -817,21 +811,6 @@ let studentPortalButtons = {
                 playStoreId: "com.google.android.apps.docs"
             }
         },
-
-        //TODO: Find deep link & app config for password portal
-        passwordPortal_button: {
-            buttonLink: "https://updatemanager:9251/showLogin.cc",
-            buttonImg: "password-portal.png",
-            description: "Password Assistance",
-            deepLink: "googledrive://",
-            appLink_config : {
-                appName: "google-drive",
-                appStoreId: "507874739",
-                appStoreLocale: "us",
-                playStoreId: "com.google.android.apps.docs"
-            }
-        },
-    
     }, //end standardStudentTools
 
     //TODO: Find Deep Link & app config for apex!

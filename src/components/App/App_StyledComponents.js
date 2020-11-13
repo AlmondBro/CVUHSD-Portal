@@ -6,6 +6,8 @@ import css from 'styled-components';
 
 import { Container } from 'react-bootstrap';
 
+import { ToastContainer } from 'react-toastify';
+
 let ModifiedContainer = ({className, children, fluid}) => (
     <Container className={className + " app-container"} fluid={fluid}>
       { children }
@@ -84,4 +86,71 @@ let StyledContainer = styled(ModifiedContainer)`
     }
   `; //end StyledContainer
 
-export { StyledContainer }
+
+const StyledToastContainer = styled(ToastContainer).attrs(props => ({
+  // custom props
+  // className: 'toast-container',
+  // toastClassName: 'toast',
+  // bodyClassName: 'body',
+  // progressClassName: 'progress',
+
+  position          : props.position,
+  autoClose         : props.autoClose,
+  hideProgressBar   : props.hideProgressBar,
+  newestOnTop       : props.newestOnTop,
+  closeOnClick      : props.closeOnClick,
+  rtl               : props.rtl,
+  pauseOnFocusLoss  : props.pauseOnFocusLoss,
+  draggable         : props.draggable,
+  pauseOnHover      : props.pauseOnHover
+}))`
+
+  .Toastify__toast-container {
+    position: relative;
+    z-index: 3;
+  }
+
+  /* The actual toast */
+  .Toastify__toast {
+    border-radius: 10px;
+    background-color: white;
+
+    
+    box-shadow: 5px 5px 30px -11px rgba(0,0,0,0.75);
+
+    outline: none;
+  }
+
+  .Toastify__toast--error {}
+  .Toastify__toast--warning {}
+  .Toastify__toast--success {}
+
+  /* The actual content or text */
+  .Toastify__toast-body {
+    color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "student") || window.location.pathname === "/student") ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
+          }; 
+  }
+  .Toastify__progress-bar {}
+
+  .Toastify__close-button {
+    color:   ${ props => props.districtPosition ?
+                                    ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "rgba(147, 30, 29, 0.8)": "rgba(30, 108, 147, 0.8)"
+                                    :   "rgba(147, 30, 29, 0.8)" 
+              };
+  }
+
+  .Toastify__close-button:hover {
+    color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "student") || window.location.pathname === "/student") ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
+          }; 
+  }
+`;
+
+export { StyledContainer, StyledToastContainer }
+
