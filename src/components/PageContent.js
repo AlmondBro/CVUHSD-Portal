@@ -134,7 +134,7 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
   const generateBlueSections = (blueSection_objectsArrayProps) => {
     const loadPage = false;
 
-    if (email) {
+    if (title) {
         return blueSection_objectsArrayProps.blueSection_objectsArray.map( (blueSection_Object, index) => {
 
           let { blueSectionName, expanded, headerTitle, buttonRowID, buttons } = blueSection_Object;
