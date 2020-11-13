@@ -365,7 +365,7 @@ class App extends Component {
                             path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
                             component             = { PageContent} 
 
-                            fullName              = { this.state.firstName + " " + this.state.lastName }
+                            fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
                             email                 = { this.state.email }
                             uid                   = { this.state.uid }
                             title                 = { this.state.title }
@@ -426,7 +426,7 @@ class App extends Component {
                       defaultURL            = { defaultURL }
 
                       history               = { this.props.history }
-                      fullName              = { this.state.firstName + " " + this.state.lastName }
+                      fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
                       title                 = { this.state.title }
                       site                  = { this.state.site }
                       gradeLevel            = { this.state.gradeLevel }
