@@ -27,7 +27,7 @@ const createSDPRequest = async (
             subject: supportRequestTitle,
             description:  description,
             requester: {
-                name: fullName || "undefined user",
+                name: fullName,
                 email_id: email 
             },
             site: { 
