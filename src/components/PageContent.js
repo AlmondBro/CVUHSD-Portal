@@ -208,7 +208,7 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
                           title           = { title }
                           renderAsStudent = { renderAsStudent }
                         />
-                      ) : ( <Skeleton height="24px" />)
+                      ) : ( <Skeleton height="24px" width="99%"/>)
                     }
                 </div>
     </SkeletonTheme>
