@@ -279,7 +279,7 @@ class App extends Component {
 
     const accessTokenCookie = cookies.get("accessToken");
     
-    if (!accessTokenCookie) {
+    //if (!accessTokenCookie) {
       if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
         this.checkForLogIn(history);
       }
@@ -292,7 +292,7 @@ class App extends Component {
           this.logIn();
         } //end inner else-statement, checking if the login is IE
       } //end if-statement checking if the route is not auth-success
-    } //end outer if-statement checking for cookies
+    //} //end outer if-statement checking for cookies
 
 
     const favicon = document.getElementById("favicon");
