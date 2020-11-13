@@ -41,6 +41,7 @@
     "react-aad-msal": "^2.3.5",
     "react-app-polyfill": "^2.0.0",
     "react-bootstrap": "^1.4.0",
+    "react-cookie": "^4.0.3",
     "react-dom": "^17.0.1",
     "react-loading": "^2.0.3",
     "react-loading-skeleton": "^2.1.1",
