@@ -70,7 +70,7 @@ let staffPortalButtons = {
         },
     
         googleDrive_button : { 
-            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=wise&amp;passive=1209600&amp;osid=1&amp;continue=https%3A%2F%2Fdrive.google.com%2F&amp;followup=https%3A%2F%2Fdrive.google.com%2F&amp;emr=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonLink: "https://sso.centinela.k12.ca.us/adfs/ls/?SAMLRequest=fVLLTsMwELwj8Q%2BR70nqIhCymqACQlTiEdHAgZux14nBsYPXSeHvcVMQcIDreHYe612cvHUmGcGjdrYgNJuRBKxwUtumIPf1RXpMTsr9vQXyzvRsOYTW3sHrABiSOGmRTQ8FGbxljqNGZnkHyIJg6%2BX1FZtnM9Z7F5xwhiSr84LYFyVeur5%2FbrnsuTZNqw1XymqpwD4pJ42UplGR%2FfAVa76NtUIcYGUxcBsiNJvPUkpTelDPKaOHjB49kqT6dDrVdtfgv1hPOxKyy7qu0up2XU8Co5bgbyK7II1zjYFMuG5rX3FEPUZYcYNAkiUi%2BBADnjmLQwd%2BDX7UAu7vrgrShtAjy%2FPNZpN9y%2BQ8F%2BPQosycb3IukJTTZtlUzv9Y6f%2FR%2BZc1Kf8QX%2BQ%2FdMvP79u2Wp1XzmjxniyNcZszDzzESsEPsdGF8x0Pf1vTjE6IlqmaqGyw2IPQSoMkSV7uXH%2FfSbyeDw%3D%3D&RelayState=https%3A%2F%2Faccounts.google.com%2FCheckCookie%3Fcontinue%3Dhttps%253A%252F%252Fdrive.google.com%252F%26service%3Dwise%26hl%3Den%26checkedDomains%3Dyoutube%26checkConnection%3Dyoutube%253A368%253A0%26pstMsg%3D1&continue=https%3A%2F%2Fdrive.google.com%2F",
             buttonImg: "google-drive.png",
             description: "Google Drive",
             deepLink: "googledrive://",
@@ -138,7 +138,7 @@ let staffPortalButtons = {
 
     standardStaffTools : {
         gmail_button : {
-            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=mail&amp;passive=true&amp;rm=false&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ss=1&amp;scc=1&amp;ltmpl=default&amp;ltmplcache=2&amp;emr=1&amp;osid=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonLink: "https://mail.google.com/mail",
             buttonImg: "gmail.png",
             description: "Gmail",
             deepLink: "googlegmail://",
@@ -689,7 +689,7 @@ let studentPortalButtons = {
         },
         
         gmail_button : {
-            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=mail&amp;passive=true&amp;rm=false&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ss=1&amp;scc=1&amp;ltmpl=default&amp;ltmplcache=2&amp;emr=1&amp;osid=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonLink: "https://mail.google.com/mail",
             buttonImg: "gmail.png",
             description: "Gmail",
             deepLink: "googlegmail://",
@@ -702,7 +702,7 @@ let studentPortalButtons = {
         },
 
         googleDrive_button : { 
-            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=wise&amp;passive=1209600&amp;osid=1&amp;continue=https%3A%2F%2Fdrive.google.com%2F&amp;followup=https%3A%2F%2Fdrive.google.com%2F&amp;emr=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonLink: "https://sso.centinela.k12.ca.us/adfs/ls/?SAMLRequest=fVLLTsMwELwj8Q%2BR70nqIhCymqACQlTiEdHAgZux14nBsYPXSeHvcVMQcIDreHYe612cvHUmGcGjdrYgNJuRBKxwUtumIPf1RXpMTsr9vQXyzvRsOYTW3sHrABiSOGmRTQ8FGbxljqNGZnkHyIJg6%2BX1FZtnM9Z7F5xwhiSr84LYFyVeur5%2FbrnsuTZNqw1XymqpwD4pJ42UplGR%2FfAVa76NtUIcYGUxcBsiNJvPUkpTelDPKaOHjB49kqT6dDrVdtfgv1hPOxKyy7qu0up2XU8Co5bgbyK7II1zjYFMuG5rX3FEPUZYcYNAkiUi%2BBADnjmLQwd%2BDX7UAu7vrgrShtAjy%2FPNZpN9y%2BQ8F%2BPQosycb3IukJTTZtlUzv9Y6f%2FR%2BZc1Kf8QX%2BQ%2FdMvP79u2Wp1XzmjxniyNcZszDzzESsEPsdGF8x0Pf1vTjE6IlqmaqGyw2IPQSoMkSV7uXH%2FfSbyeDw%3D%3D&RelayState=https%3A%2F%2Faccounts.google.com%2FCheckCookie%3Fcontinue%3Dhttps%253A%252F%252Fdrive.google.com%252F%26service%3Dwise%26hl%3Den%26checkedDomains%3Dyoutube%26checkConnection%3Dyoutube%253A368%253A0%26pstMsg%3D1&continue=https%3A%2F%2Fdrive.google.com%2F",
             buttonImg: "google-drive.png",
             description: "Google Drive",
             deepLink: "googledrive://",
@@ -787,7 +787,7 @@ let studentPortalButtons = {
 
     standardStudentTools : {
         gmail_button : {
-            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=mail&amp;passive=true&amp;rm=false&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ss=1&amp;scc=1&amp;ltmpl=default&amp;ltmplcache=2&amp;emr=1&amp;osid=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonLink: "https://mail.google.com/mail",
             buttonImg: "gmail.png",
             description: "Gmail",
             deepLink: "googlegmail://",
