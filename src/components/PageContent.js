@@ -114,7 +114,6 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
     getGraphInfo(accessToken);
   }; //end getUserInfo()
 
-
   const LoadingSkeletons = () => {
     return(
       <Fragment>
@@ -129,12 +128,13 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
         <Skeleton height="60px"   width="99%"/>
         <Skeleton height="60px"   width="99%"/>
       </Fragment>
-    )
-  }; 
+    ); //end return statement 
+  }; //end LoadingSkeletons component
+
   const generateBlueSections = (blueSection_objectsArrayProps) => {
     const loadPage = false;
 
-    if (title) {
+    if (email) {
         return blueSection_objectsArrayProps.blueSection_objectsArray.map( (blueSection_Object, index) => {
 
           let { blueSectionName, expanded, headerTitle, buttonRowID, buttons } = blueSection_Object;
@@ -163,7 +163,7 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
     if ( (title === "Student" || ( undefsafe(location, "state", "renderAsStudent") == "true" && title === "Student")|| window.location.pathname === "/student" && title === "Student") && !gradeLevel) {
         getUserInfo();
     } //end if-statement
-  }, [ title, location ]); //end useEffect
+  }, [ title, location, email ]); //end useEffect
 
   const showFooter = false;
 
