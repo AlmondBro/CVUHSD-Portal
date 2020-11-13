@@ -118,16 +118,16 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
   const LoadingSkeletons = () => {
     return(
       <Fragment>
-        <Skeleton height="60px"width="99%"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
       </Fragment>
     )
   }; 
