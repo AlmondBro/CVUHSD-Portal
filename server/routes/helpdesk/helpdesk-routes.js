@@ -1,7 +1,14 @@
 import { Router } from 'express';
 import fetch from 'node-fetch';
 
+import rateLimiter from 'express-rate-limit';
+
 const router = Router();
+
+const limiter = rateLimiter({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 7 // limit each IP to 100 requests per windows
+}); //en
 
 const createSDPRequest = async (
     fullName,
@@ -65,6 +72,8 @@ const createSDPRequest = async (
 
     return sdpCreateReqResponse;
 };
+
+router.use(limiter);
 
 router.post('/request/create', async (req, res) => {
     let {   

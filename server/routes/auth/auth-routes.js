@@ -12,8 +12,8 @@ const router = Router();
 
 const limiter = rateLimiter({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100 // limit each IP to 100 requests per windowMs
-  });
+    max: 7 // limit each IP to 100 requests per windowMs
+}); //end rateLimiter()
 
 const adfsSigningPublicKey = fs.readFileSync(path.join(__dirname, './../../../certificates/ADFS_Signing.crt')); // Exported from ADFS
 
