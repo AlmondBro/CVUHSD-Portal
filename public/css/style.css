@@ -39,9 +39,11 @@ iframe {
 
 /* === TRANSFER TO IT MODAL === */
 
-body.support-request-modal-body--open #cvuhsd-sso-portal > :not(.support-request-modal):not(.Toastify):not(.Toastify__toast-container):not(.Toastify__toast) {
+body.support-request-modal-body--open #cvuhsd-sso-portal > :not(.support-request-modal):not(.Toastify):not(.Toastify__toast-container):not(.Toastify__toast),
+body.change-password-modal-body--open #cvuhsd-sso-portal > :not(.change-password-modal):not(.Toastify):not(.Toastify__toast-container):not(.Toastify__toast) {
     filter: blur(3px);
 }
+
 
 /* body.ReactModal__Body--open > div.transfer-to-it-modal {
     filter: blur(0px);
@@ -50,7 +52,8 @@ body.support-request-modal-body--open #cvuhsd-sso-portal > :not(.support-request
 /* Prevent there from being a scroll to the Transfer to IT Modal */
 .ReactModal__Html--open,
 .ReactModal__Body--open,
-.support-request-modal-body--open
+.support-request-modal-body--open,
+.change-password-modal-body--open
 {
     overflow: hidden;
 }

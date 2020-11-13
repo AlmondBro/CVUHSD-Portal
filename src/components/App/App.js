@@ -209,9 +209,9 @@ class App extends Component {
   }; //end logOut
 
   checkForLogIn = async (history) => {
-    const checkForLogin_URL = `${isDev ? "" : "/server"}/auth/callback` 
+    const checkForLogin_URL = `${isDev ? "" : "/server"}/auth/callback`; 
 
-    const successfulAuthURL = `${isDev ? "" : ""}/auth-success` 
+    const successfulAuthURL = `${isDev ? "" : ""}/auth-success`; 
 
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code'); 
@@ -239,7 +239,7 @@ class App extends Component {
           lastName: family_name,
           username: username,
           email: email,
-          title: jobTitle,
+          title: jobTitle || "staff",
           uid,
           accessToken,
         });

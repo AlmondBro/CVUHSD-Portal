@@ -22,9 +22,10 @@ dotenv.config({
   debug   : false      
 }); //Load environmental variables
 
-const authRoutes      = require('./routes/auth/auth-routes.js');
-const mainRoutes      = require('./routes/main/main-routes.js');
-const helpdeskRoutes  = require('./routes/helpdesk/helpdesk-routes.js');
+const authRoutes            = require('./routes/auth/auth-routes.js');
+const mainRoutes            = require('./routes/main/main-routes.js');
+const helpdeskRoutes        = require('./routes/helpdesk/helpdesk-routes.js');
+const userOperationsRoutes  = require('./routes/user-operations/user-operations-routes.js');
 
 const app = express(); 
 
@@ -87,13 +88,15 @@ app.use(passport.session());
 
 app.use(requestIp.mw());
 
-const mainRoutesURL     = `/`;
-const authRoutesURL     = `${isDev ? "" : "/server"}/auth`;
-const helpdeskRoutesURL = `${isDev ? "" : "/server"}/helpdesk`;
+const mainRoutesURL             =  `/`;
+const authRoutesURL             = `${isDev ? "" : "/server"}/auth`;
+const helpdeskRoutesURL         = `${isDev ? "" : "/server"}/helpdesk`;
+const userOperationsRoutesURL   = `${isDev ? "" : "/server"}/user-ops`;
 
 app.use(mainRoutesURL, mainRoutes); //Middleware to route to all the main requests
 app.use(authRoutesURL, authRoutes); //Middleware to route to all authorization requests
-app.use(helpdeskRoutesURL, helpdeskRoutes);//Middleware to route to all helpdesk requests
+app.use(helpdeskRoutesURL, helpdeskRoutes); //Middleware to route to all helpdesk requests
+app.use(userOperationsRoutesURL, userOperationsRoutes); //Middleware to route to all requests involving user profile audits, such as a password update.
 
 /*
   In Express, 404 responses are not the result of an error, so the 
