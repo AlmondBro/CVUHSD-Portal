@@ -3,21 +3,11 @@ import React, { Component } from "react";
 import isDev from 'isdev';
 import undefsafe from "undefsafe";
 
-//Import components
-import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
-import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
-import PageContent from "./../PageContent.js";
 
 import {  Redirect } from "react-router";
 import { withRouter, Route, Switch } from "react-router-dom";
 
-//Import styled components
-import { StyledContainer, StyledToastContainer } from "./App_StyledComponents.js";
-
-//Import pages
-import NotFound from "./../NotFound/NotFound.js";
-
-import PrivateRoute from "./../PrivateRoute.js";
+import { withCookies } from 'react-cookie';
 
 import SimpleStorage, { resetParentState, clearStorage } from "react-simple-storage";
 
@@ -25,6 +15,20 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { isIE } from './../../utilityFunctions.js';
+
+//Import components
+import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
+import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
+import PageContent from "./../PageContent.js";
+
+//Import pages
+import NotFound from "./../NotFound/NotFound.js";
+
+import PrivateRoute from "./../PrivateRoute.js";
+
+//Import styled components
+import { StyledContainer, StyledToastContainer } from "./App_StyledComponents.js";
+
 
 //TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
@@ -271,20 +275,25 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    let { history } = this.props;
-    
-    if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
-      this.checkForLogIn(history);
-    }
+    let { history, cookies } = this.props;
 
-    if (!this.state.loggedIn && !this.state.title && (window.location.pathname !== "/auth-success") ) {
-      if (isIE) {
-        console.log("loginIE response");
-        this.loginIE();
-      } else {
-        this.logIn();
+    const accessTokenCookie = cookies.get("accessToken");
+    
+    if (!accessTokenCookie) {
+      if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
+        this.checkForLogIn(history);
       }
-    }
+  
+      if (!this.state.loggedIn && !this.state.title && (window.location.pathname !== "/auth-success") ) {
+        if (isIE) {
+          console.log("loginIE response");
+          this.loginIE();
+        } else {
+          this.logIn();
+        } //end inner else-statement, checking if the login is IE
+      } //end if-statement checking if the route is not auth-success
+    } //end outer if-statement checking for cookies
+
 
     const favicon = document.getElementById("favicon");
 
@@ -435,4 +444,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default withRouter(withCookies(App));

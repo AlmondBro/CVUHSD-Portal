@@ -19,6 +19,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import isDev from "isdev";
 
+import { CookiesProvider } from 'react-cookie';
+
 import App from "./components/App/App.js";
 
 import * as serviceWorker from './serviceWorker.js';
@@ -43,15 +45,17 @@ const baseName = isDev ? "" : (subDirectory ? "/build" : "");
 const CVUHSD_PORTAL_APP_ELEM = document.getElementById("cvuhsd-sso-portal");
 // document.body;
 
-let AppWithWrappedRouter = () => {
+let WrappedApp = () => {
     return (
         <Router basename={baseName}>
-            <App />
+            <CookiesProvider>
+                <App />
+            </CookiesProvider>
         </Router>
     ); //end return statement
 }; //end AppWithWrappedRouter
 
-render( <AppWithWrappedRouter/>, CVUHSD_PORTAL_APP_ELEM ); //end ReactDOM.render()
+render( <WrappedApp/>, CVUHSD_PORTAL_APP_ELEM ); //end ReactDOM.render()
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
