@@ -4,11 +4,18 @@ import { Router } from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
+import rateLimiter from 'express-rate-limit';
+
 import isDev from 'isdev';
 
 const router = Router();
 
-var adfsSigningPublicKey = fs.readFileSync(path.join(__dirname, './../../../certificates/ADFS_Signing.crt')); // Exported from ADFS
+const limiter = rateLimiter({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+  });
+
+const adfsSigningPublicKey = fs.readFileSync(path.join(__dirname, './../../../certificates/ADFS_Signing.crt')); // Exported from ADFS
 
 const validateAccessToken = (accessToken) => {
     let payload = null;
@@ -22,7 +29,7 @@ const validateAccessToken = (accessToken) => {
     return payload;
 }; //end //validateAccessToken
 
-
+router.use(limiter);
 
 router.get('/login-ie', (req, res) => {
     return res.json(
