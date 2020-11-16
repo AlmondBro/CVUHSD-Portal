@@ -34,7 +34,7 @@ const createSDPRequest = async (
             subject: supportRequestTitle,
             description:  description,
             requester: {
-                name: fullName,
+                name: fullName || email,
                 email_id: email 
             },
             site: { 

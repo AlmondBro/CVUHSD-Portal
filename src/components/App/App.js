@@ -294,7 +294,6 @@ class App extends Component {
       } //end if-statement checking if the route is not auth-success
     //} //end outer if-statement checking for cookies
 
-
     const favicon = document.getElementById("favicon");
 
     if (this.state.title === "Student" || this.state.renderAsStudent || window.location.pathname === "/student") {
