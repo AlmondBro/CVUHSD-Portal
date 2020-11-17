@@ -14,7 +14,7 @@ const ad_config = {
 
 const activeDirectory = new AD(ad_config);
 
-router.put('/password/update', async (req, res) => {
+router.post('/password/update', async (req, res) => {
     let message, error = null;
 
     let { username, currentPassword, newPassword } = req.body;

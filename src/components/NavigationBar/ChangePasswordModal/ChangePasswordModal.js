@@ -80,7 +80,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 };
             
                 changePasswordServerResponse = await fetch(changePassword_URL, {
-                    method: 'PUT',
+                    method: 'POST',
                     headers: changePassword_headers,
                     body: JSON.stringify({...formField, username})
                 })
