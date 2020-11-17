@@ -29,7 +29,7 @@ const validateAccessToken = (accessToken) => {
     return payload;
 }; //end //validateAccessToken
 
-router.use(limiter);
+//router.use(limiter);
 
 router.get('/login-ie', (req, res) => {
     return res.json(

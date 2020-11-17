@@ -73,7 +73,7 @@ const createSDPRequest = async (
     return sdpCreateReqResponse;
 };
 
-router.use(limiter);
+//router.use(limiter);
 
 router.post('/request/create', async (req, res) => {
     let {   
