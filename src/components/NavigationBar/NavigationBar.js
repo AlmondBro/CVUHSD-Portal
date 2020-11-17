@@ -21,14 +21,19 @@ import  {
             NavMenuIcon, FirstBar, NavBarButton, NavBarListItemLi, MenuToggle 
         }   from "./NavigationBar_StyledComponents.js";
 
+import { useCookies } from 'react-cookie';
+
 
 //TODO: Figure out why bullet point is not rendering
 
 const NavigationBar = ({ fullName, title, email, site, districtPosition, renderAsStudent, location, modifyLogInStatus, modifyRenderAsStudent, notify, clearState, logOut }) => {
+    const [ cookies, removeCookie ] = useCookies(['accessToken']);
+    
     const  [ changePasswordModalIsOpen, setChangePasswordModalIsOpen ] = useState(false);
     const  [ supportRequestModalIsOpen, setSupportRequestModalIsOpen ] = useState(false);
 
     let signOutClearState = () => {
+        removeCookie("accessToken");
         clearState();
         logOut();
     }; //end signOut()
@@ -71,7 +76,8 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
             <NavBar 
                 className           =   "navigation-bar" 
                 districtPosition    =   { districtPosition } 
-                renderAsStudent     =   { renderAsStudent}>
+                renderAsStudent     =   { renderAsStudent}
+            >
                 <NavBarImageWrapper 
                     className           =   "navigation-bar-image-wrapper" 
                     districtPosition    =   { districtPosition } 
