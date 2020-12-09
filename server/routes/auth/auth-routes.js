@@ -35,8 +35,8 @@ router.get('/login-ie', (req, res) => {
 
     const authorizationTokenURL =   `${process.env.OAUTH_AUTH_URL}` +
                                     `?resource=${encodeURIComponent("http://localhost:3000")}` +
-                                    `&response_type=${encodeURIComponent("code")}`
-                                    `&redirect_uri=${isDev ? encodeURIComponent(process.env.OAUTH_CALLBACK_URL_DEV) : encodeURIComponent(process.env.OAUTH_CALLBACK_URL_PROD)}`
+                                    `&response_type=${encodeURIComponent("code")}` +
+                                    `&redirect_uri=${isDev ? encodeURIComponent(process.env.OAUTH_CALLBACK_URL_DEV) : encodeURIComponent(process.env.OAUTH_CALLBACK_URL_PROD)}` +
                                     `&client_id=${encodeURIComponent(process.env.OAUTH_CLIENT_ID)}`;
     
     return res.json({url: authorizationTokenURL});
