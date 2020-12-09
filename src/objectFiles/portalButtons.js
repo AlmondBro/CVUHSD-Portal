@@ -781,8 +781,20 @@ let studentPortalButtons = {
             //     appStoreLocale: "us",
             //     playStoreId: "com.instructure.teacher"
             // }
+        },
+
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
+            // }
         }
-  
     }, //end quickLinks
 
     standardStudentTools : {
@@ -811,6 +823,18 @@ let studentPortalButtons = {
                 playStoreId: "com.google.android.apps.docs"
             }
         },
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
+            // }
+        }
     }, //end standardStudentTools
 
     //TODO: Find Deep Link & app config for apex!
