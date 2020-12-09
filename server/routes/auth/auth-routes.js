@@ -55,6 +55,16 @@ router.get('/callback', passport.authenticate('provider'), async (req, res) => {
     return;
 });
 
+router.post('/user-info', (req, res) => {
+    const { accessToken } = req.body;
+    console.log("\naccessToken", req.body);
+
+    const userInfo = validateAccessToken(accessToken);
+
+    res.json({ ...userInfo});
+    return;
+});
+
 router.get('/logout', function (req, res) {
     res.clearCookie('accessToken');
     res.redirect(process.env.ADFS_SIGN_OUT);
