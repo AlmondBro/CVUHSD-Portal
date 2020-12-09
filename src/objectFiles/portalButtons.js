@@ -133,6 +133,18 @@ let staffPortalButtons = {
             buttonLink: "https://teams.webex.com/",
             buttonImg: "webex-teams.jpg",
             description: "WebEx Teams"
+        },
+
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
         }
     }, //end quickLinks
 
@@ -435,7 +447,19 @@ let staffPortalButtons = {
                 buttonImg: "everfi.jpg",
                 description: "Everfi",
                 deepLink: "clever://",
-            }
+            },
+    
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
+        }
     }, //end learningTools
 
     digitalTextbooks : {
