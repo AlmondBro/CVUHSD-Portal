@@ -3,7 +3,7 @@ import styled from "styled-components";
 let FooterStyled = styled("footer")`
     width: 100%;
     background-color: ${ props => props.title ?
-                                    ( (props.title === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                    ( (props.title.toLowerCase() === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
                                     : "#931E1D" 
                         };
