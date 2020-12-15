@@ -336,24 +336,6 @@ let staffPortalButtons = {
                 playStoreId: "com.google.android.apps.docs"
             }  
         },
-        
-        lawndaleLaptopCartSystem_button : {
-            buttonLink: "https://sites.google.com/a/cvuhsd.org/lwlaptopcartsystem/home",
-            buttonImg: "lawndale-laptop-cart-system.png",
-            description: "Lawndale Laptop Cart System"
-        },
-        
-        leuzingerLaptopCartSystem_button : {
-            buttonLink: "https://sites.google.com/a/cvuhsd.org/lzlaptopcartsystem/",
-            buttonImg: "Hawthorne-laptop-cart-system.png",
-            description: "Leuzinger Laptop Cart System"
-        },
-
-        hawthorneLaptopCartSystem_button : {
-            buttonLink: "https://sites.google.com/a/cvuhsd.org/hwlaptopcartsystem/",
-            buttonImg: "Hawthorne-laptop-cart-system.png",
-            description: "Hawthorne Laptop Cart System"
-        }
     }, //end teacherTools
 
     classroomTools : {
