@@ -161,6 +161,12 @@ let PortalHeaderText = styled("h1")`
                         : "#931E1D"
         };
     transition: color 0.5s;
+
+    font-size: 2em;
+    h2 {
+        margin-top: 3px;
+        font-size: 1.7rem;
+    }
 `;
 
 let Greeting = styled("h3")`
@@ -425,5 +431,18 @@ const PositionSiteInfo = styled("section")`
     display:  ${props => props.display || "inline-block" } ;
 `;
 
+const Divider = styled("hr")`
+    width: 25%;
+    margin: 0 auto;
+    margin-top: 25px;
 
-export { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, SchoolLogo, PositionSiteInfo, CoffeeAnimation }
+    background-color:  ${ props => 
+                ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                    "#931E1D": "#1E6C93"
+            };
+
+    opacity: 0.5;
+`;
+
+
+export { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, SchoolLogo, PositionSiteInfo, Divider, CoffeeAnimation }

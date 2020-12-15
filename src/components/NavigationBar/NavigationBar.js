@@ -91,8 +91,8 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                                     id          =   "navbar-logo" 
                                     href        =   "#" 
                                     src         =   {   districtPosition ? 
-                                                            ( ( (districtPosition === "Student") || renderAsStudent ) ? "/images/CV-600x600-portal-red.png" : "/images/CV-600x600-portal.png")
-                                                        : "/images/CV-600x600-portal-red.png"
+                                                            ( ( (districtPosition === "Student") || renderAsStudent ) ? "/images/wp-portal-logo-red-white-interior.svg" : "/images/wp-portal-logo-blue-white-interior.svg")
+                                                        : "/images/wp-portal-logo-red-white-interior.svg"
                                                     } 
                         />
                     </Link>

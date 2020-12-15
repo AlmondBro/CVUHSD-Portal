@@ -4,7 +4,7 @@ import React, { Fragment } from "react";
 import NavigationBar from "../NavigationBar/NavigationBar.js";
 
 import { NavigationBarHeader, DashboardHeaderContainer, DashboardHeader, 
-        AddToHomeScreenButton, ToolTip, PortalHeaderText, Greeting, PositionGreeting, 
+        AddToHomeScreenButton, ToolTip, Divider, PortalHeaderText, Greeting, PositionGreeting, 
         PositionSiteInfo,
         CoffeeAnimation, SchoolLogo } from "./Header_StyledComponents.js";
 
@@ -102,10 +102,10 @@ const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent
                         {
                             districtPosition && districtName && headerTitle ? (
                                 <strong>
-                                {districtName || "District"}
+                                { (districtName || "District") + " WayPoint"}
                                 <span>
                                     <h2>
-                                        { headerTitle|| "Portal"}
+                                        { headerTitle|| "S.S.O. Portal"}
                                     </h2>
                                 </span>
                             </strong>
@@ -115,6 +115,10 @@ const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent
                         }
                        
                     </PortalHeaderText>
+                    <Divider
+                        districtPosition={districtPosition} 
+                        renderAsStudent={renderAsStudent}
+                    />
                         <PositionSiteInfo 
                             className="position-site-info" 
                             display={portalHeaderTextDisplay}

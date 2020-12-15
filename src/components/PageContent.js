@@ -184,7 +184,7 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
     >
         <Header 
                 districtName          = "CVUHSD" 
-                headerTitle           = "Portal" 
+                headerTitle           = "S.S.O. Portal" 
                 fullName              = { fullName || "CVUHSD User"}
                 email                 = { email } 
                 title                 = { title }
