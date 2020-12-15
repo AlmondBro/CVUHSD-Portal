@@ -311,10 +311,10 @@ class App extends Component {
     const favicon = document.getElementById("favicon");
     
     if (this.state.title === "Student" || this.state.renderAsStudent || window.location.pathname === "/student") {
-      favicon.href = "./images/CV-600x600-portal-red.png";
+      favicon.href = "./images/icons/wp-portal-logo-red-white-interior.ico";
       document.title = "CVUHSD | Student Portal"
     } else {
-      favicon.href = "./images/CV-600x600-portal.png";
+      favicon.href = "./images/icons/wp-portal-logo-blue-white-interior.ico";
       document.title = "CVUHSD | Staff Portal"
     }
   }; //end componentDidUpdate()

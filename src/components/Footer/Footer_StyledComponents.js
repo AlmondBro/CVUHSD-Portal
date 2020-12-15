@@ -4,8 +4,8 @@ let FooterStyled = styled("footer")`
     width: 100%;
     background-color: ${ props => props.title ?
                                     ( (props.title.toLowerCase() === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
-                                        "#931E1D": "#1E6C93"
-                                    : "#931E1D" 
+                                        "#B41A1F": "#1E6C93"
+                                    : "#B41A1F" 
                         };
     margin-top: 0.1%;
 
