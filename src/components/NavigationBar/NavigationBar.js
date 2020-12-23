@@ -195,6 +195,57 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                                                                             }
                                                                         }
                                                                     >
+                                                                        View all your helpdesk tech requests
+                                                                        <div  style={
+                                                                                {
+                                                                                    display: "inline-block",
+                                                                                    marginLeft: "5px"
+                                                                                }
+                                                                            }>
+                                                                            <FontAwesomeIcon 
+                                                                                icon        =   { faLaptop } 
+                                                                                className   =   "icon"
+                                                                            /> 
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                }
+                                    transitionName={"rc-tooltip-zoom"}
+                                >
+                                    <NavBarButton   
+                                            title               =   { "Support Request"}  
+                                            districtPosition    =   { districtPosition }
+                                            renderAsStudent     =   { renderAsStudent }
+
+                                    >   View Requests
+                                        {/* <FontAwesomeIcon 
+                                            icon        =   { faLaptop } 
+                                            className   =   "icon"
+                                        />  */}
+                                    </NavBarButton>
+                                </Tooltip>
+                            </NavBarListItemLi>
+
+                            <NavBarListItemLi 
+                                bulletPointInMobile =   {   true    }
+                                renderAsStudent     =   {   renderAsStudent }
+                                onClick             =   {   () => toggleSupportRequestModal(true) }
+                            >
+                                <Tooltip
+                                    placement               =   { "bottom" }
+                                    mouseEnterDelay         =   { 0 }
+                                    mouseLeaveDelay         =   { 0.03 }   
+                                    destroyTooltipOnHide    =   { true }
+                                    trigger                 =   { ['hover','click','focus'] }
+                                    overlay                 =   {
+                                                                    <div 
+                                                                        style={
+                                                                            { 
+                                                                                height: "100%", 
+                                                                                width: "100%" 
+                                                                            }
+                                                                        }
+                                                                    >
                                                                         Submit a helpdesk request for tech support 
                                                                         <div  style={
                                                                                 {
