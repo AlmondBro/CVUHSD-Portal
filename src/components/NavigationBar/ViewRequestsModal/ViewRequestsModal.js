@@ -6,7 +6,7 @@ import ReactLoading from 'react-loading';
 
 import RequestRectangle from './RequestRectangle/RequestRectangle.js';
 
-import { Container, CloseButton, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
+import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
 const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
@@ -16,52 +16,33 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
 
     let [ submitEnabled, setSubmitEnabled ]                 = useState(false);
 
-    const [ formField, setFormField ]                       = useState({
-                                                                    currentPassword         :   "",
-                                                                    confirmNewPassword  :   "",
-                                                                    newPassword         :   ""
-                                                                });
+    let [ showFilterPane, setShowFilterPane ]               =   useState(false);
+    let [ requestsType, setRequestsType ]                   =   useState(false);
 
-  const onChange = (event) => {
-    setFormField( { ...formField, [ event.target.name ] : event.target.value });
-  }; //end onChange() handler
+    const afterOpenModal = async () => {
+        setSubmitEnabled(true);
+        setIsLoading(false);
+        setServerMessage("");
+    }; //afterOpenModal()
 
+    const onClose = () => {
+        setChangePasswordResult(null);
+        setServerMessage("");
+        toggleModal(false);
 
-  const afterOpenModal = async () => {
-      setSubmitEnabled(true);
-      setIsLoading(false);
-      setServerMessage("");
-  }; //afterOpenModal()
-
-  const onClose = () => {
-    setChangePasswordResult(null);
-    setServerMessage("");
-    toggleModal(false);
-
-    setFormField({
-        currentPassword         :   "",
-        confirmNewPassword  :   "",
-        newPassword         :   ""
-    });
     }; //end onClose()
 
-  const bodyOpenClassName="change-password-modal-body--open",
-        htmlOpenClassName="change-password-modal-html--open",
-        overlayClassName="change-password-modal-overlay",
-        portalClassName="change-password-modal",
-        contentClassName="change-password-modal-content",
-        parentSelectorID="chat-page-main-container";
+    const bodyOpenClassName="change-password-modal-body--open",
+            htmlOpenClassName="change-password-modal-html--open",
+            overlayClassName="change-password-modal-overlay",
+            portalClassName="change-password-modal",
+            contentClassName="change-password-modal-content",
+            parentSelectorID="chat-page-main-container";
 
-  let {     
-        currentPassword,
-        confirmNewPassword,
-        newPassword         
-    } = formField;
+        
+        useEffect(() => {
 
-    
-    useEffect(() => {
-
-    }, [ site, districtPosition ]); //end useEffect()
+        }, [ site, districtPosition ]); //end useEffect()
 
   return (
       <Container
@@ -110,20 +91,24 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
 
             <TitleFilterContainer className="title-filter-container">
                 <RequestTypeTitle
+                    className           =   "request-type-title"
                     districtPosition    =   { districtPosition.toLowerCase() }
                 >
                     All Requests
                 </RequestTypeTitle>
 
                 <FilterButton
+                    className           =   "filter-button"
                     districtPosition    =   { districtPosition.toLowerCase() }
                 >
                     <FAIconStyled
+                            className           =   "view-request-icon"
                             districtPosition    =   { districtPosition.toLowerCase() }
                             color               =   "white"
                             icon                =   { faTasks, faFilter }
                     />
                     <FilterText
+                            clasName="filter-text"
                             districtPosition    =   { districtPosition.toLowerCase() }
                     >
                         Filter
@@ -131,15 +116,28 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                 </FilterButton>
             </TitleFilterContainer>
      
-            <RequestRectangle
-                districtPosition    =   { districtPosition.toLowerCase() }
-            />
-             <RequestRectangle
-                districtPosition    =   { districtPosition.toLowerCase() }
-            />
-             <RequestRectangle
-                districtPosition    =   { districtPosition.toLowerCase() }
-            />
+            <ReqRectContainer className="req-rect-container">
+                <RequestRectangle
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                />
+                <RequestRectangle
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                />
+                <RequestRectangle
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                />
+
+                <RequestRectangle
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                />
+                <RequestRectangle
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                />
+                <RequestRectangle
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                />
+                </ReqRectContainer>
+
 
         </InnerContainer>
       </Container>

@@ -1,4 +1,4 @@
-import React, { forwardRef, Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Modal from 'react-modal';
 
@@ -44,13 +44,12 @@ const Container = styled(Modal).attrs(props => ({
 
     display             : flex;
     flex-direction      : column;
-    justify-content     : center;
+    justify-content     : flex-start;
     align-content       : center;
 
-   
-  
-    width               : 80%;
 
+    width               : 80%;
+    height:             : 400px;
     border              : 0px;
     border-radius       : 10px;
 
@@ -67,6 +66,11 @@ const Container = styled(Modal).attrs(props => ({
         outline: none;
     }
 `; //end TransferToITModalContainer
+
+const ReqRectContainer = styled("div")`
+    overflow-y: scroll;
+    width: 100%;
+`;
 
 const CloseButton = styled('button')`
     position: absolute;
@@ -194,6 +198,8 @@ const TitleFilterContainer = styled("div")`
     justify-content: center;
     align-items: center;
 
+    overflow-y: scroll;
+
     width: 100%;
 `;
 
@@ -257,4 +263,4 @@ const HelpdeskSubmitMessage = ({ districtPosition, message, icon }) => {
     );
 };
 
-export { HelpdeskSubmitMessage, RequestTypeTitle, FilterButton, FilterText, Container, CloseButton, InnerContainer, ModalTitle, FAIconStyled, NoCVTechsMessage, TitleFilterContainer };
+export { HelpdeskSubmitMessage, RequestTypeTitle, FilterButton, FilterText, Container, CloseButton, InnerContainer, ModalTitle, ReqRectContainer, FAIconStyled, NoCVTechsMessage, TitleFilterContainer };
