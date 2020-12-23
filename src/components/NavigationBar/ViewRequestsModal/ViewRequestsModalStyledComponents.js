@@ -146,6 +146,7 @@ const FilterText = styled('h5')`
 
     font-size: 1.1em;
     font-weight: bold;
+    font-
 
     padding: 0px;
     padding-left: 5px;
@@ -160,7 +161,7 @@ const FilterButton = styled('button')`
     left: 86%;
 
     max-width: 150px;
-    
+
     color: white;
     background-color: ${ props => props.districtPosition ?
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
@@ -239,7 +240,8 @@ const HelpdeskSubmitMessage = ({ districtPosition, message, icon }) => {
             districtPosition    =   { districtPosition }
         >
             { message } 
-            {icon ? ( 
+            {
+                icon ? ( 
                         <FAIconStyled 
                             icon                =   { icon }
                             districtPosition    =   { districtPosition }
@@ -247,7 +249,7 @@ const HelpdeskSubmitMessage = ({ districtPosition, message, icon }) => {
                         ) : null 
             }
         </HelpdeskSubmitMessageContainer>
-    )
+    );
 };
 
 const titleFilterContainer = styled("div")`
