@@ -134,6 +134,12 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
             <RequestRectangle
                 districtPosition    =   { districtPosition.toLowerCase() }
             />
+             <RequestRectangle
+                districtPosition    =   { districtPosition.toLowerCase() }
+            />
+             <RequestRectangle
+                districtPosition    =   { districtPosition.toLowerCase() }
+            />
 
         </InnerContainer>
       </Container>
