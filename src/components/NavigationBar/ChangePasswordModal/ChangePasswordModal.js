@@ -7,7 +7,6 @@ import ReactLoading from 'react-loading';
 import { 
     ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,
     ChangePasswordModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './ChangePasswordStyledComponents.js';
-import { create } from 'ssl-root-cas/ssl-root-cas-latest';
 
 const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);

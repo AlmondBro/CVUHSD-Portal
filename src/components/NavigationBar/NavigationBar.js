@@ -14,7 +14,9 @@ import { faHome as home, faGraduationCap as student, faUser as user, faSignOutAl
 import { staff_HeaderLinks } from "./../../objectFiles/headerListItems.js";
 
 import ChangePassword from "./ChangePasswordModal/ChangePasswordModal.js";
+import ViewRequestsModal from './ViewRequestsModal/ViewRequestsModal.js';
 import SupportRequestModal from './SupportRequestModal/SupportRequestModal.js';
+
 //Import styled components
 import  {    
             NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, NavBarUL_Loading,
@@ -31,6 +33,7 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
     
     const  [ changePasswordModalIsOpen, setChangePasswordModalIsOpen ] = useState(false);
     const  [ supportRequestModalIsOpen, setSupportRequestModalIsOpen ] = useState(false);
+    const  [ viewRequestModalIsOpen, setViewRequestModalIsOpen ] = useState(false);
 
     let signOutClearState = () => {
         removeCookie("accessToken");
@@ -45,6 +48,10 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
     
     let toggleSupportRequestModal = (toggleValue) => {
         setSupportRequestModalIsOpen(toggleValue);
+    }; //end toggleModal
+
+    let toggleViewRequestModal = (toggleValue) => {
+        setViewRequestModalIsOpen(toggleValue);
     }; //end toggleModal
 
     let generateNavBarListItems = (listItemsArray) => {
@@ -178,7 +185,7 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                             <NavBarListItemLi 
                                 bulletPointInMobile =   {   true    }
                                 renderAsStudent     =   {   renderAsStudent }
-                                onClick             =   {   () => toggleSupportRequestModal(true) }
+                                onClick             =   {   () => toggleViewRequestModal(true) }
                             >
                                 <Tooltip
                                     placement               =   { "bottom" }
@@ -376,6 +383,17 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                 
             </NavBar>
             
+            <ViewRequestsModal 
+                modalIsOpen         =   { viewRequestModalIsOpen }
+                toggleModal         =   { toggleViewRequestModal }
+
+                fullName            =   { fullName }
+                email               =   { email }
+                site                =   { site }
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }  
+                notify              =   { notify }                
+            />
             <SupportRequestModal 
                 modalIsOpen         =   { supportRequestModalIsOpen }
                 toggleModal         =   { toggleSupportRequestModal }
