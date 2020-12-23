@@ -4,6 +4,8 @@ import { faTasks, faFilter } from '@fortawesome/free-solid-svg-icons';
 import isDev from 'isdev';
 import ReactLoading from 'react-loading';
 
+import RequestRectangle from './RequestRectangle/RequestRectangle.js';
+
 import { Container, CloseButton, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
 const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
@@ -101,7 +103,7 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                 
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
-                    
+                    color               =   "white"
                     icon                =   { faTasks }
                 />
             </div>
@@ -118,7 +120,7 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                 >
                     <FAIconStyled
                             districtPosition    =   { districtPosition.toLowerCase() }
-                            
+                            color               =   "white"
                             icon                =   { faTasks, faFilter }
                     />
                     <FilterText
@@ -129,7 +131,9 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                 </FilterButton>
             </TitleFilterContainer>
      
-        
+            <RequestRectangle
+                districtPosition    =   { districtPosition.toLowerCase() }
+            />
 
         </InnerContainer>
       </Container>

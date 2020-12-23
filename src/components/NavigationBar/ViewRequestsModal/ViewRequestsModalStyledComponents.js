@@ -135,6 +135,7 @@ const RequestTypeTitle = styled('h4')`
 
     font-size: 1.4em;
     font-weight: bold;
+    font-style: italic;
 
     margin: 0px;
     padding: 0px;
@@ -146,7 +147,6 @@ const FilterText = styled('h5')`
 
     font-size: 1.1em;
     font-weight: bold;
-    font-
 
     padding: 0px;
     padding-left: 5px;
@@ -199,7 +199,12 @@ const TitleFilterContainer = styled("div")`
 
 const FAIconStyled = styled(FontAwesomeIcon)`
     display: inline-block;
-   color: white;
+    color: ${ props => props.color ? props.districtPosition ?
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
+                        : "#931E1D"
+            };
    margin-left: 5px;
 
    font-size: ${props => props.fontSize ? props.fontSize : "1.0em"};
@@ -252,9 +257,4 @@ const HelpdeskSubmitMessage = ({ districtPosition, message, icon }) => {
     );
 };
 
-const titleFilterContainer = styled("div")`
-    display: inline-flex;
-`;
-export { 
-    HelpdeskSubmitMessage, RequestTypeTitle, FilterButton, FilterText,
-    Container, CloseButton, InnerContainer, ModalTitle, FAIconStyled, NoCVTechsMessage, TitleFilterContainer };
+export { HelpdeskSubmitMessage, RequestTypeTitle, FilterButton, FilterText, Container, CloseButton, InnerContainer, ModalTitle, FAIconStyled, NoCVTechsMessage, TitleFilterContainer };
