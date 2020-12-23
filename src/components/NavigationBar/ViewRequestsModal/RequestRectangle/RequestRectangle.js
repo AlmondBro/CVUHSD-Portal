@@ -13,7 +13,7 @@ const RequestRectangle = ({ districtPosition, ...props}) => {
 
             <Content>
                 <SubSection 
-                    width       =   "12%"
+                    width       =   "6%"
                     alignItems  =   "flex-start"
                 >
                     <FAIconStyled
@@ -42,7 +42,7 @@ const RequestRectangle = ({ districtPosition, ...props}) => {
                 </SubSection>
 
                 <SubSection
-                    width           =   "53%"
+                    width           =   "35%"
                     alignItems      =   "flex-end"
                 >
                     <DateTime

@@ -158,7 +158,7 @@ const FilterText = styled('h5')`
 
 const FilterButton = styled('button')`
     position: absolute;
-    left: 86%;
+    left: 81.5%;
 
     max-width: 150px;
 

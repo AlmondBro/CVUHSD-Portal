@@ -70,6 +70,8 @@ const DateTime = styled("h4")`
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
             };
+
+    margin-right: 14%;
 `;
 
 const FAIconStyled = styled(FontAwesomeIcon)`
@@ -80,7 +82,8 @@ const FAIconStyled = styled(FontAwesomeIcon)`
                                     : "#931E1D"
                         : "#931E1D"
             };
-   margin-left: 20px;
+   margin-left: 26px;
+   /* 20px; */
 
    font-size: ${props => props.fontSize ? props.fontSize : "1.0em"};
 `;
