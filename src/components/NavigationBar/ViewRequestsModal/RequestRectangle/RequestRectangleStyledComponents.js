@@ -35,7 +35,7 @@ const Content = styled("article")`
     margin-top: 10px;
 `;
 
-const SubSection = styled("div")`
+const SubSection = styled("article")`
     display: flex; 
     flex-direction: column;
     justify-content: center;

@@ -67,7 +67,7 @@ const Container = styled(Modal).attrs(props => ({
     }
 `; //end TransferToITModalContainer
 
-const ReqRectContainer = styled("div")`
+const ReqRectContainer = styled("main")`
     width: 100%;
     max-height: 316px;
 
