@@ -68,8 +68,10 @@ const Container = styled(Modal).attrs(props => ({
 `; //end TransferToITModalContainer
 
 const ReqRectContainer = styled("div")`
-    overflow-y: scroll;
     width: 100%;
+    max-height: 316px;
+
+    overflow-y: scroll;
 `;
 
 const CloseButton = styled('button')`
@@ -205,11 +207,11 @@ const TitleFilterContainer = styled("div")`
 
 const FAIconStyled = styled(FontAwesomeIcon)`
     display: inline-block;
-    color: ${ props => props.color ? props.districtPosition ?
+    color: ${ props => props.color ? props.color :
+                        props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
-                        : "#931E1D"
             };
    margin-left: 5px;
 

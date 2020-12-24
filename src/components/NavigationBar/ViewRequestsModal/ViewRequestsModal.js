@@ -108,7 +108,7 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                             icon                =   { faTasks, faFilter }
                     />
                     <FilterText
-                            clasName="filter-text"
+                            className="filter-text"
                             districtPosition    =   { districtPosition.toLowerCase() }
                     >
                         Filter

@@ -3,6 +3,7 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 //import styled components
 import { Container, Divider, Content, Subsection, FAIconStyled, SubSection, RequestTitle, RequestDescription, DateTime } from './RequestRectangleStyledComponents.js'
+
 const RequestRectangle = ({ districtPosition, ...props}) => {
     return (
         <Container className="request-rectangle-container">
