@@ -49,7 +49,7 @@ const Container = styled(Modal).attrs(props => ({
 
 
     width               : 80%;
-    height:             : 400px;
+    height              : 400px;
     border              : 0px;
     border-radius       : 10px;
 
