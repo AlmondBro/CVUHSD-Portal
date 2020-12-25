@@ -1,5 +1,5 @@
 import React from 'react';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
 import { Container, TicketTypeContainer, FAIconStyled, TicketStatusText } from "./FilterPaneStyledComponent.js";
 
@@ -20,7 +20,7 @@ const FilterPane = ({districtPosition}) => {
             <TicketTypeContainer>          
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
-                    icon                =   { faCircle }
+                    icon                =   { faAngleDoubleRight }
                 />
                 <TicketStatusText
                     districtPosition    =   { districtPosition.toLowerCase() }
@@ -31,7 +31,7 @@ const FilterPane = ({districtPosition}) => {
             <TicketTypeContainer>          
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
-                    icon                =   { faCircle }
+                    icon                =   { faCheck }
                 />
                 <TicketStatusText
                     districtPosition    =   { districtPosition.toLowerCase() }
