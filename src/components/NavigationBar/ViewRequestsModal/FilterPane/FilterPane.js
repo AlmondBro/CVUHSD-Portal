@@ -1,9 +1,12 @@
 import React from 'react';
+import onClickOutside from "react-onclickoutside";
 import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
 import { Container, TicketTypeContainer, FAIconStyled, TicketStatusText } from "./FilterPaneStyledComponent.js";
 
-const FilterPane = ({ districtPosition, showFilterPane, requestsType, setRequestsType }) => {
+const FilterPane = ({ districtPosition, showFilterPane, setShowFilterPane, requestsType, setRequestsType }) => {
+    FilterPane.handleClickOutside = () => setShowFilterPane(false);
+    
     return (
         <Container 
             className       =   "filter-pane-container"
@@ -76,4 +79,8 @@ const FilterPane = ({ districtPosition, showFilterPane, requestsType, setRequest
     ); //end return statement
 }; //end FilterPane()
 
-export default FilterPane;
+const clickOutsideConfig = {
+    handleClickOutside: () => FilterPane.handleClickOutside
+};
+
+export default onClickOutside(FilterPane, clickOutsideConfig);

@@ -1,16 +1,16 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import { faTasks, faFilter } from '@fortawesome/free-solid-svg-icons';
-
+import React, { useState, useEffect } from 'react';
 import isDev from 'isdev';
 import ReactLoading from 'react-loading';
+
+import { faTasks, faFilter } from '@fortawesome/free-solid-svg-icons';
+
+import { SkeletonTheme } from 'react-loading-skeleton';
 
 import RequestRectangle from './RequestRectangle/RequestRectangle.js';
 
 import FilterPane from './FilterPane/FilterPane.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
-
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
@@ -45,7 +45,7 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
     useEffect(() => {
         setIsLoading(true);
 
-        // setTimeout(() => setIsLoading(false), 3000);
+        setTimeout(() => setIsLoading(false), 3000);
     }, [ requestsType ]); //end useEffect()
 
     return (
@@ -127,7 +127,10 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
      
             <FilterPane
                 districtPosition    =   { districtPosition.toLowerCase() }
+
                 showFilterPane      =   { showFilterPane }
+                setShowFilterPane   =   { setShowFilterPane }
+
                 requestsType        =   { requestsType }
                 setRequestsType     =   { setRequestsType }
             />

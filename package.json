@@ -47,6 +47,7 @@
     "react-loading": "^2.0.3",
     "react-loading-skeleton": "^2.1.1",
     "react-modal": "^3.11.1",
+    "react-onclickoutside": "^6.9.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-simple-storage": "^1.4.1",
@@ -79,7 +80,8 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "concurrently": "^5.2.0",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "react-refresh": "^0.9.0"
   },
   "proxy": "http://localhost:3001"
 }
