@@ -140,7 +140,7 @@ const RequestTypeTitle = styled('h4')`
             };
 
     font-size: 1.2em;
-    font-weight: bold;
+    font-weight: normal;
     font-style: italic;
 
     margin: 0px;
@@ -151,8 +151,8 @@ const FilterText = styled('h5')`
     display: inline-block;
     color: white;
 
-    font-size: 1.1em;
-    font-weight: bold;
+    font-size: 1.05em;
+    font-weight: normal;
 
     padding: 0px;
     padding-left: 5px;
