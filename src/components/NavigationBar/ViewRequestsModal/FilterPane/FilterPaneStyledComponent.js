@@ -7,8 +7,10 @@ const Container = styled("article")`
     top: 23%;
     left: 69%;
 
-    width: 200px;
-    height: 300px;
+    width: ${props => props.showFilterPane ? "200px" : "0px"};
+    max-height: ${props => props.showFilterPane ? "300px" : "0px"};
+
+    visibility: ${props => props.showFilterPane ? "visible" : "hidden"};
 
     background-color: white;
     border-radius: 10px;
@@ -17,6 +19,8 @@ const Container = styled("article")`
 
     padding-top: 8px;
 
+    /* transition: 350ms max-height ease-in-out, 350ms width ease-in-out; */
+    
     :after {
         content: "";
 
@@ -36,7 +40,7 @@ const Container = styled("article")`
 
 const TicketTypeContainer = styled("section")`
     cursor: pointer;
-    
+
     display: flex;
     flex-direction: row;
     justify-content: center;

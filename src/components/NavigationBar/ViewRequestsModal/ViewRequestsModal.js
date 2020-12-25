@@ -98,6 +98,7 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                 <FilterButton
                     className           =   "filter-button"
                     districtPosition    =   { districtPosition.toLowerCase() }
+                    onClick             =   { () => setShowFilterPane(!showFilterPane) }
                 >
                     <FAIconStyled
                             className           =   "view-request-icon"
@@ -116,6 +117,7 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
      
             <FilterPane
                 districtPosition    =   { districtPosition.toLowerCase() }
+                showFilterPane      =   { showFilterPane }
             />
 
             <ReqRectContainer className="req-rect-container">

@@ -3,9 +3,12 @@ import { faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-s
 
 import { Container, TicketTypeContainer, FAIconStyled, TicketStatusText } from "./FilterPaneStyledComponent.js";
 
-const FilterPane = ({districtPosition}) => {
+const FilterPane = ({ districtPosition, showFilterPane }) => {
     return (
-        <Container className="filter-pane-container"> 
+        <Container 
+            className       =   "filter-pane-container"
+            showFilterPane  =   { showFilterPane }
+        > 
             <TicketTypeContainer className="filter-pane-ticket-type-container">           
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
