@@ -6,6 +6,8 @@ import ReactLoading from 'react-loading';
 
 import RequestRectangle from './RequestRectangle/RequestRectangle.js';
 
+import FilterPane from './FilterPane/FilterPane.js';
+
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
 const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
@@ -29,7 +31,6 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
         setChangePasswordResult(null);
         setServerMessage("");
         toggleModal(false);
-
     }; //end onClose()
 
     const bodyOpenClassName="view-requests-modal-body--open",
@@ -39,7 +40,6 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
             contentClassName="view-requests-modal-content",
             parentSelectorID="chat-page-main-container";
 
-        
         useEffect(() => {
 
         }, [ site, districtPosition ]); //end useEffect()
@@ -114,6 +114,8 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                 </FilterButton>
             </TitleFilterContainer>
      
+            <FilterPane/>
+            
             <ReqRectContainer className="req-rect-container">
                 <RequestRectangle
                     districtPosition    =   { districtPosition.toLowerCase() }
@@ -135,8 +137,6 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                     districtPosition    =   { districtPosition.toLowerCase() }
                 />
                 </ReqRectContainer>
-
-
         </InnerContainer>
       </Container>
   ); //end return statement
