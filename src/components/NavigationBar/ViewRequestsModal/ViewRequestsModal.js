@@ -92,7 +92,13 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                     className           =   "request-type-title"
                     districtPosition    =   { districtPosition.toLowerCase() }
                 >
-                    All Requests
+                    {
+                        requestsType ? (requestsType === "Open") ? "Open Requests" :   
+                                        (requestsType === "In Progress")  ? "In Progress Requests" : 
+                                        (requestsType === "Closed")  ? "Closed Requests" : "All Requests"
+                                     
+                        : "All Requests"
+                    }
                 </RequestTypeTitle>
 
                 <FilterButton
@@ -118,6 +124,8 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
             <FilterPane
                 districtPosition    =   { districtPosition.toLowerCase() }
                 showFilterPane      =   { showFilterPane }
+                requestsType        =   { requestsType }
+                setRequestsType     =   { setRequestsType }
             />
 
             <ReqRectContainer className="req-rect-container">

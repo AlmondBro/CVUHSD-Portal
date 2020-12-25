@@ -3,13 +3,16 @@ import { faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-s
 
 import { Container, TicketTypeContainer, FAIconStyled, TicketStatusText } from "./FilterPaneStyledComponent.js";
 
-const FilterPane = ({ districtPosition, showFilterPane }) => {
+const FilterPane = ({ districtPosition, showFilterPane, requestsType, setRequestsType }) => {
     return (
         <Container 
             className       =   "filter-pane-container"
             showFilterPane  =   { showFilterPane }
         > 
-            <TicketTypeContainer className="filter-pane-ticket-type-container">           
+            <TicketTypeContainer 
+                className   ="filter-pane-ticket-type-container"
+                onClick     =   { () => setRequestsType("Open") }
+            >           
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
                     icon                =   { faCircle }
@@ -22,7 +25,10 @@ const FilterPane = ({ districtPosition, showFilterPane }) => {
                 </TicketStatusText>
             </TicketTypeContainer>
             
-            <TicketTypeContainer className="filter-pane-ticket-type-container">           
+            <TicketTypeContainer 
+                className   ="filter-pane-ticket-type-container"
+                onClick     =   { () => setRequestsType("In Progress") }
+            >              
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
                     icon                =   { faAngleDoubleRight }
@@ -35,7 +41,10 @@ const FilterPane = ({ districtPosition, showFilterPane }) => {
                 </TicketStatusText>
             </TicketTypeContainer>
 
-            <TicketTypeContainer className="filter-pane-ticket-type-container">           
+            <TicketTypeContainer 
+                className   ="filter-pane-ticket-type-container"
+                onClick     =   { () => setRequestsType("Closed") }
+            >           
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
                     icon                =   { faCheck }
