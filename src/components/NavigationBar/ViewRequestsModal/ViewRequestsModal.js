@@ -114,8 +114,10 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                 </FilterButton>
             </TitleFilterContainer>
      
-            <FilterPane/>
-            
+            <FilterPane
+                districtPosition    =   { districtPosition.toLowerCase() }
+            />
+
             <ReqRectContainer className="req-rect-container">
                 <RequestRectangle
                     districtPosition    =   { districtPosition.toLowerCase() }
