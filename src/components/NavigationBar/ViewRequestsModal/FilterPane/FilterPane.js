@@ -5,35 +5,40 @@ import { Container, TicketTypeContainer, FAIconStyled, TicketStatusText } from "
 
 const FilterPane = ({districtPosition}) => {
     return (
-        <Container>
-            <TicketTypeContainer>          
+        <Container className="filter-pane-container"> 
+            <TicketTypeContainer className="filter-pane-ticket-type-container">           
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
                     icon                =   { faCircle }
                 />
                 <TicketStatusText
+                    className           =   "filter-pane-ticket-status-text"
                     districtPosition    =   { districtPosition.toLowerCase() }
                 >
                     Open
                 </TicketStatusText>
             </TicketTypeContainer>
-            <TicketTypeContainer>          
+            
+            <TicketTypeContainer className="filter-pane-ticket-type-container">           
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
                     icon                =   { faAngleDoubleRight }
                 />
                 <TicketStatusText
+                    className           =   "filter-pane-ticket-status-text"
                     districtPosition    =   { districtPosition.toLowerCase() }
                 >
                     In Progress
                 </TicketStatusText>
             </TicketTypeContainer>
-            <TicketTypeContainer>          
+
+            <TicketTypeContainer className="filter-pane-ticket-type-container">           
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
                     icon                =   { faCheck }
                 />
                 <TicketStatusText
+                    className           =   "filter-pane-ticket-status-text"
                     districtPosition    =   { districtPosition.toLowerCase() }
                 >
                     Closed
