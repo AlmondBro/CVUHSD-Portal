@@ -4,7 +4,9 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons';
 //import styled components
 import { Container, Divider, Content, Subsection, FAIconStyled, SubSection, RequestTitle, RequestDescription, DateTime } from './RequestRectangleStyledComponents.js'
 
-const RequestRectangle = ({ districtPosition, ...props}) => {
+import Skeleton from 'react-loading-skeleton';
+
+const RequestRectangle = ({ districtPosition, isLoading, ...props}) => {
     return (
         <Container className="request-rectangle-container">
             <Divider
@@ -18,11 +20,21 @@ const RequestRectangle = ({ districtPosition, ...props}) => {
                     width       =   "6%"
                     alignItems  =   "flex-start"
                 >
-                    <FAIconStyled
-                            districtPosition    =   { districtPosition.toLowerCase() }
-                            color               =   "white"
-                            icon                =   { faCircle }
-                    />
+                    {
+                        isLoading ? (
+                            <Skeleton
+                                circle  = { true }
+                                width   =   { 20  }
+                                height  =   { 20 }
+                            />
+                        ) : (
+                            <FAIconStyled
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                color               =   "white"
+                                icon                =   { faCircle }
+                            />
+                        )
+                    }   
                 </SubSection>
 
                 <SubSection
@@ -35,15 +47,26 @@ const RequestRectangle = ({ districtPosition, ...props}) => {
                             className   =   "request-rectangle-req-title"
                             districtPosition    =   { districtPosition.toLowerCase() }
                     >
-                        Unable to Access HRS or PS
+                        {
+                            isLoading ? (
+                                <Skeleton
+                                    width={300}
+                                />
+                            ) : "Unable to Access HRS or PS"
+                        }  
                     </RequestTitle>
                     <RequestDescription
                             className           =   "request-rectangle-description"
                             districtPosition    =   { districtPosition.toLowerCase() }
                     >
-                        I am working from home and do not have my contact info...
+                        {
+                            isLoading ? (
+                                <Skeleton
+                                    width={200}
+                                />
+                            ) : "I am working from home and do not have my contact info..."
+                        }  
                     </RequestDescription>
-
                 </SubSection>
 
                 <SubSection
@@ -57,14 +80,26 @@ const RequestRectangle = ({ districtPosition, ...props}) => {
                         districtPosition    =   { districtPosition.toLowerCase() }
                         as                  =   "time"
                     >
-                        12:51 PM
+                        {
+                            isLoading ? (
+                                <Skeleton
+                                    width={80}
+                                />
+                            ) : "12:51"
+                        }  
                     </DateTime>
                     <DateTime
                         className           =   "request-rectangle-date-time"
                         districtPosition    =   { districtPosition.toLowerCase() }
                         as                  =   "date"
                     >
-                        12/22/2020
+                        {
+                            isLoading ? (
+                                <Skeleton
+                                    width={80}
+                                />
+                            ) : "12/22/2020"
+                        }  
                     </DateTime>
                 </SubSection>
             </Content>

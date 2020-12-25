@@ -10,6 +10,8 @@ import FilterPane from './FilterPane/FilterPane.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
 const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
     let [ changePasswordResult, setChangePasswordResult ]   = useState(null);
@@ -43,7 +45,7 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
     useEffect(() => {
         setIsLoading(true);
 
-        // setTimeout(() => setIsLoading(false), 3000);
+        setTimeout(() => setIsLoading(false), 3000);
     }, [ requestsType ]); //end useEffect()
 
     return (
@@ -132,44 +134,46 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
 
 
             <ReqRectContainer className="req-rect-container">
-                {
-                    isLoading ? (
-                        <ReactLoading 
-                            type    =   "bubbles"
-                            width   =   "50px" 
-                            height  =   "50px" 
-                            color   =   {
-                                            districtPosition ?
-                                            ( (districtPosition === "student") ||  window.location.pathname === "/student") ? 
-                                                "#B41A1F": "#1E6C93"
-                                            :  "#B41A1F" 
+                <SkeletonTheme 
+                    color           = {
+                                        districtPosition ?
+                                            ( (districtPosition === "student") || window.location.pathname === "/student") ? 
+                                                " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
+                                            : "rgba(147, 30, 29, 0.21)" 
                                         }
-                        /> 
-                    ) : (
-                        <Fragment>
-                            <RequestRectangle
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                            />
-                            <RequestRectangle
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                            />
-                            <RequestRectangle
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                            />
+                    highlightColor  = {
+                                            districtPosition ?
+                                            ( (districtPosition === "student") || window.location.pathname === "/student") ? 
+                                                " rgba(147, 30, 29, 0.5)": "rgba(30, 108, 147, 0.5);"
+                                            : "rgba(147, 30, 29, 0.5)" 
+                    }
+                >
+                    <RequestRectangle
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        isLoading           =   {   isLoading }
+                    />
+                    <RequestRectangle
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        isLoading           =   {   isLoading }
+                    />
+                    <RequestRectangle
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        isLoading           =   {   isLoading }
+                    />
 
-                            <RequestRectangle
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                            />
-                            <RequestRectangle
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                            />
-                            <RequestRectangle
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                            />
-                        </Fragment>
-                    )
-                }
-
+                    <RequestRectangle
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        isLoading           =   {   isLoading }
+                    />
+                    <RequestRectangle
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        isLoading           =   {   isLoading }
+                    />
+                    <RequestRectangle
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        isLoading           =   {   isLoading }
+                    />                
+                    </SkeletonTheme>
                 </ReqRectContainer>
         </InnerContainer>
       </Container>
