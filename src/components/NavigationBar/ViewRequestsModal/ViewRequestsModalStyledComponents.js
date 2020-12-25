@@ -139,7 +139,7 @@ const RequestTypeTitle = styled('h4')`
                                     : "#931E1D" 
             };
 
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-weight: bold;
     font-style: italic;
 
@@ -163,9 +163,10 @@ const FilterText = styled('h5')`
 
 
 const FilterButton = styled('button')`
-    position: absolute;
-    left: 81.5%;
-
+    /* position: absolute;
+    left: 81.5%; */
+    font-size: 0.9em;
+    margin-left: auto;
     max-width: 150px;
 
     color: white;
@@ -176,7 +177,7 @@ const FilterButton = styled('button')`
                             
                         };
 
-    padding: 8px;
+    padding: 4px;
     border-radius: 10px;
 
     outline: 0px;
@@ -202,7 +203,7 @@ const TitleFilterContainer = styled("div")`
 
     overflow-y: scroll;
 
-    width: 100%;
+    width: 85%;
 `;
 
 const FAIconStyled = styled(FontAwesomeIcon)`

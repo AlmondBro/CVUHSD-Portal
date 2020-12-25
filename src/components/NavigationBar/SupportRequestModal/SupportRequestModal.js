@@ -150,7 +150,6 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
             />
     );
     }
- 
 
     return submitReqResponse;
   }; //end submitRequest

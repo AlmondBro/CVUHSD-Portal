@@ -32,11 +32,11 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
 
     }; //end onClose()
 
-    const bodyOpenClassName="change-password-modal-body--open",
-            htmlOpenClassName="change-password-modal-html--open",
-            overlayClassName="change-password-modal-overlay",
-            portalClassName="change-password-modal",
-            contentClassName="change-password-modal-content",
+    const bodyOpenClassName="view-requests-modal-body--open",
+            htmlOpenClassName="view-requests-modal-html--open",
+            overlayClassName="view-requests-modal-overlay",
+            portalClassName="view-requests-modal",
+            contentClassName="view-requests-modal-content",
             parentSelectorID="chat-page-main-container";
 
         
@@ -53,15 +53,14 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
         shouldReturnFocusAfterClose =   { true }
         //onRequestClose              =   { onClose }
 
-        contentLabel                =   { "Support Request Modal" }
+        contentLabel                =   { "View Requests Modal" }
 
         portalClassName             =   { portalClassName }
         overlayClassName            =   { overlayClassName }
         bodyOpenClassName           =   { bodyOpenClassName }
-        htmlOpenClassName           =   "change-password-modal-html--open"
+        htmlOpenClassName           =   { htmlOpenClassName }
         className                   =   { contentClassName }
 
-        
         parentSelector              =   { () => document.getElementById("cvuhsd-sso-portal")}
 
         shouldCloseOnOverlayClick   =   { false }
@@ -84,7 +83,6 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                 
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
-                    color               =   "white"
                     icon                =   { faTasks }
                 />
             </div>
