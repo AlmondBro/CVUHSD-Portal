@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { faTasks, faFilter } from '@fortawesome/free-solid-svg-icons';
 
 import isDev from 'isdev';
@@ -40,11 +40,13 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
             contentClassName="view-requests-modal-content",
             parentSelectorID="chat-page-main-container";
 
-        useEffect(() => {
+    useEffect(() => {
+        setIsLoading(true);
 
-        }, [ site, districtPosition ]); //end useEffect()
+        // setTimeout(() => setIsLoading(false), 3000);
+    }, [ requestsType ]); //end useEffect()
 
-  return (
+    return (
       <Container
         isOpen                      =   { modalIsOpen }
         onAfterOpen                 =   { afterOpenModal }
@@ -128,26 +130,46 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
                 setRequestsType     =   { setRequestsType }
             />
 
-            <ReqRectContainer className="req-rect-container">
-                <RequestRectangle
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                />
-                <RequestRectangle
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                />
-                <RequestRectangle
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                />
 
-                <RequestRectangle
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                />
-                <RequestRectangle
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                />
-                <RequestRectangle
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                />
+            <ReqRectContainer className="req-rect-container">
+                {
+                    isLoading ? (
+                        <ReactLoading 
+                            type    =   "bubbles"
+                            width   =   "50px" 
+                            height  =   "50px" 
+                            color   =   {
+                                            districtPosition ?
+                                            ( (districtPosition === "student") ||  window.location.pathname === "/student") ? 
+                                                "#B41A1F": "#1E6C93"
+                                            :  "#B41A1F" 
+                                        }
+                        /> 
+                    ) : (
+                        <Fragment>
+                            <RequestRectangle
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                            />
+                            <RequestRectangle
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                            />
+                            <RequestRectangle
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                            />
+
+                            <RequestRectangle
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                            />
+                            <RequestRectangle
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                            />
+                            <RequestRectangle
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                            />
+                        </Fragment>
+                    )
+                }
+
                 </ReqRectContainer>
         </InnerContainer>
       </Container>
