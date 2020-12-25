@@ -2,7 +2,7 @@ import React from 'react';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 //import styled components
-import { Container, Divider, Content, Subsection, FAIconStyled, SubSection, RequestTitle, RequestDescription, DateTime } from './RequestRectangleStyledComponents.js'
+import { Container, Divider, Content, Subsection, FAIconStyled, SubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestRectangleStyledComponents.js'
 
 import Skeleton from 'react-loading-skeleton';
 
@@ -22,8 +22,8 @@ const RequestRectangle = ({ districtPosition, isLoading, ...props}) => {
                 >
                     {
                         isLoading ? (
-                            <Skeleton
-                                circle  = { true }
+                            <TicketTypeCircleSkeleton
+                                circle  =   { true }
                                 width   =   { 20  }
                                 height  =   { 20 }
                             />

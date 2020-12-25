@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import Skeleton from 'react-loading-skeleton';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Container = styled("div")`
@@ -88,4 +90,8 @@ const FAIconStyled = styled(FontAwesomeIcon)`
    font-size: ${props => props.fontSize ? props.fontSize : "1.0em"};
 `;
 
-export { Container, Divider, FAIconStyled, SubSection, Content, RequestTitle, RequestDescription, DateTime };
+const TicketTypeCircleSkeleton = styled(Skeleton)`
+    margin-left: 20px;
+`;
+
+export { Container, Divider, FAIconStyled, SubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
