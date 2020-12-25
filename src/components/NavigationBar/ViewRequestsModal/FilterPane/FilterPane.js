@@ -1,5 +1,5 @@
 import React from 'react';
-import { faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
 import { Container, TicketTypeContainer, FAIconStyled, TicketStatusText } from "./FilterPaneStyledComponent.js";
 
@@ -9,6 +9,22 @@ const FilterPane = ({ districtPosition, showFilterPane, requestsType, setRequest
             className       =   "filter-pane-container"
             showFilterPane  =   { showFilterPane }
         > 
+            <TicketTypeContainer 
+                className   =   "filter-pane-ticket-type-container"
+                onClick     =   { () => setRequestsType("All") }
+            >           
+                <FAIconStyled
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                    icon                =   { faTasks }
+                />
+                <TicketStatusText
+                    className           =   "filter-pane-ticket-status-text"
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                >
+                    All 
+                </TicketStatusText>
+            </TicketTypeContainer>
+
             <TicketTypeContainer 
                 className   ="filter-pane-ticket-type-container"
                 onClick     =   { () => setRequestsType("Open") }
