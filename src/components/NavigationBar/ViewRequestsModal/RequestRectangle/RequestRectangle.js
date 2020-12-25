@@ -83,7 +83,7 @@ const RequestRectangle = ({ districtPosition, isLoading, ...props}) => {
                         {
                             isLoading ? (
                                 <Skeleton
-                                    width={80}
+                                    width={40}
                                 />
                             ) : "12:51"
                         }  

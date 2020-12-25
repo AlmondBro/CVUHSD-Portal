@@ -45,7 +45,7 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
     useEffect(() => {
         setIsLoading(true);
 
-        setTimeout(() => setIsLoading(false), 3000);
+        // setTimeout(() => setIsLoading(false), 3000);
     }, [ requestsType ]); //end useEffect()
 
     return (
