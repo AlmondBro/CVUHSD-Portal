@@ -4,25 +4,29 @@ import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/fre
 
 import { Container, TicketTypeContainer, FAIconStyled, TicketStatusText } from "./FilterPaneStyledComponent.js";
 
-const FilterPane = ({ districtPosition, showFilterPane, setShowFilterPane, requestsType, setRequestsType }) => {
+const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShowFilterPane, requestsType, setRequestsType }) => {
     FilterPane.handleClickOutside = () => setShowFilterPane(false);
     
     return (
         <Container 
-            className       =   "filter-pane-container"
-            showFilterPane  =   { showFilterPane }
+            districtPosition    =   { districtPosition }
+            renderAsStudent     =   { renderAsStudent }
+            className           =   "filter-pane-container"
+            showFilterPane      =   { showFilterPane }
         > 
             <TicketTypeContainer 
                 className   =   "filter-pane-ticket-type-container"
                 onClick     =   { () => setRequestsType("All") }
             >           
                 <FAIconStyled
-                    districtPosition    =   { districtPosition.toLowerCase() }
+                    districtPosition    =   { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
                     icon                =   { faTasks }
                 />
                 <TicketStatusText
                     className           =   "filter-pane-ticket-status-text"
-                    districtPosition    =   { districtPosition.toLowerCase() }
+                    districtPosition    =   { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
                 >
                     All 
                 </TicketStatusText>
@@ -33,12 +37,14 @@ const FilterPane = ({ districtPosition, showFilterPane, setShowFilterPane, reque
                 onClick     =   { () => setRequestsType("Open") }
             >           
                 <FAIconStyled
-                    districtPosition    =   { districtPosition.toLowerCase() }
+                    districtPosition    =   { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
                     icon                =   { faCircle }
                 />
                 <TicketStatusText
                     className           =   "filter-pane-ticket-status-text"
-                    districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
+                    districtPosition    =   { districtPosition }
                 >
                     Open
                 </TicketStatusText>
@@ -50,11 +56,13 @@ const FilterPane = ({ districtPosition, showFilterPane, setShowFilterPane, reque
             >              
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
                     icon                =   { faAngleDoubleRight }
                 />
                 <TicketStatusText
                     className           =   "filter-pane-ticket-status-text"
                     districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
                 >
                     In Progress
                 </TicketStatusText>
@@ -66,11 +74,13 @@ const FilterPane = ({ districtPosition, showFilterPane, setShowFilterPane, reque
             >           
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
                     icon                =   { faCheck }
                 />
                 <TicketStatusText
                     className           =   "filter-pane-ticket-status-text"
                     districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
                 >
                     Closed
                 </TicketStatusText>

@@ -52,12 +52,21 @@ const TicketTypeContainer = styled("section")`
 
     margin-bottom: 8px;
 
-    border-bottom: 1px solid rgba(30, 108, 146, 0.21);
+    border-bottom: ${props => (props.districtPosition === "Student" || props.renderAsStudent === "true")  ? "1px solid rgba(30, 108, 146, 0.21)" : "1px solid rgba(147, 30, 29, 0.21)" };
+
+    /*
+props.districtPosition ? 
+                            (props.districtPosition.toLowerCase() === "student" || props.renderAsStudent === "true")  ? "1px solid rgba(30, 108, 146, 0.21)" : "1px solid rgba(147, 30, 29, 0.21)" 
+                            : "1px solid rgba(30, 108, 146, 0.21)"
+    */
 
     transition: 350ms background-color ease-in-out, 350ms border-radius ease-in-out;
 
     :hover {
-        background-color: rgba(30, 108, 146, 0.1);
+        /* background-color: ${props => props.districtPosition ? 
+                            (props.districtPosition.toLowerCase() === "student" || props.renderAsStudent)  ? "1px solid rgba(147, 30, 29, 0.30)" : "1px solid rgba(30, 108, 146, 0.30)" 
+                            : "1px solid rgba(147, 30, 29, 0.30)"
+                    }; */
 
         border-radius: 10px;
         border-bottom-left-radius: 0px;

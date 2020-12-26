@@ -12,7 +12,7 @@ import FilterPane from './FilterPane/FilterPane.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
-const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
+const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
     let [ changePasswordResult, setChangePasswordResult ]   = useState(null);
 
@@ -126,7 +126,8 @@ const ViewRequestsModal = ({ districtPosition, fullName, email, site, toggleModa
             </TitleFilterContainer>
      
             <FilterPane
-                districtPosition    =   { districtPosition.toLowerCase() }
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }
 
                 showFilterPane      =   { showFilterPane }
                 setShowFilterPane   =   { setShowFilterPane }
