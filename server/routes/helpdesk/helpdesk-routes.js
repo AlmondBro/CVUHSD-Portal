@@ -168,22 +168,10 @@ const viewUserRequests = async (email) => {
         }
     };
 
-    //One way of extracting the keys from the requestDetails Object is via a for in loop
-    var formBody = [];
-    for (var p in requestDetails) {
-      var encodedKey = encodeURIComponent(p);
-      var encodedValue = encodeURIComponent(requestDetails[p]);
-      formBody.push(encodedKey + '=' + encodedValue);
-    }
-    formBody = formBody.join('&');
-
-    console.log("formBody:\t", formBody);
-
     //"Cleaner" method of transforming an object into a quert is illustrated here:"
     const query = Object.keys(requestDetails).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(requestDetails[key])}`).join('&');
-    const hardCodedQueryString = "{\n    \"list_info\": {\n        \"row_count\": 20,\n        \"start_index\": 1,\n        \"sort_field\": \"subject\",\n        \"sort_order\": \"asc\",\n        \"get_total_count\": true,\n        \"search_fields\": {\n            \"requester.name\": \"lopezj\"\n        },\n        \"filter_by\": {\n            \"name\": \"All_Requests\"\n        }\n    }\n}";
     
-    //objectToQueryString(query)
+   //TODO: Find way to remove spaces and line breaks encoded characters, as they are not needed; makes the request cleaner in the fetchURL
     const fetchURL = sdpReadRequestsURL + "?input_data=" + escape(JSON.stringify(requestDetails));
 
     console.log("Query String:\t", query);
