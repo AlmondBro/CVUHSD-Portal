@@ -59,7 +59,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     requestType = "All_System"
         }
 
-        const getUserRequests_URL = `${isDev ? "" : "/server"}/helpdesk//request/read/all/user`;
+        const getUserRequests_URL = `${isDev ? "" : "/server"}/helpdesk/request/read/all/user`;
         const getUserRequests_Headers = {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
