@@ -85,8 +85,11 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         if (isInitialMount.current) {
             isInitialMount.current = false;
         } else {
-            let requests = getUserRequests(email, requestsType);
-            console.log("requests:\t", requests);
+            (async () => { 
+                let requests = await getUserRequests(email, requestsType);
+                console.log("requests:\t", requests);
+
+            })();
         }
 
         // setTimeout(() => setIsLoading(false), 3000);
