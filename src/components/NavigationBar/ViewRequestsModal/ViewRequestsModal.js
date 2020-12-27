@@ -22,10 +22,8 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     let [ submitEnabled, setSubmitEnabled ]                 = useState(false);
 
     let [ showFilterPane, setShowFilterPane ]               =   useState(false);
-    let [ requestsType, setRequestsType ]                   =   useState(false);
-    let [ requestRectangles, setRequestRectangles ]         =   useState(null);
-
-  
+    let [ requestsType, setRequestsType ]                   =   useState("All");
+    let [ requestRectangles, setRequestRectangles ]         =   useState([]);
 
     const onClose = () => {
         setChangePasswordResult(null);
@@ -69,7 +67,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         return requestRectangles;
     }; //end loadRequestRectangles()
     
-    const getUserRequests = async (email, requestType = "All") => {
+    const getUserRequests = async (email, requestsType = "All") => {
         let requests = [];
         setIsLoading(true);
 
@@ -83,7 +81,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         let requestsResponse = await fetch(getUserRequests_URL, {
             method: 'POST',
             headers: getUserRequests_Headers,
-            body: JSON.stringify({ email, requestType } )
+            body: JSON.stringify({ email, requestsType } )
         })
         .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
         .then((jsonResponse) => jsonResponse)
@@ -111,8 +109,10 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
 
         setRequestRectangles(requestRectangles);
         
+        console.log("requestsType:\t", requestsType);
         console.log("requests:\t", requests);
         console.log("request rectangles:\t", requestRectangles);
+
     };
 
     const afterOpenModal = async () => {
@@ -264,7 +264,14 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                                     isLoading           =   {   true }
                                 />     
                             </Fragment>
-                        ) : requestRectangles
+                        ) : (requestRectangles.length > 0) ? 
+                                requestRectangles 
+                                : (
+                                    <p>
+                                        No {requestsType.toLowerCase( )} requests at this moment.
+                                    </p>
+                                )
+
                     }
                     </SkeletonTheme>
                 </ReqRectContainer>

@@ -113,6 +113,10 @@ const viewUserRequests = async (sdpName, requestType) => {
         'technician_key'    :   process.env.SDP_TECH_KEY
     };
 
+    if (requestType === "All") {
+        requestType = null;
+    }
+
     const requestDetails = {
         list_info: {
             row_count: 20,
@@ -208,7 +212,7 @@ const getSDPUserInfo = async (email) => {
 
 router.post('/request/read/all/user', async (req, res) => {
     let userRequests, error, message = null;
-    let { email, requestType } = req.body;
+    let { email, requestsType } = req.body;
 
     //Test variables:
     //email = "noreply@cvuhsd.org";
@@ -217,7 +221,7 @@ router.post('/request/read/all/user', async (req, res) => {
     let sdpName =   await getSDPUserInfo(email);
 
     if (sdpName) {
-        userRequests = await viewUserRequests(sdpName, requestType);
+        userRequests = await viewUserRequests(sdpName, requestsType);
         error   =   false;
     } else {
         error   =   true;
