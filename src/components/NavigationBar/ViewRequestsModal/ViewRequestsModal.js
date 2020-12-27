@@ -11,6 +11,7 @@ import RequestRectangle from './RequestRectangle/RequestRectangle.js';
 import FilterPane from './FilterPane/FilterPane.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
+import { Fragment } from 'react';
 
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
@@ -22,16 +23,9 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
 
     let [ showFilterPane, setShowFilterPane ]               =   useState(false);
     let [ requestsType, setRequestsType ]                   =   useState(false);
+    let [ requestRectangles, setRequestRectangles ]         =   useState(null);
 
-    const afterOpenModal = async () => {
-        setSubmitEnabled(true);
-        // setIsLoading(false);
-        setServerMessage("");
-
-        let requests = await getUserRequests(email, requestsType);
-
-        console.log("requests:\t", requests);
-    }; //afterOpenModal()
+  
 
     const onClose = () => {
         setChangePasswordResult(null);
@@ -45,6 +39,35 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             portalClassName="view-requests-modal",
             contentClassName="view-requests-modal-content",
             parentSelectorID="chat-page-main-container";
+
+    const parseDate = (stringToParse) => {
+        let dateAndTime = stringToParse.split(" ");
+
+        return dateAndTime;
+    }; //end parseDate()
+
+    const loadRequestRectangles = (requests) => {
+        let requestRectangles = requests.map((requestObject, index) => {
+
+            let { subject, short_description, created_time } = requestObject;
+            
+            let dateAndTime = parseDate(created_time["display_value"]);
+            
+            return (
+                <RequestRectangle
+                    districtPosition    =   { districtPosition }
+                    subject             =   { subject}
+                    description         =   { short_description }
+                    date                =   {  dateAndTime[0] }
+                    time                =   { dateAndTime[1] }
+                    isLoading           =   { isLoading }
+                />
+            );
+
+        });
+
+        return requestRectangles;
+    }; //end loadRequestRectangles()
     
     const getUserRequests = async (email, requestType = "All") => {
         let requests = [];
@@ -81,17 +104,31 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     //Run ref on component updates except for initial mount via use of ref variable
     const isInitialMount = useRef(true);
 
+    const getRequestRectangles = async () => { 
+        let requests = await getUserRequests(email, requestsType);
+
+        let requestRectangles = loadRequestRectangles(requests);
+
+        setRequestRectangles(requestRectangles);
+        
+        console.log("requests:\t", requests);
+        console.log("request rectangles:\t", requestRectangles);
+    };
+
+    const afterOpenModal = async () => {
+        setSubmitEnabled(true);
+        // setIsLoading(false);
+        setServerMessage("");
+
+        getRequestRectangles();
+    }; //afterOpenModal()
+
     useEffect(() => {
         if (isInitialMount.current) {
             isInitialMount.current = false;
         } else {
-            (async () => { 
-                let requests = await getUserRequests(email, requestsType);
-                console.log("requests:\t", requests);
-
-            })();
+            getRequestRectangles();
         }
-
         // setTimeout(() => setIsLoading(false), 3000);
     }, [ requestsType ]); //end useEffect()
 
@@ -183,7 +220,6 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 setRequestsType     =   { setRequestsType }
             />
 
-
             <ReqRectContainer className="req-rect-container">
                 <SkeletonTheme 
                     color           = {
@@ -199,31 +235,37 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                                             : "rgba(147, 30, 29, 0.5)" 
                     }
                 >
-                    <RequestRectangle
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                        isLoading           =   {   isLoading }
-                    />
-                    <RequestRectangle
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                        isLoading           =   {   isLoading }
-                    />
-                    <RequestRectangle
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                        isLoading           =   {   isLoading }
-                    />
+                    {
+                        isLoading ? (
+                            <Fragment>
+                                <RequestRectangle
+                                    districtPosition    =   { districtPosition }
+                                    isLoading           =   {   true }
+                                />
+                                <RequestRectangle
+                                    districtPosition    =   { districtPosition }
+                                    isLoading           =   {   true }
+                                />
+                                <RequestRectangle
+                                    districtPosition    =   { districtPosition }
+                                    isLoading           =   {   true }
+                                />
 
-                    <RequestRectangle
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                        isLoading           =   {   isLoading }
-                    />
-                    <RequestRectangle
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                        isLoading           =   {   isLoading }
-                    />
-                    <RequestRectangle
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                        isLoading           =   {   isLoading }
-                    />                
+                                <RequestRectangle
+                                    districtPosition    =   { districtPosition }
+                                    isLoading           =   {   true }
+                                />
+                                <RequestRectangle
+                                    districtPosition    =   { districtPosition }
+                                    isLoading           =   {  true }
+                                />
+                                <RequestRectangle
+                                    districtPosition    =   { districtPosition }
+                                    isLoading           =   {   true }
+                                />     
+                            </Fragment>
+                        ) : requestRectangles
+                    }
                     </SkeletonTheme>
                 </ReqRectContainer>
         </InnerContainer>

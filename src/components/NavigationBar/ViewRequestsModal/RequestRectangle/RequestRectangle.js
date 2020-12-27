@@ -6,12 +6,12 @@ import { Container, Divider, Content, Subsection, FAIconStyled, SubSection, Requ
 
 import Skeleton from 'react-loading-skeleton';
 
-const RequestRectangle = ({ districtPosition, isLoading, ...props}) => {
+const RequestRectangle = ({ districtPosition, subject, description, date, time, isLoading, ...props}) => {
     return (
         <Container className="request-rectangle-container">
             <Divider
-                className="request-rectangle-divider"
-                districtPosition = { districtPosition }
+                className           =   "request-rectangle-divider"
+                districtPosition    =   { districtPosition }
             />
 
             <Content>
@@ -52,7 +52,7 @@ const RequestRectangle = ({ districtPosition, isLoading, ...props}) => {
                                 <Skeleton
                                     width={300}
                                 />
-                            ) : "Unable to Access HRS or PS"
+                            ) : subject || "Request Subject"
                         }  
                     </RequestTitle>
                     <RequestDescription
@@ -64,7 +64,7 @@ const RequestRectangle = ({ districtPosition, isLoading, ...props}) => {
                                 <Skeleton
                                     width={200}
                                 />
-                            ) : "I am working from home and do not have my contact info..."
+                            ) : description || "I am working from home and do not have my contact info..."
                         }  
                     </RequestDescription>
                 </SubSection>
@@ -85,7 +85,7 @@ const RequestRectangle = ({ districtPosition, isLoading, ...props}) => {
                                 <Skeleton
                                     width={40}
                                 />
-                            ) : "12:51"
+                            ) : time || "12:51"
                         }  
                     </DateTime>
                     <DateTime
@@ -97,7 +97,7 @@ const RequestRectangle = ({ districtPosition, isLoading, ...props}) => {
                                 <Skeleton
                                     width={80}
                                 />
-                            ) : "12/22/2020"
+                            ) : date || "12/22/2020"
                         }  
                     </DateTime>
                 </SubSection>
