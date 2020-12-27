@@ -91,7 +91,6 @@ const RequestRectangle = ({ districtPosition, isLoading, ...props}) => {
                     <DateTime
                         className           =   "request-rectangle-date-time"
                         districtPosition    =   { districtPosition.toLowerCase() }
-                        as                  =   "date"
                     >
                         {
                             isLoading ? (

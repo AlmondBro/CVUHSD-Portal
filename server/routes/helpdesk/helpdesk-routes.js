@@ -206,14 +206,15 @@ const getSDPUserInfo = async (email) => {
     return sdpName; 
 };
 
-router.get('/request/read/all/user', async (req, res) => {
+router.post('/request/read/all/user', async (req, res) => {
     let userRequests, error, message = null;
     let { email, requestType } = req.body;
 
-    email = "noreply@cvuhsd.org";
-    requestType = "Closed";
+    //Test variables:
+    //email = "noreply@cvuhsd.org";
+    //requestType = "Closed";
 
-    let sdpName    =   await getSDPUserInfo(email);
+    let sdpName =   await getSDPUserInfo(email);
 
     if (sdpName) {
         userRequests = await viewUserRequests(sdpName, requestType);
@@ -223,7 +224,8 @@ router.get('/request/read/all/user', async (req, res) => {
         message = `Could not find a user with the email: ${email}`;
     }
     
-    return res.json({userRequests, message, error});
+    console.log("user requests:\t", userRequests);
+    return res.json({...userRequests, message, error});
 });
 
 module.exports = router;

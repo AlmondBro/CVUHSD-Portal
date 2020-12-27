@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import isDev from 'isdev';
 import ReactLoading from 'react-loading';
 
@@ -25,8 +25,12 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
 
     const afterOpenModal = async () => {
         setSubmitEnabled(true);
-        setIsLoading(false);
+        // setIsLoading(false);
         setServerMessage("");
+
+        let requests = await getUserRequests(email, requestsType);
+
+        console.log("requests:\t", requests);
     }; //afterOpenModal()
 
     const onClose = () => {
@@ -42,7 +46,10 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             contentClassName="view-requests-modal-content",
             parentSelectorID="chat-page-main-container";
     
-    const getUserRequests = (email, requestType = "All") => {
+    const getUserRequests = async (email, requestType = "All") => {
+        let requests = [];
+        setIsLoading(true);
+
         const getUserRequests_URL = `${isDev ? "" : "/server"}/helpdesk/request/read/all/user`;
         const getUserRequests_Headers = {
             'Content-Type': 'application/json',
@@ -61,13 +68,28 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             console.error(`Catching error:\t ${error}`);
         });
 
-        return requestsResponse;
+        if (requestsResponse && !requestsResponse.error) {
+            requests = requestsResponse.requests;
+            setIsLoading(false);
+        } else {
+            console.error(`Error ${requestsResponse.message}`);
+        }
+
+        return requests;
     }; //end getUserRequests
 
-    useEffect(() => {
-        setIsLoading(true);
+    //Run ref on component updates except for initial mount via use of ref variable
+    const isInitialMount = useRef(true);
 
-        setTimeout(() => setIsLoading(false), 3000);
+    useEffect(() => {
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+        } else {
+            let requests = getUserRequests(email, requestsType);
+            console.log("requests:\t", requests);
+        }
+
+        // setTimeout(() => setIsLoading(false), 3000);
     }, [ requestsType ]); //end useEffect()
 
     return (
