@@ -44,6 +44,14 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         return dateAndTime;
     }; //end parseDate()
 
+    const dateFormatChange = (dateToChange) => {
+        const dateParts = dateToChange.split("/");
+
+        const formattedDate  = dateParts[1] + "/" +  dateParts[0] + "/" + dateParts[2];
+
+        return formattedDate;
+    };
+
     const loadRequestRectangles = (requests) => {
         let requestRectangles = requests.map((requestObject, index) => {
 
@@ -56,7 +64,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     districtPosition    =   { districtPosition }
                     subject             =   { subject}
                     description         =   { short_description }
-                    date                =   {  dateAndTime[0] }
+                    date                =   {  dateFormatChange(dateAndTime[0]) }
                     time                =   { dateAndTime[1] + " " + dateAndTime[2] }
                     isLoading           =   { isLoading }
                 />
