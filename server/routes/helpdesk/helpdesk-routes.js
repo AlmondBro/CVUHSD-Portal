@@ -1,10 +1,9 @@
+import { escape } from 'querystring';
 import { request, Router } from 'express';
+
 import fetch from 'node-fetch';
 
-import { escape } from 'querystring';
-
 import rateLimiter from 'express-rate-limit';
-
 
 const router = Router();
 
@@ -106,45 +105,7 @@ router.post('/request/create', async (req, res) => {
 });
 
 /* === VIEW SINGLE USER REQUEST === */
-
-var objectToQueryString = function (a) {
-    var prefix, s, add, name, r20, output;
-    s = [];
-    r20 = /%20/g;
-    add = function (key, value) {
-        // If value is a function, invoke it and return its value
-        value = ( typeof value == 'function' ) ? value() : ( value == null ? "" : value );
-        s[ s.length ] = encodeURIComponent(key) + "=" + encodeURIComponent(value);
-    };
-    if (a instanceof Array) {
-        for (name in a) {
-            add(name, a[name]);
-        }
-    } else {
-        for (prefix in a) {
-            buildParams(prefix, a[ prefix ], add);
-        }
-    }
-    output = s.join("&").replace(r20, "+");
-    return output;
-};
-
-function encode(queryObj, nesting = "") {
-    let queryString = "";
-  
-    const pairs = Object.entries(queryObj).map(([key, val]) => {
-      // Handle the nested, recursive case, where the value to encode is an object itself
-      if (typeof val === "object") {
-        return encode(val, nesting + `${key}.`);
-      } else {
-        // Handle base case, where the value to encode is simply a string.
-        return [nesting + key, val].map(escape).join("=");
-      }
-    });
-    return pairs.join("&");
-};
-
-const viewUserRequests = async (email) => {
+const viewUserRequests = async (sdpName, requestType) => {
     const sdpReadRequestsURL = `${process.env.SDP_URL}/api/v3/requests`; 
 
     const sdpReadRequestsURLHeaders = {
@@ -160,10 +121,10 @@ const viewUserRequests = async (email) => {
             sort_order: "asc",
             get_total_count: true,
             search_fields: {
-                "requester.name": "lopezj@centinela.k12.ca.us"
+                "requester.name": sdpName
             },
             filter_by: {
-                "name" : "All_Requests"
+                "name" : requestType
             }
         }
     };
@@ -183,39 +144,85 @@ const viewUserRequests = async (email) => {
     })
     .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
     .then((jsonResponse) => jsonResponse)
-    .catch((error) => {
-        console.error(`Catching error:\t ${error}`);
-    });
+    .catch((error) => console.error(`Catching error:\t ${error}`) );
 
     return userRequests;
 }; //end viewUserRequest
 
-const getSDPUserID = async (email) => {
-    const getAllSDPUsersURL = `${process.env.SDP_URL}/api/v3/requests`; 
-    const getAllSDPUsersHeaders = {
+const getSDPUserInfo = async (email) => {
+    const getSDPUserInfo_URL = `${process.env.SDP_URL}/api/v3/users`; 
+    const getSDPUserInfo_Headers = {
         'Content-Type'      :   'application/x-www-form-urlencoded',
         'technician_key'    :   process.env.SDP_TECH_KEY
     };
 
-    const fetchURL = sdpReadRequestsURL + "?input_data=" + hardCodedQueryString;
+    //Possible fields_required array values:
+    /*
+        "name",
+        "is_technician",
+        "citype",
+        "login_name",
+        "email_id",
+        "department",
+        "phone",
+        "mobile",
+        "jobtitle",
+        "project_roles",
+        "employee_id",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "is_vipuser",
+        "ciid"
+    */
+    const requestDetails = {
+        list_info: {
+            sort_field: "name",
+            start_index: 1,
+            sort_order: "asc",
+            row_count: "25",
+            get_total_count: true,
+            search_fields: {
+                email_id: email
+            }
+        },
+        fields_required: [
+            "name",
+        ]
+    };
 
-    let sdpUserID = await fetch(fetchURL, {
+    const fetchURL = getSDPUserInfo_URL + "?input_data=" + escape(JSON.stringify(requestDetails));
+
+    let sdpName = await fetch(fetchURL, {
         method: 'GET',
-        headers: getAllSDPUsersHeaders
+        headers: getSDPUserInfo_Headers
     })
     .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
-    .then((jsonResponse) => jsonResponse)
-    .catch((error) => {
-        console.error(`Catching error:\t ${error}`);
-    }); 
+    .then((jsonResponse) => jsonResponse["users"][0])
+    .then((user) => user.name)
+    .catch((error) => console.error(`getSDPUserInfo() catching error:\t ${error}`) ); 
+
+    return sdpName; 
 };
 
 router.get('/request/read/all/user', async (req, res) => {
-    const { email } = req.body;
+    let userRequests, error, message = null;
+    let { email, requestType } = req.body;
 
-    let userRequests = await viewUserRequests(email);
+    email = "lopez-svc324234@centinela.k12.ca.us";
+    requestType = "All_Requests";
 
-    return res.json({...userRequests});
+    let sdpName    =   await getSDPUserInfo(email);
+
+    if (sdpName) {
+        userRequests = await viewUserRequests(sdpName, requestType);
+        error   =   false;
+    } else {
+        error   =   true;
+        message = `Could not find a user with the email: ${email}`;
+    }
+    
+    return res.json({userRequests, message, error});
 });
 
 module.exports = router;
