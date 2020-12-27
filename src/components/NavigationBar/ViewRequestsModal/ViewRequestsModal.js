@@ -43,22 +43,6 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             parentSelectorID="chat-page-main-container";
     
     const getUserRequests = (email, requestType = "All") => {
-        switch (requestType) {
-                case "All":
-                    requestType = "All_System";
-                    break;
-                
-                case "Open":
-                    requestType =   "Open_System";
-                    break; 
-                    
-                case "Closed": 
-                    requestType = "Closed_System";
-
-                default:
-                    requestType = "All_System"
-        }
-
         const getUserRequests_URL = `${isDev ? "" : "/server"}/helpdesk/request/read/all/user`;
         const getUserRequests_Headers = {
             'Content-Type': 'application/json',
