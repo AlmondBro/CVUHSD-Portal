@@ -41,6 +41,44 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             portalClassName="view-requests-modal",
             contentClassName="view-requests-modal-content",
             parentSelectorID="chat-page-main-container";
+    
+    const getUserRequests = (email, requestType = "All") => {
+        switch (requestType) {
+                case "All":
+                    requestType = "All_System";
+                    break;
+                
+                case "Open":
+                    requestType =   "Open_System";
+                    break; 
+                    
+                case "Closed": 
+                    requestType = "Closed_System";
+
+                default:
+                    requestType = "All_System"
+        }
+
+        const getUserRequests_URL = `${isDev ? "" : "/server"}/helpdesk//request/read/all/user`;
+        const getUserRequests_Headers = {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-Credentials": true
+        };
+    
+        let requestsResponse = await fetch(getUserRequests_URL, {
+            method: 'POST',
+            headers: getUserRequests_Headers,
+            body: JSON.stringify({ email, requestType } )
+        })
+        .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
+        .then((jsonResponse) => jsonResponse)
+        .catch((error) => {
+            console.error(`Catching error:\t ${error}`);
+        });
+
+        return requestsResponse;
+    }; //end getUserRequests
 
     useEffect(() => {
         setIsLoading(true);

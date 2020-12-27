@@ -121,15 +121,16 @@ const viewUserRequests = async (sdpName, requestType) => {
             sort_order: "asc",
             get_total_count: true,
             search_fields: {
-                "requester.name": sdpName
+                "requester.name": sdpName,
+                ...(requestType && { "status.name": requestType})
             },
             filter_by: {
-                "name" : requestType
+                "name" : "All_Requests"
             }
         }
     };
 
-    //"Cleaner" method of transforming an object into a quert is illustrated here:"
+    //"Cleaner" method of transforming an object into a query is illustrated here:"
     const query = Object.keys(requestDetails).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(requestDetails[key])}`).join('&');
     
    //TODO: Find way to remove spaces and line breaks encoded characters, as they are not needed; makes the request cleaner in the fetchURL
@@ -180,7 +181,7 @@ const getSDPUserInfo = async (email) => {
             sort_field: "name",
             start_index: 1,
             sort_order: "asc",
-            row_count: "25",
+            row_count: "50",
             get_total_count: true,
             search_fields: {
                 email_id: email
@@ -209,8 +210,8 @@ router.get('/request/read/all/user', async (req, res) => {
     let userRequests, error, message = null;
     let { email, requestType } = req.body;
 
-    email = "lopez-svc324234@centinela.k12.ca.us";
-    requestType = "All_Requests";
+    email = "noreply@cvuhsd.org";
+    requestType = "Closed";
 
     let sdpName    =   await getSDPUserInfo(email);
 
