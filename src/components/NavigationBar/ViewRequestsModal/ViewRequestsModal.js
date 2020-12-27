@@ -10,7 +10,7 @@ import RequestRectangle from './RequestRectangle/RequestRectangle.js';
 
 import FilterPane from './FilterPane/FilterPane.js';
 
-import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
+import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 import { Fragment } from 'react';
 
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
@@ -267,9 +267,9 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                         ) : (requestRectangles.length > 0) ? 
                                 requestRectangles 
                                 : (
-                                    <p>
+                                    <NoRequestsMessage classNam="no-requests-message">
                                         No {requestsType.toLowerCase( )} requests at this moment.
-                                    </p>
+                                    </NoRequestsMessage>
                                 )
 
                     }
