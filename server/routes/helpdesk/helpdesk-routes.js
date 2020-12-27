@@ -1,7 +1,10 @@
-import { Router } from 'express';
+import { request, Router } from 'express';
 import fetch from 'node-fetch';
 
+import { escape } from 'querystring';
+
 import rateLimiter from 'express-rate-limit';
+
 
 const router = Router();
 
@@ -10,6 +13,7 @@ const limiter = rateLimiter({
     max: 70 // limit each IP to 100 requests per windows
 });
 
+/* === CREATE INDIVIDUAL TICKET === */
 const createSDPRequest = async (
     fullName,
     email,
@@ -101,6 +105,45 @@ router.post('/request/create', async (req, res) => {
     return res.json({ ...sdpCreateReqResponse });
 });
 
+/* === VIEW SINGLE USER REQUEST === */
+
+var objectToQueryString = function (a) {
+    var prefix, s, add, name, r20, output;
+    s = [];
+    r20 = /%20/g;
+    add = function (key, value) {
+        // If value is a function, invoke it and return its value
+        value = ( typeof value == 'function' ) ? value() : ( value == null ? "" : value );
+        s[ s.length ] = encodeURIComponent(key) + "=" + encodeURIComponent(value);
+    };
+    if (a instanceof Array) {
+        for (name in a) {
+            add(name, a[name]);
+        }
+    } else {
+        for (prefix in a) {
+            buildParams(prefix, a[ prefix ], add);
+        }
+    }
+    output = s.join("&").replace(r20, "+");
+    return output;
+};
+
+function encode(queryObj, nesting = "") {
+    let queryString = "";
+  
+    const pairs = Object.entries(queryObj).map(([key, val]) => {
+      // Handle the nested, recursive case, where the value to encode is an object itself
+      if (typeof val === "object") {
+        return encode(val, nesting + `${key}.`);
+      } else {
+        // Handle base case, where the value to encode is simply a string.
+        return [nesting + key, val].map(escape).join("=");
+      }
+    });
+    return pairs.join("&");
+};
+
 const viewUserRequests = async (email) => {
     const sdpReadRequestsURL = `${process.env.SDP_URL}/api/v3/requests`; 
 
@@ -117,7 +160,7 @@ const viewUserRequests = async (email) => {
             sort_order: "asc",
             get_total_count: true,
             search_fields: {
-                "requester.name": "Lopez, Juan David"
+                "requester.name": "lopezj@centinela.k12.ca.us"
             },
             filter_by: {
                 "name" : "All_Requests"
@@ -138,11 +181,12 @@ const viewUserRequests = async (email) => {
 
     //"Cleaner" method of transforming an object into a quert is illustrated here:"
     const query = Object.keys(requestDetails).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(requestDetails[key])}`).join('&');
-    const hardCodedQueryString = "{\n    \"list_info\": {\n        \"row_count\": 20,\n        \"start_index\": 1,\n        \"sort_field\": \"subject\",\n        \"sort_order\": \"asc\",\n        \"get_total_count\": true,\n        \"search_fields\": {\n            \"requester.name\": \"Lopez, Juan David\"\n        },\n        \"filter_by\": {\n            \"name\": \"All_Requests\"\n        }\n    }\n}";
+    const hardCodedQueryString = "{\n    \"list_info\": {\n        \"row_count\": 20,\n        \"start_index\": 1,\n        \"sort_field\": \"subject\",\n        \"sort_order\": \"asc\",\n        \"get_total_count\": true,\n        \"search_fields\": {\n            \"requester.name\": \"lopezj\"\n        },\n        \"filter_by\": {\n            \"name\": \"All_Requests\"\n        }\n    }\n}";
     
-    const fetchURL = sdpReadRequestsURL + "?input_data=" + hardCodedQueryString;
+    //objectToQueryString(query)
+    const fetchURL = sdpReadRequestsURL + "?input_data=" + escape(JSON.stringify(requestDetails));
 
-    console.log("Query String:\t", JSON.stringify(hardCodedQueryString));
+    console.log("Query String:\t", query);
     console.log("FetchURL:\t", fetchURL);
 
     let userRequests = await fetch(fetchURL, {
@@ -157,6 +201,26 @@ const viewUserRequests = async (email) => {
 
     return userRequests;
 }; //end viewUserRequest
+
+const getSDPUserID = async (email) => {
+    const getAllSDPUsersURL = `${process.env.SDP_URL}/api/v3/requests`; 
+    const getAllSDPUsersHeaders = {
+        'Content-Type'      :   'application/x-www-form-urlencoded',
+        'technician_key'    :   process.env.SDP_TECH_KEY
+    };
+
+    const fetchURL = sdpReadRequestsURL + "?input_data=" + hardCodedQueryString;
+
+    let sdpUserID = await fetch(fetchURL, {
+        method: 'GET',
+        headers: getAllSDPUsersHeaders
+    })
+    .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
+    .then((jsonResponse) => jsonResponse)
+    .catch((error) => {
+        console.error(`Catching error:\t ${error}`);
+    }); 
+};
 
 router.get('/request/read/all/user', async (req, res) => {
     const { email } = req.body;
