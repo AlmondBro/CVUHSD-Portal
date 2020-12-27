@@ -57,7 +57,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     subject             =   { subject}
                     description         =   { short_description }
                     date                =   {  dateAndTime[0] }
-                    time                =   { dateAndTime[1] }
+                    time                =   { dateAndTime[1] + " " + dateAndTime[2] }
                     isLoading           =   { isLoading }
                 />
             );
