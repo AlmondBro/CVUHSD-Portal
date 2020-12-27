@@ -6,7 +6,7 @@ import { Container, Divider, Content, Subsection, FAIconStyled, SubSection, Requ
 
 import Skeleton from 'react-loading-skeleton';
 
-const RequestRectangle = ({ districtPosition, subject, description, date, time, isLoading, ...props}) => {
+const RequestRectangle = ({ districtPosition, subject, description, date, time, status, isLoading }) => {
     return (
         <Container className="request-rectangle-container">
             <Divider

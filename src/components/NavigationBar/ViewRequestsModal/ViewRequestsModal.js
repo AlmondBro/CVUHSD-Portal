@@ -55,7 +55,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     const loadRequestRectangles = (requests) => {
         let requestRectangles = requests.map((requestObject, index) => {
 
-            let { subject, short_description, created_time } = requestObject;
+            let { subject, short_description, created_time, status } = requestObject;
             
             let dateAndTime = parseDate(created_time["display_value"]);
             
@@ -66,6 +66,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     description         =   { short_description }
                     date                =   {  dateFormatChange(dateAndTime[0]) }
                     time                =   { dateAndTime[1] + " " + dateAndTime[2] }
+                    status              =   { status.name }
                     isLoading           =   { isLoading }
                 />
             );
