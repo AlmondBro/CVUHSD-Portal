@@ -1,5 +1,5 @@
 import React from 'react';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
 //import styled components
 import { Container, Divider, Content, Subsection, FAIconStyled, SubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestRectangleStyledComponents.js'
@@ -7,6 +7,31 @@ import { Container, Divider, Content, Subsection, FAIconStyled, SubSection, Requ
 import Skeleton from 'react-loading-skeleton';
 
 const RequestRectangle = ({ districtPosition, subject, description, date, time, status, isLoading }) => {
+
+    const getFAIcon = () => {
+        let faIcon;
+
+        switch(status) {
+            case "All":
+                faIcon = faTasks;
+            break;
+
+            case "Open":
+                faIcon = faCircle;
+            break;
+
+            case "In Progress":
+                faIcon = faAngleDoubleRight;
+            break;
+
+            case "Closed":
+                faIcon = faCheck;
+            break;
+        }
+
+        return faIcon;
+    };
+    
     return (
         <Container className="request-rectangle-container">
             <Divider
@@ -29,9 +54,10 @@ const RequestRectangle = ({ districtPosition, subject, description, date, time, 
                             />
                         ) : (
                             <FAIconStyled
+                                className           =   "view-request-type-icon"
                                 districtPosition    =   { districtPosition.toLowerCase() }
                                 color               =   "white"
-                                icon                =   { faCircle }
+                                icon                =   { getFAIcon() }
                             />
                         )
                     }   
