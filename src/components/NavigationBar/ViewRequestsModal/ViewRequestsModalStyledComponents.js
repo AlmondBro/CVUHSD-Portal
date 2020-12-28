@@ -75,7 +75,10 @@ const ReqRectContainer = styled("main")`
 `;
 
 const CloseButton = styled('button')`
+    cursor: pointer;
     position: absolute;
+    z-index: 3;
+    
     top: 0;
     left: 97%;
 
@@ -102,8 +105,16 @@ const CloseButton = styled('button')`
     border: 0px;
     outline: 0px;
 
-    :hover {
-        cursor: pointer;
+    @media only screen and (min-width: 538px) and (max-width: 780px) {
+        left: 94%;
+    }
+
+    @media only screen and (min-width: 400px) and (max-width: 537px) {
+        left: 92%;
+    }
+
+    @media only screen and (max-width: 399px) {
+        left: 90%;
     }
 `;
 
