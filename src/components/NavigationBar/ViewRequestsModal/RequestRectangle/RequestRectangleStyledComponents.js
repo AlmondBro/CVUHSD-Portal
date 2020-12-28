@@ -48,6 +48,20 @@ const SubSection = styled("article")`
     margin-right: 2.5%;
 `;
 
+const IconSubSection = styled(SubSection)`
+    @media only screen and (min-width: 636px) and (max-width: 814px) {
+        margin-right: 5%;
+    }
+
+    @media only screen and (min-width: 500px) and (max-width: 635px) {
+        margin-right: 8%;
+    }
+
+    @media only screen and (min-width: 454px) and (max-width: 499px) {
+        margin-right: 12%;
+    }
+`;
+
 const RequestTitle = styled("h3")`
     font-size: 1.1em;
     color: ${ props => props.districtPosition ?
@@ -94,4 +108,4 @@ const TicketTypeCircleSkeleton = styled(Skeleton)`
     margin-left: 20px;
 `;
 
-export { Container, Divider, FAIconStyled, SubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+export { Container, Divider, FAIconStyled, SubSection, IconSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
