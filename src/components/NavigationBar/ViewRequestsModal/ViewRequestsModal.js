@@ -11,6 +11,8 @@ import RequestPreviewRectangle from './RequestPreviewRectangle/RequestPreviewRec
 
 import FilterPane from './FilterPane/FilterPane.js';
 
+import RequestSpecifics from './RequestSpecifics/RequestSpecifics.js';
+
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, match, history, itUID, notify }) => {
@@ -309,7 +311,10 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 </ReqRectContainer>
             </Route>
             <Route path={"/:staffOrStudent/view-requests/:id"}>
-                    <p>Hiii</p>
+                <RequestSpecifics
+                    districtPosition    =   { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
+                />
             </Route>
             </Switch>
         </InnerContainer>
