@@ -57,6 +57,10 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         return formattedDate;
     };
 
+    const routeToReqID = () => {
+        return history.push(`${match.url}/view-requests/${id}`, {...requestObject});
+    }; //end routeToReqID
+    
     const loadRequestRectangles = (requests) => {
         let requestRectangles = requests.map((requestObject, index) => {
 
@@ -75,7 +79,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     id                  =   { id }
                     isLoading           =   { isLoading }
 
-                    onClick             =   { () => history.push(`${match.url}/view-requests/${id}`) }
+                    onClick             =   { routeToReqID }
 
                     key                 =   { id }
                 />
