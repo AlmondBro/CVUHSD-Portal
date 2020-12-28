@@ -4,7 +4,7 @@ import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/fre
 
 import { Container, TicketTypeContainer, FAIconStyled, TicketStatusText } from "./FilterPaneStyledComponent.js";
 
-const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShowFilterPane, requestsType, setRequestsType }) => {
+const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShowFilterPane, setRequestsType }) => {
     FilterPane.handleClickOutside = () => setShowFilterPane(false);
     
     return (
@@ -15,7 +15,10 @@ const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShow
             showFilterPane      =   { showFilterPane }
         > 
             <TicketTypeContainer 
-                className   =   "filter-pane-ticket-type-container"
+                className           =   "filter-pane-ticket-type-container"
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }
+
                 onClick     =   { () => setRequestsType("All") }
             >           
                 <FAIconStyled
@@ -33,7 +36,9 @@ const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShow
             </TicketTypeContainer>
 
             <TicketTypeContainer 
-                className   ="filter-pane-ticket-type-container"
+                className           =   "filter-pane-ticket-type-container"
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }
                 onClick     =   { () => setRequestsType("Open") }
             >           
                 <FAIconStyled
@@ -51,8 +56,10 @@ const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShow
             </TicketTypeContainer>
             
             <TicketTypeContainer 
-                className   ="filter-pane-ticket-type-container"
-                onClick     =   { () => setRequestsType("In Progress") }
+                className           =   "filter-pane-ticket-type-container"
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }
+                onClick             =   { () => setRequestsType("In Progress") }
             >              
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
@@ -69,8 +76,10 @@ const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShow
             </TicketTypeContainer>
 
             <TicketTypeContainer 
-                className   ="filter-pane-ticket-type-container"
-                onClick     =   { () => setRequestsType("Closed") }
+                className           =   "filter-pane-ticket-type-container"
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }
+                onClick             =   { () => setRequestsType("Closed") }
             >           
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }

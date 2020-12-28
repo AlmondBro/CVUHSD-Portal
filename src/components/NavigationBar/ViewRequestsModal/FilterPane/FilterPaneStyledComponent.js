@@ -78,7 +78,11 @@ const TicketTypeContainer = styled("section")`
 
     margin-bottom: 8px;
 
-    border-bottom: ${props => (props.districtPosition === "Student" || props.renderAsStudent === "true")  ? "1px solid rgba(30, 108, 146, 0.21)" : "1px solid rgba(147, 30, 29, 0.21)" };
+//red : "1px solid rgba(147, 30, 29, 0.21)"
+//blue: "1px solid rgba(30, 108, 146, 0.21)" 
+    border-bottom: ${props => (props.districtPosition.toLowerCase() === "student" || props.renderAsStudent)  
+                        ? "1px solid rgba(147, 30, 29, 0.21)" : "1px solid rgba(30, 108, 146, 0.21)" 
+                    };
 
     /*
 props.districtPosition ? 
