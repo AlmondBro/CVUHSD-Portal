@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import isDev from 'isdev';
-import ReactLoading from 'react-loading';
 
 import { faTasks, faFilter } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,8 +10,6 @@ import RequestRectangle from './RequestRectangle/RequestRectangle.js';
 import FilterPane from './FilterPane/FilterPane.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
-import { Fragment } from 'react';
-import { render } from 'react-dom';
 
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
@@ -226,7 +223,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
 
                 showFilterPane      =   { showFilterPane }
                 setShowFilterPane   =   { setShowFilterPane }
-                
+
                 setRequestsType     =   { setRequestsType }
             />
 

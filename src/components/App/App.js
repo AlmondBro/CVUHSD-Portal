@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import isDev from 'isdev';
 import undefsafe from "undefsafe";
 
-
 import {  Redirect } from "react-router";
 import { withRouter, Route, Switch } from "react-router-dom";
 
@@ -29,8 +28,6 @@ import PrivateRoute from "./../PrivateRoute.js";
 //Import styled components
 import { StyledContainer, StyledToastContainer } from "./App_StyledComponents.js";
 
-
-//TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
 //TODO: Fix Dashboard "digital" typon on quick links buttons
 
