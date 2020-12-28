@@ -165,13 +165,14 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         closeTimeoutMS              =   { 300 }
       >
         <CloseButton 
+            className           =   "view-request-modal-close-button"
             title               =   "Close modal"
             districtPosition    =   { districtPosition.toLowerCase() }
             onClick             =   { () => toggleModal(false) } 
         >
             &times;
         </CloseButton>
-        <InnerContainer>
+        <InnerContainer className="view-request-modal-inner-container">
             <div>
                 <ModalTitle 
                     districtPosition    =   { districtPosition.toLowerCase() }
@@ -185,9 +186,9 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 />
             </div>
 
-            <TitleFilterContainer className="title-filter-container">
+            <TitleFilterContainer className="view-request-modal-title-filter-container">
                 <RequestTypeTitle
-                    className           =   "request-type-title"
+                    className           =   "view-request-modal-request-type-title"
                     districtPosition    =   { districtPosition.toLowerCase() }
                 >
                     {
@@ -200,18 +201,18 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 </RequestTypeTitle>
 
                 <FilterButton
-                    className           =   "filter-button"
+                    className           =   "view-request-modal-filter-button"
                     districtPosition    =   { districtPosition.toLowerCase() }
                     onClick             =   { () => setShowFilterPane(!showFilterPane) }
                 >
                     <FAIconStyled
-                            className           =   "view-request-icon"
+                            className           =   "view-request-modal-request-status-icon"
                             districtPosition    =   { districtPosition.toLowerCase() }
                             color               =   "white"
                             icon                =   { faTasks, faFilter }
                     />
                     <FilterText
-                            className="filter-text"
+                            className="view-request-modal-filter-text"
                             districtPosition    =   { districtPosition.toLowerCase() }
                     >
                         Filter
@@ -230,7 +231,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 setRequestsType     =   { setRequestsType }
             />
 
-            <ReqRectContainer className="req-rect-container">
+            <ReqRectContainer className="view-request-modal-req-rect-container">
                 <SkeletonTheme 
                     color           = {
                                         districtPosition ?

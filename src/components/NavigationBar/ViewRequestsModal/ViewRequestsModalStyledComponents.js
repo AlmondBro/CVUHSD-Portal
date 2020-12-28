@@ -108,6 +108,7 @@ const CloseButton = styled('button')`
 `;
 
 const InnerContainer = styled('div')`
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -271,7 +272,7 @@ const NoRequestsMessage = styled("p")`
     top: 50%;
     left: 50%;
 
-    transform: translateX(-50%);
+    transform: translate(-50%, 50%);
 
     height: 100%;
     
