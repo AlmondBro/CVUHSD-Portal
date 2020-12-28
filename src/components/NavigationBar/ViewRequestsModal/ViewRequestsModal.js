@@ -7,7 +7,7 @@ import { faTasks, faFilter } from '@fortawesome/free-solid-svg-icons';
 
 import { SkeletonTheme } from 'react-loading-skeleton';
 
-import RequestRectangle from './RequestRectangle/RequestRectangle.js';
+import RequestPreviewRectangle from './RequestPreviewRectangle/RequestPreviewRectangle.js';
 
 import FilterPane from './FilterPane/FilterPane.js';
 
@@ -63,7 +63,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             let dateAndTime = parseDate(created_time["display_value"]);
             
             return (
-                <RequestRectangle
+                <RequestPreviewRectangle
                     districtPosition    =   { districtPosition }
                     subject             =   { subject}
                     description         =   { short_description }
@@ -266,28 +266,28 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                             {
                                 isLoading ? (
                                     <Fragment>
-                                        <RequestRectangle
+                                        <RequestPreviewRectangle
                                             districtPosition    =   { districtPosition }
                                             isLoading           =   {   true }
                                         />
-                                        <RequestRectangle
+                                        <RequestPreviewRectangle
                                             districtPosition    =   { districtPosition }
                                             isLoading           =   {   true }
                                         />
-                                        <RequestRectangle
+                                        <RequestPreviewRectangle
                                             districtPosition    =   { districtPosition }
                                             isLoading           =   {   true }
                                         />
 
-                                        <RequestRectangle
+                                        <RequestPreviewRectangle
                                             districtPosition    =   { districtPosition }
                                             isLoading           =   {   true }
                                         />
-                                        <RequestRectangle
+                                        <RequestPreviewRectangle
                                             districtPosition    =   { districtPosition }
                                             isLoading           =   {  true }
                                         />
-                                        <RequestRectangle
+                                        <RequestPreviewRectangle
                                             districtPosition    =   { districtPosition }
                                             isLoading           =   {   true }
                                         />     

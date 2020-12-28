@@ -2,11 +2,11 @@ import React from 'react';
 import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
 //import styled components
-import { Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestRectangleStyledComponents.js'
+import { Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestPreviewRectangleStyledComponents.js'
 
 import Skeleton from 'react-loading-skeleton';
 
-const RequestRectangle = ({ districtPosition, subject, description, date, time, id, status, onClick, isLoading }) => {
+const RequestPreviewRectangle = ({ districtPosition, subject, description, date, time, id, status, onClick, isLoading }) => {
 
     const getFAIcon = () => {
         let faIcon;
@@ -148,4 +148,4 @@ const RequestRectangle = ({ districtPosition, subject, description, date, time, 
     ); //end return()
 }; //end RequestRectangle()
 
-export default RequestRectangle;
+export default RequestPreviewRectangle;
