@@ -69,7 +69,7 @@ const Container = styled(Modal).attrs(props => ({
 
 const ReqRectContainer = styled("main")`
     width: 100%;
-    max-height: 316px;
+    height: 316px;
 
     overflow-y: scroll;
 `;
