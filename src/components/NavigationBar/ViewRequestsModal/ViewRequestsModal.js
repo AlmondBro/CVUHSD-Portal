@@ -12,6 +12,7 @@ import FilterPane from './FilterPane/FilterPane.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 import { Fragment } from 'react';
+import { render } from 'react-dom';
 
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
@@ -233,13 +234,13 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 <SkeletonTheme 
                     color           = {
                                         districtPosition ?
-                                            ( (districtPosition === "student") || window.location.pathname === "/student") ? 
+                                            ( (districtPosition === "student") || renderAsStudent || window.location.pathname === "/student") ? 
                                                 " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
                                             : "rgba(147, 30, 29, 0.21)" 
                                         }
                     highlightColor  = {
                                             districtPosition ?
-                                            ( (districtPosition === "student") || window.location.pathname === "/student") ? 
+                                            ( (districtPosition === "student") || renderAsStudent || window.location.pathname === "/student") ? 
                                                 " rgba(147, 30, 29, 0.5)": "rgba(30, 108, 147, 0.5);"
                                             : "rgba(147, 30, 29, 0.5)" 
                     }
@@ -276,7 +277,11 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                         ) : (requestRectangles.length > 0) ? 
                                 requestRectangles 
                                 : (
-                                    <NoRequestsMessage classNam="no-requests-message">
+                                    <NoRequestsMessage 
+                                        className           =   "no-requests-message"
+                                        districtPosition    =   { districtPosition }
+                                        renderAsStudent     =   { renderAsStudent }
+                                    >
                                         No {requestsType.toLowerCase( )} requests at this moment.
                                     </NoRequestsMessage>
                                 )

@@ -267,11 +267,21 @@ const HelpdeskSubmitMessage = ({ districtPosition, message, icon }) => {
 };
 
 const NoRequestsMessage = styled("p")`
-    height: 100%;
-    text-align: center;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%);
+
+    transform: translateX(-50%);
+
+    height: 100%;
+    
+    text-align: center;
+   
+
+    color:  ${ props => props.districtPosition ?
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
+            };
 `;
 export { HelpdeskSubmitMessage, RequestTypeTitle, FilterButton, FilterText, Container, CloseButton, InnerContainer, ModalTitle, ReqRectContainer, FAIconStyled, NoCVTechsMessage, TitleFilterContainer, NoRequestsMessage };
