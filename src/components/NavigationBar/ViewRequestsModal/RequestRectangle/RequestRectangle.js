@@ -32,6 +32,16 @@ const RequestRectangle = ({ districtPosition, subject, description, date, time, 
         return faIcon;
     };
     
+    const truncateDescription = (description) => {
+        let truncatedDescr = description.substr(0, 130);
+
+        let truncDescEllipses = truncatedDescr + "...";
+
+        console.log("trunc", truncDescEllipses);
+
+        return truncDescEllipses;
+    };
+
     return (
         <Container className="request-rectangle-container">
             <Divider
@@ -90,7 +100,7 @@ const RequestRectangle = ({ districtPosition, subject, description, date, time, 
                                 <Skeleton
                                     width={200}
                                 />
-                            ) : description || "I am working from home and do not have my contact info..."
+                            ) : truncateDescription(description) || "I am working from home and do not have my contact info..."
                         }  
                     </RequestDescription>
                 </SubSection>
