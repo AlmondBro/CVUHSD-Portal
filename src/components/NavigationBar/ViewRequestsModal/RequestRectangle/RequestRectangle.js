@@ -33,13 +33,16 @@ const RequestRectangle = ({ districtPosition, subject, description, date, time, 
     };
     
     const truncateDescription = (description) => {
-        let truncatedDescr = description.substr(0, 130);
+        if (description.length >= 130) {
+            let truncatedDescr = description.substr(0, 129);
 
-        let truncDescEllipses = truncatedDescr + "...";
-
-        console.log("trunc", truncDescEllipses);
-
-        return truncDescEllipses;
+            let truncDescEllipses = truncatedDescr + "...";
+    
+            console.log("trunc", truncDescEllipses);
+    
+            return truncDescEllipses;
+        }
+        return description;
     };
 
     return (
