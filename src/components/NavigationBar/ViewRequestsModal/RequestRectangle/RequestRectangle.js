@@ -6,7 +6,7 @@ import { Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, 
 
 import Skeleton from 'react-loading-skeleton';
 
-const RequestRectangle = ({ districtPosition, subject, description, date, time, status, onClick, isLoading }) => {
+const RequestRectangle = ({ districtPosition, subject, description, date, time, id, status, onClick, isLoading }) => {
 
     const getFAIcon = () => {
         let faIcon;

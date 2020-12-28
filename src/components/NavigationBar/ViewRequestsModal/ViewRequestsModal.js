@@ -58,7 +58,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     const loadRequestRectangles = (requests) => {
         let requestRectangles = requests.map((requestObject, index) => {
 
-            let { subject, short_description, created_time, status } = requestObject;
+            let { subject, short_description, created_time, status, id } = requestObject;
             
             let dateAndTime = parseDate(created_time["display_value"]);
             
@@ -70,8 +70,12 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     date                =   {  dateFormatChange(dateAndTime[0]) }
                     time                =   { dateAndTime[1] + " " + dateAndTime[2] }
                     status              =   { status.name }
+                    id                  =   { id }
                     isLoading           =   { isLoading }
-                    onClick             =   { () => history.push("#test") }
+
+                    onClick             =   { () => history.push(`${match.url}/view-requests/${id}`) }
+
+                    key                 =   { id }
                 />
             );
 
@@ -106,7 +110,9 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             requests = requestsResponse.requests;
             setIsLoading(false);
         } else {
-            console.error(`Error ${requestsResponse.message}`);
+            console.log(`Error in fetching the requests.`);
+
+            requests = [];
         }
 
         return requests;
