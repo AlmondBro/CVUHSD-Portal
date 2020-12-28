@@ -20,6 +20,32 @@ const Container = styled("article")`
     padding-top: 8px;
 
     /* transition: 350ms max-height ease-in-out, 350ms width ease-in-out; */
+
+    @media only screen and (min-width: 818px) and (max-width: 1059px) {
+        left: 62%;
+    }
+
+    @media only screen and (min-width: 656px) and (max-width: 817px) {
+        left: 54%;
+    }
+    
+    @media only screen and (min-width: 528px) and (max-width: 655px) {
+        left: 44%;
+    }
+
+    @media only screen and (min-width: 426px) and (max-width: 527px) {
+        left: 32%;
+    }
+
+    @media only screen and (min-width: 342px) and (max-width: 425px) {
+        left: 17%;
+    }
+
+    @media only screen and (max-width: 341px) {
+        width: 160px;
+        left: 14%;
+    }
+    
     
     :after {
         content: "";
