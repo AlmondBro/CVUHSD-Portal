@@ -268,7 +268,7 @@ const HelpdeskSubmitMessage = ({ districtPosition, message, icon }) => {
 };
 
 const NoRequestsMessage = styled("p")`
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
 
