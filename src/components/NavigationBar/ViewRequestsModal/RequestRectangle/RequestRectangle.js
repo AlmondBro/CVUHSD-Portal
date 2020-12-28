@@ -6,7 +6,7 @@ import { Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, 
 
 import Skeleton from 'react-loading-skeleton';
 
-const RequestRectangle = ({ districtPosition, subject, description, date, time, status, isLoading }) => {
+const RequestRectangle = ({ districtPosition, subject, description, date, time, status, onClick, isLoading }) => {
 
     const getFAIcon = () => {
         let faIcon;
@@ -46,7 +46,10 @@ const RequestRectangle = ({ districtPosition, subject, description, date, time, 
     };
 
     return (
-        <Container className="request-rectangle-container">
+        <Container 
+            className   =   "request-rectangle-container" 
+            onClick     =   { onClick }
+        >
             <Divider
                 className           =   "request-rectangle-divider"
                 districtPosition    =   { districtPosition }

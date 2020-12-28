@@ -220,8 +220,16 @@ let NavBar = styled.nav`
 
     let NavBarListItem_Link = ({to, children, onClick, ...props}) => {
         return (
-            <li onClick={onClick}>
-                <Link to={to} {...props}>
+            <li>
+                <Link
+                    to      =   { to }  
+                    onClick =   { onClick } 
+                    // style={{
+                    //     position: "relative",
+                    //     zIndex  :   "3"
+                    // }}
+                    {...props}
+                >   
                     { children }
                 </Link>
             </li> 
@@ -277,13 +285,13 @@ let NavBar = styled.nav`
         if (props.to) {
             return (
                 <NavBarListItem_StyledLink 
-                    to={props.to} 
-                    linkName={props.LinkName} 
-                    bulletPointInMobile={props.bulletPointInMobile}
-                    districtPosition={props.districtPosition}
-                    renderAsStudent={props.renderAsStudent}
-                    title={props.title}
-                    onClick={props.onClick}
+                    to                  =   {props.to} 
+                    linkName            =   {props.LinkName} 
+                    bulletPointInMobile =   {props.bulletPointInMobile}
+                    districtPosition    =   {props.districtPosition}
+                    renderAsStudent     =   {props.renderAsStudent}
+                    title               =   {props.title}
+                    onClick             =   {props.onClick}
                 >
                     
                     {props.linkName || props.children}
@@ -306,7 +314,22 @@ let NavBar = styled.nav`
         
     };
 
+const WhiteRouterLink = styled(Link)`
+    cursor: pointer;
+    
+    display: block;
+    width: 100%;
+    height:  100%;
+
+    color: white;
+
+    :hover {
+        color: white;
+        text-decoration: none;
+    }
+`;
+
 export { NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, NavBarUL_Loading, MenuToggle, 
          NavMenuIcon, FirstBar, NavBarListItem, NavBarButton, NavBarListItem_Link, 
-         NavBarListItem_StyledLink, NavBarListItem_Li, NavBarListItemLi 
+         NavBarListItem_StyledLink, NavBarListItem_Li, NavBarListItemLi, WhiteRouterLink
         }

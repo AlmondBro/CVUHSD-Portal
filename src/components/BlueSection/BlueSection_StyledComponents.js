@@ -86,7 +86,7 @@ const BlueSectionButton = (props) => {
             <StyledButton>
                 <img className="img-fluid" 
                      href={props.buttonLink} 
-                     src={"./images/buttons/"+ props.buttonImg} 
+                     src={"/images/buttons/"+ props.buttonImg} 
                      alt={props.description} 
                      title={props.description}
                 />

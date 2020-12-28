@@ -20,7 +20,7 @@ import SupportRequestModal from './SupportRequestModal/SupportRequestModal.js';
 //Import styled components
 import  {    
             NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, NavBarUL_Loading,
-            NavMenuIcon, FirstBar, NavBarButton, NavBarListItemLi, MenuToggle 
+            NavMenuIcon, FirstBar, NavBarButton, NavBarListItemLi, MenuToggle, WhiteRouterLink 
         }   from "./NavigationBar_StyledComponents.js";
 
 import { useCookies } from 'react-cookie';
@@ -28,7 +28,7 @@ import { useCookies } from 'react-cookie';
 
 //TODO: Figure out why bullet point is not rendering
 
-const NavigationBar = ({ fullName, title, email, site, districtPosition, renderAsStudent, location, modifyLogInStatus, modifyRenderAsStudent, notify, clearState, logOut }) => {
+const NavigationBar = ({ fullName, title, email, site, districtPosition, renderAsStudent, location, modifyLogInStatus, modifyRenderAsStudent, notify, clearState, history, match, logOut }) => {
     const [ cookies, removeCookie ] = useCookies(['accessToken']);
     
     const  [ changePasswordModalIsOpen, setChangePasswordModalIsOpen ] = useState(false);
@@ -184,8 +184,9 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
 
                             <NavBarListItemLi 
                                 bulletPointInMobile =   {   true    }
+                                to                  =   { match.url + "/view-requests"}
+                                onClick             =   { () => { toggleViewRequestModal(true); history.push(match.url + "/view-requests") } }
                                 renderAsStudent     =   {   renderAsStudent }
-                                onClick             =   {   () => toggleViewRequestModal(true) }
                             >
                                 <Tooltip
                                     placement               =   { "bottom" }
@@ -224,11 +225,17 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                                             districtPosition    =   { districtPosition }
                                             renderAsStudent     =   { renderAsStudent }
 
-                                    >   View Requests
-                                        {/* <FontAwesomeIcon 
-                                            icon        =   { faLaptop } 
-                                            className   =   "icon"
-                                        />  */}
+                                    >   
+                                        {/* <WhiteRouterLink 
+                                     
+                                        > */}
+                                            View Requests
+                                            {/* <FontAwesomeIcon 
+                                                icon        =   { faLaptop } 
+                                                className   =   "icon"
+                                            />  */}
+                                        {/* </WhiteRouterLink> */}
+                                       
                                     </NavBarButton>
                                 </Tooltip>
                             </NavBarListItemLi>

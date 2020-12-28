@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
+import { withRouter, Route, Switch } from "react-router-dom";
+
 import isDev from 'isdev';
 
 import { faTasks, faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +13,7 @@ import FilterPane from './FilterPane/FilterPane.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
-const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
+const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, history, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
     let [ changePasswordResult, setChangePasswordResult ]   = useState(null);
 
@@ -24,9 +26,12 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     let [ requestRectangles, setRequestRectangles ]         =   useState([]);
 
     const onClose = () => {
+        let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
         setChangePasswordResult(null);
         setServerMessage("");
         toggleModal(false);
+
+        history.push(rootPathName);
     }; //end onClose()
 
     const bodyOpenClassName="view-requests-modal-body--open",
@@ -66,6 +71,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     time                =   { dateAndTime[1] + " " + dateAndTime[2] }
                     status              =   { status.name }
                     isLoading           =   { isLoading }
+                    onClick             =   { () => history.push("#test") }
                 />
             );
 
@@ -183,6 +189,8 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 />
             </div>
 
+
+
             <TitleFilterContainer className="view-request-modal-title-filter-container">
                 <RequestTypeTitle
                     className           =   "view-request-modal-request-type-title"
@@ -226,69 +234,72 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
 
                 setRequestsType     =   { setRequestsType }
             />
+                <Switch>
+                    <Route path={"/:staffOrStudent/view-requests"}>
+                        <ReqRectContainer className="view-request-modal-req-rect-container">            
+                            <SkeletonTheme 
+                                color           = {
+                                                    districtPosition ?
+                                                        ( (districtPosition === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                                            " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
+                                                        : "rgba(147, 30, 29, 0.21)" 
+                                                    }
+                                highlightColor  = {
+                                                        districtPosition ?
+                                                        ( (districtPosition === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                                            " rgba(147, 30, 29, 0.5)": "rgba(30, 108, 147, 0.5);"
+                                                        : "rgba(147, 30, 29, 0.5)" 
+                                }
+                            >
+                            {
+                                isLoading ? (
+                                    <Fragment>
+                                        <RequestRectangle
+                                            districtPosition    =   { districtPosition }
+                                            isLoading           =   {   true }
+                                        />
+                                        <RequestRectangle
+                                            districtPosition    =   { districtPosition }
+                                            isLoading           =   {   true }
+                                        />
+                                        <RequestRectangle
+                                            districtPosition    =   { districtPosition }
+                                            isLoading           =   {   true }
+                                        />
 
-            <ReqRectContainer className="view-request-modal-req-rect-container">
-                <SkeletonTheme 
-                    color           = {
-                                        districtPosition ?
-                                            ( (districtPosition === "student") || renderAsStudent || window.location.pathname === "/student") ? 
-                                                " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
-                                            : "rgba(147, 30, 29, 0.21)" 
-                                        }
-                    highlightColor  = {
-                                            districtPosition ?
-                                            ( (districtPosition === "student") || renderAsStudent || window.location.pathname === "/student") ? 
-                                                " rgba(147, 30, 29, 0.5)": "rgba(30, 108, 147, 0.5);"
-                                            : "rgba(147, 30, 29, 0.5)" 
-                    }
-                >
-                    {
-                        isLoading ? (
-                            <Fragment>
-                                <RequestRectangle
-                                    districtPosition    =   { districtPosition }
-                                    isLoading           =   {   true }
-                                />
-                                <RequestRectangle
-                                    districtPosition    =   { districtPosition }
-                                    isLoading           =   {   true }
-                                />
-                                <RequestRectangle
-                                    districtPosition    =   { districtPosition }
-                                    isLoading           =   {   true }
-                                />
+                                        <RequestRectangle
+                                            districtPosition    =   { districtPosition }
+                                            isLoading           =   {   true }
+                                        />
+                                        <RequestRectangle
+                                            districtPosition    =   { districtPosition }
+                                            isLoading           =   {  true }
+                                        />
+                                        <RequestRectangle
+                                            districtPosition    =   { districtPosition }
+                                            isLoading           =   {   true }
+                                        />     
+                                    </Fragment>
+                                ) : (requestRectangles.length > 0) ? 
+                                        requestRectangles 
+                                        : (
+                                            <NoRequestsMessage 
+                                                className           =   "no-requests-message"
+                                                districtPosition    =   { districtPosition }
+                                                renderAsStudent     =   { renderAsStudent }
+                                            >
+                                                No {requestsType.toLowerCase( )} requests at this moment.
+                                            </NoRequestsMessage>
+                                        )
 
-                                <RequestRectangle
-                                    districtPosition    =   { districtPosition }
-                                    isLoading           =   {   true }
-                                />
-                                <RequestRectangle
-                                    districtPosition    =   { districtPosition }
-                                    isLoading           =   {  true }
-                                />
-                                <RequestRectangle
-                                    districtPosition    =   { districtPosition }
-                                    isLoading           =   {   true }
-                                />     
-                            </Fragment>
-                        ) : (requestRectangles.length > 0) ? 
-                                requestRectangles 
-                                : (
-                                    <NoRequestsMessage 
-                                        className           =   "no-requests-message"
-                                        districtPosition    =   { districtPosition }
-                                        renderAsStudent     =   { renderAsStudent }
-                                    >
-                                        No {requestsType.toLowerCase( )} requests at this moment.
-                                    </NoRequestsMessage>
-                                )
-
-                    }
-                    </SkeletonTheme>
-                </ReqRectContainer>
+                            }
+                            </SkeletonTheme>
+                        </ReqRectContainer>
+                    </Route>
+                </Switch>
         </InnerContainer>
       </Container>
   ); //end return statement
 }; //end TransferToITModal()
 
-export default ViewRequestsModal;
+export default withRouter(ViewRequestsModal);
