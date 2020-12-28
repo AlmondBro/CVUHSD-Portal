@@ -2,7 +2,7 @@ import React from 'react';
 import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
 //import styled components
-import { Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestRectangleStyledComponents.js'
+import { Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestRectangleStyledComponents.js'
 
 import Skeleton from 'react-loading-skeleton';
 
@@ -52,7 +52,7 @@ const RequestRectangle = ({ districtPosition, subject, description, date, time, 
                 districtPosition    =   { districtPosition }
             />
 
-            <Content>
+            <Content className="request-rectangle-content">
                 <IconSubSection 
                     className   =   "request-rectangle-subsection-icon"
                     width       =   "6%"
@@ -108,8 +108,8 @@ const RequestRectangle = ({ districtPosition, subject, description, date, time, 
                     </RequestDescription>
                 </SubSection>
 
-                <SubSection
-                    className       =   "request-rectangle-subsection"
+                <TimeDateSubSection
+                    className       =   "request-rectangle-subsection-time-date"
                     width           =   "35%"
                     alignItems      =   "flex-end"
                     as              =   "aside" //Make this be a <aside/> 
@@ -139,7 +139,7 @@ const RequestRectangle = ({ districtPosition, subject, description, date, time, 
                             ) : date || "12/22/2020"
                         }  
                     </DateTime>
-                </SubSection>
+                </TimeDateSubSection>
             </Content>
       </Container>  
     ); //end return()

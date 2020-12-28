@@ -26,6 +26,8 @@ const Divider = styled("hr")`
 `;
 
 const Content = styled("article")`
+    position: relative;
+
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -35,6 +37,13 @@ const Content = styled("article")`
 
     margin: 0;
     margin-top: 10px;
+
+    @media only screen and (max-width: 453px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
 `;
 
 const SubSection = styled("article")`
@@ -46,6 +55,19 @@ const SubSection = styled("article")`
     width: ${props => props.width ? props.width : "33%"};
 
     margin-right: 2.5%;
+
+    @media only screen and (max-width: 453px) {
+       width: 85%;
+       order: 2;
+       margin-right: 0px;
+    }
+`;
+
+const TimeDateSubSection = styled(SubSection)`
+     @media only screen and (max-width: 453px) {
+       order: 1;
+       margin-right: 0px;
+    }
 `;
 
 const IconSubSection = styled(SubSection)`
@@ -59,6 +81,18 @@ const IconSubSection = styled(SubSection)`
 
     @media only screen and (min-width: 454px) and (max-width: 499px) {
         margin-right: 12%;
+    }
+
+    @media only screen and (max-width: 453px) {
+        position: absolute;
+        left: 26px;
+        top: 13px;
+        
+        width: auto;
+
+        margin-right: 0px;
+
+        order: 3;
     }
 `;
 
@@ -88,6 +122,10 @@ const DateTime = styled("h4")`
             };
 
     margin-right: 14%;
+
+    @media only screen and (max-width: 453px) {
+       margin-right: 0px;
+    }
 `;
 
 const FAIconStyled = styled(FontAwesomeIcon)`
@@ -102,10 +140,15 @@ const FAIconStyled = styled(FontAwesomeIcon)`
    /* 20px; */
 
    font-size: ${props => props.fontSize ? props.fontSize : "1.0em"};
+
+   @media only screen and (max-width: 453px) {
+    margin-left: 0px;
+
+   }
 `;
 
 const TicketTypeCircleSkeleton = styled(Skeleton)`
     margin-left: 20px;
 `;
 
-export { Container, Divider, FAIconStyled, SubSection, IconSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+export { Container, Divider, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
