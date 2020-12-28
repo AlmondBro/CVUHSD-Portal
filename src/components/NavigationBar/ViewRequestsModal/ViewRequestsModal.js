@@ -247,7 +247,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 setRequestsType     =   { setRequestsType }
             />
                 <Switch>
-                    <Route path={"/:staffOrStudent/view-requests"}>
+                    <Route exact path={"/:staffOrStudent/view-requests"}>
                         <ReqRectContainer className="view-request-modal-req-rect-container">            
                             <SkeletonTheme 
                                 color           = {
@@ -307,6 +307,9 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                             }
                             </SkeletonTheme>
                         </ReqRectContainer>
+                    </Route>
+                    <Route path={"/:staffOrStudent/view-requests/:id"}>
+                            <p>Hiii</p>
                     </Route>
                 </Switch>
         </InnerContainer>
