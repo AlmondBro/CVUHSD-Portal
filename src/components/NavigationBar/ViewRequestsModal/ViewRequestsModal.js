@@ -13,7 +13,7 @@ import FilterPane from './FilterPane/FilterPane.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
-const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, history, itUID, notify }) => {
+const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, match, history, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
     let [ changePasswordResult, setChangePasswordResult ]   = useState(null);
 
@@ -144,6 +144,12 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         }
         // setTimeout(() => setIsLoading(false), 3000);
     }, [ requestsType ]); //end useEffect()
+
+    useEffect(() => {
+        if (history.location.pathname === `${match.url}/view-requests`) {
+            toggleModal(true);
+        }
+    }, [ history ] );
 
     return (
       <Container
