@@ -57,7 +57,8 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         return formattedDate;
     };
 
-    const routeToReqID = () => {
+    const routeToReqID = (requestObject) => {
+        const { id } = requestObject
         return history.push(`${match.url}/view-requests/${id}`, {...requestObject});
     }; //end routeToReqID
     
@@ -79,7 +80,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     id                  =   { id }
                     isLoading           =   { isLoading }
 
-                    onClick             =   { routeToReqID }
+                    onClick             =   { () => routeToReqID(requestObject) }
 
                     key                 =   { id }
                 />
