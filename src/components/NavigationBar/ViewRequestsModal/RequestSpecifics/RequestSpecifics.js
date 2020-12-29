@@ -5,7 +5,7 @@ import { Container } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const { id } = useParams();
-    
+
     return (
         <Container>
             <p>ID: { id }</p>

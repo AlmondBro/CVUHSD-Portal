@@ -82,7 +82,7 @@ let DashboardHeader = styled("header")`
         right: 0;
         z-index: -1;
   
-        background-image: url("./images/cvuhsd-allStudents-ready.jpg");
+        background-image: url("/images/cvuhsd-allStudents-ready.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;

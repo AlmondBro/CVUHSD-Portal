@@ -165,7 +165,7 @@ const Header = ( { location, fullName, email, modifyLogInStatus, renderAsStudent
                                         (   <a href={() => getSchoolLogoSite(schoolName)}>
                                                 <SchoolLogo  
                                                     className="school-logo" 
-                                                    src={`./images/school-logo-${schoolName.toLowerCase()}.png`} 
+                                                    src={`/images/school-logo-${schoolName.toLowerCase()}.png`} 
                                                 />  
                                             </a>
                                         
