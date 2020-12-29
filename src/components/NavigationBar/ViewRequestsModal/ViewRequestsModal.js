@@ -58,8 +58,13 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     };
 
     const routeToReqID = (requestObject) => {
-        const { id } = requestObject
-        return history.push(`${match.url}/view-requests/${id}`, {...requestObject});
+        const { id } = requestObject;
+
+        const pathname = `${match.url}/view-requests/${id}`;
+        return history.push({
+            pathname: pathname,
+            state: { request: requestObject }
+        });
     }; //end routeToReqID
     
     const loadRequestRectangles = (requests) => {
