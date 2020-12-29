@@ -1,11 +1,14 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Container } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
+    const { id } = useParams();
+    
     return (
         <Container>
-            <p>Hiii</p>
+            <p>ID: { id }</p>
         </Container>
     );
 }; //end RequestSpecifics()
