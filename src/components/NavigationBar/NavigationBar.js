@@ -163,7 +163,7 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                                         to                  =   {
                                                                     {
                                                                         pathname    : renderAsStudent ? "/staff" : "/student",
-                                                                        state       : { renderAsStudent: (location.pathname === "/staff") ? "true" : false } 
+                                                                        state       : { renderAsStudent: (location.pathname === "/staff") ? true : false } 
                                                                     }
                                                                 }
                                         renderAsStudent     =   { renderAsStudent }
