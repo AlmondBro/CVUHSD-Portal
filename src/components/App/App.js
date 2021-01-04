@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Fragment, Component } from "react";
 
 import isDev from 'isdev';
 import undefsafe from "undefsafe";
@@ -19,6 +19,7 @@ import { isIE } from './../../utilityFunctions.js';
 import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
 import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
 import PageContent from "./../PageContent.js";
+import MobileAppBanner from "./MobileAppBaner/MobileAppBanner.js";
 
 //Import pages
 import NotFound from "./../NotFound/NotFound.js";
@@ -70,6 +71,7 @@ class App extends Component {
       pathname: "",
       accessToken: "",
       uid: "",
+      hideOverflow: false,
       containerStyle: {
           "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
       } 
@@ -122,6 +124,10 @@ class App extends Component {
   modifyRenderAsStudent = (newRenderAsStudent) => { 
     this.setState({renderAsStudent: newRenderAsStudent});
   };
+
+  setHideOverflow = (hideOverflow) => {
+    this.setState({setHideOverflow: hideOverflow});
+  }; //end setHideOverflow()
 
   //TODO: Pass this function down to the logOut() function
   clearState = () => {
@@ -325,121 +331,133 @@ class App extends Component {
     console.log("defaultURL:\t" + defaultURL);
 
     return (
-      <StyledContainer 
-        fluid             = { true } 
-        containerStyle    = { this.state.containerStyle} 
-        districtPosition  = { this.state.title}
-        renderAsStudent   = { this.state.renderAsStudent}
-      >
+      <Fragment>
         <GlobalStyles
           districtPosition  = { this.state.title}
           renderAsStudent   = { this.state.renderAsStudent}
-        />
-        <StyledToastContainer
-          position          = "top-right"
-          autoClose         = { 1200 }
-          hideProgressBar   = { true }
-          newestOnTop       = { false }
-          closeOnClick      = { true }
-          rtl               = { false }
-          pauseOnFocusLoss  = { false }
-          draggable         = { true }
-          pauseOnHover      = { true }
 
-          districtPosition  = { this.state.title.toLowerCase() }
+          hideOverflow      = { this.state.hideOverflow }
+        />
+        <StyledContainer 
+          fluid             = { true } 
+          containerStyle    = { this.state.containerStyle} 
+          districtPosition  = { this.state.title}
           renderAsStudent   = { this.state.renderAsStudent}
-        />
-        <SimpleStorage parent={this} prefix={"PortalStorage"} />
-            <Switch>
-              { // Update routes to use server subdirectory in production
-                //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
-              }
-              <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
-                render={ () => {
-                    return (<Redirect to={`${publicURL}/${defaultURL}`} />);
-                    }
-                } 
-              />
-              <PrivateRoute 
-                            path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
-                            component             = { PageContent} 
+        >
+          <StyledToastContainer
+            position          = "top-right"
+            autoClose         = { 1200 }
+            hideProgressBar   = { true }
+            newestOnTop       = { false }
+            closeOnClick      = { true }
+            rtl               = { false }
+            pauseOnFocusLoss  = { false }
+            draggable         = { true }
+            pauseOnHover      = { true }
 
-                            fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
-                            email                 = { this.state.email }
-                            uid                   = { this.state.uid }
-                            title                 = { this.state.title }
-                            site                  = { this.state.site }
-                            renderAsStudent       = { this.state.renderAsStudent }
-                            gradeLevel            = { this.state.gradeLevel }
-                            location              = { this.props.location }
-                            username              = { this.state.username }
-                            accessToken           = { this.state.accessToken }
-                            clearState            = { this.clearState }
-                            logOut                = { this.logOut}
-                            changeContainerStyle  = { this.changeContainerStyle }
-
-                            modifySite            = { this.modifySite }
-                            modifyGradeLevel      = { this.modifyGradeLevel }
-                            modifyTitle           = { this.modifyTitle }
-                            modifyRenderAsStudent = { this.modifyRenderAsStudent }
-                            modifyIsStudent       = { this.modifyIsStudent }
-
-                            notify                = { this.notify }
-              />
-
-              <Route path={`${publicURL}/staff`}
-                      render={ () => {
-                          return (<Redirect to={`${publicURL}/${defaultURL}`} />);
+            districtPosition  = { this.state.title.toLowerCase() }
+            renderAsStudent   = { this.state.renderAsStudent}
+          />
+          <SimpleStorage parent={this} prefix={"PortalStorage"} />
+              <Switch>
+                { // Update routes to use server subdirectory in production
+                  //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
+                }
+                <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}
+                  render={ () => {
+                      return (<Redirect to={`${publicURL}/${defaultURL}`} />);
                       }
                   } 
-              />
-              <Route path={`${publicURL}/staff.html`}
-                      render={ () => {
-                          return (<Redirect to={`${publicURL}/staff`} />);
-                      }
-                  } 
-              /> 
-              <Route path={`${publicURL}/student`}
-                      render={ () => {
-                          return (<Redirect to={`${publicURL}/${"student"}`} />);
-                      }
-                  } 
-              />
-              <Route path={`${publicURL}/student.html`}
-                      render={ () => {
-                          return (<Redirect to={`${publicURL}/student`} />);
-                      }
-                  } 
-              />
-              <Route path={`${publicURL}/troubleshooting`} 
-                      render={() => { return (<Troubleshooting/>)}}
-                
-              />
-              {
-                (window.location.pathname !== "/staff") || (window.location.pathname !== "/student") 
-                || (window.location.pathname !== "/troubleshooting") ?   
-                  (<PrivateRoute 
-                      component             = { NotFound } 
-                      path                  = { [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
-                      
-                      defaultURL            = { defaultURL }
+                />
+                <PrivateRoute 
+                  path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
+                  component             = { PageContent} 
 
-                      history               = { this.props.history }
-                      fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
-                      title                 = { this.state.title }
-                      site                  = { this.state.site }
-                      gradeLevel            = { this.state.gradeLevel }
-                      clearState            = { this.clearState }
-                      logOut                = { this.logOut}
-                      changeContainerStyle  = { this.changeContainerStyle }
+                  fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
+                  email                 = { this.state.email }
+                  uid                   = { this.state.uid }
+                  title                 = { this.state.title }
+                  site                  = { this.state.site }
+                  renderAsStudent       = { this.state.renderAsStudent }
+                  gradeLevel            = { this.state.gradeLevel }
+                  location              = { this.props.location }
+                  username              = { this.state.username }
+                  accessToken           = { this.state.accessToken }
+                  clearState            = { this.clearState }
+                  logOut                = { this.logOut}
+                  changeContainerStyle  = { this.changeContainerStyle }
 
-                      modifySite            = { this.modifySite }
-                      modifyTitle           = { this.modifyTitle }
-                      modifyRenderAsStudent = { this.modifyRenderAsStudent }
-                    /> ) : null
-              }
-          </Switch>
-      </StyledContainer>); //end return statement
+                  modifySite            = { this.modifySite }
+                  modifyGradeLevel      = { this.modifyGradeLevel }
+                  modifyTitle           = { this.modifyTitle }
+                  modifyRenderAsStudent = { this.modifyRenderAsStudent }
+                  modifyIsStudent       = { this.modifyIsStudent }
+
+                  notify                = { this.notify }
+                />
+
+                <Route path={`${publicURL}/staff`}
+                        render={ () => {
+                            return (<Redirect to={`${publicURL}/${defaultURL}`} />);
+                        }
+                    } 
+                />
+                <Route path={`${publicURL}/staff.html`}
+                        render={ () => {
+                            return (<Redirect to={`${publicURL}/staff`} />);
+                        }
+                    } 
+                /> 
+                <Route path={`${publicURL}/student`}
+                        render={ () => {
+                            return (<Redirect to={`${publicURL}/${"student"}`} />);
+                        }
+                    } 
+                />
+                <Route path={`${publicURL}/student.html`}
+                        render={ () => {
+                            return (<Redirect to={`${publicURL}/student`} />);
+                        }
+                    } 
+                />
+                <Route path={`${publicURL}/troubleshooting`} 
+                        render={() => { return (<Troubleshooting/>)}}
+                  
+                />
+                {
+                  (window.location.pathname !== "/staff") || (window.location.pathname !== "/student") 
+                  || (window.location.pathname !== "/troubleshooting") ?   
+                    (<PrivateRoute 
+                        component             = { NotFound } 
+                        path                  = { [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
+                        
+                        defaultURL            = { defaultURL }
+
+                        history               = { this.props.history }
+                        fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
+                        title                 = { this.state.title }
+                        site                  = { this.state.site }
+                        gradeLevel            = { this.state.gradeLevel }
+                        clearState            = { this.clearState }
+                        logOut                = { this.logOut}
+                        changeContainerStyle  = { this.changeContainerStyle }
+
+                        modifySite            = { this.modifySite }
+                        modifyTitle           = { this.modifyTitle }
+                        modifyRenderAsStudent = { this.modifyRenderAsStudent }
+                      /> ) : null
+                }
+            </Switch>
+            <MobileAppBanner
+                districtPosition      = { this.state.title }
+                renderAsStudent       = { this.state.renderAsStudent }
+
+                hideOverflow          = { this.state.hideOverflow }
+                setHideOverflow       = { this.setHideOverflow }
+            />
+        </StyledContainer>
+      </Fragment>
+      ); //end return statement
   }
 }
 
