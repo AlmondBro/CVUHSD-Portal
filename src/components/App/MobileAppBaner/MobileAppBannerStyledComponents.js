@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+const animationTime = "350ms";
 const DarkOverlay = styled("div")`
+    visibility: hidden;
+
     position: absolute;
     z-index: 5;
 
@@ -9,15 +12,27 @@ const DarkOverlay = styled("div")`
     height: 100%;
 
     background-color: black;
-    opacity: 0.75;
+    opacity: 0;
+
+    transition: ${animationTime} opacity ease-in-out;
+
+    @media only screen and (max-width: 765px) {
+        visibility: visible;
+        opacity: 0.75;
+    }
+
 `;  
 
 const Container = styled("div")`
-    display: none;
+    visibility: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     position: absolute;
     z-index: 6;
-    bottom: 0px;
+    bottom: -999px;
 
     width: 100%;
     height: 25%;
@@ -28,10 +43,11 @@ const Container = styled("div")`
 
    box-shadow: 5px 5px 30px -11px rgba(0,0,0,0.75);
 
+   transition: bottom ${animationTime}  ease-in-out;
+
     @media only screen  and (max-width: 765px) {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        visibility: visible;
+        bottom: 0px;
     }
 `;
 

@@ -1,14 +1,34 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import { DarkOverlay, Container, HeaderTitle, ViewOptionContainer, ViewOptionLink, ViewOptionImage, FAIconStyled, ViewOptionText, Button } from './MobileAppBannerStyledComponents.js';
 
 import { faChrome } from '@fortawesome/free-brands-svg-icons';
 
-const MobileAppBanner = ({districtPosition, renderAsStudent }) => {
+import { useWindowSize } from './../../../utilityFunctions.js';
+
+const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hideOverflow}) => {
+
+    let screenDimensions = useWindowSize();
+    let { width, height } = screenDimensions;
+
+    useEffect(() => {
+        if (width <= 765) {
+            setHideOverflow(false);
+        }
+
+        console.log("screenWidth:\t", width);
+    }, [ width ]);
+    
     return (
         <Fragment>
-            <DarkOverlay/>
-            <Container className="mobile-app-banner-container">
+            <DarkOverlay
+                screenWidth = { width }
+            />
+            <Container 
+                className   =   "mobile-app-banner-container"
+                screenWidth = {width}
+
+            >
                 <HeaderTitle
                     className="mobile-app-banner-container"
                     districtPosition      = { districtPosition }
