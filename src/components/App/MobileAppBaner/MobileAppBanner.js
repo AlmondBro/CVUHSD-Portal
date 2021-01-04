@@ -99,13 +99,17 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
 
 
                     <ViewOptionText
-                    districtPosition      = { districtPosition }
-                    renderAsStudent       = { renderAsStudent }
+                        districtPosition      = { districtPosition }
+                        renderAsStudent       = { renderAsStudent }
                     >
                         WayPoint App
                     </ViewOptionText>
 
-                    <ViewOptionLink className="mobile-app-banner-view-option-link">
+{/* //https://auth.expo.io/@almondbro/CVUHSD-Portal-Mobile */}
+                    <ViewOptionLink 
+                        className   =   "mobile-app-banner-view-option-link"
+                        href        =   { process.env.REACT_APP_MOBILE_PROTOCOL }
+                    >
                         <Button
                             districtPosition      = { districtPosition }
                             renderAsStudent       = { renderAsStudent }
