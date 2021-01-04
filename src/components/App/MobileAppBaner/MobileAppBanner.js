@@ -11,14 +11,23 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
     let screenDimensions = useWindowSize();
     let { width, height } = screenDimensions;
 
+    /*
+        TODO: Do not like this imperative way of removing the body tag's overflow. 
+        Figure out a way with using styled-component's global style 
+    */
     useEffect(() => {
         if (width <= 765) {
             setHideOverflow(false);
-        }
+
+            document.body.classList.add("no-vertical-scroll"); 
+        } else {
+            setHideOverflow(true);
+            document.body.classList.add("no-vertical-scroll"); 
+        }   
 
         console.log("screenWidth:\t", width);
     }, [ width ]);
-    
+
     return (
         <Fragment>
             <DarkOverlay

@@ -49,7 +49,7 @@ let GlobalStyles = createGlobalStyle`
         };
     }
 
-    overflow-y: ${props => props.hideOverflow ? "hidden" : "auto"} !important;
+    overflow-y: ${props => props.hideOverflow ? "hidden" : "auto"};
 
   }
 `;

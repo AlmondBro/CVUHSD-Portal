@@ -37,6 +37,10 @@ iframe {
     height: 100%;
 }
 
+.no-vertical-scroll {
+    overflow-y: hidden;
+}
+
 /* === TRANSFER TO IT MODAL === */
 body.view-requests-modal-body--open #cvuhsd-sso-portal > :not(.view-requests-modal):not(.Toastify):not(.Toastify__toast-container):not(.Toastify__toast),
 body.support-request-modal-body--open #cvuhsd-sso-portal > :not(.support-request-modal):not(.Toastify):not(.Toastify__toast-container):not(.Toastify__toast),
