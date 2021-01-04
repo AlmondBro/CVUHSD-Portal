@@ -27,7 +27,7 @@ let NavBar = styled("nav")`
                 left: 15%;
                 margin-bottom: -52px;
                 z-index: 1;
-                max-height: 350px;
+                max-height: 435px;
                 overflow-y: auto;
                 /*Used to be -25px, now it's -50px */
                 /*margin-bottom Used to be -10px */
