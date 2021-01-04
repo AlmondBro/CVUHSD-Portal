@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+
 import isIe from '@braintree/browser-detection/is-ie';
 import isChromeOS from '@braintree/browser-detection/is-chrome-os';
 import isChrome from '@braintree/browser-detection/is-chrome';

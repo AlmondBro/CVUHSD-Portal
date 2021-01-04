@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Container, HeaderTitle, ViewOptionContainer, ViewOptionImage, ViewOptionText } from './MobileAppBannerStyledComponents.js';
+import { Container, HeaderTitle, ViewOptionContainer, ViewOptionLink, ViewOptionImage, FAIconStyled, ViewOptionText, Button } from './MobileAppBannerStyledComponents.js';
+
+import { faChrome } from '@fortawesome/free-brands-svg-icons';
 
 const MobileAppBanner = ({districtPosition, renderAsStudent }) => {
     return (
@@ -16,25 +18,37 @@ const MobileAppBanner = ({districtPosition, renderAsStudent }) => {
             <ViewOptionContainer
                 className="mobile-app-banner-view-option-container"
             >
-                <ViewOptionImage 
+              
+                <FAIconStyled 
                     className="mobile-app-banner-view-option-image"
-                    src="/images/buttons/google-drive.png"
 
                     districtPosition      = { districtPosition }
                     renderAsStudent       = { renderAsStudent }
-                />
+                    icon                  = { faChrome }
 
+                />
+            
                 <ViewOptionText
-                   districtPosition      = { districtPosition }
-                   renderAsStudent       = { renderAsStudent }
+                    districtPosition      = { districtPosition }
+                    renderAsStudent       = { renderAsStudent }
                 >
-                    Mobile Web Browser
+                    Mobile Browser
                 </ViewOptionText>
+
+                <ViewOptionLink className="mobile-app-banner-view-option-link">
+                    <Button
+                        districtPosition      = { districtPosition }
+                        renderAsStudent       = { renderAsStudent }
+                    >
+                       Continue
+                    </Button>
+                </ViewOptionLink>
             </ViewOptionContainer>
 
             <ViewOptionContainer
                 className="mobile-app-banner-view-option-container"
             >
+               
                 <ViewOptionImage 
                     className="mobile-app-banner-view-option-image"
                     src="/images/wp-portal-logo-blue-white-interior.svg"
@@ -43,12 +57,22 @@ const MobileAppBanner = ({districtPosition, renderAsStudent }) => {
                     renderAsStudent       = { renderAsStudent }
                 />
 
+
                 <ViewOptionText
                    districtPosition      = { districtPosition }
                    renderAsStudent       = { renderAsStudent }
                 >
-                    Mobile App
+                    WayPoint App
                 </ViewOptionText>
+
+                <ViewOptionLink className="mobile-app-banner-view-option-link">
+                    <Button
+                        districtPosition      = { districtPosition }
+                        renderAsStudent       = { renderAsStudent }
+                    >
+                        Open App
+                    </Button>
+                </ViewOptionLink>
             </ViewOptionContainer>
         </Container>
     ); //end return statement

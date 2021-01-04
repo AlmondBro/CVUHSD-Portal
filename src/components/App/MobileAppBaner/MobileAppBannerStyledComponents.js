@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Container = styled("div")`
     display: none;
@@ -22,7 +23,7 @@ const Container = styled("div")`
     }
 `;
 
-const HeaderTitle = styled("h3")`
+let HeaderTitle = styled("h3")`
     font-size: 1.45em;
     font-weight: bold;
 
@@ -43,7 +44,7 @@ const HeaderTitle = styled("h3")`
             };
 `;
 
-const Divider = styled("hr")`
+let Divider = styled("hr")`
     width: 85%;
     margin: 0 auto;
     margin-top: 5px;
@@ -61,6 +62,7 @@ const ViewOptionContainer = styled("section")`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
 
     width: 100%;
 
@@ -68,18 +70,62 @@ const ViewOptionContainer = styled("section")`
     padding: 0px 10%;
 `;
 
+const ViewOptionLink = styled("a")`
+    cursor: pointer;
+    text-decoration: none;
+
+    margin-left: auto;
+`;
+
 const ViewOptionImage = styled("img")`
     max-width: 100px;
     height: 36px;
 `;
 
-const ViewOptionText = styled("h4")`
-       color: ${ props => props.districtPosition ?
-                                    ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
-                                        "#931E1D": "#1E6C93"
-                                : "#931E1D"
-        };
+let FAIconStyled = styled(FontAwesomeIcon)`
+    display: inline-block;
+    font-size: ${props => props.fontSize ? props.fontSize : "2em"};
 
-        margin-left: auto;
+    max-width: 100px;
+    height: 36px;
+
+   color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
+            };
+
 `;
-export { Container, HeaderTitle, Divider, ViewOptionContainer, ViewOptionImage, ViewOptionText };
+
+let ViewOptionText = styled("h4")`
+    font-size: 1.2em;
+
+    color: ${ props => props.districtPosition ?
+                                ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
+                                    "#931E1D": "#1E6C93"
+                            : "#931E1D"
+    };
+
+    margin-left: 15px;
+`;
+
+const Button = styled("h4")`
+    cursor: pointer;
+    color: white;
+
+    font-size: 1.2em;
+
+    background-color: ${ props => props.districtPosition ?
+                                ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
+                                    "#931E1D": "#1E6C93"
+                            : "#931E1D"
+    };
+
+    padding: 5px;
+
+    border-radius: 10px;
+
+    margin-left: auto;
+
+`;
+export { Container, HeaderTitle, Divider, ViewOptionContainer, ViewOptionLink, ViewOptionImage, FAIconStyled, ViewOptionText, Button };
