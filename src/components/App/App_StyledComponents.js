@@ -8,7 +8,6 @@ import { Container } from 'react-bootstrap';
 
 import { ToastContainer } from 'react-toastify';
 
-
 let GlobalStyles = createGlobalStyle`
   body {
         /* Firefox properties to target the scrollbar color */
@@ -49,6 +48,9 @@ let GlobalStyles = createGlobalStyle`
                                     : "#B41A1F"
         };
     }
+
+    overflow-y: ${props => props.hideOverflow ? "hidden" : "auto"};
+
   }
 `;
 
