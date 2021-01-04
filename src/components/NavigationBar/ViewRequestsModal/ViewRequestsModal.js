@@ -3,7 +3,7 @@ import { withRouter, Route, Switch } from "react-router-dom";
 
 import isDev from 'isdev';
 
-import { faTasks, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faTasks, faFilter, faSort } from '@fortawesome/free-solid-svg-icons';
 
 import { SkeletonTheme } from 'react-loading-skeleton';
 
@@ -13,8 +13,7 @@ import FilterPane from './FilterPane/FilterPane.js';
 
 import RequestSpecifics from './RequestSpecifics/RequestSpecifics.js';
 
-import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
-import { render } from 'react-dom';
+import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, SortButton, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, match, history, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
@@ -137,7 +136,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     //Run ref on component updates except for initial mount via use of ref variable
     const isInitialMount = useRef(true);
 
-    const getRequestRectangles = async () => { 
+    const getRequestRectangles = async (reverse) => { 
         let requests = await getUserRequests(email, requestsType);
 
         let requestRectangles = loadRequestRectangles(requests);
@@ -147,7 +146,6 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         console.log("requestsType:\t", requestsType);
         console.log("requests:\t", requests);
         console.log("request rectangles:\t", requestRectangles);
-
     };
 
     const afterOpenModal = async () => {
@@ -243,7 +241,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                             className           =   "view-request-modal-request-status-icon"
                             districtPosition    =   { districtPosition.toLowerCase() }
                             color               =   "white"
-                            icon                =   { faTasks, faFilter }
+                            icon                =   { faFilter }
                     />
                     <FilterText
                             className="view-request-modal-filter-text"
@@ -252,6 +250,32 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                         Filter/Legend
                     </FilterText>
                 </FilterButton>
+
+            {
+                (requestRectangles.length > 1) ? (
+                    <SortButton
+                        className           =   "view-request-modal-sort-button"
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        onClick             =   { () => setRequestRectangles([...requestRectangles].reverse()) }
+                    >
+                    <FAIconStyled
+                            className           =   "view-request-modal-request-sort-icon"
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            color               =   "white"
+
+                            icon                =   { faSort }
+                            noLeftMargin
+                    />
+                    {/* <FilterText
+                            className="view-request-modal-filter-text"
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                    >
+                        Asc/Desc
+                    </FilterText> */}
+                </SortButton>
+                ) : null
+            }
+                        
             </TitleFilterContainer>
      
             <FilterPane
