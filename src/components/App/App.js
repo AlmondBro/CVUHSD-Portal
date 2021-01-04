@@ -19,6 +19,7 @@ import { isIE } from './../../utilityFunctions.js';
 import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
 import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
 import PageContent from "./../PageContent.js";
+import MobileAppBanner from "./MobileAppBaner/MobileAppBanner.js";
 
 //Import pages
 import NotFound from "./../NotFound/NotFound.js";
@@ -439,6 +440,10 @@ class App extends Component {
                     /> ) : null
               }
           </Switch>
+          <MobileAppBanner
+              districtPosition      = { this.state.title }
+              renderAsStudent       = { this.state.renderAsStudent }
+          />
       </StyledContainer>); //end return statement
   }
 }
