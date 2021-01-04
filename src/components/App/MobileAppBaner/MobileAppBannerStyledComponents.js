@@ -1,10 +1,22 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+const DarkOverlay = styled("div")`
+    position: absolute;
+    z-index: 5;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: black;
+    opacity: 0.75;
+`;  
+
 const Container = styled("div")`
     display: none;
 
     position: absolute;
+    z-index: 6;
     bottom: 0px;
 
     width: 100%;
@@ -128,4 +140,4 @@ const Button = styled("h4")`
     margin-left: auto;
 
 `;
-export { Container, HeaderTitle, Divider, ViewOptionContainer, ViewOptionLink, ViewOptionImage, FAIconStyled, ViewOptionText, Button };
+export { DarkOverlay, Container, HeaderTitle, Divider, ViewOptionContainer, ViewOptionLink, ViewOptionImage, FAIconStyled, ViewOptionText, Button };
