@@ -16,6 +16,23 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
         TODO: Do not like this imperative way of removing the body tag's overflow. 
         Figure out a way with using styled-component's global style 
     */
+
+    const getDeepLinkURL = () => {
+        let deepLink;
+
+        deepLink        =   "intent:cvuhsd.portal://redirect#Intent;scheme=cvuhsd.portal;package=com.cvuhsd.portalMobile;end"
+    
+        let href        =   `intent:${"//scan/#Intent"};` + 
+                            `scheme=${"cvuhsd.portal"};` +
+                            `package=${"com.cvuhsd.portalMobile"};` +
+                            `S.browser_fallback_url=${encodeURI(process.env.REACT_APP_PLAYSTORE_LINK)}` + 
+                            `;end`;
+
+        let scheme = process.env.REACT_APP_MOBILE_PROTOCOL;
+
+        return scheme;
+    };
+
     useEffect(() => {
         if (width <= 765) {
             setHideOverflow(false);
@@ -30,10 +47,11 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
         }   
     }, [ width ]);
 
+
     return (
         <Fragment>
             <DarkOverlay
-                screenWidth     = { width }
+                screenWidth     =   { width }
                 bannerVisible   =   { bannerVisible }
             />
             <Container 
@@ -108,7 +126,7 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
 {/* //https://auth.expo.io/@almondbro/CVUHSD-Portal-Mobile */}
                     <ViewOptionLink 
                         className   =   "mobile-app-banner-view-option-link"
-                        href        =   { process.env.REACT_APP_MOBILE_PROTOCOL }
+                        href        =   { getDeepLinkURL() }
                     >
                         <Button
                             districtPosition      = { districtPosition }
