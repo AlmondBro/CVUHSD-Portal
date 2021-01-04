@@ -250,32 +250,30 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                         Filter/Legend
                     </FilterText>
                 </FilterButton>
-
-            {
-                (requestRectangles.length > 1) ? (
-                    <SortButton
-                        className           =   "view-request-modal-sort-button"
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                        onClick             =   { () => setRequestRectangles([...requestRectangles].reverse()) }
-                    >
-                    <FAIconStyled
-                            className           =   "view-request-modal-request-sort-icon"
+                {
+                    (requestRectangles.length > 1) ? (
+                        <SortButton
+                            className           =   "view-request-modal-sort-button"
                             districtPosition    =   { districtPosition.toLowerCase() }
-                            color               =   "white"
+                            onClick             =   { () => setRequestRectangles([...requestRectangles].reverse()) }
+                        >
+                        <FAIconStyled
+                                className           =   "view-request-modal-request-sort-icon"
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                color               =   "white"
 
-                            icon                =   { faSort }
-                            noLeftMargin
-                    />
-                    {/* <FilterText
-                            className="view-request-modal-filter-text"
-                            districtPosition    =   { districtPosition.toLowerCase() }
-                    >
-                        Asc/Desc
-                    </FilterText> */}
-                </SortButton>
-                ) : null
-            }
-                        
+                                icon                =   { faSort }
+                                noLeftMargin
+                        />
+                        {/* <FilterText
+                                className="view-request-modal-filter-text"
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                        >
+                            Asc/Desc
+                        </FilterText> */}
+                    </SortButton>
+                    ) : null
+                }
             </TitleFilterContainer>
      
             <FilterPane
