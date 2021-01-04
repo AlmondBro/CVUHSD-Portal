@@ -72,6 +72,7 @@ const ReqRectContainer = styled("main")`
     height: 316px;
 
     overflow-y: auto;
+    overflow-x: hidden;
 
     /* Firefox properties to target the scrollbar color */
     scrollbar-color:  ${ props => props.districtPosition ?
