@@ -89,7 +89,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     id                  =   { id }
                     isLoading           =   { isLoading }
 
-                    onClick             =   { () => routeToReqID(requestObject) }
+                    // onClick             =   { () => routeToReqID(requestObject) }
 
                     key                 =   { id }
                 />
