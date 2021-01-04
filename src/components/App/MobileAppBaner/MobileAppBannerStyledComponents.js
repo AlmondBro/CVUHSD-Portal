@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const animationTime = "350ms";
+
 const DarkOverlay = styled("div")`
     visibility: hidden;
 
@@ -35,7 +36,7 @@ const Container = styled("div")`
     bottom: -999px;
 
     width: 100%;
-    height: 25%;
+    height: 35%;
     background-color: white;
 
    border-top-left-radius: 10px;
