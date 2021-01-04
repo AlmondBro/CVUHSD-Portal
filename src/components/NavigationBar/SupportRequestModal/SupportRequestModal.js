@@ -105,19 +105,19 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     
             setIsLoading(false);
 
-            notify(
-                    <HelpdeskSubmitMessage
-                    districtPosition    =   { districtPosition }
-                    message             =   "Helpdesk Request Submitted"
-                    icon                =   { faTicketAlt }
-                    />
-            );
-    
             // window.alert("responseStatus:\t", responseStatus);
     
             if (responseStatus === "success") {
     
                 setIsRequestSuccessful(true);
+
+                notify(
+                    <HelpdeskSubmitMessage
+                    districtPosition    =   { districtPosition }
+                    message             =   "Helpdesk Request Submitted"
+                    icon                =   { faTicketAlt }
+                    />
+                );
     
                 setTimeout(() => {
                          //Reset the form field after submitting.
@@ -137,9 +137,16 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
            
             } else {
                 setIsRequestSuccessful(false);
-            }
-    
-        }
+
+                notify(
+                    <HelpdeskSubmitMessage
+                        districtPosition    =   { districtPosition }
+                        message             =   "Helpdesk Request Failed. Please try again."
+                        icon                =   { faTicketAlt }
+                    />
+                );
+            } //ennd inner else statement
+        } //end outer if-statement
     } else{
         window.alert("Submitting duplicate tickets prohibited.");
         notify(

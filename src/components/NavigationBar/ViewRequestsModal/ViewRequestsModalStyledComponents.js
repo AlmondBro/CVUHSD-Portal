@@ -247,6 +247,10 @@ const FilterButton = styled('button')`
     }
 `;
 
+const SortButton = styled(FilterButton)`
+    margin-left: 15px;
+`;
+
 const TitleFilterContainer = styled("div")`
     display: inline-flex;
     flex-direction: row;
@@ -266,7 +270,7 @@ const FAIconStyled = styled(FontAwesomeIcon)`
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
             };
-   margin-left: 5px;
+   margin-left: ${props => props.noLeftMargin ? "0px" : "5px"};
 
    font-size: ${props => props.fontSize ? props.fontSize : "1.0em"};
 `;
@@ -336,4 +340,4 @@ const NoRequestsMessage = styled("p")`
                                     : "#931E1D"
             };
 `;
-export { HelpdeskSubmitMessage, RequestTypeTitle, FilterButton, FilterText, Container, CloseButton, InnerContainer, ModalTitle, ReqRectContainer, FAIconStyled, NoCVTechsMessage, TitleFilterContainer, NoRequestsMessage };
+export { HelpdeskSubmitMessage, RequestTypeTitle, FilterButton, FilterText, SortButton, Container, CloseButton, InnerContainer, ModalTitle, ReqRectContainer, FAIconStyled, NoCVTechsMessage, TitleFilterContainer, NoRequestsMessage };
