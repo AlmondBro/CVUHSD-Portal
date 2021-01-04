@@ -22,7 +22,7 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
             document.body.classList.add("no-vertical-scroll"); 
         } else {
             setHideOverflow(true);
-            document.body.classList.add("no-vertical-scroll"); 
+            document.body.classList.remove("no-vertical-scroll"); 
         }   
     }, [ width ]);
 
