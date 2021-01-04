@@ -44,8 +44,8 @@ const Content = styled("article")`
     :hover, :active  {
         background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
-                                          "rgba(30,108, 147, 0.07)": "rgba(147,30, 29, 0.07)"
-                                    : "rgba(30,108, 147, 0.07)"
+                                          "rgba(147,30, 29, 0.07)": "rgba(30,108, 147, 0.07)"
+                                    : "rgba(147,30, 29, 0.07)"
             };
         
         

@@ -14,6 +14,7 @@ import FilterPane from './FilterPane/FilterPane.js';
 import RequestSpecifics from './RequestSpecifics/RequestSpecifics.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
+import { render } from 'react-dom';
 
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, match, history, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
@@ -43,6 +44,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             contentClassName="view-requests-modal-content",
             parentSelectorID="chat-page-main-container";
 
+    
     const parseDate = (stringToParse) => {
         let dateAndTime = stringToParse.split(" ");
 
@@ -77,6 +79,8 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             return (
                 <RequestPreviewRectangle
                     districtPosition    =   { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
+
                     subject             =   { subject}
                     description         =   { short_description }
                     date                =   {  dateFormatChange(dateAndTime[0]) }
@@ -268,43 +272,55 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 <SkeletonTheme 
                     color           = {
                                         districtPosition ?
-                                            ( (districtPosition === "student") || renderAsStudent || window.location.pathname === "/student") ? 
-                                                " rgba(147, 30, 29, 0.21)": "rgba(30, 108, 147, 0.21);"
-                                            : "rgba(147, 30, 29, 0.21)" 
+                                            ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                                "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+                                            : "rgba(147, 30, 29, 0.1)" 
                                         }
                     highlightColor  = {
                                             districtPosition ?
-                                            ( (districtPosition === "student") || renderAsStudent || window.location.pathname === "/student") ? 
-                                                " rgba(147, 30, 29, 0.5)": "rgba(30, 108, 147, 0.5);"
-                                            : "rgba(147, 30, 29, 0.5)" 
+                                            ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                                "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+                                            : "rgba(147, 30, 29, 0.1)" 
                     }
-                >
+                > 
                 {
                     isLoading ? (
                         <Fragment>
                             <RequestPreviewRectangle
                                 districtPosition    =   { districtPosition }
+                                renderAsStudent     =   { renderAsStudent }
+
                                 isLoading           =   {   true }
                             />
                             <RequestPreviewRectangle
                                 districtPosition    =   { districtPosition }
+                                renderAsStudent     =   { renderAsStudent }
+
                                 isLoading           =   {   true }
                             />
                             <RequestPreviewRectangle
                                 districtPosition    =   { districtPosition }
+                                renderAsStudent     =   { renderAsStudent }
+
                                 isLoading           =   {   true }
                             />
 
                             <RequestPreviewRectangle
                                 districtPosition    =   { districtPosition }
+                                renderAsStudent     =   { renderAsStudent }
+
                                 isLoading           =   {   true }
                             />
                             <RequestPreviewRectangle
                                 districtPosition    =   { districtPosition }
+                                renderAsStudent     =   { renderAsStudent }
+
                                 isLoading           =   {  true }
                             />
                             <RequestPreviewRectangle
                                 districtPosition    =   { districtPosition }
+                                renderAsStudent     =   { renderAsStudent }
+
                                 isLoading           =   {   true }
                             />     
                         </Fragment>

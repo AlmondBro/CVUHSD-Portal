@@ -6,7 +6,7 @@ import { Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, 
 
 import Skeleton from 'react-loading-skeleton';
 
-const RequestPreviewRectangle = ({ districtPosition, subject, description, date, time, id, status, onClick, isLoading }) => {
+const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, description, date, time, id, status, onClick, isLoading }) => {
 
     const getFAIcon = () => {
         let faIcon;
@@ -47,15 +47,26 @@ const RequestPreviewRectangle = ({ districtPosition, subject, description, date,
 
     return (
         <Container 
-            className   =   "request-rectangle-container" 
-            onClick     =   { onClick }
+            className           =   "request-rectangle-container" 
+
+            districtPosition    =   { districtPosition }
+            renderAsStudent     =   { renderAsStudent }
+
+            onClick             =   { onClick }
         >
             <Divider
                 className           =   "request-rectangle-divider"
+
                 districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }
+
             />
 
-            <Content className="request-rectangle-content">
+            <Content 
+                className           =   "request-rectangle-content"
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }    
+            >
                 <IconSubSection 
                     className   =   "request-rectangle-subsection-icon"
                     width       =   "6%"
