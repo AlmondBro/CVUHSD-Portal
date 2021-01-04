@@ -162,7 +162,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         if (isInitialMount.current) {
             isInitialMount.current = false;
         } else {
-            getRequestRectangles();
+            getRequestRectangles(); //only run this function on first mount
         }
         // setTimeout(() => setIsLoading(false), 3000);
     }, [ requestsType ]); //end useEffect()
@@ -249,7 +249,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                             className="view-request-modal-filter-text"
                             districtPosition    =   { districtPosition.toLowerCase() }
                     >
-                        Filter
+                        Filter/Legend
                     </FilterText>
                 </FilterButton>
             </TitleFilterContainer>

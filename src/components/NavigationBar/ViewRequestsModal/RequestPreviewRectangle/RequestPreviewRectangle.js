@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
 //import styled components
@@ -8,29 +8,35 @@ import Skeleton from 'react-loading-skeleton';
 
 const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, description, date, time, id, status, onClick, isLoading }) => {
 
-    const getFAIcon = () => {
+    let [ faIcon, setFAIcon ] = useState("Open");
+
+    const getFAIcon = (status) => {
         let faIcon;
 
         switch(status) {
             case "All":
-                faIcon = faTasks;
+                setFAIcon(faTasks);
             break;
 
             case "Open":
-                faIcon = faCircle;
+                setFAIcon(faCircle);
             break;
 
             case "In Progress":
-                faIcon = faAngleDoubleRight;
+                setFAIcon(faAngleDoubleRight);
             break;
 
             case "Closed":
-                faIcon = faCheck;
+                setFAIcon(faCheck);
             break;
         }
 
         return faIcon;
     };
+
+    useEffect(() => {
+        getFAIcon(status);
+    }, [ status ]);
     
     const truncateDescription = (description) => {
         if (description.length >= 130) {
@@ -84,7 +90,7 @@ const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, d
                                 className           =   "view-request-type-icon"
                                 districtPosition    =   { districtPosition.toLowerCase() }
                                 color               =   "white"
-                                icon                =   { getFAIcon() }
+                                icon                =   { faIcon }
                             />
                         )
                     }   
