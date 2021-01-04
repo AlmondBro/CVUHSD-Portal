@@ -73,9 +73,15 @@ const ReqRectContainer = styled("main")`
 
     overflow-y: auto;
 
-    scrollbar-color:  #B41A1F white;
-    scrollbar-width: auto;
+    /* Firefox properties to target the scrollbar color */
+    scrollbar-color:  ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F white": "#1E6C93 white"
+                                    : "#B41A1F white"
+        } !important;
+    scrollbar-width: 1px !important;
    
+    /* Chrome/webkit browsers to target the scrollbar color */
    &::-webkit-scrollbar {
       width: 12px;
       box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
