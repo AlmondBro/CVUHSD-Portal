@@ -4,11 +4,18 @@ import { Router } from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
+import rateLimiter from 'express-rate-limit';
+
 import isDev from 'isdev';
 
 const router = Router();
 
-var adfsSigningPublicKey = fs.readFileSync(path.join(__dirname, './../../../certificates/ADFS_Signing.crt')); // Exported from ADFS
+const limiter = rateLimiter({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 70 // limit each IP to 100 requests per windowMs
+}); //end rateLimiter()
+
+const adfsSigningPublicKey = fs.readFileSync(path.join(__dirname, './../../../certificates/ADFS_Signing.crt')); // Exported from ADFS
 
 const validateAccessToken = (accessToken) => {
     let payload = null;
@@ -22,14 +29,17 @@ const validateAccessToken = (accessToken) => {
     return payload;
 }; //end //validateAccessToken
 
-
+//router.use(limiter);
 
 router.get('/login-ie', (req, res) => {
-    return res.json(
-                        { 
-                            url: `${process.env.OAUTH_AUTH_URL}?resource=${encodeURIComponent("http://localhost:3000")}&response_type=${encodeURIComponent("code")}&redirect_uri=${isDev ? encodeURIComponent(process.env.OAUTH_CALLBACK_URL_DEV) : encodeURIComponent(process.env.OAUTH_CALLBACK_URL_PROD)}&client_id=${encodeURIComponent(process.env.OAUTH_CLIENT_ID)}`
-                        }
-                    );
+
+    const authorizationTokenURL =   `${process.env.OAUTH_AUTH_URL}` +
+                                    `?resource=${encodeURIComponent("http://localhost:3000")}` +
+                                    `&response_type=${encodeURIComponent("code")}` +
+                                    `&redirect_uri=${isDev ? encodeURIComponent(process.env.OAUTH_CALLBACK_URL_DEV) : encodeURIComponent(process.env.OAUTH_CALLBACK_URL_PROD)}` +
+                                    `&client_id=${encodeURIComponent(process.env.OAUTH_CLIENT_ID)}`;
+    
+    return res.json({url: authorizationTokenURL});
 });
 
 router.get('/login', passport.authenticate('provider'));
@@ -42,6 +52,16 @@ router.get('/callback', passport.authenticate('provider'), async (req, res) => {
     const userInfo = validateAccessToken(accessToken);
   
     res.json({ ...userInfo, accessToken });
+    return;
+});
+
+router.post('/user-info', (req, res) => {
+    const { accessToken } = req.body;
+    console.log("\naccessToken", req.body);
+
+    const userInfo = validateAccessToken(accessToken);
+
+    res.json({ ...userInfo});
     return;
 });
 

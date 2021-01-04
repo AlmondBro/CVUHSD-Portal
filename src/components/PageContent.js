@@ -114,23 +114,23 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
     getGraphInfo(accessToken);
   }; //end getUserInfo()
 
-
   const LoadingSkeletons = () => {
     return(
       <Fragment>
-        <Skeleton height="60px"width="99%"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
-        <Skeleton height="60px"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
+        <Skeleton height="60px"   width="99%"/>
       </Fragment>
-    )
-  }; 
+    ); //end return statement 
+  }; //end LoadingSkeletons component
+
   const generateBlueSections = (blueSection_objectsArrayProps) => {
     const loadPage = false;
 
@@ -163,7 +163,7 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
     if ( (title === "Student" || ( undefsafe(location, "state", "renderAsStudent") == "true" && title === "Student")|| window.location.pathname === "/student" && title === "Student") && !gradeLevel) {
         getUserInfo();
     } //end if-statement
-  }, [ title, location ]); //end useEffect
+  }, [ title, location, email ]); //end useEffect
 
   const showFooter = false;
 
@@ -184,7 +184,7 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
     >
         <Header 
                 districtName          = "CVUHSD" 
-                headerTitle           = "Portal" 
+                headerTitle           = "S.S.O. Portal" 
                 fullName              = { fullName || "CVUHSD User"}
                 email                 = { email } 
                 title                 = { title }
@@ -208,7 +208,7 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
                           title           = { title }
                           renderAsStudent = { renderAsStudent }
                         />
-                      ) : ( <Skeleton height="24px" />)
+                      ) : ( <Skeleton height="24px" width="99%"/>)
                     }
                 </div>
     </SkeletonTheme>

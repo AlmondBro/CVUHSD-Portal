@@ -1,12 +1,56 @@
 import React from "react";
 
 //Import 3rd-party APIs
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import css from 'styled-components';
 
 import { Container } from 'react-bootstrap';
 
 import { ToastContainer } from 'react-toastify';
+
+
+let GlobalStyles = createGlobalStyle`
+  body {
+        /* Firefox properties to target the scrollbar color */
+        scrollbar-color:  ${ props => props.districtPosition ?
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent) ? 
+                                          "#B41A1F white": "#1E6C93 white"
+                                    : "#B41A1F white"
+        } !important;
+      scrollbar-width: 1px !important;
+   
+    /* Chrome/webkit browsers to target the scrollbar color */
+   &::-webkit-scrollbar {
+      width: 12px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 10px;
+      background-color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent) ? 
+                                          "#B41A1F white": "#1E6C93 white"
+                                    : "#B41A1F white"
+        };
+
+    }
+ 
+  /*  Whole Scrollbar */
+  &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 5px;
+      background-color: white;
+  }
+  
+  /*  Actual Scrollbar */
+  &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+      background-color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F": "#1E6C93"
+                                    : "#B41A1F"
+        };
+    }
+  }
+`;
 
 let ModifiedContainer = ({className, children, fluid}) => (
     <Container className={className + " app-container"} fluid={fluid}>
@@ -25,7 +69,9 @@ let StyledContainer = styled(ModifiedContainer)`
     /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4177a3', endColorstr='#182c3d',GradientType=0 ); IE6-9 */
   
     height: 100%;
-    && { /*Overrode class style */
+    overflow-y: auto;
+
+    && { /* Override class style */
       padding-left: 0px;
       padding-right: 0px;
       overflow-y: auto;
@@ -152,5 +198,5 @@ const StyledToastContainer = styled(ToastContainer).attrs(props => ({
   }
 `;
 
-export { StyledContainer, StyledToastContainer }
+export { GlobalStyles, StyledContainer, StyledToastContainer }
 

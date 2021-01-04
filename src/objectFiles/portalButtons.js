@@ -70,7 +70,7 @@ let staffPortalButtons = {
         },
     
         googleDrive_button : { 
-            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=wise&amp;passive=1209600&amp;osid=1&amp;continue=https%3A%2F%2Fdrive.google.com%2F&amp;followup=https%3A%2F%2Fdrive.google.com%2F&amp;emr=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonLink: "https://sso.centinela.k12.ca.us/adfs/ls/?SAMLRequest=fVLLTsMwELwj8Q%2BR70nqIhCymqACQlTiEdHAgZux14nBsYPXSeHvcVMQcIDreHYe612cvHUmGcGjdrYgNJuRBKxwUtumIPf1RXpMTsr9vQXyzvRsOYTW3sHrABiSOGmRTQ8FGbxljqNGZnkHyIJg6%2BX1FZtnM9Z7F5xwhiSr84LYFyVeur5%2FbrnsuTZNqw1XymqpwD4pJ42UplGR%2FfAVa76NtUIcYGUxcBsiNJvPUkpTelDPKaOHjB49kqT6dDrVdtfgv1hPOxKyy7qu0up2XU8Co5bgbyK7II1zjYFMuG5rX3FEPUZYcYNAkiUi%2BBADnjmLQwd%2BDX7UAu7vrgrShtAjy%2FPNZpN9y%2BQ8F%2BPQosycb3IukJTTZtlUzv9Y6f%2FR%2BZc1Kf8QX%2BQ%2FdMvP79u2Wp1XzmjxniyNcZszDzzESsEPsdGF8x0Pf1vTjE6IlqmaqGyw2IPQSoMkSV7uXH%2FfSbyeDw%3D%3D&RelayState=https%3A%2F%2Faccounts.google.com%2FCheckCookie%3Fcontinue%3Dhttps%253A%252F%252Fdrive.google.com%252F%26service%3Dwise%26hl%3Den%26checkedDomains%3Dyoutube%26checkConnection%3Dyoutube%253A368%253A0%26pstMsg%3D1&continue=https%3A%2F%2Fdrive.google.com%2F",
             buttonImg: "google-drive.png",
             description: "Google Drive",
             deepLink: "googledrive://",
@@ -133,12 +133,24 @@ let staffPortalButtons = {
             buttonLink: "https://teams.webex.com/",
             buttonImg: "webex-teams.jpg",
             description: "WebEx Teams"
+        },
+
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
         }
     }, //end quickLinks
 
     standardStaffTools : {
         gmail_button : {
-            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=mail&amp;passive=true&amp;rm=false&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ss=1&amp;scc=1&amp;ltmpl=default&amp;ltmplcache=2&amp;emr=1&amp;osid=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonLink: "https://mail.google.com/mail",
             buttonImg: "gmail.png",
             description: "Gmail",
             deepLink: "googlegmail://",
@@ -324,24 +336,6 @@ let staffPortalButtons = {
                 playStoreId: "com.google.android.apps.docs"
             }  
         },
-        
-        lawndaleLaptopCartSystem_button : {
-            buttonLink: "https://sites.google.com/a/cvuhsd.org/lwlaptopcartsystem/home",
-            buttonImg: "lawndale-laptop-cart-system.png",
-            description: "Lawndale Laptop Cart System"
-        },
-        
-        leuzingerLaptopCartSystem_button : {
-            buttonLink: "https://sites.google.com/a/cvuhsd.org/lzlaptopcartsystem/",
-            buttonImg: "Hawthorne-laptop-cart-system.png",
-            description: "Leuzinger Laptop Cart System"
-        },
-
-        hawthorneLaptopCartSystem_button : {
-            buttonLink: "https://sites.google.com/a/cvuhsd.org/hwlaptopcartsystem/",
-            buttonImg: "Hawthorne-laptop-cart-system.png",
-            description: "Hawthorne Laptop Cart System"
-        }
     }, //end teacherTools
 
     classroomTools : {
@@ -410,32 +404,25 @@ let staffPortalButtons = {
             }
         },
 
-        read180HW_button : {
-            buttonLink: "https://hwread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180HW-Teacher.png",
-            description: "Read 180/System 44-HW Teacher"
-        },
-        
-        read180LW_button : {
-            buttonLink: "https://lwread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180LW-Teacher.png",
-            description: "Read 180/System 44-LW Teacher"
-        },
-
-        read180LZ_button : {
-            buttonLink: "https://lxread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180LZ-Teacher.png",
-            description: "Read 180/System 44-LX Teacher"
-        },
-
-
         //TODO: Need to find deep link for clever. NOTE: Appears to only be available on iOS!!
         everfi_button : {
                 buttonLink: "https://clever.com/oauth/instant-login?client_id=2b024c690549687be970&district_id=5283beba2c067cd50b000031",
                 buttonImg: "everfi.jpg",
                 description: "Everfi",
                 deepLink: "clever://",
-            }
+            },
+    
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
+        }
     }, //end learningTools
 
     digitalTextbooks : {
@@ -689,7 +676,7 @@ let studentPortalButtons = {
         },
         
         gmail_button : {
-            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=mail&amp;passive=true&amp;rm=false&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ss=1&amp;scc=1&amp;ltmpl=default&amp;ltmplcache=2&amp;emr=1&amp;osid=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonLink: "https://mail.google.com/mail",
             buttonImg: "gmail.png",
             description: "Gmail",
             deepLink: "googlegmail://",
@@ -702,7 +689,7 @@ let studentPortalButtons = {
         },
 
         googleDrive_button : { 
-            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=wise&amp;passive=1209600&amp;osid=1&amp;continue=https%3A%2F%2Fdrive.google.com%2F&amp;followup=https%3A%2F%2Fdrive.google.com%2F&amp;emr=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonLink: "https://sso.centinela.k12.ca.us/adfs/ls/?SAMLRequest=fVLLTsMwELwj8Q%2BR70nqIhCymqACQlTiEdHAgZux14nBsYPXSeHvcVMQcIDreHYe612cvHUmGcGjdrYgNJuRBKxwUtumIPf1RXpMTsr9vQXyzvRsOYTW3sHrABiSOGmRTQ8FGbxljqNGZnkHyIJg6%2BX1FZtnM9Z7F5xwhiSr84LYFyVeur5%2FbrnsuTZNqw1XymqpwD4pJ42UplGR%2FfAVa76NtUIcYGUxcBsiNJvPUkpTelDPKaOHjB49kqT6dDrVdtfgv1hPOxKyy7qu0up2XU8Co5bgbyK7II1zjYFMuG5rX3FEPUZYcYNAkiUi%2BBADnjmLQwd%2BDX7UAu7vrgrShtAjy%2FPNZpN9y%2BQ8F%2BPQosycb3IukJTTZtlUzv9Y6f%2FR%2BZc1Kf8QX%2BQ%2FdMvP79u2Wp1XzmjxniyNcZszDzzESsEPsdGF8x0Pf1vTjE6IlqmaqGyw2IPQSoMkSV7uXH%2FfSbyeDw%3D%3D&RelayState=https%3A%2F%2Faccounts.google.com%2FCheckCookie%3Fcontinue%3Dhttps%253A%252F%252Fdrive.google.com%252F%26service%3Dwise%26hl%3Den%26checkedDomains%3Dyoutube%26checkConnection%3Dyoutube%253A368%253A0%26pstMsg%3D1&continue=https%3A%2F%2Fdrive.google.com%2F",
             buttonImg: "google-drive.png",
             description: "Google Drive",
             deepLink: "googledrive://",
@@ -781,13 +768,25 @@ let studentPortalButtons = {
             //     appStoreLocale: "us",
             //     playStoreId: "com.instructure.teacher"
             // }
+        },
+
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
+            // }
         }
-  
     }, //end quickLinks
 
     standardStudentTools : {
         gmail_button : {
-            buttonLink: "https://accounts.google.com/signin/v2/sl/pwd?service=mail&amp;passive=true&amp;rm=false&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ss=1&amp;scc=1&amp;ltmpl=default&amp;ltmplcache=2&amp;emr=1&amp;osid=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin",
+            buttonLink: "https://mail.google.com/mail",
             buttonImg: "gmail.png",
             description: "Gmail",
             deepLink: "googlegmail://",
@@ -811,6 +810,18 @@ let studentPortalButtons = {
                 playStoreId: "com.google.android.apps.docs"
             }
         },
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
+            // }
+        }
     }, //end standardStudentTools
 
     //TODO: Find Deep Link & app config for apex!
@@ -895,24 +906,6 @@ let studentPortalButtons = {
                 appStoreLocale: "us",
                 playStoreId: "com.brainpop.brainpopfeaturedmovieandroid"
             }
-        },
-
-        read180HW_button : {
-            buttonLink: "https://hwread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180HW-Teacher.png",
-            description: "Read 180/System 44-HW Teacher"
-        },
-        
-        read180LW_button : {
-            buttonLink: "https://lwread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180LW-Teacher.png",
-            description: "Read 180/System 44-LW Teacher"
-        },
-
-        read180LZ_button : {
-            buttonLink: "https://lxread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180LZ-Teacher.png",
-            description: "Read 180/System 44-LX Teacher"
         },
 
         //TODO: Need to find deep link for clever. NOTE: Appears to only be available on iOS!!

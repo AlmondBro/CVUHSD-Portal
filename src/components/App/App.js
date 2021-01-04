@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import isDev from 'isdev';
 import undefsafe from "undefsafe";
 
-
 import {  Redirect } from "react-router";
 import { withRouter, Route, Switch } from "react-router-dom";
 
@@ -27,10 +26,8 @@ import NotFound from "./../NotFound/NotFound.js";
 import PrivateRoute from "./../PrivateRoute.js";
 
 //Import styled components
-import { StyledContainer, StyledToastContainer } from "./App_StyledComponents.js";
+import { GlobalStyles, StyledContainer, StyledToastContainer } from "./App_StyledComponents.js";
 
-
-//TODO: To make everything "color agnostic", add change blueSection to just 'sectionRow
 //TODO: Make list for student portal
 //TODO: Fix Dashboard "digital" typon on quick links buttons
 
@@ -279,7 +276,7 @@ class App extends Component {
 
     const accessTokenCookie = cookies.get("accessToken");
     
-    if (!accessTokenCookie) {
+    //if (!accessTokenCookie) {
       if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
         this.checkForLogIn(history);
       }
@@ -292,8 +289,7 @@ class App extends Component {
           this.logIn();
         } //end inner else-statement, checking if the login is IE
       } //end if-statement checking if the route is not auth-success
-    } //end outer if-statement checking for cookies
-
+    //} //end outer if-statement checking for cookies
 
     const favicon = document.getElementById("favicon");
 
@@ -312,10 +308,10 @@ class App extends Component {
     const favicon = document.getElementById("favicon");
     
     if (this.state.title === "Student" || this.state.renderAsStudent || window.location.pathname === "/student") {
-      favicon.href = "./images/CV-600x600-portal-red.png";
+      favicon.href = "./images/icons/wp-portal-logo-red-white-interior.ico";
       document.title = "CVUHSD | Student Portal"
     } else {
-      favicon.href = "./images/CV-600x600-portal.png";
+      favicon.href = "./images/icons/wp-portal-logo-blue-white-interior.ico";
       document.title = "CVUHSD | Staff Portal"
     }
   }; //end componentDidUpdate()
@@ -328,14 +324,17 @@ class App extends Component {
 
     console.log("defaultURL:\t" + defaultURL);
 
-    const showPage = false;
     return (
       <StyledContainer 
-        fluid={true} 
+        fluid             = { true } 
         containerStyle    = { this.state.containerStyle} 
         districtPosition  = { this.state.title}
         renderAsStudent   = { this.state.renderAsStudent}
       >
+        <GlobalStyles
+          districtPosition  = { this.state.title}
+          renderAsStudent   = { this.state.renderAsStudent}
+        />
         <StyledToastContainer
           position          = "top-right"
           autoClose         = { 1200 }
@@ -365,7 +364,7 @@ class App extends Component {
                             path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
                             component             = { PageContent} 
 
-                            fullName              = { this.state.firstName + " " + this.state.lastName }
+                            fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
                             email                 = { this.state.email }
                             uid                   = { this.state.uid }
                             title                 = { this.state.title }
@@ -426,7 +425,7 @@ class App extends Component {
                       defaultURL            = { defaultURL }
 
                       history               = { this.props.history }
-                      fullName              = { this.state.firstName + " " + this.state.lastName }
+                      fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
                       title                 = { this.state.title }
                       site                  = { this.state.site }
                       gradeLevel            = { this.state.gradeLevel }

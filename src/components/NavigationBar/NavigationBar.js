@@ -14,21 +14,29 @@ import { faHome as home, faGraduationCap as student, faUser as user, faSignOutAl
 import { staff_HeaderLinks } from "./../../objectFiles/headerListItems.js";
 
 import ChangePassword from "./ChangePasswordModal/ChangePasswordModal.js";
+import ViewRequestsModal from './ViewRequestsModal/ViewRequestsModal.js';
 import SupportRequestModal from './SupportRequestModal/SupportRequestModal.js';
+
 //Import styled components
 import  {    
             NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, NavBarUL_Loading,
-            NavMenuIcon, FirstBar, NavBarButton, NavBarListItemLi, MenuToggle 
+            NavMenuIcon, FirstBar, NavBarButton, NavBarListItemLi, MenuToggle, WhiteRouterLink 
         }   from "./NavigationBar_StyledComponents.js";
+
+import { useCookies } from 'react-cookie';
 
 
 //TODO: Figure out why bullet point is not rendering
 
-const NavigationBar = ({ fullName, title, email, site, districtPosition, renderAsStudent, location, modifyLogInStatus, modifyRenderAsStudent, notify, clearState, logOut }) => {
+const NavigationBar = ({ fullName, title, email, site, districtPosition, renderAsStudent, location, modifyLogInStatus, modifyRenderAsStudent, notify, clearState, history, match, logOut }) => {
+    const [ cookies, removeCookie ] = useCookies(['accessToken']);
+    
     const  [ changePasswordModalIsOpen, setChangePasswordModalIsOpen ] = useState(false);
     const  [ supportRequestModalIsOpen, setSupportRequestModalIsOpen ] = useState(false);
+    const  [ viewRequestModalIsOpen, setViewRequestModalIsOpen ] = useState(false);
 
     let signOutClearState = () => {
+        removeCookie("accessToken");
         clearState();
         logOut();
     }; //end signOut()
@@ -40,6 +48,10 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
     
     let toggleSupportRequestModal = (toggleValue) => {
         setSupportRequestModalIsOpen(toggleValue);
+    }; //end toggleModal
+
+    let toggleViewRequestModal = (toggleValue) => {
+        setViewRequestModalIsOpen(toggleValue);
     }; //end toggleModal
 
     let generateNavBarListItems = (listItemsArray) => {
@@ -71,7 +83,8 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
             <NavBar 
                 className           =   "navigation-bar" 
                 districtPosition    =   { districtPosition } 
-                renderAsStudent     =   { renderAsStudent}>
+                renderAsStudent     =   { renderAsStudent}
+            >
                 <NavBarImageWrapper 
                     className           =   "navigation-bar-image-wrapper" 
                     districtPosition    =   { districtPosition } 
@@ -85,8 +98,8 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                                     id          =   "navbar-logo" 
                                     href        =   "#" 
                                     src         =   {   districtPosition ? 
-                                                            ( ( (districtPosition === "Student") || renderAsStudent ) ? "/images/CV-600x600-portal-red.png" : "/images/CV-600x600-portal.png")
-                                                        : "/images/CV-600x600-portal-red.png"
+                                                            ( ( (districtPosition === "Student") || renderAsStudent ) ? "/images/wp-portal-logo-red-white-interior.svg" : "/images/wp-portal-logo-blue-white-interior.svg")
+                                                        : "/images/wp-portal-logo-red-white-interior.svg"
                                                     } 
                         />
                     </Link>
@@ -150,7 +163,7 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                                         to                  =   {
                                                                     {
                                                                         pathname    : renderAsStudent ? "/staff" : "/student",
-                                                                        state       : { renderAsStudent: (location.pathname === "/staff") ? "true" : false } 
+                                                                        state       : { renderAsStudent: (location.pathname === "/staff") ? true : false } 
                                                                     }
                                                                 }
                                         renderAsStudent     =   { renderAsStudent }
@@ -168,6 +181,64 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                             }
 
                             { generateNavBarListItems(staff_HeaderLinks) }
+
+                            <NavBarListItemLi 
+                                bulletPointInMobile =   {   true    }
+                                to                  =   { match.url + "/view-requests"}
+                                onClick             =   { () => { toggleViewRequestModal(true); history.push(match.url + "/view-requests") } }
+                                renderAsStudent     =   {   renderAsStudent }
+                            >
+                                <Tooltip
+                                    placement               =   { "bottom" }
+                                    mouseEnterDelay         =   { 0 }
+                                    mouseLeaveDelay         =   { 0.03 }   
+                                    destroyTooltipOnHide    =   { true }
+                                    trigger                 =   { ['hover','click','focus'] }
+                                    overlay                 =   {
+                                                                    <div 
+                                                                        style={
+                                                                            { 
+                                                                                height: "100%", 
+                                                                                width: "100%" 
+                                                                            }
+                                                                        }
+                                                                    >
+                                                                        View all your helpdesk tech requests
+                                                                        <div  style={
+                                                                                {
+                                                                                    display: "inline-block",
+                                                                                    marginLeft: "5px"
+                                                                                }
+                                                                            }>
+                                                                            <FontAwesomeIcon 
+                                                                                icon        =   { faLaptop } 
+                                                                                className   =   "icon"
+                                                                            /> 
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                }
+                                    transitionName={"rc-tooltip-zoom"}
+                                >
+                                    <NavBarButton   
+                                            title               =   { "Support Request"}  
+                                            districtPosition    =   { districtPosition }
+                                            renderAsStudent     =   { renderAsStudent }
+
+                                    >   
+                                        {/* <WhiteRouterLink 
+                                     
+                                        > */}
+                                            View Requests
+                                            {/* <FontAwesomeIcon 
+                                                icon        =   { faLaptop } 
+                                                className   =   "icon"
+                                            />  */}
+                                        {/* </WhiteRouterLink> */}
+                                       
+                                    </NavBarButton>
+                                </Tooltip>
+                            </NavBarListItemLi>
 
                             <NavBarListItemLi 
                                 bulletPointInMobile =   {   true    }
@@ -319,6 +390,17 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                 
             </NavBar>
             
+            <ViewRequestsModal 
+                modalIsOpen         =   { viewRequestModalIsOpen }
+                toggleModal         =   { toggleViewRequestModal }
+
+                fullName            =   { fullName }
+                email               =   { email }
+                site                =   { site }
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }  
+                notify              =   { notify }                
+            />
             <SupportRequestModal 
                 modalIsOpen         =   { supportRequestModalIsOpen }
                 toggleModal         =   { toggleSupportRequestModal }
