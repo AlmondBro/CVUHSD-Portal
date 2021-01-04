@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
 import { DarkOverlay, Container, HeaderTitle, ViewOptionContainer, ViewOptionLink, ViewOptionImage, FAIconStyled, ViewOptionText, Button } from './MobileAppBannerStyledComponents.js';
 
@@ -8,6 +8,7 @@ import { useWindowSize } from './../../../utilityFunctions.js';
 
 const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hideOverflow}) => {
 
+    let [ bannerVisible, setBannerVisible ] = useState(false);
     let screenDimensions = useWindowSize();
     let { width, height } = screenDimensions;
 
@@ -18,10 +19,13 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
     useEffect(() => {
         if (width <= 765) {
             setHideOverflow(false);
+            setBannerVisible(true);
 
             document.body.classList.add("no-vertical-scroll"); 
         } else {
             setHideOverflow(true);
+            setBannerVisible(false);
+
             document.body.classList.remove("no-vertical-scroll"); 
         }   
     }, [ width ]);
@@ -29,12 +33,13 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
     return (
         <Fragment>
             <DarkOverlay
-                screenWidth = { width }
+                screenWidth     = { width }
+                bannerVisible   =   { bannerVisible }
             />
             <Container 
-                className   =   "mobile-app-banner-container"
-                screenWidth = {width}
-
+                className       =   "mobile-app-banner-container"
+                screenWidth     =   { width }
+                bannerVisible   =   { bannerVisible }
             >
                 <HeaderTitle
                     className="mobile-app-banner-container"
@@ -68,6 +73,12 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
                         <Button
                             districtPosition      = { districtPosition }
                             renderAsStudent       = { renderAsStudent }
+
+                            onClick               = { () => { 
+                                                            setBannerVisible(!setBannerVisible);
+                                                            document.body.classList.remove("no-vertical-scroll"); 
+                                                        }
+                                                    }
                         >
                         Continue
                         </Button>

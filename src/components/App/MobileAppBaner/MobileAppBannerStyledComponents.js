@@ -18,8 +18,8 @@ const DarkOverlay = styled("div")`
     transition: ${animationTime} opacity ease-in-out;
 
     @media only screen and (max-width: 765px) {
-        visibility: visible;
-        opacity: 0.75;
+        visibility: ${props => props.bannerVisible ? "visible" : "hidden"};
+        opacity: ${props => props.bannerVisible ? 0.75 : 0};
     }
 
 `;  
@@ -46,9 +46,9 @@ const Container = styled("div")`
 
    transition: bottom ${animationTime}  ease-in-out;
 
-    @media only screen  and (max-width: 765px) {
-        visibility: visible;
-        bottom: 0px;
+    @media only screen and (max-width: 765px) {
+        visibility:  visible;
+        bottom:  ${props => props.bannerVisible ? "0px" : "-999px"};
     }
 `;
 
