@@ -26,7 +26,7 @@ import NotFound from "./../NotFound/NotFound.js";
 import PrivateRoute from "./../PrivateRoute.js";
 
 //Import styled components
-import { StyledContainer, StyledToastContainer } from "./App_StyledComponents.js";
+import { GlobalStyles, StyledContainer, StyledToastContainer } from "./App_StyledComponents.js";
 
 //TODO: Make list for student portal
 //TODO: Fix Dashboard "digital" typon on quick links buttons
@@ -324,14 +324,17 @@ class App extends Component {
 
     console.log("defaultURL:\t" + defaultURL);
 
-    const showPage = false;
     return (
       <StyledContainer 
-        fluid={true} 
+        fluid             = { true } 
         containerStyle    = { this.state.containerStyle} 
         districtPosition  = { this.state.title}
         renderAsStudent   = { this.state.renderAsStudent}
       >
+        <GlobalStyles
+          districtPosition  = { this.state.title}
+          renderAsStudent   = { this.state.renderAsStudent}
+        />
         <StyledToastContainer
           position          = "top-right"
           autoClose         = { 1200 }
