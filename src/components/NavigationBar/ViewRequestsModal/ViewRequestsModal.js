@@ -260,7 +260,11 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 setRequestsType     =   { setRequestsType }
             />
                 
-            <ReqRectContainer className="view-request-modal-req-rect-container">            
+            <ReqRectContainer 
+                className           =   "view-request-modal-req-rect-container"
+                districtPosition    =   { districtPosition }
+                renderAsStudent     =   { renderAsStudent }
+            >            
                 <SkeletonTheme 
                     color           = {
                                         districtPosition ?

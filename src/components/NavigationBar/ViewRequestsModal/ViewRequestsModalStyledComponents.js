@@ -71,7 +71,40 @@ const ReqRectContainer = styled("main")`
     width: 100%;
     height: 316px;
 
-    overflow-y: scroll;
+    overflow-y: auto;
+
+    scrollbar-color:  #B41A1F white;
+    scrollbar-width: auto;
+   
+   &::-webkit-scrollbar {
+      width: 12px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 10px;
+      background-color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F white": "#1E6C93 white"
+                                    : "#B41A1F white"
+        };
+
+    }
+ 
+  /*  Whole Scrollbar */
+  &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 5px;
+      background-color: white;
+  }
+  
+  /*  Actual Scrollbar */
+  &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+      background-color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F": "#1E6C93"
+                                    : "#B41A1F"
+        };
+    }
 `;
 
 const CloseButton = styled('button')`
@@ -213,7 +246,7 @@ const TitleFilterContainer = styled("div")`
     justify-content: center;
     align-items: center;
 
-    overflow-y: scroll;
+    overflow-y: hidden;
 
     width: 85%;
 `;
