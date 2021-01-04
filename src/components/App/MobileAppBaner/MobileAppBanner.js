@@ -24,8 +24,6 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
             setHideOverflow(true);
             document.body.classList.add("no-vertical-scroll"); 
         }   
-
-        console.log("screenWidth:\t", width);
     }, [ width ]);
 
     return (
