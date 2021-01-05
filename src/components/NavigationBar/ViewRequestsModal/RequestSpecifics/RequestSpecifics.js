@@ -90,38 +90,15 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     districtPosition    =   { districtPosition }
                 /> */}
 
-                <Content className="request-rectangle-content">
-                    {/* <IconSubSection 
-                        className   =   "request-rectangle-subsection-icon"
-                        width       =   "6%"
-                        alignItems  =   "flex-start"
-                    >
-                        {
-                            isLoading ? (
-                                <TicketTypeCircleSkeleton
-                                    circle  =   { true }
-                                    width   =   { 20  }
-                                    height  =   { 20 }
-                                />
-                            ) : (
-                                <FAIconStyled
-                                    className           =   "view-request-type-icon"
-                                    districtPosition    =   { districtPosition.toLowerCase() }
-                                    color               =   "white"
-                                    icon                =   { getFAIcon() }
-                                />
-                            )
-                        }   
-                    </IconSubSection> */}
-
+                <Content className={`request-#${id}-ticket-content`}>
                     <SubSection
-                        className   =   "request-rectangle-subsection"
+                        className   =   {`request-#${id}-ticket-subsection`}
                         width       =   { `${((13/19)*100).toString()}%`}
                         alignItems  =   "flex-start"
 
                     >
                         <RequestDescription
-                                className           =   "request-rectangle-description"
+                                className           =   {`request-#${id}-ticket-description`}
                                 districtPosition    =   { districtPosition.toLowerCase() }
                                 as                  =   "p"
                         >
