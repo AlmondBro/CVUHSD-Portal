@@ -13,7 +13,7 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
     let screenDimensions                    = useWindowSize();
 
 
-    let { width, height } = screenDimensions;
+    let { width } = screenDimensions;
     /*
         TODO: Do not like this imperative way of removing the body tag's overflow. 
         Figure out a way with using styled-component's global style 
