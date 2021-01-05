@@ -2,16 +2,18 @@ import React, { Fragment, useState, useEffect } from 'react';
 
 import { DarkOverlay, Container, HeaderTitle, ViewOptionContainer, ViewOptionLink, ViewOptionImage, FAIconStyled, ViewOptionText, Button } from './MobileAppBannerStyledComponents.js';
 
-import { faChrome } from '@fortawesome/free-brands-svg-icons';
+import { faChrome, faSafari } from '@fortawesome/free-brands-svg-icons';
 
-import { useWindowSize } from './../../../utilityFunctions.js';
+import { useWindowSize, isSafari, isChromeBrowser } from './../../../utilityFunctions.js';
 
 const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hideOverflow}) => {
 
     let [ bannerVisible, setBannerVisible ] = useState(false);
-    let screenDimensions = useWindowSize();
-    let { width, height } = screenDimensions;
+    let [ screenIcon, setScreenIcon ]       = useState(faSafari);
+    let screenDimensions                    = useWindowSize();
 
+
+    let { width, height } = screenDimensions;
     /*
         TODO: Do not like this imperative way of removing the body tag's overflow. 
         Figure out a way with using styled-component's global style 
@@ -45,6 +47,15 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
 
             document.body.classList.remove("no-vertical-scroll"); 
         }   
+
+        if (isSafari) {
+           setScreenIcon(faSafari);
+        } 
+        
+        if (isChromeBrowser) {
+            setScreenIcon(faChrome);
+        }
+    
     }, [ width ]);
 
 
@@ -76,7 +87,7 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
 
                         districtPosition      = { districtPosition }
                         renderAsStudent       = { renderAsStudent }
-                        icon                  = { faChrome }
+                        icon                  = { screenIcon }
 
                     />
                 
