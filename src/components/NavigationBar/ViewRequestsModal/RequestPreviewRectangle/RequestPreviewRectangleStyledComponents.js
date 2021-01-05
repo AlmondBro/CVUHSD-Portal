@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Container = styled("div")`
-    /* cursor: pointer; */
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
