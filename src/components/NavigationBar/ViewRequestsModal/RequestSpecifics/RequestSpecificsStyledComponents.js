@@ -312,8 +312,9 @@ let ConversationsOuterContainer = styled("div")`
 `;
 
 const ConvoReplyButtonContainer = styled("div")`
-    /* position: absolute;
-    bottom: 0; */
+    position: ${props => props.showConvos ? "relative" : "absolute"};
+    /* bottom: 0; */
+    top: ${props => props.showConvos ? "0%" : "75%"};
 
     display: flex;
     flex-direction: row;
@@ -322,10 +323,14 @@ const ConvoReplyButtonContainer = styled("div")`
 
     padding: 0% 5%;
     padding-top: 5px;
+
+    transition: 250ms top ease-in-out;
 `;
 
 
 const ConversationsButton = styled("button")`
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -356,19 +361,23 @@ const ReplyButton = styled(ConversationsButton)`
 `;
 
 const SingleConvosContainer = styled("div")`
+    visibility: ${props => props.showConvos ? "visible" : "hidden"};
+
     margin-top: 5px; 
     width: 100%;
 
-    max-height: 280px;
+    max-height: ${props => props.showConvos ? "280px" : "0px"};
 
     overflow-y: scroll;
 
-        /* Firefox properties to target the scrollbar color */
-        scrollbar-color:  ${ props => props.districtPosition ?
-                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
-        } !important;
+    transition: 450ms max-height ease-in-out;
+    transition-delay: 150ms;
+    /* Firefox properties to target the scrollbar color */
+    scrollbar-color:  ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                        "#B41A1F white": "#1E6C93 white"
+                                : "#B41A1F white"
+    } !important;
     scrollbar-width: 1px !important;
    
     /* Chrome/webkit browsers to target the scrollbar color */

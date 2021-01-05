@@ -8,7 +8,7 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 
 const Container = styled("article")`
     position: relative;
-
+    
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -26,7 +26,7 @@ const Container = styled("article")`
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
                                           "rgba(147,30, 29, 0.42)": "rgba(30,108, 147, 0.42)"
                                     : "rgba(147,30, 29, 0.42)"
-            };
+                            };
     @media only screen and (max-width: 453px) {
         display: flex;
         flex-direction: column;

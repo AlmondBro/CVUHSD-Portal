@@ -6,13 +6,16 @@ import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLef
 //Impor styled components
 import { Container, SubSection, ReqSkeletonContainer, RequestDescription, TicketMetaData, MetaDataContainer,  FAIconStyled, DateTime, Divider } from './SingleConvoStyledComponents.js';
 
-const SingleConvo = ({id, districtPosition, renderAsStudent}) => {
+const SingleConvo = ({id, districtPosition, renderAsStudent, showConvos}) => {
     const isLoading = false;
     return (
         <Container 
             className           =   {`#${id}-single-convo-container`}
+
             districtPosition    =   { districtPosition.toLowerCase() }
             renderAsStudent     =   { renderAsStudent }
+
+            showConvos          =   { showConvos }
         >
             <SubSection
                 className   =   {`request-#${id}-ticket-subsection`}

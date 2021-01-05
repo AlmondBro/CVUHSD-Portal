@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 import Skeleton from 'react-loading-skeleton';
@@ -17,6 +17,8 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
 
     const status = "Open";
     let subject, description, time, date = "test";
+
+    let [ showConvos, setShowConvos ] = useState(false);
 
     const getFAIcon = () => {
         let faIcon;
@@ -238,18 +240,22 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
 
                         <ConvoReplyButtonContainer 
                             className           =   {`request-#${id}-convo-button-container`}
+
+                            showConvos          =   { showConvos }
                         >
                             <ConversationsButton
                                 className           =   {`request-#${id}-convo-button`}
 
                                 districtPosition    =   { districtPosition.toLowerCase() }
                                 renderAsStudent     =   { renderAsStudent }
+
+                                onClick             =   { () => setShowConvos(!showConvos)}
                             >
                                 <FAIconStyled
                                     className           =   {`request-#${id}-convo-eye-icon`}
                                     districtPosition    =   { districtPosition.toLowerCase() }
                                     renderAsStudent     =   { renderAsStudent }
-                                    icon                =   { faEye }
+                                    icon                =   { showConvos ? faEye : faEyeSlash }
                                     color               =   "white"
                                     fontSize            =   "1.15em"
                                 />
@@ -277,8 +283,11 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                         
                         <SingleConvosContainer
                             className           =   {`request-#${id}-single-convos-container`}
+                            
                             districtPosition    =   { districtPosition.toLowerCase() }
                             renderAsStudent     =   { renderAsStudent }
+
+                            showConvos          =   { showConvos }
                         >
                             <SingleConvo
                                 districtPosition    =   { districtPosition.toLowerCase() }
