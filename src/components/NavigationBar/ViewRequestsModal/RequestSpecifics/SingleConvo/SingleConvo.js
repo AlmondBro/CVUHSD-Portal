@@ -10,7 +10,7 @@ const SingleConvo = ({id, districtPosition, renderAsStudent}) => {
     const isLoading = false;
     return (
         <Container 
-            className={`#${id}-single-convo-container`}
+            className           =   {`#${id}-single-convo-container`}
             districtPosition    =   { districtPosition.toLowerCase() }
             renderAsStudent     =   { renderAsStudent }
         >

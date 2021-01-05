@@ -24,8 +24,8 @@ const Container = styled("article")`
     border-radius: 0px;
     border-bottom: 1px solid  ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
-                                          "#931E1D": "#1E6C93"
-                                    : "#931E1D"
+                                          "rgba(147,30, 29, 0.42)": "rgba(30,108, 147, 0.42)"
+                                    : "rgba(147,30, 29, 0.42)"
             };
     @media only screen and (max-width: 453px) {
         display: flex;
