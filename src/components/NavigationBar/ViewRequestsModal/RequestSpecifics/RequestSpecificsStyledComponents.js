@@ -4,6 +4,8 @@ import Skeleton from 'react-loading-skeleton';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { SkeletonTheme } from 'react-loading-skeleton';
+
 const Container = styled("div")`
     display: flex;
     flex-direction: column;
@@ -118,6 +120,25 @@ const RequestTitle = styled("h3")`
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
             };
+`;
+
+const ReqSkeletonContainer = styled("div")`
+    width: 100%;
+    max-height: 120px;
+    overflow-y: hidden;
+
+    span {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+    }
+
+    span span {
+        width: 100%;
+
+        margin: 5px 0px;
+    }
 `;
 
 const RequestDescription = styled(RequestTitle)`
@@ -269,4 +290,7 @@ const MetaDataContainer = styled("section")`
     }
 `;
 
-export { BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+const SkeletonThemeStyled = styled(SkeletonTheme)`
+    width: 100% !important;
+`;
+export { BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };

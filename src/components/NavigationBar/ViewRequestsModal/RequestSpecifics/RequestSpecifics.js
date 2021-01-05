@@ -7,7 +7,7 @@ import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLef
 import undefsafe from 'undefsafe';
 
 //import styled components
-import { BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestSpecificsStyledComponents.js';
+import { SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const { id } = useParams();
@@ -40,10 +40,23 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
         return faIcon;
     };
 
-    const isLoading = false;
+    const isLoading = true;
 
     return (
-        <Fragment>
+        <SkeletonThemeStyled 
+            color           = {
+                                districtPosition ?
+                                    ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                        "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+                                    : "rgba(147, 30, 29, 0.1)" 
+                                }
+            highlightColor  = {
+                                    districtPosition ?
+                                    ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                        "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+                                    : "rgba(147, 30, 29, 0.1)" 
+            }
+        > 
             <HeaderContainer className={`request-#${id}-header-container`}>
                 <BackButton
                     className   =   {`request-#${id}-back-button`}
@@ -97,25 +110,30 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                         alignItems  =   "flex-start"
 
                     >
-                        <RequestDescription
-                                className           =   {`request-#${id}-ticket-description`}
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                                as                  =   "p"
-                        >
-                            {
-                                isLoading ? (
+                        {
+                            isLoading ? (
+                                <ReqSkeletonContainer>
                                     <Skeleton
-                                        width = "85%"
+                                        width   =   { "auto" }
+                                        count   =   { 10 }
                                     />
-                                ) : `
+                                </ReqSkeletonContainer>
+                             
+                            ) : (
+                                <RequestDescription
+                                    className           =   {`request-#${id}-ticket-description`}
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    as                  =   "p"
+                                >
                                     Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
                                     says that the password or username is incorrect, or that I need to contact my district administrator. 
                                     I am using the same exact credentials that I use to log into all of my other school-related things 
                                     (Canvas, DeltaMath, etc.) but it still won’t let me log in. I’ve been having this issue since the 
                                     second semester of 9th grade. Help would be greatly appreciated. Thank you :)
-                                `
-                            }  
-                        </RequestDescription>
+                                </RequestDescription>
+                            )
+                        }
+                     
                     </SubSection>
 
                     <TicketMetaData
@@ -210,7 +228,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     </TicketMetaData>
                 </Content>
         </Container>  
-      </Fragment>
+      </SkeletonThemeStyled>
     ); //end return()
 }; //end RequestSpecifics()
 
