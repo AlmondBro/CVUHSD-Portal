@@ -300,14 +300,20 @@ const SkeletonThemeStyled = styled(SkeletonTheme)`
 `;
 
 let ConversationsOuterContainer = styled("div")`
+    position: relative;
+    
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 
     width: 100%;
+    height: 82%;
 `;
 
 const ConvoReplyButtonContainer = styled("div")`
+    position: absolute;
+    bottom: 0;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;

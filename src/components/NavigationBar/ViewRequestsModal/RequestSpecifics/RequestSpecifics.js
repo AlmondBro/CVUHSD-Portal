@@ -232,7 +232,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
 
                     <ConversationsOuterContainer
                             className           =   {`request-#${id}-conversations-outer-container`}
-                        >
+                    >
 
                         <ConvoReplyButtonContainer 
                             className           =   {`request-#${id}-convo-button-container`}
