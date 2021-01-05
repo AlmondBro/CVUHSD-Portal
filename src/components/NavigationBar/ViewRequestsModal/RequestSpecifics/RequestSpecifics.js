@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import Skeleton from 'react-loading-skeleton';
-import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import undefsafe from 'undefsafe';
 
 //import styled components
-import { HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestSpecificsStyledComponents.js';
+import { BackButton, BackArrowIcon, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const { id } = useParams();
+    const history = useHistory();
 
     const status = "Open";
     let subject, description, time, date = "test";
@@ -44,13 +45,27 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     return (
         <Fragment>
             <HeaderContainer className={`request-#${id}-header-container`}>
+                <BackButton
+                    className   =   {`request-#${id}-back-button`}
+                    onClick     = { () => history.goBack() }
+                >
+                    <BackArrowIcon
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        renderAsStudent     =   { renderAsStudent }
+                        icon                =   { faArrowLeft }
+                        fontSize            =   "1.15em"
+                    />
+                </BackButton>
+              
                 <FAIconStyled
+                    className           =   {`request-#${id}-ticket-icon`}
                     districtPosition    =   { districtPosition.toLowerCase() }
                     renderAsStudent     =   { renderAsStudent }
                     icon                =   { faTicketAlt }
                     fontSize            =   "1.15em"
                 />
                 <TicketNumberTitle 
+                    className={`request-#${id}-ticket-number-title`}
                     districtPosition    =   { districtPosition.toLowerCase() }
                     renderAsStudent     =   { renderAsStudent }
                     as                  =   "h4"
@@ -59,14 +74,12 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                 </TicketNumberTitle>
 
                 <ModalTitle 
+                    className={`request-#${id}-ticket-title`}
                     districtPosition    =   { districtPosition.toLowerCase() }
                     renderAsStudent     =   { renderAsStudent }
                 >
                     PowerSchool Log-in Help
                 </ModalTitle>
-                
-                
-                
             </HeaderContainer>
             <Container 
                 className   =   "request-rectangle-container" 

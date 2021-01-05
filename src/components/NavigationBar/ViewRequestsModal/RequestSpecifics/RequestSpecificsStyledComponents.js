@@ -154,7 +154,7 @@ let HeaderContainer = styled("header")`
 
 const FAIconStyled = styled(FontAwesomeIcon)`
     display: inline-block;
-   color: ${ props => props.districtPosition ?
+    color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
@@ -173,6 +173,17 @@ const FAIconStyled = styled(FontAwesomeIcon)`
    }
 `;
 
+const BackButton = styled("button")`
+    border: 0px;
+    background-color: transparent;
+    margin-right: auto;
+`;
+
+const BackArrowIcon = styled(FAIconStyled)`
+    margin-left: 0px;
+    margin-right: 0px;
+`;
+
 const TicketTypeCircleSkeleton = styled(Skeleton)`
     margin-left: 20px;
 `;
@@ -189,7 +200,8 @@ const ModalTitle = styled('h3')`
     font-weight: bold;
 
     margin: 0px;
-    margin-bottom: 10px;
+    margin-right: auto;
+    margin-bottom: 0px;
 
     padding: 0px;
 `; 
@@ -201,4 +213,4 @@ const TicketNumberTitle = styled(ModalTitle)`
     margin-right: 10px;
 `;
 
-export { HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+export { BackButton, BackArrowIcon, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
