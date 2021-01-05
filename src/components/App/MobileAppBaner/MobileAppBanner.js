@@ -120,7 +120,7 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
                 
                     <ViewOptionImage 
                         className="mobile-app-banner-view-option-image"
-                        src="/images/wp-portal-logo-blue-white-interior.svg"
+                        src={`/images/wp-portal-logo-${districtPosition ? ( (districtPosition.toLowerCase() === "student") || renderAsStudent) ? "red" : "blue"  : "red"}-white-interior.svg`}
 
                         districtPosition      = { districtPosition }
                         renderAsStudent       = { renderAsStudent }
