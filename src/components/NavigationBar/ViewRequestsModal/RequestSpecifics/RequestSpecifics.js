@@ -284,6 +284,10 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                 districtPosition    =   { districtPosition.toLowerCase() }
                                 renderAsStudent     =   { renderAsStudent }
                             />
+                               <SingleConvo
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
+                            />
                         </SingleConvosContainer>
                     </ConversationsOuterContainer>
 

@@ -14,22 +14,19 @@ const Container = styled("article")`
     justify-content: flex-start;
     align-items: baseline;
 
-    width: 100%;
+    width: 90%;
 
-    margin: 0;
+    margin: 0 auto;
+    margin-bottom: 15px;
 
-    border-radius: 10px;
+    padding: 0%;
 
-    padding: 0% 5%;
-/* 
-    :hover, :active  {
-        background-color: ${ props => props.districtPosition ?
+    border-radius: 0px;
+    border-bottom: 1px solid  ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
-                                          "rgba(30,108, 147, 0.07)": "rgba(147,30, 29, 0.07)"
-                                    : "rgba(30,108, 147, 0.07)"
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
             };
-    } */
-
     @media only screen and (max-width: 453px) {
         display: flex;
         flex-direction: column;

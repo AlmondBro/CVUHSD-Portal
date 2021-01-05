@@ -4,17 +4,20 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faUserTag, faEyeSlash, faEye, faReply, faLock } from '@fortawesome/free-solid-svg-icons';
 
 //Impor styled components
-import { Container, SubSection, ReqSkeletonContainer, RequestDescription, TicketMetaData, MetaDataContainer,  FAIconStyled, DateTime } from './SingleConvoStyledComponents.js';
+import { Container, SubSection, ReqSkeletonContainer, RequestDescription, TicketMetaData, MetaDataContainer,  FAIconStyled, DateTime, Divider } from './SingleConvoStyledComponents.js';
 
 const SingleConvo = ({id, districtPosition, renderAsStudent}) => {
     const isLoading = false;
     return (
-        <Container className={`request-#${id}-ticket-content`}>
+        <Container 
+            className={`#${id}-single-convo-container`}
+            districtPosition    =   { districtPosition.toLowerCase() }
+            renderAsStudent     =   { renderAsStudent }
+        >
             <SubSection
                 className   =   {`request-#${id}-ticket-subsection`}
                 width       =   { `${((13/19)*100).toString()}%`}
                 alignItems  =   "flex-start"
-
             >
                 {
                     isLoading ? (
@@ -103,6 +106,8 @@ const SingleConvo = ({id, districtPosition, renderAsStudent}) => {
                     </DateTime>
                 </MetaDataContainer>
             </TicketMetaData>
+            {/* <Divider/> */}
+
         </Container>
     ); //end return statement
 }; 
