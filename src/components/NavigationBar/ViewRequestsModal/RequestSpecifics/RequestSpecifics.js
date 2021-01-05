@@ -2,12 +2,12 @@ import React, { Fragment } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 import Skeleton from 'react-loading-skeleton';
-import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faUserTag } from '@fortawesome/free-solid-svg-icons';
 
 import undefsafe from 'undefsafe';
 
 //import styled components
-import { BackButton, BackArrowIcon, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestSpecificsStyledComponents.js';
+import { BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const { id } = useParams();
@@ -147,44 +147,81 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                         alignItems      =   "flex-end"
                         as              =   "aside" 
                     >
-                        <DateTime
-                            className           =   "request-rectangle-date-time"
-                            districtPosition    =   { districtPosition.toLowerCase() }
-                            as                  =   "time"
+                        <MetaDataContainer
+                            className   =   {`request-#${id}-metadata-container`}
                         >
-                            {
-                                isLoading ? (
-                                    <Skeleton
-                                        width = {40}
-                                    />
-                                ) : "Open"
-                            }  
-                        </DateTime>
-                        <DateTime
-                            className           =   "request-rectangle-date-time"
-                            districtPosition    =   { districtPosition.toLowerCase() }
-                            as                  =   "time"
+                            <FAIconStyled
+                                className           =   {`request-#${id}-metadata-icon`}
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
+                                icon                =   { faCircle }
+                                fontSize            =   "1.15em"
+                            />
+                            <DateTime
+                                className           =   "request-rectangle-date-time"
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                as                  =   "time"
+                            >
+                                {
+                                    isLoading ? (
+                                        <Skeleton
+                                            width = {40}
+                                        />
+                                    ) : "Open"
+                                }  
+                            </DateTime>
+                        </MetaDataContainer>
+                    
+                        
+                        <MetaDataContainer
+                            className   =   {`request-#${id}-metadata-container`}
                         >
-                            {
-                                isLoading ? (
-                                    <Skeleton
-                                        width = {40}
-                                    />
-                                ) : "12/15/2020 — 12:51 PM"
-                            }  
-                        </DateTime>
-                        <DateTime
-                            className           =   "request-rectangle-date-time"
-                            districtPosition    =   { districtPosition.toLowerCase() }
+                            <FAIconStyled
+                                className           =   {`request-#${id}-metadata-icon`}
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
+                                icon                =   { faClock }
+                                fontSize            =   "1.15em"
+                            />
+                            <DateTime
+                                className           =   "request-rectangle-date-time"
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                as                  =   "time"
+                            >
+                                {
+                                    isLoading ? (
+                                        <Skeleton
+                                            width = {40}
+                                        />
+                                    ) : "12/15/2020 — 12:51 PM"
+                                }  
+                            </DateTime>
+                            </MetaDataContainer>
+
+  
+                        <MetaDataContainer
+                            className   =   {`request-#${id}-metadata-container`}
                         >
-                            {
-                                isLoading ? (
-                                    <Skeleton
-                                        width = {80}
-                                    />
-                                ) : "12/22/2020"
-                            }  
-                        </DateTime>
+                            <FAIconStyled
+                                className           =   {`request-#${id}-metadata-icon`}
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
+                                icon                =   { faUserTag }
+                                fontSize            =   "1.15em"
+                            />
+                            <DateTime
+                                className           =   "request-rectangle-date-time"
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                            >
+                                {
+                                    isLoading ? (
+                                        <Skeleton
+                                            width = {80}
+                                        />
+                                    ) : "Juan David Lopez"
+                                }  
+                            </DateTime>
+                        </MetaDataContainer>
                     </TicketMetaData>
                 </Content>
         </Container>  

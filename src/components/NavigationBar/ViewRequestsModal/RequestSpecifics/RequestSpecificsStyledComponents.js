@@ -256,4 +256,18 @@ const TicketNumberTitle = styled(ModalTitle)`
     margin-right: 10px;
 `;
 
-export { BackButton, BackArrowIcon, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+const MetaDataContainer = styled("section")`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    margin-bottom: 15px;
+    padding-left: 15px;
+
+    :last-child {
+        margin-bottom: 0px;
+    }
+`;
+
+export { BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
