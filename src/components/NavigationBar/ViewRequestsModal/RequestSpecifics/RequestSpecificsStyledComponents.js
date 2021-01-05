@@ -217,7 +217,8 @@ let HeaderContainer = styled("header")`
 
 const FAIconStyled = styled(FontAwesomeIcon)`
     display: inline-block;
-    color: ${ props => props.districtPosition ?
+    color: ${ props => props.color ? props.color :
+                        props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
@@ -293,4 +294,53 @@ const MetaDataContainer = styled("section")`
 const SkeletonThemeStyled = styled(SkeletonTheme)`
     width: 100% !important;
 `;
-export { BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+
+let ConversationsOuterContainer = styled("div")`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    width: 100%;
+`;
+
+const ConvoReplyButtonContainer = styled("div")`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    padding: 0% 5%;
+`;
+
+
+const ConversationsButton = styled("button")`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
+            };
+
+    border: 0px;
+    border-radius: 10px;
+`;
+
+const ConversationsButtonTitle = styled("h4")`
+    font-size: 1.3em;
+    font-weight: bold;
+
+    color: white;
+
+    margin: 0;
+    padding: 0;
+`;
+
+const ReplyButton = styled(ConversationsButton)`
+    background-color: transparent;
+`;
+
+export { ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };

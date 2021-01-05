@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
-import Skeleton from 'react-loading-skeleton';
-import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faUserTag } from '@fortawesome/free-solid-svg-icons';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faUserTag, faEyeSlash, faEye, faReply } from '@fortawesome/free-solid-svg-icons';
 
 import undefsafe from 'undefsafe';
 
 //import styled components
-import { SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
+import { ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const { id } = useParams();
@@ -43,7 +43,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const isLoading = true;
 
     return (
-        <SkeletonThemeStyled 
+        <SkeletonTheme 
             color           = {
                                 districtPosition ?
                                     ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
@@ -56,6 +56,8 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                         "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
                                     : "rgba(147, 30, 29, 0.1)" 
             }
+
+            style={{width: "100px"}}
         > 
             <HeaderContainer className={`request-#${id}-header-container`}>
                 <BackButton
@@ -227,8 +229,46 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                         </MetaDataContainer>
                     </TicketMetaData>
                 </Content>
+
+                <ConversationsOuterContainer
+                        className           =   {`request-#${id}-conversations-outer-container`}
+                    >
+
+                    <ConvoReplyButtonContainer>
+                        <ConversationsButton
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
+                        >
+                            <FAIconStyled
+                                className           =   {`request-#${id}-metadata-icon`}
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
+                                icon                =   { faEye }
+                                color               =   "white"
+                                fontSize            =   "1.15em"
+                            />
+                            <ConversationsButtonTitle>
+                                Conversations
+                            </ConversationsButtonTitle>
+                        </ConversationsButton>
+
+                        <ReplyButton
+                            className  =   {`request-#${id}-reply-button`}
+                        
+                        >
+                            <FAIconStyled
+                                    className           =   {`request-#${id}-reply-icon`}
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+                                    icon                =   { faReply }
+                                    fontSize            =   "1.15em"
+                            />
+                        </ReplyButton>
+                    </ConvoReplyButtonContainer>
+                    
+                </ConversationsOuterContainer>
         </Container>  
-      </SkeletonThemeStyled>
+      </SkeletonTheme>
     ); //end return()
 }; //end RequestSpecifics()
 
