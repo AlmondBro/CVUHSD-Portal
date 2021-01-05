@@ -91,7 +91,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                 /> */}
 
                 <Content className="request-rectangle-content">
-                    <IconSubSection 
+                    {/* <IconSubSection 
                         className   =   "request-rectangle-subsection-icon"
                         width       =   "6%"
                         alignItems  =   "flex-start"
@@ -112,43 +112,38 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                 />
                             )
                         }   
-                    </IconSubSection>
+                    </IconSubSection> */}
 
                     <SubSection
                         className   =   "request-rectangle-subsection"
-                        width       =   "53%"
+                        width       =   { `${((13/19)*100).toString()}%`}
                         alignItems  =   "flex-start"
 
                     >
-                        <RequestTitle 
-                                className   =   "request-rectangle-req-title"
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                        >
-                            {
-                                isLoading ? (
-                                    <Skeleton
-                                        width = {300}
-                                    />
-                                ) : undefsafe(subject, "") || "Request Subject"
-                            }  
-                        </RequestTitle>
                         <RequestDescription
                                 className           =   "request-rectangle-description"
                                 districtPosition    =   { districtPosition.toLowerCase() }
+                                as                  =   "p"
                         >
                             {
                                 isLoading ? (
                                     <Skeleton
-                                        width = {200}
+                                        width = "85%"
                                     />
-                                ) : undefsafe(description, "") || "I am working from home and do not have my contact info..."
+                                ) : `
+                                    Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
+                                    says that the password or username is incorrect, or that I need to contact my district administrator. 
+                                    I am using the same exact credentials that I use to log into all of my other school-related things 
+                                    (Canvas, DeltaMath, etc.) but it still won’t let me log in. I’ve been having this issue since the 
+                                    second semester of 9th grade. Help would be greatly appreciated. Thank you :)
+                                `
                             }  
                         </RequestDescription>
                     </SubSection>
 
                     <TimeDateSubSection
                         className       =   "request-rectangle-subsection-time-date"
-                        width           =   "35%"
+                        width       =   { `${((6/19)*100).toString()}%`}
                         alignItems      =   "flex-end"
                         as              =   "aside" 
                     >

@@ -37,9 +37,11 @@ const Content = styled("article")`
     width: 100%;
 
     margin: 0;
-    margin-top: 10px;
+    margin-top: 15px;
 
     border-radius: 10px;
+
+    padding: 0% 5%;
 
     :hover, :active  {
         background-color: ${ props => props.districtPosition ?
@@ -47,10 +49,6 @@ const Content = styled("article")`
                                           "rgba(30,108, 147, 0.07)": "rgba(147,30, 29, 0.07)"
                                     : "rgba(30,108, 147, 0.07)"
             };
-        
-        
-        /*  */
-        padding: 0;
     }
 
     @media only screen and (max-width: 453px) {
@@ -121,11 +119,8 @@ const RequestTitle = styled("h3")`
 `;
 
 const RequestDescription = styled(RequestTitle)`
-    font-size: 0.9em;
-
-    /* padding-left: 10px; */
-
-    opacity: 0.42;
+    font-size: 1.1em;
+    font-weight: normal;
 `;
 
 const DateTime = styled("h4")`
@@ -150,6 +145,8 @@ let HeaderContainer = styled("header")`
     align-items: center;
 
     width: 100%;
+
+    padding: 0% 2%;
 `;
 
 const FAIconStyled = styled(FontAwesomeIcon)`
