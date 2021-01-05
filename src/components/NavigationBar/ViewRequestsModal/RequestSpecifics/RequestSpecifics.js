@@ -43,22 +43,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const isLoading = true;
 
     return (
-        <SkeletonTheme 
-            color           = {
-                                districtPosition ?
-                                    ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
-                                        "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
-                                    : "rgba(147, 30, 29, 0.1)" 
-                                }
-            highlightColor  = {
-                                    districtPosition ?
-                                    ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
-                                        "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
-                                    : "rgba(147, 30, 29, 0.1)" 
-            }
-
-            style={{width: "100px"}}
-        > 
+        <Fragment> 
             <HeaderContainer className={`request-#${id}-header-container`}>
                 <BackButton
                     className   =   {`request-#${id}-back-button`}
@@ -105,170 +90,186 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     districtPosition    =   { districtPosition }
                 /> */}
 
-                <Content className={`request-#${id}-ticket-content`}>
-                    <SubSection
-                        className   =   {`request-#${id}-ticket-subsection`}
-                        width       =   { `${((13/19)*100).toString()}%`}
-                        alignItems  =   "flex-start"
+                <SkeletonThemeStyled 
+                    color           = {
+                                        districtPosition ?
+                                            ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                                "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+                                            : "rgba(147, 30, 29, 0.1)" 
+                                        }
+                    highlightColor  = {
+                                            districtPosition ?
+                                            ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                                "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+                                            : "rgba(147, 30, 29, 0.1)" 
+                    }
+                > 
 
-                    >
-                        {
-                            isLoading ? (
-                                <ReqSkeletonContainer>
-                                    <Skeleton
-                                        width   =   { "auto" }
-                                        count   =   { 10 }
-                                    />
-                                </ReqSkeletonContainer>
-                             
-                            ) : (
-                                <RequestDescription
-                                    className           =   {`request-#${id}-ticket-description`}
-                                    districtPosition    =   { districtPosition.toLowerCase() }
-                                    as                  =   "p"
-                                >
-                                    Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
-                                    says that the password or username is incorrect, or that I need to contact my district administrator. 
-                                    I am using the same exact credentials that I use to log into all of my other school-related things 
-                                    (Canvas, DeltaMath, etc.) but it still won’t let me log in. I’ve been having this issue since the 
-                                    second semester of 9th grade. Help would be greatly appreciated. Thank you :)
-                                </RequestDescription>
-                            )
-                        }
-                     
-                    </SubSection>
+                    <Content className={`request-#${id}-ticket-content`}>
+                        <SubSection
+                            className   =   {`request-#${id}-ticket-subsection`}
+                            width       =   { `${((13/19)*100).toString()}%`}
+                            alignItems  =   "flex-start"
 
-                    <TicketMetaData
-                        className       =   "request-rectangle-ticket-metadata"
-                        width       =   { `${((6/19)*100).toString()}%`}
-                        alignItems      =   "flex-end"
-                        as              =   "aside" 
-                    >
-                        <MetaDataContainer
-                            className   =   {`request-#${id}-metadata-container`}
                         >
-                            <FAIconStyled
-                                className           =   {`request-#${id}-metadata-icon`}
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                                renderAsStudent     =   { renderAsStudent }
-                                icon                =   { faCircle }
-                                fontSize            =   "1.15em"
-                            />
-                            <DateTime
-                                className   =   {`request-#${id}-metadata-status`}
-
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                                renderAsStudent     =   { renderAsStudent }
-
-                                as                  =   "time"
-                            >
-                                {
-                                    isLoading ? (
+                            {
+                                isLoading ? (
+                                    <ReqSkeletonContainer>
                                         <Skeleton
-                                            width = {40}
+                                            width   =   { "auto" }
+                                            count   =   { 10 }
                                         />
-                                    ) : "Open"
-                                }  
-                            </DateTime>
-                        </MetaDataContainer>
-                    
+                                    </ReqSkeletonContainer>
+                                
+                                ) : (
+                                    <RequestDescription
+                                        className           =   {`request-#${id}-ticket-description`}
+                                        districtPosition    =   { districtPosition.toLowerCase() }
+                                        as                  =   "p"
+                                    >
+                                        Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
+                                        says that the password or username is incorrect, or that I need to contact my district administrator. 
+                                        I am using the same exact credentials that I use to log into all of my other school-related things 
+                                        (Canvas, DeltaMath, etc.) but it still won’t let me log in. I’ve been having this issue since the 
+                                        second semester of 9th grade. Help would be greatly appreciated. Thank you :)
+                                    </RequestDescription>
+                                )
+                            }
                         
-                        <MetaDataContainer
-                            className   =   {`request-#${id}-metadata-container`}
+                        </SubSection>
+
+                        <TicketMetaData
+                            className       =   "request-rectangle-ticket-metadata"
+                            width       =   { `${((6/19)*100).toString()}%`}
+                            alignItems      =   "flex-end"
+                            as              =   "aside" 
                         >
-                            <FAIconStyled
-                                className           =   {`request-#${id}-metadata-icon`}
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                                renderAsStudent     =   { renderAsStudent }
-                                icon                =   { faClock }
-                                fontSize            =   "1.15em"
-                            />
-                            <DateTime
-                                className           =   {`request-#${id}-metadata-date-time`}
-
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                                renderAsStudent     =   { renderAsStudent }
-
-                                as                  =   "time"
+                            <MetaDataContainer
+                                className   =   {`request-#${id}-metadata-container`}
                             >
-                                {
-                                    isLoading ? (
-                                        <Skeleton
-                                            width = {40}
-                                        />
-                                    ) : "12/15/2020 — 12:51 PM"
-                                }  
-                            </DateTime>
-                            </MetaDataContainer>
-
-  
-                        <MetaDataContainer
-                            className   =   {`request-#${id}-metadata-container`}
-                        >
-                            <FAIconStyled
-                                className           =   {`request-#${id}-metadata-icon`}
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                                renderAsStudent     =   { renderAsStudent }
-                                icon                =   { faUserTag }
-                                fontSize            =   "1.15em"
-                            />
-                            <DateTime
-                                className           =   {`request-#${id}-metadata-technician-name`}
-
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                                renderAsStudent     =   { renderAsStudent }
-                            >
-                                {
-                                    isLoading ? (
-                                        <Skeleton
-                                            width = {80}
-                                        />
-                                    ) : "Juan David Lopez"
-                                }  
-                            </DateTime>
-                        </MetaDataContainer>
-                    </TicketMetaData>
-                </Content>
-
-                <ConversationsOuterContainer
-                        className           =   {`request-#${id}-conversations-outer-container`}
-                    >
-
-                    <ConvoReplyButtonContainer>
-                        <ConversationsButton
-                            districtPosition    =   { districtPosition.toLowerCase() }
-                            renderAsStudent     =   { renderAsStudent }
-                        >
-                            <FAIconStyled
-                                className           =   {`request-#${id}-metadata-icon`}
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                                renderAsStudent     =   { renderAsStudent }
-                                icon                =   { faEye }
-                                color               =   "white"
-                                fontSize            =   "1.15em"
-                            />
-                            <ConversationsButtonTitle>
-                                Conversations
-                            </ConversationsButtonTitle>
-                        </ConversationsButton>
-
-                        <ReplyButton
-                            className  =   {`request-#${id}-reply-button`}
-                        
-                        >
-                            <FAIconStyled
-                                    className           =   {`request-#${id}-reply-icon`}
+                                <FAIconStyled
+                                    className           =   {`request-#${id}-metadata-icon`}
                                     districtPosition    =   { districtPosition.toLowerCase() }
                                     renderAsStudent     =   { renderAsStudent }
-                                    icon                =   { faReply }
+                                    icon                =   { faCircle }
                                     fontSize            =   "1.15em"
-                            />
-                        </ReplyButton>
-                    </ConvoReplyButtonContainer>
-                    
-                </ConversationsOuterContainer>
+                                />
+                                <DateTime
+                                    className   =   {`request-#${id}-metadata-status`}
+
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+
+                                    as                  =   "time"
+                                >
+                                    {
+                                        isLoading ? (
+                                            <Skeleton
+                                                width = {40}
+                                            />
+                                        ) : "Open"
+                                    }  
+                                </DateTime>
+                            </MetaDataContainer>
+                        
+                            
+                            <MetaDataContainer
+                                className   =   {`request-#${id}-metadata-container`}
+                            >
+                                <FAIconStyled
+                                    className           =   {`request-#${id}-metadata-icon`}
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+                                    icon                =   { faClock }
+                                    fontSize            =   "1.15em"
+                                />
+                                <DateTime
+                                    className           =   {`request-#${id}-metadata-date-time`}
+
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+
+                                    as                  =   "time"
+                                >
+                                    {
+                                        isLoading ? (
+                                            <Skeleton
+                                                width = {40}
+                                            />
+                                        ) : "12/15/2020 — 12:51 PM"
+                                    }  
+                                </DateTime>
+                                </MetaDataContainer>
+
+    
+                            <MetaDataContainer
+                                className   =   {`request-#${id}-metadata-container`}
+                            >
+                                <FAIconStyled
+                                    className           =   {`request-#${id}-metadata-icon`}
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+                                    icon                =   { faUserTag }
+                                    fontSize            =   "1.15em"
+                                />
+                                <DateTime
+                                    className           =   {`request-#${id}-metadata-technician-name`}
+
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+                                >
+                                    {
+                                        isLoading ? (
+                                            <Skeleton
+                                                width = {80}
+                                            />
+                                        ) : "Juan David Lopez"
+                                    }  
+                                </DateTime>
+                            </MetaDataContainer>
+                        </TicketMetaData>
+                    </Content>
+
+                    <ConversationsOuterContainer
+                            className           =   {`request-#${id}-conversations-outer-container`}
+                        >
+
+                        <ConvoReplyButtonContainer>
+                            <ConversationsButton
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
+                            >
+                                <FAIconStyled
+                                    className           =   {`request-#${id}-metadata-icon`}
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+                                    icon                =   { faEye }
+                                    color               =   "white"
+                                    fontSize            =   "1.15em"
+                                />
+                                <ConversationsButtonTitle>
+                                    Conversations
+                                </ConversationsButtonTitle>
+                            </ConversationsButton>
+
+                            <ReplyButton
+                                className  =   {`request-#${id}-reply-button`}
+                            
+                            >
+                                <FAIconStyled
+                                        className           =   {`request-#${id}-reply-icon`}
+                                        districtPosition    =   { districtPosition.toLowerCase() }
+                                        renderAsStudent     =   { renderAsStudent }
+                                        icon                =   { faReply }
+                                        fontSize            =   "1.15em"
+                                />
+                            </ReplyButton>
+                        </ConvoReplyButtonContainer>
+                        
+                    </ConversationsOuterContainer>
+                </SkeletonThemeStyled>
         </Container>  
-      </SkeletonTheme>
+      </Fragment>
     ); //end return()
 }; //end RequestSpecifics()
 
