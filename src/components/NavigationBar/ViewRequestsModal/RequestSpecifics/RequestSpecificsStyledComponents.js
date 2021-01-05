@@ -76,11 +76,14 @@ const SubSection = styled("article")`
     }
 `;
 
-const TimeDateSubSection = styled(SubSection)`
-     @media only screen and (max-width: 453px) {
-       order: 1;
-       margin-right: 0px;
-    }
+const TicketMetaData = styled(SubSection)`
+    height: 120px;
+    border-left: 1px solid ${ props => props.districtPosition ?
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
+                                          "rgba(30,108, 147, 0.42)": "rgba(147,30, 29, 0.42)"
+                                    : "rgba(30,108, 147, 0.42)"
+            };
+    margin-right: 10px;
 `;
 
 const IconSubSection = styled(SubSection)`
@@ -121,6 +124,49 @@ const RequestTitle = styled("h3")`
 const RequestDescription = styled(RequestTitle)`
     font-size: 1.1em;
     font-weight: normal;
+
+    max-height: 150px;
+    overflow-y: auto;
+
+    
+    /* Firefox properties to target the scrollbar color */
+    scrollbar-color:  ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F white": "#1E6C93 white"
+                                    : "#B41A1F white"
+        } !important;
+    scrollbar-width: 1px !important;
+   
+    /* Chrome/webkit browsers to target the scrollbar color */
+   &::-webkit-scrollbar {
+      width: 12px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 10px;
+      background-color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F white": "#1E6C93 white"
+                                    : "#B41A1F white"
+        };
+
+    }
+ 
+  /*  Whole Scrollbar */
+  &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 5px;
+      background-color: white;
+  }
+  
+  /*  Actual Scrollbar */
+  &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+      background-color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F": "#1E6C93"
+                                    : "#B41A1F"
+        };
+    }
 `;
 
 const DateTime = styled("h4")`
@@ -210,4 +256,4 @@ const TicketNumberTitle = styled(ModalTitle)`
     margin-right: 10px;
 `;
 
-export { BackButton, BackArrowIcon, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+export { BackButton, BackArrowIcon, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData as TimeDateSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };

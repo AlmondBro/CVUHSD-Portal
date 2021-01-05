@@ -157,7 +157,20 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                     <Skeleton
                                         width = {40}
                                     />
-                                ) : undefsafe(time, "") || "12:51"
+                                ) : "Open"
+                            }  
+                        </DateTime>
+                        <DateTime
+                            className           =   "request-rectangle-date-time"
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            as                  =   "time"
+                        >
+                            {
+                                isLoading ? (
+                                    <Skeleton
+                                        width = {40}
+                                    />
+                                ) : "12/15/2020 — 12:51 PM"
                             }  
                         </DateTime>
                         <DateTime
@@ -169,7 +182,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                     <Skeleton
                                         width = {80}
                                     />
-                                ) : undefsafe(date, "") || "12/22/2020"
+                                ) : "12/22/2020"
                             }  
                         </DateTime>
                     </TimeDateSubSection>
