@@ -153,6 +153,7 @@ const RequestDescription = styled(RequestTitle)`
     overflow-y: auto;
 
     padding-right: 20px; 
+
     /* Firefox properties to target the scrollbar color */
     scrollbar-color:  ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
@@ -301,18 +302,18 @@ const SkeletonThemeStyled = styled(SkeletonTheme)`
 
 let ConversationsOuterContainer = styled("div")`
     position: relative;
-    
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 
     width: 100%;
-    height: 82%;
+    height: 160px;
 `;
 
 const ConvoReplyButtonContainer = styled("div")`
-    position: absolute;
-    bottom: 0;
+    /* position: absolute;
+    bottom: 0; */
 
     display: flex;
     flex-direction: row;
@@ -320,6 +321,7 @@ const ConvoReplyButtonContainer = styled("div")`
     width: 100%;
 
     padding: 0% 5%;
+    padding-top: 5px;
 `;
 
 
@@ -353,4 +355,52 @@ const ReplyButton = styled(ConversationsButton)`
     background-color: transparent;
 `;
 
-export { ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+const SingleConvosContainer = styled("div")`
+    margin-top: 5px; 
+    width: 100%;
+
+    max-height: 280px;
+
+    overflow-y: scroll;
+
+        /* Firefox properties to target the scrollbar color */
+        scrollbar-color:  ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F white": "#1E6C93 white"
+                                    : "#B41A1F white"
+        } !important;
+    scrollbar-width: 1px !important;
+   
+    /* Chrome/webkit browsers to target the scrollbar color */
+   &::-webkit-scrollbar {
+      width: 12px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 10px;
+      background-color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F white": "#1E6C93 white"
+                                    : "#B41A1F white"
+        };
+
+    }
+ 
+  /*  Whole Scrollbar */
+  &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 5px;
+      background-color: white;
+  }
+  
+  /*  Actual Scrollbar */
+  &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+      background-color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F": "#1E6C93"
+                                    : "#B41A1F"
+        };
+    }
+`;
+
+export { SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };

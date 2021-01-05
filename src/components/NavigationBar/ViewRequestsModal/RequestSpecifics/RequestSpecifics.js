@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faUserTag, faEyeSlash, faEye, faReply, faLock } from '@fortawesome/free-solid-svg-icons';
+import Skeleton from 'react-loading-skeleton';
+import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faTools, faEyeSlash, faEye, faReply, faLock } from '@fortawesome/free-solid-svg-icons';
+
+import SingleConvo from './SingleConvo/SingleConvo.js';
 
 import undefsafe from 'undefsafe';
 
 //import styled components
-import { ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
+import { SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const { id } = useParams();
@@ -209,7 +211,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                     className           =   {`request-#${id}-metadata-icon`}
                                     districtPosition    =   { districtPosition.toLowerCase() }
                                     renderAsStudent     =   { renderAsStudent }
-                                    icon                =   { faUserTag }
+                                    icon                =   { faTools }
                                     fontSize            =   "1.15em"
                                 />
                                 <DateTime
@@ -273,7 +275,19 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                             </ReplyButton>
                         </ConvoReplyButtonContainer>
                         
+                        <SingleConvosContainer
+                            className           =   {`request-#${id}-single-convos-container`}
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
+                        >
+                            <SingleConvo
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
+                            />
+                        </SingleConvosContainer>
                     </ConversationsOuterContainer>
+
+                    
                 </SkeletonThemeStyled>
         </Container>  
       </Fragment>
