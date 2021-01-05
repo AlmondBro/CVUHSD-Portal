@@ -5,7 +5,6 @@ import Skeleton from 'react-loading-skeleton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Container = styled("div")`
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -42,14 +41,14 @@ const Content = styled("article")`
     border-radius: 10px;
 
     padding: 0% 5%;
-
+/* 
     :hover, :active  {
         background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
                                           "rgba(30,108, 147, 0.07)": "rgba(147,30, 29, 0.07)"
                                     : "rgba(30,108, 147, 0.07)"
             };
-    }
+    } */
 
     @media only screen and (max-width: 453px) {
         display: flex;
