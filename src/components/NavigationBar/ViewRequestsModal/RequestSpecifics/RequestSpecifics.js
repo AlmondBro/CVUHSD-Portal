@@ -142,7 +142,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     </SubSection>
 
                     <TicketMetaData
-                        className       =   "request-rectangle-subsection-time-date"
+                        className       =   "request-rectangle-ticket-metadata"
                         width       =   { `${((6/19)*100).toString()}%`}
                         alignItems      =   "flex-end"
                         as              =   "aside" 
@@ -158,8 +158,11 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                 fontSize            =   "1.15em"
                             />
                             <DateTime
-                                className           =   "request-rectangle-date-time"
+                                className   =   {`request-#${id}-metadata-status`}
+
                                 districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
+
                                 as                  =   "time"
                             >
                                 {
@@ -184,8 +187,11 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                 fontSize            =   "1.15em"
                             />
                             <DateTime
-                                className           =   "request-rectangle-date-time"
+                                className           =   {`request-#${id}-metadata-date-time`}
+
                                 districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
+
                                 as                  =   "time"
                             >
                                 {
@@ -210,8 +216,10 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                 fontSize            =   "1.15em"
                             />
                             <DateTime
-                                className           =   "request-rectangle-date-time"
+                                className           =   {`request-#${id}-metadata-technician-name`}
+
                                 districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
                             >
                                 {
                                     isLoading ? (
