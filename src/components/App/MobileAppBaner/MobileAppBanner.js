@@ -2,20 +2,39 @@ import React, { Fragment, useState, useEffect } from 'react';
 
 import { DarkOverlay, Container, HeaderTitle, ViewOptionContainer, ViewOptionLink, ViewOptionImage, FAIconStyled, ViewOptionText, Button } from './MobileAppBannerStyledComponents.js';
 
-import { faChrome } from '@fortawesome/free-brands-svg-icons';
+import { faChrome, faSafari } from '@fortawesome/free-brands-svg-icons';
 
-import { useWindowSize } from './../../../utilityFunctions.js';
+import { useWindowSize, isSafari, isChromeBrowser } from './../../../utilityFunctions.js';
 
 const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hideOverflow}) => {
 
     let [ bannerVisible, setBannerVisible ] = useState(false);
-    let screenDimensions = useWindowSize();
-    let { width, height } = screenDimensions;
+    let [ screenIcon, setScreenIcon ]       = useState(faSafari);
+    let screenDimensions                    = useWindowSize();
 
+
+    let { width } = screenDimensions;
     /*
         TODO: Do not like this imperative way of removing the body tag's overflow. 
         Figure out a way with using styled-component's global style 
     */
+
+    const getDeepLinkURL = () => {
+        let deepLink;
+
+        deepLink        =   "intent:cvuhsd.portal://redirect#Intent;scheme=cvuhsd.portal;package=com.cvuhsd.portalMobile;end"
+    
+        let href        =   `intent:${"//scan/#Intent"};` + 
+                            `scheme=${"cvuhsd.portal"};` +
+                            `package=${"com.cvuhsd.portalMobile"};` +
+                            `S.browser_fallback_url=${encodeURI(process.env.REACT_APP_PLAYSTORE_LINK)}` + 
+                            `;end`;
+
+        let scheme = process.env.REACT_APP_MOBILE_PROTOCOL;
+
+        return scheme;
+    };
+
     useEffect(() => {
         if (width <= 765) {
             setHideOverflow(false);
@@ -28,12 +47,22 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
 
             document.body.classList.remove("no-vertical-scroll"); 
         }   
+
+        if (isSafari) {
+           setScreenIcon(faSafari);
+        } 
+        
+        if (isChromeBrowser) {
+            setScreenIcon(faChrome);
+        }
+    
     }, [ width ]);
+
 
     return (
         <Fragment>
             <DarkOverlay
-                screenWidth     = { width }
+                screenWidth     =   { width }
                 bannerVisible   =   { bannerVisible }
             />
             <Container 
@@ -58,7 +87,7 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
 
                         districtPosition      = { districtPosition }
                         renderAsStudent       = { renderAsStudent }
-                        icon                  = { faChrome }
+                        icon                  = { screenIcon }
 
                     />
                 
@@ -108,7 +137,7 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
 {/* //https://auth.expo.io/@almondbro/CVUHSD-Portal-Mobile */}
                     <ViewOptionLink 
                         className   =   "mobile-app-banner-view-option-link"
-                        href        =   { process.env.REACT_APP_MOBILE_PROTOCOL }
+                        href        =   { getDeepLinkURL() }
                     >
                         <Button
                             districtPosition      = { districtPosition }
