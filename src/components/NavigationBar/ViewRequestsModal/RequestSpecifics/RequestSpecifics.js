@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faUserTag, faEyeSlash, faEye, faReply } from '@fortawesome/free-solid-svg-icons';
+import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faUserTag, faEyeSlash, faEye, faReply, faLock } from '@fortawesome/free-solid-svg-icons';
 
 import undefsafe from 'undefsafe';
 
@@ -40,7 +40,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
         return faIcon;
     };
 
-    const isLoading = true;
+    const isLoading = false;
 
     return (
         <Fragment> 
@@ -81,9 +81,9 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     PowerSchool Log-in Help
                 </ModalTitle>
             </HeaderContainer>
+
             <Container 
-                className   =   "request-rectangle-container" 
-                // onClick     =   { onClick }
+               className={`request-#${id}-container`}
             >
                 {/* <Divider
                     className           =   "request-rectangle-divider"
@@ -234,20 +234,27 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                             className           =   {`request-#${id}-conversations-outer-container`}
                         >
 
-                        <ConvoReplyButtonContainer>
+                        <ConvoReplyButtonContainer 
+                            className           =   {`request-#${id}-convo-button-container`}
+                        >
                             <ConversationsButton
+                                className           =   {`request-#${id}-convo-button`}
+
                                 districtPosition    =   { districtPosition.toLowerCase() }
                                 renderAsStudent     =   { renderAsStudent }
                             >
                                 <FAIconStyled
-                                    className           =   {`request-#${id}-metadata-icon`}
+                                    className           =   {`request-#${id}-convo-eye-icon`}
                                     districtPosition    =   { districtPosition.toLowerCase() }
                                     renderAsStudent     =   { renderAsStudent }
                                     icon                =   { faEye }
                                     color               =   "white"
                                     fontSize            =   "1.15em"
                                 />
-                                <ConversationsButtonTitle>
+                                <ConversationsButtonTitle
+                                    className           =   {`request-#${id}-convo-reply-button-title`}
+                                
+                                >
                                     Conversations
                                 </ConversationsButtonTitle>
                             </ConversationsButton>

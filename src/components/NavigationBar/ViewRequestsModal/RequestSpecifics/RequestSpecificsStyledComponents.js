@@ -7,10 +7,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SkeletonTheme } from 'react-loading-skeleton';
 
 const Container = styled("div")`
+    position: relative;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
+
+    height: 100%;
 `;
 
 const Divider = styled("hr")`
