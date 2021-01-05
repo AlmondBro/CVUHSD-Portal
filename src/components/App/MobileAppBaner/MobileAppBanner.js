@@ -2,9 +2,9 @@ import React, { Fragment, useState, useEffect } from 'react';
 
 import { DarkOverlay, Container, HeaderTitle, ViewOptionContainer, ViewOptionLink, ViewOptionImage, FAIconStyled, ViewOptionText, Button } from './MobileAppBannerStyledComponents.js';
 
-import { faChrome, faSafari } from '@fortawesome/free-brands-svg-icons';
+import { faChrome, faSafari, faFirefox } from '@fortawesome/free-brands-svg-icons';
 
-import { useWindowSize, isSafari, isChromeBrowser } from './../../../utilityFunctions.js';
+import { useWindowSize, isSafari, isChromeBrowser, isFirefoxBrowser } from './../../../utilityFunctions.js';
 
 const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hideOverflow}) => {
 
@@ -48,12 +48,16 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
             document.body.classList.remove("no-vertical-scroll"); 
         }   
 
-        if (isSafari) {
+        if (isSafari && !isChromeBrowser) {
            setScreenIcon(faSafari);
         } 
         
         if (isChromeBrowser && !isSafari) {
             setScreenIcon(faChrome);
+        }
+
+        if (isFirefoxBrowser) {
+            setScreenIcon(faFirefox);
         }
     
     }, [ width ]);

@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import isIe from '@braintree/browser-detection/is-ie';
 import isChromeOS from '@braintree/browser-detection/is-chrome-os';
 import isChrome from '@braintree/browser-detection/is-chrome';
 import isEdge from '@braintree/browser-detection/is-edge';
 import isIosSafari from '@braintree/browser-detection/is-ios-safari';
+import isIosUIWebview  from '@braintree/browser-detection/is-ios-uiwebview';
+import isIosWKWebview from '@braintree/browser-detection/is-ios-wkwebview';
+
+import isFirefox from '@braintree/browser-detection/is-firefox';
+import isIosFirefox from '@braintree/browser-detection/is-ios-firefox';
+import isMobileFirefox from '@braintree/browser-detection/is-mobile-firefox';
+
 
 let isEmpty  = (string) => {
     let that = this;
@@ -17,8 +24,9 @@ let isEmpty  = (string) => {
 let isBrowserSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
 const isBrowserChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
-const isSafari = isIosSafari || isBrowserSafari;
-const isChromeBrowser = isChrome || isChromeOS || isBrowserChrome;
+const isSafari = isIosSafari() || isIosUIWebview() || isIosWKWebview() || isBrowserSafari;
+const isChromeBrowser = isChrome() || isChromeOS() || isBrowserChrome;
+const isFirefoxBrowser = isFirefox() || isIosFirefox() || isMobileFirefox();
 
 const isIE = () => {
     const isInternetExplorer = (isIe() || isEdge()) && !isChrome() && !isChromeOS();
@@ -60,4 +68,4 @@ const useWindowSize = () => {
     return windowSize;
   }
 
-export { isEmpty, isIE, isSafari, isChromeBrowser, useWindowSize }
+export { isEmpty, isIE, isSafari, isChromeBrowser, isFirefoxBrowser, useWindowSize }
