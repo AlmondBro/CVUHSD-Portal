@@ -196,22 +196,20 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             &times;
         </CloseButton>
         <InnerContainer className="view-request-modal-inner-container">
-            <div>
-                <ModalTitle 
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                >
-                    View Requests
-                </ModalTitle>
-                
-                <FAIconStyled
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                    icon                =   { faTasks }
-                />
-            </div>
-
-
             <Switch>
                 <Route exact path={"/:staffOrStudent/view-requests"}>
+                    <div>
+                        <ModalTitle 
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                        >
+                            View Requests
+                        </ModalTitle>
+                        
+                        <FAIconStyled
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            icon                =   { faTasks }
+                        />
+                    </div>
                     <TitleFilterContainer className="view-request-modal-title-filter-container">
                         <RequestTypeTitle
                             className           =   "view-request-modal-request-type-title"

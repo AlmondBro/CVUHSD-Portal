@@ -143,15 +143,26 @@ const DateTime = styled("h4")`
     }
 `;
 
+let HeaderContainer = styled("header")`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+`;
+
 const FAIconStyled = styled(FontAwesomeIcon)`
     display: inline-block;
-   color: ${ props => props.color ? props.districtPosition ?
+   color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
-                        : "#931E1D"
             };
-   margin-left: 26px;
+   /* margin-left: 26px; */
+   margin-left: 0px;
+   margin-right: 8px;
+
    /* 20px; */
 
    font-size: ${props => props.fontSize ? props.fontSize : "1.0em"};
@@ -166,4 +177,28 @@ const TicketTypeCircleSkeleton = styled(Skeleton)`
     margin-left: 20px;
 `;
 
-export { Container, Divider, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+const ModalTitle = styled('h3')`
+    display: inline-block;
+    color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "#931E1D": "#1E6C93"
+                                    : "#931E1D" 
+            };
+
+    font-size: 1.5em;
+    font-weight: bold;
+
+    margin: 0px;
+    margin-bottom: 10px;
+
+    padding: 0px;
+`; 
+
+const TicketNumberTitle = styled(ModalTitle)`
+    font-size: 1.35em;
+
+    margin-left: 0px;
+    margin-right: 10px;
+`;
+
+export { HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
