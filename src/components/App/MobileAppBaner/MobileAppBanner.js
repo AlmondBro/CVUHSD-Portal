@@ -52,7 +52,7 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
            setScreenIcon(faSafari);
         } 
         
-        if (isChromeBrowser) {
+        if (isChromeBrowser && !isSafari) {
             setScreenIcon(faChrome);
         }
     
