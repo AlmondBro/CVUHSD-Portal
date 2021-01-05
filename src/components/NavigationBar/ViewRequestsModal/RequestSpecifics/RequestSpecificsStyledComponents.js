@@ -83,7 +83,7 @@ const TicketMetaData = styled(SubSection)`
                                           "rgba(30,108, 147, 0.42)": "rgba(147,30, 29, 0.42)"
                                     : "rgba(30,108, 147, 0.42)"
             };
-    margin-right: 10px;
+    margin: 0px 10px;
 `;
 
 const IconSubSection = styled(SubSection)`
@@ -128,7 +128,7 @@ const RequestDescription = styled(RequestTitle)`
     max-height: 150px;
     overflow-y: auto;
 
-    
+    padding-right: 20px; 
     /* Firefox properties to target the scrollbar color */
     scrollbar-color:  ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
@@ -169,7 +169,7 @@ const RequestDescription = styled(RequestTitle)`
     }
 `;
 
-const DateTime = styled("h4")`
+const DateTime = styled("h5")`
     font-size: 1.1em;
     color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
@@ -177,7 +177,7 @@ const DateTime = styled("h4")`
                                     : "#931E1D"
             };
 
-    margin-right: 14%;
+    margin: 0;
 
     @media only screen and (max-width: 453px) {
        margin-right: 0px;
@@ -256,4 +256,4 @@ const TicketNumberTitle = styled(ModalTitle)`
     margin-right: 10px;
 `;
 
-export { BackButton, BackArrowIcon, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData as TimeDateSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+export { BackButton, BackArrowIcon, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };

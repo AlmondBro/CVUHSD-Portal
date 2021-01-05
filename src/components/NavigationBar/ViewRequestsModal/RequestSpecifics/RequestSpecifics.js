@@ -7,7 +7,7 @@ import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLef
 import undefsafe from 'undefsafe';
 
 //import styled components
-import { BackButton, BackArrowIcon, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestSpecificsStyledComponents.js';
+import { BackButton, BackArrowIcon, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const { id } = useParams();
@@ -141,7 +141,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                         </RequestDescription>
                     </SubSection>
 
-                    <TimeDateSubSection
+                    <TicketMetaData
                         className       =   "request-rectangle-subsection-time-date"
                         width       =   { `${((6/19)*100).toString()}%`}
                         alignItems      =   "flex-end"
@@ -185,7 +185,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                 ) : "12/22/2020"
                             }  
                         </DateTime>
-                    </TimeDateSubSection>
+                    </TicketMetaData>
                 </Content>
         </Container>  
       </Fragment>
