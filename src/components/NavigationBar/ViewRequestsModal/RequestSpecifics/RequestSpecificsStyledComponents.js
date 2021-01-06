@@ -196,6 +196,7 @@ const RequestDescription = styled(RequestTitle)`
 
 const DateTime = styled("h5")`
     font-size: 1.1em;
+    text-align: right;
     color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
                                           "#931E1D": "#1E6C93"
