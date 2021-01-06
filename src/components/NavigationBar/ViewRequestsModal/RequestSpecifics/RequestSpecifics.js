@@ -153,7 +153,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     fontSize            =   "1.15em"
                 />
                 <TicketNumberTitle 
-                    className={`request-#${id}-ticket-number-title`}
+                    className           =   {`request-#${id}-ticket-number-title`}
                     districtPosition    =   { districtPosition.toLowerCase() }
                     renderAsStudent     =   { renderAsStudent }
                     as                  =   "h4"
