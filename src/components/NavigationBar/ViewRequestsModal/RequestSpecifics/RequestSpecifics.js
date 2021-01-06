@@ -409,7 +409,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     </SkeletonThemeStyled>
             </Container>  
         </Route>
-        <Route path={match.url + "/reply"}>
+        <Route path={match.path + "/reply"}>
             <ReplyToConvo/>
         </Route>
       </Switch>
