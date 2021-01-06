@@ -4,7 +4,7 @@ import isDev from 'isdev';
 import undefsafe from "undefsafe";
 
 import {  Redirect } from "react-router";
-import { withRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import { withCookies } from 'react-cookie';
 
@@ -455,4 +455,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(withCookies(App));
+export default withCookies(App);
