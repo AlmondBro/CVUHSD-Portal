@@ -6,8 +6,7 @@ import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLef
 //Impor styled components
 import { Container, SubSection, ReqSkeletonContainer, RequestDescription, TicketMetaData, MetaDataContainer,  FAIconStyled, DateTime, Divider } from './SingleConvoStyledComponents.js';
 
-const SingleConvo = ({id, districtPosition, renderAsStudent, showConvos}) => {
-    const isLoading = false;
+const SingleConvo = ({id, isLoading, districtPosition, renderAsStudent, showConvos, description, date, time, author}) => {
     return (
         <Container 
             className           =   {`#${id}-single-convo-container`}
@@ -37,11 +36,11 @@ const SingleConvo = ({id, districtPosition, renderAsStudent, showConvos}) => {
                             districtPosition    =   { districtPosition.toLowerCase() }
                             as                  =   "p"
                         >
-                            Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
+                            { description || `Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
                             says that the password or username is incorrect, or that I need to contact my district administrator. 
                             I am using the same exact credentials that I use to log into all of my other school-related things 
                             (Canvas, DeltaMath, etc.) but it still won’t let me log in. I’ve been having this issue since the 
-                            second semester of 9th grade. Help would be greatly appreciated. Thank you :)
+                            second semester of 9th grade. Help would be greatly appreciated. Thank you :)` }
                         </RequestDescription>
                     )
                 }
@@ -77,7 +76,7 @@ const SingleConvo = ({id, districtPosition, renderAsStudent, showConvos}) => {
                                 <Skeleton
                                     width = {40}
                                 />
-                            ) : "12/15/2020 — 12:51 PM"
+                            ) : `${date} @ ${time}`
                         }  
                     </DateTime>
                     </MetaDataContainer>
@@ -104,7 +103,7 @@ const SingleConvo = ({id, districtPosition, renderAsStudent, showConvos}) => {
                                 <Skeleton
                                     width = {80}
                                 />
-                            ) : "Juan David Lopez"
+                            ) : { author }
                         }  
                     </DateTime>
                 </MetaDataContainer>

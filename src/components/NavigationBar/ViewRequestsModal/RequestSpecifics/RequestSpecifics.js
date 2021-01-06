@@ -6,7 +6,7 @@ import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLef
 
 import SingleConvo from './SingleConvo/SingleConvo.js';
 
-import undefsafe from 'undefsafe';
+import isDev from 'isdev';
 
 //import styled components
 import { TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
@@ -16,8 +16,10 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const history   = useHistory();
     const { state } = useLocation();
 
-    let [ statusIcon, setStatusIcon ] = useState(null);
+    let [ statusIcon, setStatusIcon ] = useState(faTasks);
+    let [ convoComps, setConvoComps ] = useState([]);
     let [ showConvos, setShowConvos ] = useState(false);
+    let [ isLoading, setIsLoading ]     = useState(false);
 
     const { subject, description, time, date, status, technician, site } = state;
     const { email_id : techEmail, name } = technician;
@@ -48,11 +50,84 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
         return faIcon;
     };
 
-    const isLoading = false;
+    /*
+    const getReqConvos = async (id) => {
+        let requests = [];
+
+        const getConvos_URL = `${isDev ? "" : "/server"}/helpdesk/request/get-convos/${id}`;
+        const getConvos_Headers = {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-Credentials": true
+        };
+    
+        let convos = await fetch(getConvos_URL, {
+            method: 'GET',
+            headers: getConvos_Headers
+        })
+        .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
+        .then((jsonResponse) => jsonResponse.convos)
+        .catch((error) => {
+            console.error(`getReqConvos() Catching error:\t ${error}`);
+        });
+
+        if (convos && !convos.error) {
+            requests = convos.requests;
+        } else {
+            console.log(`Error in fetching the convo requests.`);
+
+            convos = [];
+        }
+
+        return convos;
+    }; //end getReqConvos
+
+    const mapConvos = (convos) => {
+        return convos.filter((convo, index) => convo.FROM !== "System").map((convo, index) => {
+            let { CREATEDDATE, FROM } = convo;
+
+            let time = new Date(CREATEDDATE).toLocaleTimeString();
+            let date =  new Date(CREATEDDATE).toLocaleDateString();
+        
+            return (
+                <SingleConvo
+                    isLoading           =   { isLoading }
+                    districtPosition    =   { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
+
+                    description         =   { description }
+                    date                =   { date }
+                    time                =   { time }
+                    author              =   { FROM } 
+                    key                 =   { index }
+                />
+            );
+        });
+    };
+
+    const loadConvoComponents = async () => {
+        setIsLoading(true);
+
+        let convos          = await getReqConvos(id);
+        let convoComponents = mapConvos(convos);
+
+        setConvoComps(convoComponents);
+
+        setIsLoading(false);
+    };
+    */
 
     useEffect(() => {
-        getFAIcon(status);
-    }, [ status ]); //end useEffect() hook
+        //getFAIcon(status);
+    }, []); //end useEffect() hook
+
+    /*
+    useEffect(() => {
+        if (showConvos === true) {
+            //loadConvoComponents();
+        }
+    }, [ showConvos ]); //end useEffect() hook
+    */ 
 
     return (
         <Fragment> 
@@ -168,7 +243,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                     className           =   {`request-#${id}-metadata-icon`}
                                     districtPosition    =   { districtPosition.toLowerCase() }
                                     renderAsStudent     =   { renderAsStudent }
-                                    icon                =   { statusIcon }
+                                    icon                =   { faEyeSlash }
                                     fontSize            =   "1.15em"
                                 />
                                 <DateTime
