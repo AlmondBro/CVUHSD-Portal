@@ -84,7 +84,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
 
     const mapConvos = (convos) => {
         return convos.filter((convo, index) => convo["FROM"] != "System").map((convo, index) => {
-            let { CREATEDDATE, FROM } = convo;
+            let { CREATEDDATE, FROM, DESCRIPTION } = convo;
 
             let time = new Date(CREATEDDATE).toLocaleTimeString();
             let date =  new Date(CREATEDDATE).toLocaleDateString();
@@ -95,7 +95,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     districtPosition    =   { districtPosition }
                     renderAsStudent     =   { renderAsStudent }
 
-                    description         =   { description }
+                    description         =   { DESCRIPTION }
                     date                =   { date }
                     time                =   { time }
                     author              =   { FROM } 
