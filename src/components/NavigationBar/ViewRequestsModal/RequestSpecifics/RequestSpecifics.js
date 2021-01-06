@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 import Skeleton from 'react-loading-skeleton';
 import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faTools, faEyeSlash, faEye, faReply, faLock } from '@fortawesome/free-solid-svg-icons';
@@ -17,6 +17,10 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
 
     const status = "Open";
     let subject, description, time, date = "test";
+
+    const { state } = useLocation();
+
+    console.log("Location state:\t", state);
 
     let [ showConvos, setShowConvos ] = useState(false);
 
