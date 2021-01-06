@@ -9,7 +9,7 @@ import SingleConvo from './SingleConvo/SingleConvo.js';
 import undefsafe from 'undefsafe';
 
 //import styled components
-import { SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
+import { TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const { id }    = useParams();
@@ -19,10 +19,14 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
 
     console.log("Location state:\t", state);
 
-    const { subject, description, time, date, status } = state;
+    const { subject, description, time, date, status, technician, site } = state;
  
     let [ statusIcon, setStatusIcon ] = useState(null);
     let [ showConvos, setShowConvos ] = useState(false);
+
+    let { email_id : techEmail, name } = technician;
+
+    let techFullNameFormatted = name.split(",")[1] + " " + name.split(",")[0];
 
     const getFAIcon = (status) => {
         let faIcon;
@@ -240,7 +244,15 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                             <Skeleton
                                                 width = {80}
                                             />
-                                        ) : "Juan David Lopez"
+                                        ) : (
+                                            <TechLink
+                                                href                =   {`mailto:${techEmail}`}
+                                                districtPosition    =   { districtPosition.toLowerCase() }
+                                                renderAsStudent     =   { renderAsStudent }
+                                            >
+                                                { techFullNameFormatted || "No assigned tech yet" }
+                                            </TechLink>
+                                        ) 
                                     }  
                                 </DateTime>
                             </MetaDataContainer>

@@ -53,20 +53,20 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         return formattedDate;
     };
 
-    const routeToReqID = (requestObject, subject, description, time, date, status) => {
+    const routeToReqID = (requestObject, subject, description, time, date, status, technician, site) => {
         const { id } = requestObject;
 
         const pathname = `${match.url}/view-requests/${id}`;
         return history.push({
             pathname: pathname,
-            state: { request: requestObject, subject, description, time, date, status }
+            state: { request: requestObject, subject, description, time, date, status, technician, site }
         });
     }; //end routeToReqID
     
     const loadRequestRectangles = (requests) => {
         let requestRectangles = requests.map((requestObject, index) => {
 
-            let { subject, short_description: description, created_time, status, id } = requestObject;
+            let { subject, short_description: description, created_time, status, id, technician, site } = requestObject;
             
             let dateAndTime = parseDate(created_time["display_value"]);
 
@@ -75,6 +75,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             const time = dateAndTime[1] + " " + dateAndTime[2];
             
             status = status.name;
+            site   =  site.name;
             
             return (
                 <RequestPreviewRectangle
@@ -89,7 +90,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     id                  =   { id }
                     isLoading           =   { isLoading }
 
-                    onClick             =   { () => routeToReqID(requestObject, subject, description, time, date, status) }
+                    onClick             =   { () => routeToReqID(requestObject, subject, description, time, date, status, technician, site) }
 
                     key                 =   { id }
                 />

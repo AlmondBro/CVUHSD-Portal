@@ -360,6 +360,24 @@ const ReplyButton = styled(ConversationsButton)`
     background-color: transparent;
 `;
 
+const TechLink = styled("a")`
+    text-decoration: none;
+    color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F": "#1E6C93"
+                                    : "#B41A1F"
+        };
+    :hover, :focus {
+        text-decoration: underline;
+        color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F": "#1E6C93"
+                                    : "#B41A1F"
+        };
+    }
+`;
+
+
 const SingleConvosContainer = styled("div")`
     visibility: ${props => props.showConvos ? "visible" : "hidden"};
 
@@ -412,4 +430,4 @@ const SingleConvosContainer = styled("div")`
     }
 `;
 
-export { SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+export { TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
