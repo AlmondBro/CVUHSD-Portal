@@ -364,7 +364,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                 </ConversationsButtonTitle>
                             </ConversationsButton>
 
-                            <ReplyButton
+                            {/* <ReplyButton
                                 className  =   {`request-#${id}-reply-button`}
                             
                             >
@@ -375,7 +375,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                         icon                =   { faReply }
                                         fontSize            =   "1.15em"
                                 />
-                            </ReplyButton>
+                            </ReplyButton> */}
                         </ConvoReplyButtonContainer>
                         
                         <SingleConvosContainer
