@@ -138,6 +138,13 @@ router.get('/request/read/:id', async (req, res) => {
 
 /* === GET INDIVIDUAL REQUEST CONVOS' DETAILS === */
 const getSingleRequestConvoDetails = async (id) => {
+    const params = {
+        OPERATION_NAME : "GET_ALL_CONVERSATIONS",
+        format          : "json"
+    };
+
+    const query = "?" + Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`).join('&');
+
     const sdpRequestConvosURL = `${process.env.SDP_URL}/sdpapi/request/${id}/allconversation`; 
 
     const sdpRequestConvosHeaders = {
@@ -146,7 +153,7 @@ const getSingleRequestConvoDetails = async (id) => {
     };
 
 
-    let getSingleReqInfo = await fetch(sdpRequestConvosURL, {
+    let getSingleReqInfo = await fetch(sdpRequestConvosURL + query, {
         method: 'GET',
         headers: sdpRequestConvosHeaders
     })
@@ -164,11 +171,23 @@ const getSingleRequestConvoDetails = async (id) => {
 router.get('/request/get-convos/:id', async (req, res) => {
     const { id } = req.params;
 
+    let convos = [];
     let requestDetails = await getSingleRequestConvoDetails(id);
 
     let message, error = null;
 
-    return res.json({...requestDetails, message, error});
+
+    if (requestDetails.operation.result.status === "Success") {
+        error = null;
+        message  = requestDetails.operation.result.message;
+
+        convos =    requestDetails.operation.details;
+    } else {
+        error = true;
+        message = `Could not fetch request with ID ${id}'s convos`;
+    }
+
+    return res.json({convos, message, error});
 });
 
 
