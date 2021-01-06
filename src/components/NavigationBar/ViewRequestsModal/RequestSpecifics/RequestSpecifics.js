@@ -1,146 +1,407 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { Fragment, useState, useEffect } from 'react';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 import Skeleton from 'react-loading-skeleton';
-import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faTools, faEyeSlash, faEye, faReply, faLock } from '@fortawesome/free-solid-svg-icons';
 
-import undefsafe from 'undefsafe';
+import SingleConvo from './SingleConvo/SingleConvo.js';
+
+import isDev from 'isdev';
 
 //import styled components
-import { Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestSpecificsStyledComponents.js';
+import { NoConvosMessage, TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
-    const { id } = useParams();
+    const { id }    = useParams();
+    const history   = useHistory();
+    const { state } = useLocation();
 
-    const status = "Open";
-    let subject, description, time, date = "test";
+    let [ statusIcon, setStatusIcon ] = useState(faTasks);
+    let [ convoComps, setConvoComps ] = useState([]);
+    let [ showConvos, setShowConvos ] = useState(false);
+    let [ isLoading, setIsLoading ]     = useState(false);
 
-    const getFAIcon = () => {
+    const { subject, description, time, date, techInfo, status, site } = state;
+
+    // let techFullNameFormatted = techInfo;
+
+    let { email_id: techEmail, name } = techInfo;
+    
+    let techFullNameFormatted = (name !== "No assigned tech") ? name.split(",")[1] + " " + name.split(",")[0] : name;
+
+    const getFAIcon = (status) => {
         let faIcon;
 
         switch(status) {
             case "All":
-                faIcon = faTasks;
+                setStatusIcon(faTasks);
             break;
 
             case "Open":
-                faIcon = faCircle;
+                setStatusIcon(faCircle);
             break;
 
             case "In Progress":
-                faIcon = faAngleDoubleRight;
+                setStatusIcon(faAngleDoubleRight);
             break;
 
             case "Closed":
-                faIcon = faCheck;
+                setStatusIcon(faCheck);
             break;
         }
 
         return faIcon;
     };
 
-    const isLoading = false;
+    const getReqConvos = async (id) => {
+        let requests = [];
 
+        const getConvos_URL = `${isDev ? "" : "/server"}/helpdesk/request/get-convos/${id}`;
+        const getConvos_Headers = {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-Credentials": true
+        };
+    
+        let convos = await fetch(getConvos_URL, {
+            method: 'GET',
+            headers: getConvos_Headers
+        })
+        .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
+        .then((jsonResponse) => jsonResponse.convos)
+        .catch((error) => {
+            console.error(`getReqConvos() Catching error:\t ${error}`);
+        });
+
+        if (convos && !convos.error) {
+            requests = convos.requests;
+        } else {
+            console.log(`Error in fetching the convo requests.`);
+
+            convos = [];
+        }
+
+        return convos;
+    }; //end getReqConvos
+
+    const mapConvos = (convos) => {
+        return convos.filter((convo, index) => convo["FROM"] != "System").map((convo, index) => {
+            let { CREATEDDATE, FROM, DESCRIPTION } = convo;
+
+            let time = new Date(CREATEDDATE).toLocaleTimeString();
+            let date =  new Date(CREATEDDATE).toLocaleDateString();
+
+            return (
+                <SingleConvo
+                    isLoading           =   { isLoading }
+                    districtPosition    =   { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
+
+                    description         =   { DESCRIPTION }
+                    date                =   { date }
+                    time                =   { time }
+                    author              =   { FROM } 
+                    key                 =   { index }
+                />
+            ); //end return statement
+        }); //end .map() Array method
+    }; //end mapConvos()
+
+    const loadConvoComponents = async () => {
+        setIsLoading(true);
+
+        let convos          = await getReqConvos(id);
+        let convoComponents = mapConvos(convos);
+
+        console.log("ReqSpecifics convos:\t", convos);
+        console.log("ReqSpecifics convoComponents:\t", convoComponents);
+        setConvoComps(convoComponents);
+
+        setIsLoading(false);
+    };
+
+    useEffect(() => {
+        getFAIcon(status);
+    }, []); //end useEffect() hook
+
+    useEffect(() => {
+        if (showConvos === true) {
+            loadConvoComponents();
+        }
+    }, [ showConvos ]); //end useEffect() hook
+    
     return (
-        <Container 
-            className   =   "request-rectangle-container" 
-            // onClick     =   { onClick }
-        >
-            {/* <Divider
-                className           =   "request-rectangle-divider"
-                districtPosition    =   { districtPosition }
-            /> */}
-
-            <Content className="request-rectangle-content">
-                <IconSubSection 
-                    className   =   "request-rectangle-subsection-icon"
-                    width       =   "6%"
-                    alignItems  =   "flex-start"
+        <Fragment> 
+            <HeaderContainer className={`request-#${id}-header-container`}>
+                <BackButton
+                    className   =   {`request-#${id}-back-button`}
+                    onClick     = { () => history.goBack() }
                 >
-                    {
-                        isLoading ? (
-                            <TicketTypeCircleSkeleton
-                                circle  =   { true }
-                                width   =   { 20  }
-                                height  =   { 20 }
-                            />
-                        ) : (
-                            <FAIconStyled
-                                className           =   "view-request-type-icon"
+                    <BackArrowIcon
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        renderAsStudent     =   { renderAsStudent }
+                        icon                =   { faArrowLeft }
+                        fontSize            =   "1.15em"
+                    />
+                </BackButton>
+              
+                <FAIconStyled
+                    className           =   {`request-#${id}-ticket-icon`}
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
+                    icon                =   { faTicketAlt }
+                    fontSize            =   "1.15em"
+                />
+                <TicketNumberTitle 
+                    className={`request-#${id}-ticket-number-title`}
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
+                    as                  =   "h4"
+                >
+                    #{id}:
+                </TicketNumberTitle>
+
+                <ModalTitle 
+                    className={`request-#${id}-ticket-title`}
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
+                >
+                    { subject || "Ticket Title"}
+                </ModalTitle>
+            </HeaderContainer>
+
+            <Container 
+               className={`request-#${id}-container`}
+            >
+                {/* <Divider
+                    className           =   "request-rectangle-divider"
+                    districtPosition    =   { districtPosition }
+                /> */}
+
+                <SkeletonThemeStyled 
+                    color           = {
+                                        districtPosition ?
+                                            ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                                "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+                                            : "rgba(147, 30, 29, 0.1)" 
+                                        }
+                    highlightColor  = {
+                                            districtPosition ?
+                                            ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                                "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+                                            : "rgba(147, 30, 29, 0.1)" 
+                    }
+                > 
+
+                    <Content className={`request-#${id}-ticket-content`}>
+                        <SubSection
+                            className   =   {`request-#${id}-ticket-subsection`}
+                            width       =   { `${((12/19)*100).toString()}%`}
+                            alignItems  =   "flex-start"
+
+                        >
+                            {
+                                isLoading ? (
+                                    <ReqSkeletonContainer>
+                                        <Skeleton
+                                            width   =   { "auto" }
+                                            count   =   { 10 }
+                                        />
+                                    </ReqSkeletonContainer>
+                                
+                                ) : (
+                                    <RequestDescription
+                                        className           =   {`request-#${id}-ticket-description`}
+                                        districtPosition    =   { districtPosition.toLowerCase() }
+                                        as                  =   "p"
+                                    >
+                                        {
+                                            description || `
+                                                Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
+                                                says that the password or username is incorrect, or that I need to contact my district administrator. 
+                                                I am using the same exact credentials that I use to log into all of my other school-related things 
+                                                (Canvas, DeltaMath, etc.) but it still won’t let me log in. I’ve been having this issue since the 
+                                                second semester of 9th grade. Help would be greatly appreciated. Thank you :)
+                                            `
+                                        }
+
+                                    </RequestDescription>
+                                )
+                            }
+                        
+                        </SubSection>
+
+                        <TicketMetaData
+                            className       =   "request-rectangle-ticket-metadata"
+                            width       =   { `${((7/19)*100).toString()}%`}
+                            alignItems      =   "flex-end"
+                            as              =   "aside" 
+                        >
+                            <MetaDataContainer
+                                className   =   {`request-#${id}-metadata-container`}
+                            >
+                                <FAIconStyled
+                                    className           =   {`request-#${id}-metadata-icon`}
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+                                    icon                =   { statusIcon }
+                                    fontSize            =   "1.15em"
+                                />
+                                <DateTime
+                                    className   =   {`request-#${id}-metadata-status`}
+
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+
+                                    as                  =   "time"
+                                >
+                                    {
+                                        isLoading ? (
+                                            <Skeleton
+                                                width = {40}
+                                            />
+                                        ) : status || "Open"
+                                    }  
+                                </DateTime>
+                            </MetaDataContainer>
+                        
+                            
+                            <MetaDataContainer
+                                className   =   {`request-#${id}-metadata-container`}
+                            >
+                                <FAIconStyled
+                                    className           =   {`request-#${id}-metadata-icon`}
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+                                    icon                =   { faClock }
+                                    fontSize            =   "1.15em"
+                                />
+                                <DateTime
+                                    className           =   {`request-#${id}-metadata-date-time`}
+
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+
+                                    as                  =   "time"
+                                >
+                                    {
+                                        isLoading ? (
+                                            <Skeleton
+                                                width = {40}
+                                            />
+                                        ) : `${date} @ ${time}`
+                                    }  
+                                </DateTime>
+                                </MetaDataContainer>
+
+    
+                            <MetaDataContainer
+                                className   =   {`request-#${id}-metadata-container`}
+                            >
+                                <FAIconStyled
+                                    className           =   {`request-#${id}-metadata-icon`}
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+                                    icon                =   { faTools }
+                                    fontSize            =   "1.15em"
+                                />
+                                <DateTime
+                                    className           =   {`request-#${id}-metadata-technician-name`}
+
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+                                >
+                                    {
+                                        isLoading ? (
+                                            <Skeleton
+                                                width = {80}
+                                            />
+                                        ) : (
+                                            <TechLink
+                                                href                =   { `mailto:${techEmail}` }
+                                                districtPosition    =   { districtPosition.toLowerCase() }
+                                                renderAsStudent     =   { renderAsStudent }
+                                            >
+                                                { techFullNameFormatted || "No assigned tech yet" }
+                                            </TechLink>
+                                        ) 
+                                    }  
+                                </DateTime>
+                            </MetaDataContainer>
+                        </TicketMetaData>
+                    </Content>
+
+                    <ConversationsOuterContainer
+                            className           =   {`request-#${id}-conversations-outer-container`}
+                    >
+
+                        <ConvoReplyButtonContainer 
+                            className           =   {`request-#${id}-convo-button-container`}
+
+                            showConvos          =   { showConvos }
+                        >
+                            <ConversationsButton
+                                className           =   {`request-#${id}-convo-button`}
+
                                 districtPosition    =   { districtPosition.toLowerCase() }
-                                color               =   "white"
-                                icon                =   { getFAIcon() }
-                            />
-                        )
-                    }   
-                </IconSubSection>
+                                renderAsStudent     =   { renderAsStudent }
 
-                <SubSection
-                    className   =   "request-rectangle-subsection"
-                    width       =   "53%"
-                    alignItems  =   "flex-start"
+                                onClick             =   { () => setShowConvos(!showConvos)}
+                            >
+                                <FAIconStyled
+                                    className           =   {`request-#${id}-convo-eye-icon`}
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+                                    icon                =   { showConvos ? faEye : faEyeSlash }
+                                    color               =   "white"
+                                    fontSize            =   "1.15em"
+                                />
+                                <ConversationsButtonTitle
+                                    className           =   {`request-#${id}-convo-reply-button-title`}
+                                
+                                >
+                                    Conversations
+                                </ConversationsButtonTitle>
+                            </ConversationsButton>
 
-                >
-                    <RequestTitle 
-                            className   =   "request-rectangle-req-title"
+                            {/* <ReplyButton
+                                className  =   {`request-#${id}-reply-button`}
+                            
+                            >
+                                <FAIconStyled
+                                        className           =   {`request-#${id}-reply-icon`}
+                                        districtPosition    =   { districtPosition.toLowerCase() }
+                                        renderAsStudent     =   { renderAsStudent }
+                                        icon                =   { faReply }
+                                        fontSize            =   "1.15em"
+                                />
+                            </ReplyButton> */}
+                        </ConvoReplyButtonContainer>
+                        
+                        <SingleConvosContainer
+                            className           =   {`request-#${id}-single-convos-container`}
+                            
                             districtPosition    =   { districtPosition.toLowerCase() }
-                    >
-                        {
-                            isLoading ? (
-                                <Skeleton
-                                    width = {300}
-                                />
-                            ) : undefsafe(subject, "") || "Request Subject"
-                        }  
-                    </RequestTitle>
-                    <RequestDescription
-                            className           =   "request-rectangle-description"
-                            districtPosition    =   { districtPosition.toLowerCase() }
-                    >
-                        {
-                            isLoading ? (
-                                <Skeleton
-                                    width = {200}
-                                />
-                            ) : undefsafe(description, "") || "I am working from home and do not have my contact info..."
-                        }  
-                    </RequestDescription>
-                </SubSection>
+                            renderAsStudent     =   { renderAsStudent }
 
-                <TimeDateSubSection
-                    className       =   "request-rectangle-subsection-time-date"
-                    width           =   "35%"
-                    alignItems      =   "flex-end"
-                    as              =   "aside" 
-                >
-                    <DateTime
-                        className           =   "request-rectangle-date-time"
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                        as                  =   "time"
-                    >
-                        {
-                            isLoading ? (
-                                <Skeleton
-                                    width = {40}
-                                />
-                            ) : undefsafe(time, "") || "12:51"
-                        }  
-                    </DateTime>
-                    <DateTime
-                        className           =   "request-rectangle-date-time"
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                    >
-                        {
-                            isLoading ? (
-                                <Skeleton
-                                    width = {80}
-                                />
-                            ) : undefsafe(date, "") || "12/22/2020"
-                        }  
-                    </DateTime>
-                </TimeDateSubSection>
-            </Content>
-      </Container>  
+                            showConvos          =   { showConvos }
+                        >
+                            { convoComps.length > 0 ? convoComps : (
+                                    <NoConvosMessage
+                                        className           =   {`request-#${id}-no-convos-message`}
+                                        districtPosition    =   { districtPosition.toLowerCase() }
+                                        renderAsStudent     =   { renderAsStudent }
+                                    >
+                                        { `No conversations in this request (id#${id})` }
+                                    </NoConvosMessage>
+                                )
+                            }
+                        </SingleConvosContainer>
+                    </ConversationsOuterContainer> 
+
+                </SkeletonThemeStyled>
+        </Container>  
+      </Fragment>
     ); //end return()
 }; //end RequestSpecifics()
 
