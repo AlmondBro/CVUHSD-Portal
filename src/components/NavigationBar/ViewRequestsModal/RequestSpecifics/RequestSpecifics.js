@@ -120,7 +120,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     <Content className={`request-#${id}-ticket-content`}>
                         <SubSection
                             className   =   {`request-#${id}-ticket-subsection`}
-                            width       =   { `${((13/19)*100).toString()}%`}
+                            width       =   { `${((12/19)*100).toString()}%`}
                             alignItems  =   "flex-start"
 
                         >
@@ -157,7 +157,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
 
                         <TicketMetaData
                             className       =   "request-rectangle-ticket-metadata"
-                            width       =   { `${((6/19)*100).toString()}%`}
+                            width       =   { `${((7/19)*100).toString()}%`}
                             alignItems      =   "flex-end"
                             as              =   "aside" 
                         >
@@ -213,7 +213,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                             <Skeleton
                                                 width = {40}
                                             />
-                                        ) : `${date} — ${time}`
+                                        ) : `${date} @ ${time}`
                                     }  
                                 </DateTime>
                                 </MetaDataContainer>
