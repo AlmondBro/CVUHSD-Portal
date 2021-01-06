@@ -16,7 +16,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { isIE } from './../../utilityFunctions.js';
 
 //Import components
-import LoadingSSOPage from "./../LoadingSSOPage/LoadingSSOPage.js";
 import Troubleshooting from "./../Troubleshooting/Troubleshooting.js"
 import PageContent from "./../PageContent.js";
 import MobileAppBanner from "./MobileAppBaner/MobileAppBanner.js";
