@@ -21,7 +21,8 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     let [ showConvos, setShowConvos ] = useState(false);
     let [ isLoading, setIsLoading ]     = useState(false);
 
-    const { subject, description, time, date, status, technician, site } = state;
+    const { subject, description, time, date, technician, status, site } = state;
+
     const { email_id : techEmail, name } = technician;
 
     let techFullNameFormatted = name.split(",")[1] + " " + name.split(",")[0];
@@ -118,7 +119,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     */
 
     useEffect(() => {
-        //getFAIcon(status);
+        getFAIcon(status);
     }, []); //end useEffect() hook
 
     /*
@@ -243,7 +244,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                     className           =   {`request-#${id}-metadata-icon`}
                                     districtPosition    =   { districtPosition.toLowerCase() }
                                     renderAsStudent     =   { renderAsStudent }
-                                    icon                =   { faEyeSlash }
+                                    icon                =   { statusIcon }
                                     fontSize            =   "1.15em"
                                 />
                                 <DateTime
@@ -385,18 +386,17 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
 
                             showConvos          =   { showConvos }
                         >
-                            <SingleConvo
+                            {/* <SingleConvo
                                 districtPosition    =   { districtPosition.toLowerCase() }
                                 renderAsStudent     =   { renderAsStudent }
                             />
                                <SingleConvo
                                 districtPosition    =   { districtPosition.toLowerCase() }
                                 renderAsStudent     =   { renderAsStudent }
-                            />
+                            /> */}
                         </SingleConvosContainer>
-                    </ConversationsOuterContainer>
+                    </ConversationsOuterContainer> 
 
-                    
                 </SkeletonThemeStyled>
         </Container>  
       </Fragment>
