@@ -19,7 +19,7 @@ const SingleConvo = ({id, districtPosition, renderAsStudent, showConvos}) => {
         >
             <SubSection
                 className   =   {`request-#${id}-ticket-subsection`}
-                width       =   { `${((13/19)*100).toString()}%`}
+                width       =   { `${((12/19)*100).toString()}%`}
                 alignItems  =   "flex-start"
             >
                 {
@@ -50,7 +50,7 @@ const SingleConvo = ({id, districtPosition, renderAsStudent, showConvos}) => {
 
             <TicketMetaData
                 className       =   "request-rectangle-ticket-metadata"
-                width       =   { `${((6/19)*100).toString()}%`}
+                width       =   { `${((7/19)*100).toString()}%`}
                 alignItems      =   "flex-end"
                 as              =   "aside" 
             >
