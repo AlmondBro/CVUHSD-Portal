@@ -21,11 +21,13 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     let [ showConvos, setShowConvos ] = useState(false);
     let [ isLoading, setIsLoading ]     = useState(false);
 
-    const { subject, description, time, date, technician, status, site } = state;
+    const { subject, description, time, date, techInfo, status, site } = state;
 
-    const { email_id : techEmail, name } = technician;
+    // let techFullNameFormatted = techInfo;
 
-    let techFullNameFormatted = name.split(",")[1] + " " + name.split(",")[0];
+    let { email_id: techEmail, name } = techInfo;
+    
+    let techFullNameFormatted = (name !== "No assigned tech") ? name.split(",")[1] + " " + name.split(",")[0] : name;
 
     const getFAIcon = (status) => {
         let faIcon;

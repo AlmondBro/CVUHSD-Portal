@@ -56,10 +56,18 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     const routeToReqID = (requestObject, subject, description, time, date, status, technician, site) => {
         const { id } = requestObject;
 
+        let techInfo = {
+            email_id: "helpdesk@centinela.k12.ca.us",
+            name: "No assigned tech"
+        };
+
+        if (technician) {
+            techInfo = technician;
+        }
         const pathname = `${match.url}/view-requests/${id}`;
         return history.push({
             pathname: pathname,
-            state: { request: requestObject, subject, description, time, date, status, technician, site }
+            state: { request: requestObject, subject, description, time, date, status, techInfo, site }
         });
     }; //end routeToReqID
     
