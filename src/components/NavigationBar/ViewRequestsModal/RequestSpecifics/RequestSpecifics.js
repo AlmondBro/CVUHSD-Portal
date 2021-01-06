@@ -16,15 +16,11 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const history   = useHistory();
     const { state } = useLocation();
 
-
-    console.log("Location state:\t", state);
-
-    const { subject, description, time, date, status, technician, site } = state;
- 
     let [ statusIcon, setStatusIcon ] = useState(null);
     let [ showConvos, setShowConvos ] = useState(false);
 
-    let { email_id : techEmail, name } = technician;
+    const { subject, description, time, date, status, technician, site } = state;
+    const { email_id : techEmail, name } = technician;
 
     let techFullNameFormatted = name.split(",")[1] + " " + name.split(",")[0];
 
@@ -246,7 +242,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                             />
                                         ) : (
                                             <TechLink
-                                                href                =   {`mailto:${techEmail}`}
+                                                href                =   { `mailto:${techEmail}` }
                                                 districtPosition    =   { districtPosition.toLowerCase() }
                                                 renderAsStudent     =   { renderAsStudent }
                                             >
