@@ -51,7 +51,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
         return faIcon;
     };
 
-    /*
     const getReqConvos = async (id) => {
         let requests = [];
 
@@ -84,7 +83,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     }; //end getReqConvos
 
     const mapConvos = (convos) => {
-        return convos.filter((convo, index) => convo.FROM !== "System").map((convo, index) => {
+        return convos.filter((convo, index) => convo["FROM"] !== "System").map((convo, index) => {
             let { CREATEDDATE, FROM } = convo;
 
             let time = new Date(CREATEDDATE).toLocaleTimeString();
@@ -112,24 +111,22 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
         let convos          = await getReqConvos(id);
         let convoComponents = mapConvos(convos);
 
+        console.log("convoComponents:\t", convoComponents);
         setConvoComps(convoComponents);
 
         setIsLoading(false);
     };
-    */
 
     useEffect(() => {
         getFAIcon(status);
     }, []); //end useEffect() hook
 
-    /*
     useEffect(() => {
         if (showConvos === true) {
-            //loadConvoComponents();
+            loadConvoComponents();
         }
     }, [ showConvos ]); //end useEffect() hook
-    */ 
-
+    
     return (
         <Fragment> 
             <HeaderContainer className={`request-#${id}-header-container`}>
@@ -386,14 +383,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
 
                             showConvos          =   { showConvos }
                         >
-                            {/* <SingleConvo
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                                renderAsStudent     =   { renderAsStudent }
-                            />
-                               <SingleConvo
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                                renderAsStudent     =   { renderAsStudent }
-                            /> */}
+                            { convoComps }
                         </SingleConvosContainer>
                     </ConversationsOuterContainer> 
 
