@@ -17,9 +17,6 @@ import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, R
 
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, match, history, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
-    let [ changePasswordResult, setChangePasswordResult ]   = useState(null);
-
-    let [ serverMessage, setServerMessage ]                 = useState("");
 
     let [ submitEnabled, setSubmitEnabled ]                 = useState(false);
 
@@ -29,8 +26,6 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
 
     const onClose = () => {
         let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
-        setChangePasswordResult(null);
-        setServerMessage("");
         toggleModal(false);
 
         history.push(rootPathName);
@@ -58,22 +53,37 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         return formattedDate;
     };
 
-    const routeToReqID = (requestObject) => {
+    const routeToReqID = (requestObject, subject, description, time, date, status, technician, site) => {
         const { id } = requestObject;
 
+        let techInfo = {
+            email_id: "helpdesk@centinela.k12.ca.us",
+            name: "No assigned tech"
+        };
+
+        if (technician) {
+            techInfo = technician;
+        }
         const pathname = `${match.url}/view-requests/${id}`;
         return history.push({
             pathname: pathname,
-            state: { request: requestObject }
+            state: { request: requestObject, subject, description, time, date, status, techInfo, site }
         });
     }; //end routeToReqID
     
     const loadRequestRectangles = (requests) => {
         let requestRectangles = requests.map((requestObject, index) => {
 
-            let { subject, short_description, created_time, status, id } = requestObject;
+            let { subject, short_description: description, created_time, status, id, technician, site } = requestObject;
             
             let dateAndTime = parseDate(created_time["display_value"]);
+
+            const date = dateFormatChange(dateAndTime[0]);
+
+            const time = dateAndTime[1] + " " + dateAndTime[2];
+            
+            status = status.name;
+            site   =  site.name;
             
             return (
                 <RequestPreviewRectangle
@@ -81,14 +91,14 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     renderAsStudent     =   { renderAsStudent }
 
                     subject             =   { subject}
-                    description         =   { short_description }
-                    date                =   {  dateFormatChange(dateAndTime[0]) }
+                    description         =   { description }
+                    date                =   {  date }
                     time                =   { dateAndTime[1] + " " + dateAndTime[2] }
-                    status              =   { status.name }
+                    status              =   { status }
                     id                  =   { id }
                     isLoading           =   { isLoading }
 
-                    // onClick             =   { () => routeToReqID(requestObject) }
+                    onClick             =   { () => routeToReqID(requestObject, subject, description, time, date, status, technician, site) }
 
                     key                 =   { id }
                 />
@@ -151,7 +161,6 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     const afterOpenModal = async () => {
         setSubmitEnabled(true);
         // setIsLoading(false);
-        setServerMessage("");
 
         getRequestRectangles();
     }; //afterOpenModal()
@@ -202,165 +211,163 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             &times;
         </CloseButton>
         <InnerContainer className="view-request-modal-inner-container">
-            <div>
-                <ModalTitle 
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                >
-                    View Requests
-                </ModalTitle>
-                
-                <FAIconStyled
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                    icon                =   { faTasks }
-                />
-            </div>
-
-
             <Switch>
                 <Route exact path={"/:staffOrStudent/view-requests"}>
-            <TitleFilterContainer className="view-request-modal-title-filter-container">
-                <RequestTypeTitle
-                    className           =   "view-request-modal-request-type-title"
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                >
-                    {
-                        requestsType ? (requestsType === "Open") ? "Open Requests" :   
-                                        (requestsType === "In Progress")  ? "In Progress Requests" : 
-                                        (requestsType === "Closed")  ? "Closed Requests" : "All Requests"
-                                     
-                        : "All Requests"
-                    }
-                </RequestTypeTitle>
-
-                <FilterButton
-                    className           =   "view-request-modal-filter-button"
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                    onClick             =   { () => setShowFilterPane(!showFilterPane) }
-                >
-                    <FAIconStyled
-                            className           =   "view-request-modal-request-status-icon"
+                    <div>
+                        <ModalTitle 
                             districtPosition    =   { districtPosition.toLowerCase() }
-                            color               =   "white"
-                            icon                =   { faFilter }
-                    />
-                    <FilterText
-                            className="view-request-modal-filter-text"
-                            districtPosition    =   { districtPosition.toLowerCase() }
-                    >
-                        Filter/Legend
-                    </FilterText>
-                </FilterButton>
-                {
-                    (requestRectangles.length > 1) ? (
-                        <SortButton
-                            className           =   "view-request-modal-sort-button"
-                            districtPosition    =   { districtPosition.toLowerCase() }
-                            onClick             =   { () => setRequestRectangles([...requestRectangles].reverse()) }
                         >
+                            View Requests
+                        </ModalTitle>
+                        
                         <FAIconStyled
-                                className           =   "view-request-modal-request-sort-icon"
-                                districtPosition    =   { districtPosition.toLowerCase() }
-                                color               =   "white"
-
-                                icon                =   { faSort }
-                                noLeftMargin
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            icon                =   { faTasks }
                         />
-                        {/* <FilterText
-                                className="view-request-modal-filter-text"
-                                districtPosition    =   { districtPosition.toLowerCase() }
+                    </div>
+                    <TitleFilterContainer className="view-request-modal-title-filter-container">
+                        <RequestTypeTitle
+                            className           =   "view-request-modal-request-type-title"
+                            districtPosition    =   { districtPosition.toLowerCase() }
                         >
-                            Asc/Desc
-                        </FilterText> */}
-                    </SortButton>
-                    ) : null
-                }
-            </TitleFilterContainer>
-     
-            <FilterPane
-                districtPosition    =   { districtPosition }
-                renderAsStudent     =   { renderAsStudent }
+                            {
+                                requestsType ? (requestsType === "Open") ? "Open Requests" :   
+                                                (requestsType === "In Progress")  ? "In Progress Requests" : 
+                                                (requestsType === "Closed")  ? "Closed Requests" : "All Requests"
+                                            
+                                : "All Requests"
+                            }
+                        </RequestTypeTitle>
 
-                showFilterPane      =   { showFilterPane }
-                setShowFilterPane   =   { setShowFilterPane }
-
-                setRequestsType     =   { setRequestsType }
-            />
-                
-            <ReqRectContainer 
-                className           =   "view-request-modal-req-rect-container"
-                districtPosition    =   { districtPosition }
-                renderAsStudent     =   { renderAsStudent }
-            >            
-                <SkeletonTheme 
-                    color           = {
-                                        districtPosition ?
-                                            ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
-                                                "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
-                                            : "rgba(147, 30, 29, 0.1)" 
-                                        }
-                    highlightColor  = {
-                                            districtPosition ?
-                                            ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
-                                                "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
-                                            : "rgba(147, 30, 29, 0.1)" 
-                    }
-                > 
-                {
-                    isLoading ? (
-                        <Fragment>
-                            <RequestPreviewRectangle
-                                districtPosition    =   { districtPosition }
-                                renderAsStudent     =   { renderAsStudent }
-
-                                isLoading           =   {   true }
+                        <FilterButton
+                            className           =   "view-request-modal-filter-button"
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            onClick             =   { () => setShowFilterPane(!showFilterPane) }
+                        >
+                            <FAIconStyled
+                                    className           =   "view-request-modal-request-status-icon"
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    color               =   "white"
+                                    icon                =   { faFilter }
                             />
-                            <RequestPreviewRectangle
-                                districtPosition    =   { districtPosition }
-                                renderAsStudent     =   { renderAsStudent }
-
-                                isLoading           =   {   true }
-                            />
-                            <RequestPreviewRectangle
-                                districtPosition    =   { districtPosition }
-                                renderAsStudent     =   { renderAsStudent }
-
-                                isLoading           =   {   true }
-                            />
-
-                            <RequestPreviewRectangle
-                                districtPosition    =   { districtPosition }
-                                renderAsStudent     =   { renderAsStudent }
-
-                                isLoading           =   {   true }
-                            />
-                            <RequestPreviewRectangle
-                                districtPosition    =   { districtPosition }
-                                renderAsStudent     =   { renderAsStudent }
-
-                                isLoading           =   {  true }
-                            />
-                            <RequestPreviewRectangle
-                                districtPosition    =   { districtPosition }
-                                renderAsStudent     =   { renderAsStudent }
-
-                                isLoading           =   {   true }
-                            />     
-                        </Fragment>
-                    ) : (requestRectangles.length > 0) ? 
-                            requestRectangles 
-                            : (
-                                <NoRequestsMessage 
-                                    className           =   "no-requests-message"
-                                    districtPosition    =   { districtPosition }
-                                    renderAsStudent     =   { renderAsStudent }
+                            <FilterText
+                                    className="view-request-modal-filter-text"
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                            >
+                                Filter/Legend
+                            </FilterText>
+                        </FilterButton>
+                        {
+                            (requestRectangles.length > 1) ? (
+                                <SortButton
+                                    className           =   "view-request-modal-sort-button"
+                                    districtPosition    =   { districtPosition.toLowerCase() }
+                                    onClick             =   { () => setRequestRectangles([...requestRectangles].reverse()) }
                                 >
-                                    No {requestsType.toLowerCase( )} requests at this moment.
-                                </NoRequestsMessage>
-                            )
+                                <FAIconStyled
+                                        className           =   "view-request-modal-request-sort-icon"
+                                        districtPosition    =   { districtPosition.toLowerCase() }
+                                        color               =   "white"
 
-                }
-                </SkeletonTheme>
-                </ReqRectContainer>
+                                        icon                =   { faSort }
+                                        noLeftMargin
+                                />
+                                {/* <FilterText
+                                        className="view-request-modal-filter-text"
+                                        districtPosition    =   { districtPosition.toLowerCase() }
+                                >
+                                    Asc/Desc
+                                </FilterText> */}
+                            </SortButton>
+                            ) : null
+                        }
+                    </TitleFilterContainer>
+            
+                    <FilterPane
+                        districtPosition    =   { districtPosition }
+                        renderAsStudent     =   { renderAsStudent }
+
+                        showFilterPane      =   { showFilterPane }
+                        setShowFilterPane   =   { setShowFilterPane }
+
+                        setRequestsType     =   { setRequestsType }
+                    />
+                        
+                    <ReqRectContainer 
+                        className           =   "view-request-modal-req-rect-container"
+                        districtPosition    =   { districtPosition }
+                        renderAsStudent     =   { renderAsStudent }
+                    >            
+                        <SkeletonTheme 
+                            color           = {
+                                                districtPosition ?
+                                                    ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                                        "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+                                                    : "rgba(147, 30, 29, 0.1)" 
+                                                }
+                            highlightColor  = {
+                                                    districtPosition ?
+                                                    ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+                                                        "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+                                                    : "rgba(147, 30, 29, 0.1)" 
+                            }
+                        > 
+                        {
+                            isLoading ? (
+                                <Fragment>
+                                    <RequestPreviewRectangle
+                                        districtPosition    =   { districtPosition }
+                                        renderAsStudent     =   { renderAsStudent }
+
+                                        isLoading           =   {   true }
+                                    />
+                                    <RequestPreviewRectangle
+                                        districtPosition    =   { districtPosition }
+                                        renderAsStudent     =   { renderAsStudent }
+
+                                        isLoading           =   {   true }
+                                    />
+                                    <RequestPreviewRectangle
+                                        districtPosition    =   { districtPosition }
+                                        renderAsStudent     =   { renderAsStudent }
+
+                                        isLoading           =   {   true }
+                                    />
+
+                                    <RequestPreviewRectangle
+                                        districtPosition    =   { districtPosition }
+                                        renderAsStudent     =   { renderAsStudent }
+
+                                        isLoading           =   {   true }
+                                    />
+                                    <RequestPreviewRectangle
+                                        districtPosition    =   { districtPosition }
+                                        renderAsStudent     =   { renderAsStudent }
+
+                                        isLoading           =   {  true }
+                                    />
+                                    <RequestPreviewRectangle
+                                        districtPosition    =   { districtPosition }
+                                        renderAsStudent     =   { renderAsStudent }
+
+                                        isLoading           =   {   true }
+                                    />     
+                                </Fragment>
+                            ) : (requestRectangles.length > 0) ? 
+                                    requestRectangles 
+                                    : (
+                                        <NoRequestsMessage 
+                                            className           =   "no-requests-message"
+                                            districtPosition    =   { districtPosition }
+                                            renderAsStudent     =   { renderAsStudent }
+                                        >
+                                            No {requestsType.toLowerCase( )} requests at this moment.
+                                        </NoRequestsMessage>
+                                    )
+
+                        }
+                        </SkeletonTheme>
+                    </ReqRectContainer>
             </Route>
             <Route path={"/:staffOrStudent/view-requests/:id"}>
                 <RequestSpecifics
