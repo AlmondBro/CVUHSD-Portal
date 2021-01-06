@@ -308,7 +308,7 @@ let ConversationsOuterContainer = styled("div")`
     justify-content: flex-start;
 
     width: 100%;
-    height: 160px;
+    height: 172px;
 `;
 
 const ConvoReplyButtonContainer = styled("div")`
@@ -386,7 +386,7 @@ const SingleConvosContainer = styled("div")`
 
     max-height: ${props => props.showConvos ? "280px" : "0px"};
 
-    overflow-y: scroll;
+    overflow-y: auto;
 
     transition: 450ms max-height ease-in-out;
     transition-delay: 150ms;

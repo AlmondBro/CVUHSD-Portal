@@ -83,15 +83,13 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     }; //end getReqConvos
 
     const mapConvos = (convos) => {
-        let convoComponents = [];
-        convos.filter((convo, index) => convo["FROM"] != "System").forEach((convo, index) => {
+        return convos.filter((convo, index) => convo["FROM"] != "System").map((convo, index) => {
             let { CREATEDDATE, FROM } = convo;
 
             let time = new Date(CREATEDDATE).toLocaleTimeString();
             let date =  new Date(CREATEDDATE).toLocaleDateString();
-        
 
-            convoComponents.push(
+            return (
                 <SingleConvo
                     isLoading           =   { isLoading }
                     districtPosition    =   { districtPosition }
@@ -103,11 +101,9 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     author              =   { FROM } 
                     key                 =   { index }
                 />
-            );
+            ); //end return statement
         }); //end .map() Array method
-
-        return convoComponents;
-    };
+    }; //end mapConvos()
 
     const loadConvoComponents = async () => {
         setIsLoading(true);
@@ -388,7 +384,16 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
 
                             showConvos          =   { showConvos }
                         >
-                            { [ convoComps ] }
+                            { convoComps.length > 0 ? convoComps : (
+                                    <RequestDescription
+                                        className           =   {`request-#${id}-no-convos-message`}
+                                        districtPosition    =   { districtPosition.toLowerCase() }
+                                        as                  =   "p"
+                                    >
+                                        { `No conversations in this request (id#${id})` }
+                                    </RequestDescription>
+                                )
+                            }
                         </SingleConvosContainer>
                     </ConversationsOuterContainer> 
 
