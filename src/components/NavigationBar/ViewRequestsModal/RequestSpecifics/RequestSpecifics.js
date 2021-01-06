@@ -9,7 +9,7 @@ import SingleConvo from './SingleConvo/SingleConvo.js';
 import isDev from 'isdev';
 
 //import styled components
-import { TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
+import { NoConvosMessage, TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const { id }    = useParams();
@@ -387,13 +387,13 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                             showConvos          =   { showConvos }
                         >
                             { convoComps.length > 0 ? convoComps : (
-                                    <RequestDescription
+                                    <NoConvosMessage
                                         className           =   {`request-#${id}-no-convos-message`}
                                         districtPosition    =   { districtPosition.toLowerCase() }
-                                        as                  =   "p"
+                                        renderAsStudent     =   { renderAsStudent }
                                     >
                                         { `No conversations in this request (id#${id})` }
-                                    </RequestDescription>
+                                    </NoConvosMessage>
                                 )
                             }
                         </SingleConvosContainer>

@@ -430,4 +430,25 @@ const SingleConvosContainer = styled("div")`
     }
 `;
 
-export { TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+const NoConvosMessage = styled("p")`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    font-size: 1.2em;
+
+    color: ${ props => props.districtPosition ?
+                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                          "#B41A1F": "#1E6C93"
+                                    : "#B41A1F"
+        };
+
+    width: 85%;
+    height: 120px;
+
+    text-align: center;
+
+    margin: auto;
+`;
+
+export { NoConvosMessage, TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
