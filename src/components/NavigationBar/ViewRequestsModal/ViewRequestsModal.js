@@ -53,22 +53,28 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         return formattedDate;
     };
 
-    const routeToReqID = (requestObject) => {
+    const routeToReqID = (requestObject, subject, description, time, date, status) => {
         const { id } = requestObject;
 
         const pathname = `${match.url}/view-requests/${id}`;
         return history.push({
             pathname: pathname,
-            state: { request: requestObject }
+            state: { request: requestObject, subject, description, time, date, status }
         });
     }; //end routeToReqID
     
     const loadRequestRectangles = (requests) => {
         let requestRectangles = requests.map((requestObject, index) => {
 
-            let { subject, short_description, created_time, status, id } = requestObject;
+            let { subject, short_description: description, created_time, status, id } = requestObject;
             
             let dateAndTime = parseDate(created_time["display_value"]);
+
+            const date = dateFormatChange(dateAndTime[0]);
+
+            const time = dateAndTime[1] + " " + dateAndTime[2];
+            
+            status = status.name;
             
             return (
                 <RequestPreviewRectangle
@@ -76,14 +82,14 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     renderAsStudent     =   { renderAsStudent }
 
                     subject             =   { subject}
-                    description         =   { short_description }
-                    date                =   {  dateFormatChange(dateAndTime[0]) }
+                    description         =   { description }
+                    date                =   {  date }
                     time                =   { dateAndTime[1] + " " + dateAndTime[2] }
-                    status              =   { status.name }
+                    status              =   { status }
                     id                  =   { id }
                     isLoading           =   { isLoading }
 
-                    onClick             =   { () => routeToReqID(requestObject) }
+                    onClick             =   { () => routeToReqID(requestObject, subject, description, time, date, status) }
 
                     key                 =   { id }
                 />

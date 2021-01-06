@@ -1,7 +1,6 @@
 import React, { Fragment, Component } from "react";
 
 import isDev from 'isdev';
-import undefsafe from "undefsafe";
 
 import {  Redirect } from "react-router";
 import { Route, Switch } from "react-router-dom";

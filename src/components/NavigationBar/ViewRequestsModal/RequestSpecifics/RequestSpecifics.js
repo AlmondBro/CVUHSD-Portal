@@ -12,16 +12,15 @@ import undefsafe from 'undefsafe';
 import { SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 
 const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
-    const { id } = useParams();
-    const history = useHistory();
-
-    const status = "Open";
-    let subject, description, time, date = "test";
-
+    const { id }    = useParams();
+    const history   = useHistory();
     const { state } = useLocation();
 
     console.log("Location state:\t", state);
 
+
+    const { subject, description, time, date, status } = state;
+ 
     let [ showConvos, setShowConvos ] = useState(false);
 
     const getFAIcon = () => {
@@ -86,7 +85,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     districtPosition    =   { districtPosition.toLowerCase() }
                     renderAsStudent     =   { renderAsStudent }
                 >
-                    PowerSchool Log-in Help
+                    { subject || "Ticket Title"}
                 </ModalTitle>
             </HeaderContainer>
 
@@ -135,11 +134,16 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                         districtPosition    =   { districtPosition.toLowerCase() }
                                         as                  =   "p"
                                     >
-                                        Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
-                                        says that the password or username is incorrect, or that I need to contact my district administrator. 
-                                        I am using the same exact credentials that I use to log into all of my other school-related things 
-                                        (Canvas, DeltaMath, etc.) but it still won’t let me log in. I’ve been having this issue since the 
-                                        second semester of 9th grade. Help would be greatly appreciated. Thank you :)
+                                        {
+                                            description || `
+                                                Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
+                                                says that the password or username is incorrect, or that I need to contact my district administrator. 
+                                                I am using the same exact credentials that I use to log into all of my other school-related things 
+                                                (Canvas, DeltaMath, etc.) but it still won’t let me log in. I’ve been having this issue since the 
+                                                second semester of 9th grade. Help would be greatly appreciated. Thank you :)
+                                            `
+                                        }
+
                                     </RequestDescription>
                                 )
                             }
@@ -175,7 +179,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                             <Skeleton
                                                 width = {40}
                                             />
-                                        ) : "Open"
+                                        ) : status || "Open"
                                     }  
                                 </DateTime>
                             </MetaDataContainer>
@@ -204,7 +208,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                             <Skeleton
                                                 width = {40}
                                             />
-                                        ) : "12/15/2020 — 12:51 PM"
+                                        ) : `${date} — ${time}`
                                     }  
                                 </DateTime>
                                 </MetaDataContainer>
