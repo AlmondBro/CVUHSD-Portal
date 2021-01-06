@@ -83,13 +83,15 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     }; //end getReqConvos
 
     const mapConvos = (convos) => {
-        return convos.filter((convo, index) => convo["FROM"] !== "System").map((convo, index) => {
+        let convoComponents = [];
+        convos.filter((convo, index) => convo["FROM"] != "System").forEach((convo, index) => {
             let { CREATEDDATE, FROM } = convo;
 
             let time = new Date(CREATEDDATE).toLocaleTimeString();
             let date =  new Date(CREATEDDATE).toLocaleDateString();
         
-            return (
+
+            convoComponents.push(
                 <SingleConvo
                     isLoading           =   { isLoading }
                     districtPosition    =   { districtPosition }
@@ -102,7 +104,9 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     key                 =   { index }
                 />
             );
-        });
+        }); //end .map() Array method
+
+        return convoComponents;
     };
 
     const loadConvoComponents = async () => {
@@ -111,7 +115,8 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
         let convos          = await getReqConvos(id);
         let convoComponents = mapConvos(convos);
 
-        console.log("convoComponents:\t", convoComponents);
+        console.log("ReqSpecifics convos:\t", convos);
+        console.log("ReqSpecifics convoComponents:\t", convoComponents);
         setConvoComps(convoComponents);
 
         setIsLoading(false);
@@ -383,7 +388,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
 
                             showConvos          =   { showConvos }
                         >
-                            { convoComps }
+                            { [ convoComps ] }
                         </SingleConvosContainer>
                     </ConversationsOuterContainer> 
 

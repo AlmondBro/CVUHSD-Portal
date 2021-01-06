@@ -103,7 +103,7 @@ const SingleConvo = ({id, isLoading, districtPosition, renderAsStudent, showConv
                                 <Skeleton
                                     width = {80}
                                 />
-                            ) : { author }
+                            ) : author 
                         }  
                     </DateTime>
                 </MetaDataContainer>
