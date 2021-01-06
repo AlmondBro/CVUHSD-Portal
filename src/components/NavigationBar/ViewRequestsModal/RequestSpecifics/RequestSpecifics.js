@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 import Skeleton from 'react-loading-skeleton';
@@ -16,31 +16,32 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     const history   = useHistory();
     const { state } = useLocation();
 
-    console.log("Location state:\t", state);
 
+    console.log("Location state:\t", state);
 
     const { subject, description, time, date, status } = state;
  
+    let [ statusIcon, setStatusIcon ] = useState(null);
     let [ showConvos, setShowConvos ] = useState(false);
 
-    const getFAIcon = () => {
+    const getFAIcon = (status) => {
         let faIcon;
 
         switch(status) {
             case "All":
-                faIcon = faTasks;
+                setStatusIcon(faTasks);
             break;
 
             case "Open":
-                faIcon = faCircle;
+                setStatusIcon(faCircle);
             break;
 
             case "In Progress":
-                faIcon = faAngleDoubleRight;
+                setStatusIcon(faAngleDoubleRight);
             break;
 
             case "Closed":
-                faIcon = faCheck;
+                setStatusIcon(faCheck);
             break;
         }
 
@@ -48,6 +49,10 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
     };
 
     const isLoading = false;
+
+    useEffect(() => {
+        getFAIcon(status);
+    }, [ status ]); //end useEffect() hook
 
     return (
         <Fragment> 
@@ -163,7 +168,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                     className           =   {`request-#${id}-metadata-icon`}
                                     districtPosition    =   { districtPosition.toLowerCase() }
                                     renderAsStudent     =   { renderAsStudent }
-                                    icon                =   { faCircle }
+                                    icon                =   { statusIcon }
                                     fontSize            =   "1.15em"
                                 />
                                 <DateTime
