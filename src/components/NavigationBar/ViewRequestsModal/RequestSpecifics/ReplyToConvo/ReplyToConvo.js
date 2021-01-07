@@ -7,8 +7,8 @@ import ReactLoading from 'react-loading';
 import isDev from 'isdev';
 
 import { HeaderContainer, BackButton, BackArrowIcon, FAIconStyled, TicketNumberTitle, ModalTitle, Container, Form, FormInputContainer, TextArea, ReplyButton } from './ReplyToConvoStyledComponents.js';
-
-const ReplyToConvo = ({districtPosition, renderAsStudent, id }) => {
+import { HelpdeskSubmitMessage } from './../../../SupportRequestModal/SupportRequestModalStyledComponents.js';
+const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
     let [ message, setMessage ]             = useState("");
 
     let [ isLoading, setIsLoading ]         = useState(false);
@@ -67,11 +67,31 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id }) => {
             console.log("sendReplyReqResult:\t", sendReplyReqResult);
 
             if (sendReplyReqResult && !sendReplyReqResult.error) {
+                
                 console.log(`Successfully replied to request #${id}.`);
                 setMessage("");
                 setSubmitEnabled(true);
+
+                notify(
+                    <HelpdeskSubmitMessage
+                        districtPosition    =   { districtPosition }
+                        renderAsStudent     =   { renderAsStudent }
+                        message             =   {`Successfully replied to request #${id}.`}
+                        icon                =   { faReply }
+                    />
+                );
             } else {
                 console.log(`Error in replying to request #${id}.`);
+
+                notify(
+                    <HelpdeskSubmitMessage
+                        districtPosition    =   { districtPosition }
+                        renderAsStudent     =   { renderAsStudent }
+                        message             =   {`Error in replying to request #${id}.`}
+                        icon                =   { faReply }
+                    />
+                );
+                
                 setSubmitEnabled(true);
             } //end else-statement
         } //end outer if-statement
@@ -93,7 +113,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id }) => {
                 </BackButton>
             
                 <ModalTitle 
-                    className={`request-#${id}-ticket-title`}
+                    className           =   {`request-#${id}-ticket-title`}
                     districtPosition    =   { districtPosition.toLowerCase() }
                     renderAsStudent     =   { renderAsStudent }
                 >

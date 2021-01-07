@@ -373,6 +373,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 <RequestSpecifics
                     districtPosition    =   { districtPosition }
                     renderAsStudent     =   { renderAsStudent }
+                    notify              =   { notify }
                 />
             </Route>
             </Switch>

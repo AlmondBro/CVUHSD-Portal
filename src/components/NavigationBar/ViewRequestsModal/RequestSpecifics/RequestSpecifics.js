@@ -12,7 +12,7 @@ import isDev from 'isdev';
 import { NoConvosMessage, TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 import ReplyToConvo from './ReplyToConvo/ReplyToConvo.js';
 
-const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
+const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
     const { id }    = useParams();
     const history   = useHistory();
     const { state } = useLocation();
@@ -414,6 +414,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
             <ReplyToConvo
              districtPosition   =   { districtPosition.toLowerCase() }
              renderAsStudent    =   { renderAsStudent }
+             notify             =   { notify }
              id                 =   { id }
             />
         </Route>

@@ -8,7 +8,7 @@ import {
     ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,
     TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
 
-const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
+const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]     = useState(false);
 
     let [ categories, setCategories ]   = useState([]);
@@ -114,6 +114,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                 notify(
                     <HelpdeskSubmitMessage
                     districtPosition    =   { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
                     message             =   "Helpdesk Request Submitted"
                     icon                =   { faTicketAlt }
                     />
