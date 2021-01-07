@@ -3,22 +3,29 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { faTicketAlt, faArrowLeft, faReply } from '@fortawesome/free-solid-svg-icons';
 
-import { HeaderContainer, BackButton, BackArrowIcon, FAIconStyled, TicketNumberTitle, ModalTitle, Container, Form, FormInputContainer, TextArea, ReplyButton } from './ReplyToConvoStyledComponents.js';
-
+import ReactLoading from 'react-loading';
 import isDev from 'isdev';
 
+import { HeaderContainer, BackButton, BackArrowIcon, FAIconStyled, TicketNumberTitle, ModalTitle, Container, Form, FormInputContainer, TextArea, ReplyButton } from './ReplyToConvoStyledComponents.js';
+
 const ReplyToConvo = ({districtPosition, renderAsStudent, id }) => {
-    const [ message, setMessage ] = useState("");
+    let [ message, setMessage ]             = useState("");
 
-    const history   = useHistory();
-    const { state } = useLocation();
+    let [ isLoading, setIsLoading ]         = useState(false);
+    let [ submitEnabled, setSubmitEnabled ] = useState(true);
 
-    const { subject, techInfo } = state;
+    const history                           = useHistory();
+    const { state }                         = useLocation();
+
+    let { subject, techInfo } = state;
+
+    let replySubject = `Re: ` + subject; 
 
     const techEmail = techInfo.email_id;
 
     const onChange = (event) => {
         setMessage(event.target.value);
+
       }; //end onChange() handler
 
     const sendReplyReq = async () => {
@@ -29,41 +36,46 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id }) => {
             "Access-Control-Allow-Credentials": true
         };
     
-        let sendReply_Req = await fetch(sendReplyReq_URL, {
+        let sendReplyReqResult = await fetch(sendReplyReq_URL, {
             method: 'POST',
             headers: sendReplyReq_Headers,
-            body: JSON.stringify({subject, description: message, email: techEmail})
+            body: JSON.stringify({subject: replySubject, description: message, email: techEmail})
         })
         .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
         .then((jsonResponse) => jsonResponse)
         .catch((error) => {
             console.error(`getReqConvos() Catching error:\t ${error}`);
+            return;
         });
 
-        if (sendReply_Req && !sendReply_Req.error) {
-            console.log(`Successfully replied to request #${id}.`);
-        } else {
-            console.log(`Error in replying to request #${id}.`);
-        }
-
-        return sendReply_Req;
+        return sendReplyReqResult;
     }; //end getReqConvos
 
 
     const submitRequest = async (event) => {
         event.preventDefault();
         event.stopPropagation();
-    
-        let submitReqResponse = "";
-    
-        // if (submitEnabled && (isLoading === false) ) {
-        //     setIsLoading(true);
-        //     //setSubmitEnabled(false);
-        // }
-        
-        sendReplyReq(id);
-        // return submitReqResponse;
-      }; //end submitRequest
+
+        if (submitEnabled && (isLoading === false)) {
+            setSubmitEnabled(false);
+            setIsLoading(true);
+
+            let sendReplyReqResult = await sendReplyReq(id);
+            
+            setIsLoading(false);
+
+            console.log("sendReplyReqResult:\t", sendReplyReqResult);
+
+            if (sendReplyReqResult && !sendReplyReqResult.error) {
+                console.log(`Successfully replied to request #${id}.`);
+                setMessage("");
+                setSubmitEnabled(true);
+            } else {
+                console.log(`Error in replying to request #${id}.`);
+                setSubmitEnabled(true);
+            } //end else-statement
+        } //end outer if-statement
+    }; //end submitRequest
 
     return (
         <Fragment>
@@ -126,14 +138,27 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id }) => {
                             rows        =   "10"
                             placeholder =   { `Enter your response to ${subject} here...`}
                             onChange    =   { onChange }  
+                            value       =   { message }
+                            required    =   { true }
                        />
                         <ReplyButton
                             type                =   "submit"        
+                            disabled            =   { !submitEnabled }
+                            submitEnabled       =   {  submitEnabled }
 
+                            isLoading           =   { isLoading }
                             districtPosition    =   { districtPosition.toLowerCase() }
                             renderAsStudent     =   { renderAsStudent }
                         >
-                            Reply
+                        {
+                            isLoading ? (
+                                <ReactLoading 
+                                    type    =   "bubbles"
+                                    width   =   "30px" 
+                                    height  =   "30px" 
+                                    color   =   "white"
+                                /> ) : "Reply"
+                        }
                         </ReplyButton>
                     </FormInputContainer>
                    

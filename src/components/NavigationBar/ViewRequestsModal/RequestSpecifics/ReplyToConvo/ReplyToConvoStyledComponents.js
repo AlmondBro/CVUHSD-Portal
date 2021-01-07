@@ -95,6 +95,8 @@ const Form = styled("form")`
 const FormInputContainer = styled("section")`
     width: 100%;
     height: 100%;
+
+    text-align: center;
 `;
 
 const TextArea = styled("textarea")`
@@ -144,30 +146,52 @@ const TextArea = styled("textarea")`
 `;
 
 const ReplyButton = styled("button")`
-    position: relative;
-    z-index: 1;
-    
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    cursor: ${props => props.isLoading ? "progress" : "pointer"};
 
-    font-size: 1.4em;
+    font-size: 1.3em;
+    max-width: 150px;
 
     color: white;
-    background-color: ${ props => props.districtPosition ?
+    background-color: ${ props => props.submitEnabled ? props.districtPosition ?
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
-                                        "#931E1D": "#1E6C93"
-                                    : "#931E1D" 
-            };
+                                        "#B41A1F": "#1E6C93"
+                                    :  "#B41A1F" 
+                                :   "grey"
+                        };
 
     border: 0px;
     border-radius: 10px;
 
-    padding: 5px 10px;
+    outline: 0px;
 
     margin: 0 auto;
     margin-top: 8px;
+
+    padding: 8px;
+
+    transition: 350ms ease-in-out background-color;
+
+    :hover {
+        cursor: pointer;
+        background-color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "rgba(147, 30, 29, 0.67)": "rgba(30, 108, 147, 0.67)"
+                                    :   "rgba(147, 30, 29, 0.67)" 
+                     };
+    }
+
+    :focus {
+        background-color: ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "rgba(147, 30, 29, 0.67)": "rgba(30, 108, 147, 0.67)"
+                                    :   "rgba(147, 30, 29, 0.67)" 
+                     };
+        /* box-shadow: 0px 0px 5px 0px    ${ props => props.districtPosition ?
+                                    ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
+                                        "#B41A1F": "#1E6C93"
+                                    :  "#B41A1F" 
+            };           */
+    }
 `;
 
 
