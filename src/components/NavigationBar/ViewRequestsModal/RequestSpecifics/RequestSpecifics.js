@@ -410,7 +410,11 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
             </Container>  
         </Route>
         <Route path={match.path + "/reply"}>
-            <ReplyToConvo/>
+            <ReplyToConvo
+             districtPosition   =   { districtPosition.toLowerCase() }
+             renderAsStudent    =   { renderAsStudent }
+             id                 =   { id }
+            />
         </Route>
       </Switch>
     ); //end return()
