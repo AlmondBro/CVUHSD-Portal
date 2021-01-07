@@ -1,21 +1,17 @@
-import React, { Fragment, Component, useEffect, useState } from "react";
-
-//Import 3rd party modules
-import ReactLoading from "react-loading";
-import styled from "styled-components";
-
-import isDev from 'isdev';
+import React, { Fragment, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
+import isDev from 'isdev';
 
 //Import App components
 import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header/Header.js";
 
+
 //Import list of buttons
 import { blueSectionInfo_Staff , redSectionInfo_Student } from "./../objectFiles/blueSectionInfo.js";
-
-import undefsafe from "undefsafe";
 
 import Footer from "./Footer/Footer.js";
 
@@ -23,15 +19,9 @@ import Footer from "./Footer/Footer.js";
 //TODO: Save passed props from <Redirect> into state.
 //TODO: Enlarge the All links embedded google sheet
 //TODO: Use undefsafe to add this.props.location.state as part of "portal switching". ALso find if this really necessary.
+const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, gradeLevel, username, accessToken, clearState, logOut, changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent, notify }) => {
 
-
-const PageContentLoading = styled("div")`
-    margin: 0 auto;
-`;
-
-const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, gradeLevel, location, username, accessToken, clearState, logOut, changeContainerStyle, modifySite, modifyGradeLevel, modifyTitle, modifyRenderAsStudent, modifyIsStudent, notify }) => {
-  //let [ renderAsStudentTwo, setRenderAsStudent ] = useState(renderAsStudent || location.state.renderAsStudent);
-  //undefsafe(this.props, "renderAsStudent") || undefsafe(this.props.location, "state", "renderAsStudent") || "";
+  let history = useHistory();
   
   let sectionInfoObject = (title === "Student" ||  window.location.pathname === "/student") ? 
                               redSectionInfo_Student : blueSectionInfo_Staff;
@@ -160,10 +150,14 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
   useEffect(() => {
     changeContainerStyle({"background-image": `none` });
 
-    if ( (title === "Student" || ( undefsafe(location, "state", "renderAsStudent") == "true" && title === "Student")|| window.location.pathname === "/student" && title === "Student") && !gradeLevel) {
+    if ( (title === "Student") && !gradeLevel) {
         getUserInfo();
     } //end if-statement
-  }, [ title, location, email ]); //end useEffect
+
+    if (window.location.pathname === "/auth-success") {
+      history.push(`/`);
+    }
+  }, [ title, window.location.pathname, email ]); //end useEffect
 
   const showFooter = false;
 

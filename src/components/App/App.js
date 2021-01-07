@@ -374,7 +374,6 @@ class App extends Component {
                       site                  = { this.state.site }
                       renderAsStudent       = { this.state.renderAsStudent }
                       gradeLevel            = { this.state.gradeLevel }
-                      location              = { this.props.location }
                       username              = { this.state.username }
                       accessToken           = { this.state.accessToken }
                       clearState            = { this.clearState }
