@@ -22,7 +22,6 @@ import MobileAppBanner from "./MobileAppBaner/MobileAppBanner.js";
 //Import pages
 import NotFound from "./../NotFound/NotFound.js";
 
-
 //Import styled components
 import { GlobalStyles, StyledContainer, StyledToastContainer } from "./App_StyledComponents.js";
 
