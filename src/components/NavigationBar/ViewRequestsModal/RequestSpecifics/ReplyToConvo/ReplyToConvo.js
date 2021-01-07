@@ -9,6 +9,8 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id }) => {
     const history   = useHistory();
     const { state } = useLocation();
 
+    const { subject, description, time, date, techInfo, status, site } = state;
+
     const match = useRouteMatch();
 
     return (
@@ -65,7 +67,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id }) => {
                     <FormInputContainer>
                         <TextArea
                             rows        =   "10"
-                            placeholder =   { `Enter your response to ${"ticket name"} here...`}
+                            placeholder =   { `Enter your response to ${subject} here...`}
                        />
                         <ReplyButton
                             districtPosition    =   { districtPosition.toLowerCase() }

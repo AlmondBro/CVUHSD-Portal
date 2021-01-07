@@ -371,9 +371,10 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                 <ReplyButton
                                     className  =   {`request-#${id}-reply-button`}
                                     onClick     =   { () => history.push({
-                                        pathname: `${match.url}/reply`,
-                                        state: { subject, description, time, date, techInfo, status, site }
-                                    }) }
+                                                        pathname    : `${match.url}/reply`,
+                                                        state       : { subject, description, time, date, techInfo, status, site }
+                                                    }) 
+                                    }
                                 >
                                     <FAIconStyled
                                             className           =   {`request-#${id}-reply-icon`}
@@ -399,7 +400,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                                             districtPosition    =   { districtPosition.toLowerCase() }
                                             renderAsStudent     =   { renderAsStudent }
                                         >
-                                            { `No conversations in this request (id#${id})` }
+                                            { `No conversations in this request (#${id})` }
                                         </NoConvosMessage>
                                     )
                                 }
@@ -409,7 +410,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent}) => {
                     </SkeletonThemeStyled>
             </Container>  
         </Route>
-        <Route path={match.path + "/reply"}>
+        <Route path = {match.path + "/reply"}>
             <ReplyToConvo
              districtPosition   =   { districtPosition.toLowerCase() }
              renderAsStudent    =   { renderAsStudent }
