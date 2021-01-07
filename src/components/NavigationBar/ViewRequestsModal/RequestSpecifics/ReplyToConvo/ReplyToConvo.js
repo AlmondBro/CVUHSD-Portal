@@ -102,14 +102,18 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id }) => {
                     { subject || "No title specified"}
                 </ModalTitle>
 
-                <TicketNumberTitle 
-                    className           =   {`request-#${id}-ticket-number-title`}
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                    renderAsStudent     =   { renderAsStudent }
-                    as                  =   "h4"
-                >
-                    (#{id})
-                </TicketNumberTitle>
+                {
+                    id ? (
+                        <TicketNumberTitle 
+                            className           =   {`request-#${id}-ticket-number-title`}
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
+                            as                  =   "h4"
+                        >
+                        (#{id})
+                    </TicketNumberTitle>
+                    ) : null
+                }
             </HeaderContainer>
 
             <Container 
