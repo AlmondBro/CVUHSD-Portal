@@ -190,6 +190,75 @@ router.get('/request/get-convos/:id', async (req, res) => {
     return res.json({convos, message, error});
 });
 
+/* === REPLY TO REQUEST === */
+const sdpReplyToReq = async (id, description) => {
+    let replyTo = "lopezj@centinela.k12.ca.us";
+    let cc      = "lopezj@centinela.k12.ca.us";
+    let subject = "View Requests Open Ticket";
+
+    const sdpReplyURL = `${process.env.SDP_URL}/sdpapi/request/${id}/`; 
+    const sdpReplyHeaders = {
+        'Content-Type'      :   'application/x-www-form-urlencoded',
+        'technician_key'    :   process.env.SDP_TECH_KEY
+    };
+
+    const inputData = {
+        operation: {
+            details: {
+                to: replyTo,
+                cc: cc,
+                subject: subject,
+                description: description
+            }
+        }
+    }; //end inputData {}
+
+    const params = {
+        //INPUT_DATA      : inputData,
+        OPERATION_NAME  : "REPLY_REQUEST",
+        format          : "json"
+    };  //end params {}
+
+    const query = "?" + Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`).join('&');
+
+    // sdpReadRequestsURL + "?input_data=" + escape(JSON.stringify(requestDetails));
+
+    const fetchUrl = sdpReplyURL + query + `&input_data=${escape(JSON.stringify(inputData))}`;
+
+    const sdpReplyResponse = await fetch(fetchUrl, {
+        method: 'POST',
+        headers: sdpReplyHeaders,
+        // body: params
+    })
+    .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
+    .then((jsonResponse) => jsonResponse)
+    .catch((error) => {
+        console.error(`Catching error:\t ${error}`);
+    });
+
+    console.log("fetchUrl:\t", fetchUrl);
+    console.log(sdpReplyResponse);
+    return sdpReplyResponse;
+}; //end getSingleRequestDetails()
+
+router.post('/request/:id/reply', async (req, res) => {
+    const { id } = req.params;
+    const { description } = req.body;
+
+    let message, error = null;
+
+    let replyResp = await sdpReplyToReq(id, description);
+
+    if (replyResp.operation.result.status === "Success") {
+        error = null;
+        message  = replyResp.operation.result.message;
+    } else {
+        error = true;
+        message = `Could not reply to request with ID ${id}'s convos. Error message: ${replyResp.operation.result.message}`;
+    }
+
+    return res.json({ message, error });
+});
 
 /* === VIEW SINGLE USER REQUEST === */
 const viewUserRequests = async (sdpName, requestType) => {
