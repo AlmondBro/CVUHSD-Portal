@@ -191,10 +191,10 @@ router.get('/request/get-convos/:id', async (req, res) => {
 });
 
 /* === REPLY TO REQUEST === */
-const sdpReplyToReq = async (id, description) => {
-    let replyTo = "lopezj@centinela.k12.ca.us";
-    let cc      = "lopezj@centinela.k12.ca.us";
-    let subject = "View Requests Open Ticket";
+const sdpReplyToReq = async (id, title, emailTo, description) => {
+    let replyTo = emailTo || "lopezj@centinela.k12.ca.us";
+    let cc      = emailTo || "lopezj@centinela.k12.ca.us";
+    let subject = title ||"View Requests Open Ticket";
 
     const sdpReplyURL = `${process.env.SDP_URL}/sdpapi/request/${id}/`; 
     const sdpReplyHeaders = {
@@ -208,27 +208,23 @@ const sdpReplyToReq = async (id, description) => {
                 to: replyTo,
                 cc: cc,
                 subject: subject,
-                description: description
+                description: description || "No reply description provided"
             }
         }
-    }; //end inputData {}
+    }; //end inputData object
 
     const params = {
-        //INPUT_DATA      : inputData,
         OPERATION_NAME  : "REPLY_REQUEST",
         format          : "json"
-    };  //end params {}
+    };  //end params object
 
     const query = "?" + Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`).join('&');
-
-    // sdpReadRequestsURL + "?input_data=" + escape(JSON.stringify(requestDetails));
 
     const fetchUrl = sdpReplyURL + query + `&INPUT_DATA=${escape(JSON.stringify(inputData))}`;
 
     const sdpReplyResponse = await fetch(fetchUrl, {
         method: 'POST',
         headers: sdpReplyHeaders,
-        // body: params
     })
     .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
     .then((jsonResponse) => jsonResponse)
@@ -243,11 +239,11 @@ const sdpReplyToReq = async (id, description) => {
 
 router.post('/request/:id/reply', async (req, res) => {
     const { id } = req.params;
-    const { description } = req.body;
+    const { subject, description, email } = req.body;
 
     let message, error = null;
 
-    let replyResp = await sdpReplyToReq(id, description);
+    let replyResp = await sdpReplyToReq(id, subject, email, description);
 
     if (replyResp.operation.result.status === "Success") {
         error = null;

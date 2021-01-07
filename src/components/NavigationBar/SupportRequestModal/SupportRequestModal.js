@@ -294,8 +294,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                 onChange            =   { onChange }  
                 value               =   { description }
                 required
-                textArea
-                
+                textArea 
             />
 
             <SelectInputField 
