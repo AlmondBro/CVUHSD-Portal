@@ -223,7 +223,7 @@ const sdpReplyToReq = async (id, description) => {
 
     // sdpReadRequestsURL + "?input_data=" + escape(JSON.stringify(requestDetails));
 
-    const fetchUrl = sdpReplyURL + query + `&input_data=${escape(JSON.stringify(inputData))}`;
+    const fetchUrl = sdpReplyURL + query + `&INPUT_DATA=${escape(JSON.stringify(inputData))}`;
 
     const sdpReplyResponse = await fetch(fetchUrl, {
         method: 'POST',
