@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { useParams, useHistory, useLocation, useRouteMatch, Switch, Route } from 'react-router-dom';
 
-import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faTools, faEyeSlash, faEye, faReply, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faTicketAlt, faArrowLeft, faReply } from '@fortawesome/free-solid-svg-icons';
 
-import { HeaderContainer, BackButton, BackArrowIcon, FAIconStyled, TicketNumberTitle, ModalTitle, Container } from './ReplyToConvoStyledComponents.js';
+import { HeaderContainer, BackButton, BackArrowIcon, FAIconStyled, TicketNumberTitle, ModalTitle, Container, Form, FormInputContainer, TextArea, ReplyButton } from './ReplyToConvoStyledComponents.js';
 
 const ReplyToConvo = ({districtPosition, renderAsStudent, id }) => {
     const history   = useHistory();
@@ -26,33 +26,56 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id }) => {
                     />
                 </BackButton>
             
-                <FAIconStyled
-                    className           =   {`request-#${id}-ticket-icon`}
+                <ModalTitle 
+                    className={`request-#${id}-ticket-title`}
                     districtPosition    =   { districtPosition.toLowerCase() }
                     renderAsStudent     =   { renderAsStudent }
-                    icon                =   { faTicketAlt }
-                    fontSize            =   "1.15em"
-                />
+                >
+                      <FAIconStyled
+                        className           =   {`request-#${id}-ticket-icon`}
+                        districtPosition    =   { districtPosition.toLowerCase() }
+                        renderAsStudent     =   { renderAsStudent }
+                        icon                =   { faReply }
+                        fontSize            =   "1.15em"
+                    />: 
+                </ModalTitle>
+              
+                <ModalTitle 
+                    className={`request-#${id}-ticket-title`}
+                    districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
+                >
+                    PowerSchool Log-in Help
+                </ModalTitle>
+
                 <TicketNumberTitle 
                     className           =   {`request-#${id}-ticket-number-title`}
                     districtPosition    =   { districtPosition.toLowerCase() }
                     renderAsStudent     =   { renderAsStudent }
                     as                  =   "h4"
                 >
-                    #{id}:
+                    (#{id})
                 </TicketNumberTitle>
-
-                <ModalTitle 
-                    className={`request-#${id}-ticket-title`}
-                    districtPosition    =   { districtPosition.toLowerCase() }
-                    renderAsStudent     =   { renderAsStudent }
-                >
-                    Reply
-                </ModalTitle>
             </HeaderContainer>
+
             <Container 
-            className={`request-#${id}-container`}
+                className={`request-#${id}-container`}
             >
+                <Form>
+                    <FormInputContainer>
+                        <TextArea
+                            rows        =   "10"
+                            placeholder =   { `Enter your response to ${"ticket name"} here...`}
+                       />
+                        <ReplyButton
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
+                        >
+                            Reply
+                        </ReplyButton>
+                    </FormInputContainer>
+                   
+                </Form>
             </Container>
         </Fragment>
     ); //end return statement
