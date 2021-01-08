@@ -398,12 +398,11 @@ class App extends Component {
                     <Troubleshooting/>
                 </Route>
 
-                {/* {
+                {
                   (window.location.pathname !== "/staff") || (window.location.pathname !== "/student") 
-                  || (window.location.pathname !== "/troubleshooting") ?   
-                    (<Route 
-                        path                  = { [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
-                     > 
+                  || (window.location.pathname !== "/troubleshooting") 
+                  || (window.location.pathname !== "/staff/view-request-modal") || (window.location.pathname !== "/student/view-request-modal") ?   
+                    (<Route> 
                       <NotFound
                         defaultURL            = { this.state.defaultURL }
 
@@ -422,7 +421,7 @@ class App extends Component {
                       />
                      </Route>
                      ) : null
-                } */}
+                } 
             </Switch>
             <MobileAppBanner
                 districtPosition      = { this.state.title }
