@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Container = styled("article")`
     position: absolute;
     z-index: 2;
-    top: 30%;
+    top: 126px;
     left: 64%;
 
     width: ${props => props.showFilterPane ? "200px" : "0px"};

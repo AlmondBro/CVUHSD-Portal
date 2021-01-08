@@ -38,6 +38,7 @@ const Content = styled("article")`
     margin: 0;
     margin-top: 10px;
 
+    border-radius: 10px;
     :hover, :active  {
         background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
