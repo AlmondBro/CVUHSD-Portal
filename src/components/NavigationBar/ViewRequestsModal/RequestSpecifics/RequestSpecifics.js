@@ -236,10 +236,12 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                             </SubSection>
 
                             <TicketMetaData
-                                className       =   "request-rectangle-ticket-metadata"
-                                width           =   { `${((7/19)*100).toString()}%`}
-                                alignItems      =   "flex-end"
-                                as              =   "aside" 
+                                className           =   "request-rectangle-ticket-metadata"
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
+                                width               =   { `${((7/19)*100).toString()}%`}
+                                alignItems          =   "flex-end"
+                                as                  =   "aside" 
                             >
                                 <MetaDataContainer
                                     className   =   {`request-#${id}-metadata-container`}
