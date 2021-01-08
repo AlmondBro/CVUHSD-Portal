@@ -24,16 +24,16 @@ const DarkOverlay = styled("div")`
 
 `;  
 
-const Container = styled("div")`
+const Container = styled("article")`
+    display: flex;
     visibility: hidden;
 
-    display: flex;
     flex-direction: column;
     align-items: center;
 
     position: absolute;
     z-index: 6;
-    bottom: -999px;
+    top: 20%;
 
     width: 100%;
     height: 35%;
@@ -44,11 +44,13 @@ const Container = styled("div")`
 
    box-shadow: 5px 5px 30px -11px rgba(0,0,0,0.75);
 
-   transition: bottom ${animationTime}  ease-in-out;
+   transition: top ${animationTime} ease-in-out;
 
     @media only screen and (max-width: 765px) {
-        visibility:  visible;
-        bottom:  ${props => props.bannerVisible ? "0px" : "-999px"};
+        position: absolute;
+        visibility: visible;
+
+        top:  ${props => props.bannerVisible ? "12%" : "900%"};
     }
 `;
 

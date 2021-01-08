@@ -1,9 +1,6 @@
-body, #cvuhsd-portal-app {
-    transition: all 700ms ease-in-out !important;
-    font-family: 'Source Sans Pro', sans-serif;
-
-    overflow-y: auto;
-    
+body, #cvuhsd-sso-portal {
+    /* transition: all 700ms ease-in-out !important; */
+    font-family: 'Source Sans Pro', sans-serif; 
 }
 
 /* html {
@@ -38,6 +35,11 @@ iframe {
 }
 
 .no-vertical-scroll {
+    overflow-y: hidden;
+}
+
+main#cvuhsd-sso-portal {
+    position: relative;
     overflow-y: hidden;
 }
 
