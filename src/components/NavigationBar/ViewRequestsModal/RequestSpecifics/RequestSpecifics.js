@@ -12,6 +12,8 @@ import isDev from 'isdev';
 import { NoConvosMessage, TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 import ReplyToConvo from './ReplyToConvo/ReplyToConvo.js';
 
+import { removeHTML } from './../../../../utilityFunctions.js';
+
 const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
     const { id }    = useParams();
     const history   = useHistory();
@@ -221,15 +223,8 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                             as                  =   "p"
                                         >
                                             {
-                                                description || `
-                                                    Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
-                                                    says that the password or username is incorrect, or that I need to contact my district administrator. 
-                                                    I am using the same exact credentials that I use to log into all of my other school-related things 
-                                                    (Canvas, DeltaMath, etc.) but it still won’t let me log in. I’ve been having this issue since the 
-                                                    second semester of 9th grade. Help would be greatly appreciated. Thank you :)
-                                                `
+                                                removeHTML(description) || `No description available`
                                             }
-
                                         </RequestDescription>
                                     )
                                 }

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
+import { removeHTML } from './../../../../utilityFunctions.js';
+
+import Skeleton from 'react-loading-skeleton';
+
 //import styled components
 import { Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestPreviewRectangleStyledComponents.js'
 
-import Skeleton from 'react-loading-skeleton';
 
 const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, description, date, time, id, status, onClick, isLoading }) => {
 
@@ -127,7 +130,7 @@ const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, d
                                 <Skeleton
                                     width={200}
                                 />
-                            ) : truncateDescription(description) || "I am working from home and do not have my contact info..."
+                            ) : truncateDescription(removeHTML(description)) || "No description available"
                         }  
                     </RequestDescription>
                 </SubSection>
