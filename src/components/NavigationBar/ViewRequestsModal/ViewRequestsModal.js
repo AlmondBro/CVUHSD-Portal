@@ -145,7 +145,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     //Run ref on component updates except for initial mount via use of ref variable
     const isInitialMount = useRef(true);
 
-    const getRequestRectangles = async (reverse) => { 
+    const getRequestRectangles = async () => { 
         let requests = await getUserRequests(email, requestsType);
 
         let requestRectangles = loadRequestRectangles(requests);

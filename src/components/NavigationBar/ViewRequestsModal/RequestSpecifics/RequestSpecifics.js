@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory, useLocation, useRouteMatch, Switch, Route } from 'react-router-dom';
 
 import Skeleton from 'react-loading-skeleton';
-import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faTools, faEyeSlash, faEye, faReply, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faTools, faEyeSlash, faEye, faReply, faSort } from '@fortawesome/free-solid-svg-icons';
 
 import SingleConvo from './SingleConvo/SingleConvo.js';
 
 import isDev from 'isdev';
 
 //import styled components
-import { NoConvosMessage, TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
+import { NoConvosMessage, TechLink, SingleConvosContainer, SortButton, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 import ReplyToConvo from './ReplyToConvo/ReplyToConvo.js';
 
 import { removeHTML } from './../../../../utilityFunctions.js';
@@ -33,6 +33,10 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
     let { email_id: techEmail, name } = techInfo;
     
     let techFullNameFormatted = (name !== "No assigned tech") ? name.split(",")[1] + " " + name.split(",")[0] : name;
+
+    const reverseConvosOrder = () => {
+        return setConvoComps([...convoComps].reverse());
+    }; //end reverseConvosOrder
 
     const getFAIcon = (status) => {
         let faIcon;
@@ -116,7 +120,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
         setIsLoading(true);
 
         let convos          = await getReqConvos(id);
-        let convoComponents = mapConvos(convos);
+        let convoComponents = mapConvos([...convos].reverse());
 
         console.log("ReqSpecifics convos:\t", convos);
         console.log("ReqSpecifics convoComponents:\t", convoComponents);
@@ -179,11 +183,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                 <Container 
                     className={`request-#${id}-container`}
                 >
-                    {/* <Divider
-                        className           =   "request-rectangle-divider"
-                        districtPosition    =   { districtPosition }
-                    /> */}
-
                     <SkeletonThemeStyled 
                         color           = {
                                             districtPosition ?
@@ -267,7 +266,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                     </DateTime>
                                 </MetaDataContainer>
                             
-                                
                                 <MetaDataContainer
                                     className   =   {`request-#${id}-metadata-container`}
                                 >
@@ -366,6 +364,24 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                     </ConversationsButtonTitle>
                                 </ConversationsButton>
 
+                                { 
+                                    /* Only show the sort button if there are indeed convos to sort */
+                                    (convoComps.length > 0) ? (
+                                        <SortButton
+                                            className   =   {`request-#${id}-sort-button`}
+                                            onClick     =   { reverseConvosOrder }
+                                        >
+                                            <FAIconStyled
+                                                className           =   {`request-#${id}-sort-icon`}
+                                                districtPosition    =   { districtPosition.toLowerCase() }
+                                                renderAsStudent     =   { renderAsStudent }
+                                                icon                =   { faSort }
+                                                fontSize            =   "1.15em"
+                                            />
+                                        </SortButton>
+                                    ) : null
+                                }
+                              
                                 <ReplyButton
                                     className  =   {`request-#${id}-reply-button`}
                                     onClick     =   { () => history.push({
@@ -392,7 +408,8 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
 
                                 showConvos          =   { showConvos }
                             >
-                                { convoComps.length > 0 ? convoComps : (
+                                {/* Reverse the convos comps so that it initially displays in ascending order, starting from the top */}
+                                { (convoComps.length > 0) ? convoComps : (
                                         <NoConvosMessage
                                             className           =   {`request-#${id}-no-convos-message`}
                                             districtPosition    =   { districtPosition.toLowerCase() }

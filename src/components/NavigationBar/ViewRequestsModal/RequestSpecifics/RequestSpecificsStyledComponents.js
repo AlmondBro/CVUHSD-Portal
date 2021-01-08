@@ -363,6 +363,12 @@ const ReplyButton = styled(ConversationsButton)`
     background-color: transparent;
 `;
 
+const SortButton = styled(ConversationsButton)`
+    margin-right: auto;
+    margin-left: 5px;
+    background-color: transparent;
+`;
+
 const TechLink = styled("a")`
     text-decoration: none;
     color: ${ props => props.districtPosition ?
@@ -454,4 +460,4 @@ const NoConvosMessage = styled("p")`
     margin: auto;
 `;
 
-export { NoConvosMessage, TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+export { NoConvosMessage, TechLink, SingleConvosContainer, SortButton, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
