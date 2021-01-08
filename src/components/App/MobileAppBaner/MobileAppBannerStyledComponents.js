@@ -73,6 +73,7 @@ let HeaderTitle = styled("h3")`
                                           "rgba(147,30,30, 0.5)": "rgba(30,108,147, 0.5)"
                                     : "rgba(147,30,30, 0.5)"
             };
+    text-align: center;
 `;
 
 let Divider = styled("hr")`
@@ -158,5 +159,6 @@ const Button = styled("h4")`
 
     margin-left: auto;
 
+    text-align: center;
 `;
 export { DarkOverlay, Container, HeaderTitle, Divider, ViewOptionContainer, ViewOptionLink, ViewOptionImage, FAIconStyled, ViewOptionText, Button };
