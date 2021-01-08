@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-import Skeleton from 'react-loading-skeleton';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { SkeletonTheme } from 'react-loading-skeleton';
 
 const Container = styled("article")`
     position: relative;
@@ -92,8 +88,8 @@ const RequestDescription = styled(RequestTitle)`
     /* Firefox properties to target the scrollbar color */
     scrollbar-color:  ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
+                                          "#931E1D white": "#1E6C93 white"
+                                    : "#931E1D white"
         } !important;
     scrollbar-width: 1px !important;
    
@@ -104,8 +100,8 @@ const RequestDescription = styled(RequestTitle)`
       border-radius: 10px;
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
+                                          "#931E1D white": "#1E6C93 white"
+                                    : "#931E1D white"
         };
 
     }
@@ -123,8 +119,8 @@ const RequestDescription = styled(RequestTitle)`
       box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F": "#1E6C93"
-                                    : "#B41A1F"
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
         };
     }
 `;

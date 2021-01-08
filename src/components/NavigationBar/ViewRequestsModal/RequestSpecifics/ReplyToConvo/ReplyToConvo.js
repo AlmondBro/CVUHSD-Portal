@@ -154,13 +154,16 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
                 <Form onSubmit = { submitRequest}>
                     <FormInputContainer>
                         <TextArea
+                            renderAsStudent     =   { renderAsStudent }
+                            districtPosition    =   { districtPosition }
+
                             name        =   {`request-#${id}-reply-message`}
                             rows        =   "10"
                             placeholder =   { `Enter your response to ${subject} here...`}
                             onChange    =   { onChange }  
                             value       =   { message }
                             required    =   { true }
-                       />
+                       />       
                         <ReplyButton
                             type                =   "submit"        
                             disabled            =   { !submitEnabled }
@@ -181,7 +184,6 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
                         }
                         </ReplyButton>
                     </FormInputContainer>
-                   
                 </Form>
             </Container>
         </Fragment>

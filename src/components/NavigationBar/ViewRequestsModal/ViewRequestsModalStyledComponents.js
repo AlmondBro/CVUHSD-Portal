@@ -77,8 +77,8 @@ const ReqRectContainer = styled("main")`
     /* Firefox properties to target the scrollbar color */
     scrollbar-color:  ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
+                                          "#931E1D white": "#1E6C93 white"
+                                    : "#931E1D white"
         } !important;
     scrollbar-width: 1px !important;
    
@@ -89,8 +89,8 @@ const ReqRectContainer = styled("main")`
       border-radius: 10px;
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
+                                          "#931E1D white": "#1E6C93 white"
+                                    : "#931E1D white"
         };
 
     }
@@ -108,8 +108,8 @@ const ReqRectContainer = styled("main")`
       box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F": "#1E6C93"
-                                    : "#B41A1F"
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
         };
     }
 `;
@@ -229,8 +229,8 @@ const FilterButton = styled('button')`
     color: white;
     background-color: ${ props => props.districtPosition ?
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
-                                        "#B41A1F": "#1E6C93"
-                                    :  "#B41A1F" 
+                                        "#931E1D": "#1E6C93"
+                                    :  "#931E1D" 
                             
                         };
 
@@ -285,7 +285,7 @@ const NoCVTechsMessage = styled('p')`
     margin-top: 8px;
 
     padding: 0px; 
-    color: #B41A1F;
+    color: #931E1D;
 
     font-style: italic;
 

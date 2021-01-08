@@ -38,7 +38,6 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             contentClassName="view-requests-modal-content",
             parentSelectorID="chat-page-main-container";
 
-    
     const parseDate = (stringToParse) => {
         let dateAndTime = stringToParse.split(" ");
 

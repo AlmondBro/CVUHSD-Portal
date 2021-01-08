@@ -109,14 +109,14 @@ const TextArea = styled("textarea")`
 
     color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
-                                          "rgba(30,108, 147, 1.0)": "rgba(147,30, 29, 1.0)"
-                                    : "rgba(30,108, 147, 1.0)"
+                                          "rgba(147,30, 29, 1.0)": "rgba(30,108, 147, 1.0)"
+                                    : "rgba(147,30, 29, 1.0)"
             };
 
     border: 1px solid ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
-                                          "rgba(30,108, 147, 0.47)": "rgba(147,30, 29, 0.47)"
-                                    : "rgba(30,108, 147, 0.47)"
+                                          "rgba(147,30, 29, 0.47)": "rgba(30,108, 147, 0.47)"
+                                    : "rgba(147,30, 29, 0.47)"
             };
 
     border-radius: 10px;
@@ -126,10 +126,10 @@ const TextArea = styled("textarea")`
     resize: none;
 
     &:hover, &:focus {
-        border: 1px solid ${ props => props.districtPosition ?
+        border: 1px solid 1px solid ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
-                                          "rgba(30,108, 147, 0.47)": "rgba(147,30, 29, 0.47)"
-                                    : "rgba(30,108, 147, 0.47)"
+                                          "rgba(147,30, 29, 0.47)": "rgba(30,108, 147, 0.47)"
+                                    : "rgba(147,30, 29, 0.47)"
             };
 
         border-radius: 10px;
@@ -137,10 +137,10 @@ const TextArea = styled("textarea")`
     }
 
     ::placeholder {
-        color: ${ props => props.districtPosition ?
+        color: 1px solid ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
-                                          "rgba(30,108, 147, 0.47)": "rgba(147,30, 29, 0.47)"
-                                    : "rgba(30,108, 147, 0.47)"
+                                          "rgba(147,30, 29, 0.47)": "rgba(30,108, 147, 0.47)"
+                                    : "rgba(147,30, 29, 0.47)"
             };
     }
 `;
@@ -154,8 +154,8 @@ const ReplyButton = styled("button")`
     color: white;
     background-color: ${ props => props.submitEnabled ? props.districtPosition ?
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
-                                        "#B41A1F": "#1E6C93"
-                                    :  "#B41A1F" 
+                                        "#931E1D": "#1E6C93"
+                                    :  "#931E1D" 
                                 :   "grey"
                         };
 
@@ -188,8 +188,8 @@ const ReplyButton = styled("button")`
                      };
         /* box-shadow: 0px 0px 5px 0px    ${ props => props.districtPosition ?
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
-                                        "#B41A1F": "#1E6C93"
-                                    :  "#B41A1F" 
+                                        "#931E1D": "#1E6C93"
+                                    :  "#931E1D" 
             };           */
     }
 `;
