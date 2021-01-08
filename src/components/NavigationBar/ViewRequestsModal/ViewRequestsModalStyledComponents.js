@@ -8,6 +8,7 @@ Modal.setAppElement('#cvuhsd-sso-portal');
 
 // let isSafari, isChrome = false;
 
+const FilterSortButtonBreakpoint = "765px";
 const Container = styled(Modal).attrs(props => ({
     // title: (props) => props.title,
     // onAfterOpen: (props) => props.onAfterOpen,
@@ -189,7 +190,7 @@ const ModalTitle = styled('h3')`
 `; 
 
 const RequestTypeTitle = styled('h4')`
-    display: inline-block;
+    display: block;
     color: ${ props => props.districtPosition ?
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
@@ -250,21 +251,44 @@ const FilterButton = styled('button')`
                                     :   "rgba(147, 30, 29, 0.67)" 
                      };
     }
+
+    @media only screen and (max-width: ${FilterSortButtonBreakpoint}) {
+        margin-left: 0px;
+    }
 `;
 
 const SortButton = styled(FilterButton)`
     margin-left: 15px;
 `;
 
-const TitleFilterContainer = styled("div")`
+const TitleFilterContainer = styled("header")`
     display: inline-flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     overflow-y: hidden;
 
     width: 85%;
+
+    @media only screen and (max-width: 425px) {
+        display: flex;
+        flex-direction: column;
+    }
+`;
+
+const FilterSortButtonContainer = styled("section")`
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+    @media only screen and (max-width: ${FilterSortButtonBreakpoint}) {
+        justify-content: center;
+    }
 `;
 
 const FAIconStyled = styled(FontAwesomeIcon)`
@@ -345,4 +369,4 @@ const NoRequestsMessage = styled("p")`
                                     : "#931E1D"
             };
 `;
-export { HelpdeskSubmitMessage, RequestTypeTitle, FilterButton, FilterText, SortButton, Container, CloseButton, InnerContainer, ModalTitle, ReqRectContainer, FAIconStyled, NoCVTechsMessage, TitleFilterContainer, NoRequestsMessage };
+export { HelpdeskSubmitMessage, RequestTypeTitle, FilterSortButtonContainer, FilterButton, FilterText, SortButton, Container, CloseButton, InnerContainer, ModalTitle, ReqRectContainer, FAIconStyled, NoCVTechsMessage, TitleFilterContainer, NoRequestsMessage };

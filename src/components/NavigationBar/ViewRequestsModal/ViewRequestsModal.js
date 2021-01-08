@@ -13,7 +13,7 @@ import FilterPane from './FilterPane/FilterPane.js';
 
 import RequestSpecifics from './RequestSpecifics/RequestSpecifics.js';
 
-import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, SortButton, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
+import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterSortButtonContainer, FilterButton, TitleFilterContainer, FilterText, SortButton, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, match, history, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
@@ -243,58 +243,60 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                             }
                         </RequestTypeTitle>
 
-                        <FilterButton
-                            className           =   "view-request-modal-filter-button"
-                            districtPosition    =   { districtPosition.toLowerCase() }
-                            renderAsStudent     =   { renderAsStudent }
+                        <FilterSortButtonContainer className="view-request-modal-filter-sort-buttons-container">
+                            <FilterButton
+                                className           =   "view-request-modal-filter-button"
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
 
-                            onClick             =   { () => setShowFilterPane(!showFilterPane) }
-                        >
-                            <FAIconStyled
-                                    className           =   "view-request-modal-request-status-icon"
-                                    districtPosition    =   { districtPosition.toLowerCase() }
-                                    renderAsStudent     =   { renderAsStudent }
-                                    
-                                    color               =   "white"
-                                    icon                =   { faFilter }
-                            />
-                            <FilterText
-                                    className           =   "view-request-modal-filter-text"
-                                    districtPosition    =   { districtPosition.toLowerCase() }
-                                    renderAsStudent     =   { renderAsStudent }
-
+                                onClick             =   { () => setShowFilterPane(!showFilterPane) }
                             >
-                                Filter/Legend
-                            </FilterText>
-                        </FilterButton>
-                        {
-                            (requestRectangles.length > 1) ? (
-                                <SortButton
-                                    className           =   "view-request-modal-sort-button"
-                                    districtPosition    =   { districtPosition.toLowerCase() }
-                                    renderAsStudent     =   { renderAsStudent }
-
-                                    onClick             =   { () => setRequestRectangles([...requestRectangles].reverse()) }
-                                >
                                 <FAIconStyled
-                                        className           =   "view-request-modal-request-sort-icon"
+                                        className           =   "view-request-modal-request-status-icon"
                                         districtPosition    =   { districtPosition.toLowerCase() }
                                         renderAsStudent     =   { renderAsStudent }
                                         
                                         color               =   "white"
-
-                                        icon                =   { faSort }
-                                        noLeftMargin
+                                        icon                =   { faFilter }
                                 />
-                                {/* <FilterText
-                                        className="view-request-modal-filter-text"
+                                <FilterText
+                                        className           =   "view-request-modal-filter-text"
                                         districtPosition    =   { districtPosition.toLowerCase() }
+                                        renderAsStudent     =   { renderAsStudent }
+
                                 >
-                                    Asc/Desc
-                                </FilterText> */}
-                            </SortButton>
-                            ) : null
-                        }
+                                    Filter/Legend
+                                </FilterText>
+                            </FilterButton>
+                            {
+                                (requestRectangles.length > 1) ? (
+                                    <SortButton
+                                        className           =   "view-request-modal-sort-button"
+                                        districtPosition    =   { districtPosition.toLowerCase() }
+                                        renderAsStudent     =   { renderAsStudent }
+
+                                        onClick             =   { () => setRequestRectangles([...requestRectangles].reverse()) }
+                                    >
+                                    <FAIconStyled
+                                            className           =   "view-request-modal-request-sort-icon"
+                                            districtPosition    =   { districtPosition.toLowerCase() }
+                                            renderAsStudent     =   { renderAsStudent }
+                                            
+                                            color               =   "white"
+
+                                            icon                =   { faSort }
+                                            noLeftMargin
+                                    />
+                                    {/* <FilterText
+                                            className="view-request-modal-filter-text"
+                                            districtPosition    =   { districtPosition.toLowerCase() }
+                                    >
+                                        Asc/Desc
+                                    </FilterText> */}
+                                </SortButton>
+                                ) : null
+                            }
+                        </FilterSortButtonContainer>
                     </TitleFilterContainer>
             
                     <FilterPane

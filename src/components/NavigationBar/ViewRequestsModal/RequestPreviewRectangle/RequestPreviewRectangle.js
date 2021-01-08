@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import { faTasks, faCircle, faCheck, faAngleDoubleRight, faClock, faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 import { removeHTML } from './../../../../utilityFunctions.js';
 
 import Skeleton from 'react-loading-skeleton';
 
 //import styled components
-import { Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestPreviewRectangleStyledComponents.js'
-
+import { Container, Divider, Content, MetaDataContainer, MetaDataIcon, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton } from './RequestPreviewRectangleStyledComponents.js'
 
 const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, description, date, time, id, status, onClick, isLoading }) => {
 
@@ -141,33 +140,58 @@ const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, d
                     alignItems      =   "flex-end"
                     as              =   "aside" //Make this be a <aside/> 
                 >
-                    <DateTime
-                        className           =   "request-rectangle-date-time"
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                        renderAsStudent     =   { renderAsStudent }
-                        as                  =   "time"
-                    >
-                        {
-                            isLoading ? (
-                                <Skeleton
-                                    width={40}
-                                />
-                            ) : time || "12:51"
-                        }  
-                    </DateTime>
-                    <DateTime
-                        className           =   "request-rectangle-date-time"
-                        districtPosition    =   { districtPosition.toLowerCase() }
-                        renderAsStudent     =   { renderAsStudent }
-                    >
-                        {
-                            isLoading ? (
-                                <Skeleton
-                                    width={80}
-                                />
-                            ) : date || "12/22/2020"
-                        }  
-                    </DateTime>
+                   
+                   <MetaDataContainer
+                        className   =   {`request-preview-metadata-container`}
+                   >
+                        <MetaDataIcon
+                            className           =   {`request-preview-metadata-icon`}
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
+                            icon                =   { faClock }
+                            fontSize            =   "1.15em"
+                        />
+                        <DateTime
+                            className           =   "request-rectangle-date-time"
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
+                            as                  =   "time"
+                        >
+                            {
+                                isLoading ? (
+                                    <Skeleton
+                                        width={40}
+                                    />
+                                ) : time || "12:51"
+                            }  
+                        </DateTime>
+                   </MetaDataContainer>
+
+
+                   <MetaDataContainer
+                        className   =   {`request-preview-metadata-container`}
+                   >
+                        <MetaDataIcon
+                            className           =   {`request-preview }-metadata-icon`}
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
+                            icon                =   { faCalendar }
+                            fontSize            =   "1.15em"
+                        />
+                        <DateTime
+                            className           =   "request-rectangle-date-time"
+                            districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
+                        >
+                            {
+                                isLoading ? (
+                                    <Skeleton
+                                        width={80}
+                                    />
+                                ) : date || "12/22/2020"
+                            }  
+                        </DateTime>
+                    </MetaDataContainer>
                 </TimeDateSubSection>
             </Content>
       </Container>  
