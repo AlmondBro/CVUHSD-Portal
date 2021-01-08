@@ -34,6 +34,7 @@ const SingleConvo = ({id, isLoading, districtPosition, renderAsStudent, showConv
                         <RequestDescription
                             className           =   {`request-#${id}-ticket-description`}
                             districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
                             as                  =   "p"
                         >
                             { description || `Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
