@@ -33,7 +33,7 @@ const Container = styled("article")`
 
     position: absolute;
     z-index: 6;
-    top: 20%;
+    top: 200%;
 
     width: 100%;
     height: 35%;
@@ -50,7 +50,7 @@ const Container = styled("article")`
         position: absolute;
         visibility: visible;
 
-        top:  ${props => props.bannerVisible ? "12%" : "900%"};
+        top:  ${props => props.bannerVisible ? "12%" : "200%"};
     }
 `;
 
