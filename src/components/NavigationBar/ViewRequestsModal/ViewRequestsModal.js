@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
-import { withRouter, Route, Switch } from "react-router-dom";
+import { useRouteMatch, useHistory, useLocation, Route, Switch } from "react-router-dom";
 
 import isDev from 'isdev';
 
@@ -15,7 +15,7 @@ import RequestSpecifics from './RequestSpecifics/RequestSpecifics.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterSortButtonContainer, FilterButton, TitleFilterContainer, FilterText, SortButton, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
-const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, match, history, itUID, notify }) => {
+const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
 
     let [ submitEnabled, setSubmitEnabled ]                 = useState(false);
@@ -23,6 +23,11 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     let [ showFilterPane, setShowFilterPane ]               =   useState(false);
     let [ requestsType, setRequestsType ]                   =   useState("All");
     let [ requestRectangles, setRequestRectangles ]         =   useState([]);
+
+    const history   = useHistory();
+    const { state } = useLocation();
+
+    const match = useRouteMatch();
 
     const onClose = () => {
         let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
@@ -398,4 +403,4 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
   ); //end return statement
 }; //end TransferToITModal()
 
-export default withRouter(ViewRequestsModal);
+export default ViewRequestsModal;
