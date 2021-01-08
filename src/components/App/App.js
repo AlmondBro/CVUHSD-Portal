@@ -70,7 +70,8 @@ class App extends Component {
       hideOverflow: false,
       containerStyle: {
           "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
-      } 
+      },
+      defaultURL: "student"
     }; //end state object
 
     // store the component's initial state to reset it
@@ -321,10 +322,10 @@ class App extends Component {
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;
 
-    let defaultURL = this.state.title ? (this.state.title.toLowerCase() === "student" ? "student" : "staff") : "staff";
+    //let defaultURL = this.state.title ? (this.state.title.toLowerCase() === "student" ? "student" : "staff") : "staff";
     // ( window.location.pathname === "/student" || window.location.pathname === "/" || (this.state.title.toLowerCase() === "student" ) || undefsafe(this.props.location, "state", "renderAsStudent") == "true" ) ? "student" : "staff";
 
-    console.log("defaultURL:\t" + defaultURL);
+    //console.log("defaultURL:\t" + defaultURL);
 
     return (
       <Fragment>
@@ -360,11 +361,11 @@ class App extends Component {
                   //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
                 }
                 <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}>
-                  <Redirect to={`${publicURL}/${defaultURL}`} />
+                  <Redirect to={`${publicURL}/${this.state.defaultURL}`} />
                 </Route>
 
                 <Route 
-                  path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
+                  path                  = {  [`${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
                  >
                     <PageContent
                       fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
@@ -390,19 +391,9 @@ class App extends Component {
                     />
                   </Route>
 
-                <Route path={`${publicURL}/staff`}>
-                  <Redirect to={`${publicURL}/${defaultURL}`} />
-                </Route>
-
-
                 <Route path={`${publicURL}/staff.html`}>
                   <Redirect to={`${publicURL}/staff`} />
                 </Route>
-
-
-              <Route path={`${publicURL}/student`}>
-                <Redirect to={`${publicURL}/${"student"}`} />
-              </Route>
 
           
               <Route path={`${publicURL}/student.html`}>
@@ -413,14 +404,14 @@ class App extends Component {
                     <Troubleshooting/>
                 </Route>
 
-                {
+                {/* {
                   (window.location.pathname !== "/staff") || (window.location.pathname !== "/student") 
                   || (window.location.pathname !== "/troubleshooting") ?   
                     (<Route 
                         path                  = { [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
                      > 
                       <NotFound
-                        defaultURL            = { defaultURL }
+                        defaultURL            = { this.state.defaultURL }
 
                         history               = { this.props.history }
                         fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
@@ -437,7 +428,7 @@ class App extends Component {
                       />
                      </Route>
                      ) : null
-                }
+                } */}
             </Switch>
             <MobileAppBanner
                 districtPosition      = { this.state.title }

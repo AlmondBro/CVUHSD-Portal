@@ -9,7 +9,6 @@ import isDev from 'isdev';
 import BlueSection from "./BlueSection/BlueSection.js";
 import Header from "./Header/Header.js";
 
-
 //Import list of buttons
 import { blueSectionInfo_Staff , redSectionInfo_Student } from "./../objectFiles/blueSectionInfo.js";
 
@@ -154,12 +153,11 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
         getUserInfo();
     } //end if-statement
 
-    if (window.location.pathname === "/auth-success") {
-      history.push(`/`);
+    if (title && window.location.pathname === "/auth-success") {
+      history.push(`/${(title === "Student") ? "student" : "staff" }`);
     }
-  }, [ title, window.location.pathname, email ]); //end useEffect
 
-  const showFooter = false;
+  }, [ title ]); //end useEffect
 
   return (
     <SkeletonTheme 
