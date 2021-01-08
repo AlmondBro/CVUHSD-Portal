@@ -23,11 +23,13 @@ const Container = styled("article")`
                                           "rgba(147,30, 29, 0.42)": "rgba(30,108, 147, 0.42)"
                                     : "rgba(147,30, 29, 0.42)"
                             };
-    @media only screen and (max-width: 453px) {
+    @media only screen and (max-width: 550px) {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
+
+        width: 100%;
     }
 `;
 
@@ -41,7 +43,7 @@ const SubSection = styled("section")`
 
     margin-right: 2.5%;
 
-    @media only screen and (max-width: 453px) {
+    @media only screen and (max-width: 550px) {
        width: 85%;
        order: 2;
        margin-right: 0px;
@@ -123,6 +125,10 @@ const RequestDescription = styled(RequestTitle)`
                                     : "#931E1D"
         };
     }
+
+    @media only screen and (max-width: 550px) {
+        text-align: center;
+    }
 `;
 
 const TicketMetaData = styled(SubSection)`
@@ -137,6 +143,12 @@ const TicketMetaData = styled(SubSection)`
                                     : "rgba(30,108, 147, 0.42)"
             };
     margin: 0px 10px;
+
+    @media only screen and (max-width: 550px) {
+        order: 1;
+        border-left: 0px;
+
+    }
 `;
 
 
@@ -151,6 +163,11 @@ const MetaDataContainer = styled("section")`
 
     :last-child {
         margin-bottom: 0px;
+    }
+
+    @media only screen and (max-width: 550px) {
+        margin-bottom: 5px;
+        padding-left: 0px;
     }
 `;
 
@@ -170,7 +187,7 @@ const FAIconStyled = styled(FontAwesomeIcon)`
 
    font-size: ${props => props.fontSize ? props.fontSize : "1.0em"};
 
-   @media only screen and (max-width: 453px) {
+   @media only screen and (max-width: 550px) {
     margin-left: 0px;
 
    }
@@ -186,7 +203,7 @@ const DateTime = styled("h5")`
 
     margin: 0;
 
-    @media only screen and (max-width: 453px) {
+    @media only screen and (max-width: 550px) {
        margin-right: 0px;
     }
 `;

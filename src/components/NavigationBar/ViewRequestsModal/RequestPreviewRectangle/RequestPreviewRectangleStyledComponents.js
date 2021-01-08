@@ -128,6 +128,7 @@ const RequestTitle = styled("h3")`
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
             };
+    text-align: center;
 `;
 
 const RequestDescription = styled(RequestTitle)`

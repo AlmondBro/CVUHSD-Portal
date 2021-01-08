@@ -151,6 +151,7 @@ const RequestTitle = styled("h3")`
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
             };
+    text-align: center;
 `;
 
 const ReqSkeletonContainer = styled("div")`
@@ -337,7 +338,15 @@ let ConversationsOuterContainer = styled("div")`
     justify-content: flex-start;
 
     width: 100%;
-    height: 172px;
+    height: 50%;
+
+    @media only screen and (min-width: 367px) and (max-width: 751px) {
+        height: 80%;
+    }
+
+    @media only screen and (min-width: 0px) and (max-width: 366px) {
+        height: 55%;
+    }
 `;
 
 const ConvoReplyButtonContainer = styled("div")`

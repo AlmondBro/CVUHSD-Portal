@@ -183,21 +183,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                 <Container 
                     className={`request-#${id}-container`}
                 >
-                    <SkeletonThemeStyled 
-                        color           = {
-                                            districtPosition ?
-                                                ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
-                                                    "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
-                                                : "rgba(147, 30, 29, 0.1)" 
-                                            }
-                        highlightColor  = {
-                                                districtPosition ?
-                                                ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
-                                                    "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
-                                                : "rgba(147, 30, 29, 0.1)" 
-                        }
-                    > 
-
+                    
                         <Content className={`request-#${id}-ticket-content`}>
                             <SubSection
                                 className   =   {`request-#${id}-ticket-subsection`}
@@ -420,8 +406,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                 }
                             </SingleConvosContainer>
                         </ConversationsOuterContainer> 
-
-                    </SkeletonThemeStyled>
             </Container>  
         </Route>
         <Route path = {match.path + "/reply"}>
@@ -437,3 +421,18 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
 }; //end RequestSpecifics()
 
 export default RequestSpecifics;
+
+// <SkeletonThemeStyled 
+//                         color           = {
+//                                             districtPosition ?
+//                                                 ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+//                                                     "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+//                                                 : "rgba(147, 30, 29, 0.1)" 
+//                                             }
+//                         highlightColor  = {
+//                                                 districtPosition ?
+//                                                 ( (districtPosition.toLowerCase() === "student") || renderAsStudent || window.location.pathname === "/student") ? 
+//                                                     "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+//                                                 : "rgba(147, 30, 29, 0.1)" 
+//                         }
+//                     > 
