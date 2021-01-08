@@ -177,6 +177,7 @@ const RequestDescription = styled(RequestTitle)`
     font-weight: normal;
 
     max-height: 150px;
+    max-width: 336px;
     overflow-y: auto;
 
     padding-right: 20px; 

@@ -67,7 +67,7 @@ const Container = styled(Modal).attrs(props => ({
         outline: none;
     }
 
-    @media only screen and (max-width: 630px) {
+    @media only screen and (max-width: 750px) {
         height: 600px;
     }
 `; //end TransferToITModalContainer
