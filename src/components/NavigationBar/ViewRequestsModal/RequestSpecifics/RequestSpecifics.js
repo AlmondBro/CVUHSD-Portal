@@ -365,8 +365,8 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                 </ConversationsButton>
 
                                 { 
-                                    /* Only show the sort button if there are indeed convos to sort */
-                                    (convoComps.length > 0) ? (
+                                    /* Only show the sort button if there are indeed convos to sort and only if there is more than one */
+                                    (convoComps && convoComps.length > 1) ? (
                                         <SortButton
                                             className   =   {`request-#${id}-sort-button`}
                                             onClick     =   { reverseConvosOrder }
@@ -408,7 +408,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
 
                                 showConvos          =   { showConvos }
                             >
-                                {/* Reverse the convos comps so that it initially displays in ascending order, starting from the top */}
                                 { (convoComps.length > 0) ? convoComps : (
                                         <NoConvosMessage
                                             className           =   {`request-#${id}-no-convos-message`}
