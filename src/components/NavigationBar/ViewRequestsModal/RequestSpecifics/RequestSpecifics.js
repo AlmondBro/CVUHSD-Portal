@@ -175,7 +175,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                 </HeaderContainer>
 
                 <Container 
-                className={`request-#${id}-container`}
+                    className={`request-#${id}-container`}
                 >
                     {/* <Divider
                         className           =   "request-rectangle-divider"
@@ -217,6 +217,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                         <RequestDescription
                                             className           =   {`request-#${id}-ticket-description`}
                                             districtPosition    =   { districtPosition.toLowerCase() }
+                                            renderAsStudent     =   { renderAsStudent }
                                             as                  =   "p"
                                         >
                                             {
