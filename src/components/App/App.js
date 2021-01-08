@@ -212,7 +212,7 @@ class App extends Component {
     });
   }; //end logOut
 
-  checkForLogIn = async (history) => {
+  checkForLogIn = async () => {
     const checkForLogin_URL = `${isDev ? "" : "/server"}/auth/callback`; 
 
     const successfulAuthURL = `${isDev ? "" : ""}/auth-success`; 
@@ -244,17 +244,11 @@ class App extends Component {
           username: username,
           email: email,
           title: jobTitle || "staff",
+          defaultURL: (jobTitle === "Student") ? "student" : "staff",
           uid,
           accessToken,
         });
       }
-    })
-    .then(() => {
-      if (window.location.pathname === successfulAuthURL) {
-        //window.location.href = `http://${isDev ? "localhost:3000" : productionDomain}/staff`;
-        history.push(`/`);
-
-      } 
     })
     .catch((error) => {
         console.error(`checkForLogIn() Catching error:\t ${error}`);
@@ -275,13 +269,13 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    let { history, cookies } = this.props;
+    let { cookies } = this.props;
 
     const accessTokenCookie = cookies.get("accessToken");
     
-    //if (!accessTokenCookie) {
+    if (!accessTokenCookie) {
       if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
-        this.checkForLogIn(history);
+        this.checkForLogIn();
       }
   
       if (!this.state.loggedIn && !this.state.title && (window.location.pathname !== "/auth-success") ) {
@@ -292,7 +286,7 @@ class App extends Component {
           this.logIn();
         } //end inner else-statement, checking if the login is IE
       } //end if-statement checking if the route is not auth-success
-    //} //end outer if-statement checking for cookies
+    } //end outer if-statement checking for cookies
 
     const favicon = document.getElementById("favicon");
 

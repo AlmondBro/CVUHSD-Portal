@@ -29,7 +29,6 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
       blueSection_objectsArray: sectionInfoObject
   };
 
-
   const getUserInfo = () => {
     console.log("getUserInfo()");
 
@@ -155,6 +154,10 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
 
     if (title && window.location.pathname === "/auth-success") {
       history.push(`/${(title === "Student") ? "student" : "staff" }`);
+    }
+
+    if ((title === "Student") && (window.location.pathname === "/staff") ) {
+      history.push("/student");
     }
 
   }, [ title ]); //end useEffect
