@@ -137,7 +137,7 @@ const TextArea = styled("textarea")`
     }
 
     ::placeholder {
-        color: 1px solid ${ props => props.districtPosition ?
+        color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
                                           "rgba(147,30, 29, 0.47)": "rgba(30,108, 147, 0.47)"
                                     : "rgba(147,30, 29, 0.47)"
