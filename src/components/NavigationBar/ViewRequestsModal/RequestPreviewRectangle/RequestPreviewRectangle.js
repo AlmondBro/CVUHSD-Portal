@@ -81,14 +81,16 @@ const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, d
                     {
                         isLoading ? (
                             <TicketTypeCircleSkeleton
-                                circle  =   { true }
-                                width   =   { 20  }
-                                height  =   { 20 }
+                                circle              =   { true }
+                                width               =   { 20  }
+                                height              =   { 20 }
                             />
                         ) : (
                             <FAIconStyled
                                 className           =   "view-request-type-icon"
+
                                 districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
                                 color               =   "white"
                                 icon                =   { faIcon }
                             />
@@ -105,6 +107,7 @@ const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, d
                     <RequestTitle 
                             className   =   "request-rectangle-req-title"
                             districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
                     >
                         {
                             isLoading ? (
@@ -117,6 +120,7 @@ const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, d
                     <RequestDescription
                             className           =   "request-rectangle-description"
                             districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
                     >
                         {
                             isLoading ? (
@@ -137,6 +141,7 @@ const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, d
                     <DateTime
                         className           =   "request-rectangle-date-time"
                         districtPosition    =   { districtPosition.toLowerCase() }
+                        renderAsStudent     =   { renderAsStudent }
                         as                  =   "time"
                     >
                         {
@@ -150,6 +155,7 @@ const RequestPreviewRectangle = ({ districtPosition, renderAsStudent, subject, d
                     <DateTime
                         className           =   "request-rectangle-date-time"
                         districtPosition    =   { districtPosition.toLowerCase() }
+                        renderAsStudent     =   { renderAsStudent }
                     >
                         {
                             isLoading ? (

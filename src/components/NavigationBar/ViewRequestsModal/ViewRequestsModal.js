@@ -205,6 +205,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             className           =   "view-request-modal-close-button"
             title               =   "Close modal"
             districtPosition    =   { districtPosition.toLowerCase() }
+            renderAsStudent     =   { renderAsStudent}
             onClick             =   { () => toggleModal(false) } 
         >
             &times;
@@ -215,12 +216,15 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     <div>
                         <ModalTitle 
                             districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
                         >
                             View Requests
                         </ModalTitle>
                         
                         <FAIconStyled
                             districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
+
                             icon                =   { faTasks }
                         />
                     </div>
@@ -228,6 +232,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                         <RequestTypeTitle
                             className           =   "view-request-modal-request-type-title"
                             districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
                         >
                             {
                                 requestsType ? (requestsType === "Open") ? "Open Requests" :   
@@ -241,17 +246,23 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                         <FilterButton
                             className           =   "view-request-modal-filter-button"
                             districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
+
                             onClick             =   { () => setShowFilterPane(!showFilterPane) }
                         >
                             <FAIconStyled
                                     className           =   "view-request-modal-request-status-icon"
                                     districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+                                    
                                     color               =   "white"
                                     icon                =   { faFilter }
                             />
                             <FilterText
-                                    className="view-request-modal-filter-text"
+                                    className           =   "view-request-modal-filter-text"
                                     districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+
                             >
                                 Filter/Legend
                             </FilterText>
@@ -261,11 +272,15 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                                 <SortButton
                                     className           =   "view-request-modal-sort-button"
                                     districtPosition    =   { districtPosition.toLowerCase() }
+                                    renderAsStudent     =   { renderAsStudent }
+
                                     onClick             =   { () => setRequestRectangles([...requestRectangles].reverse()) }
                                 >
                                 <FAIconStyled
                                         className           =   "view-request-modal-request-sort-icon"
                                         districtPosition    =   { districtPosition.toLowerCase() }
+                                        renderAsStudent     =   { renderAsStudent }
+                                        
                                         color               =   "white"
 
                                         icon                =   { faSort }
