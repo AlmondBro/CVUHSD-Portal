@@ -19,7 +19,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
 
     let { subject, techInfo } = state;
 
-    let replySubject = `Re: ` + subject; 
+    let replySubject = `Re: [Request ID: ##RE-${id}##]: ${subject} `; 
 
     const techEmail = techInfo.email_id;
 
@@ -91,7 +91,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
                         icon                =   { faReply }
                     />
                 );
-                
+
                 setSubmitEnabled(true);
             } //end else-statement
         } //end outer if-statement
