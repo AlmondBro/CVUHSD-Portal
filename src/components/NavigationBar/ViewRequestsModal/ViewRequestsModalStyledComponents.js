@@ -66,11 +66,15 @@ const Container = styled(Modal).attrs(props => ({
         border: 0px;
         outline: none;
     }
+
+    @media only screen and (max-width: 630px) {
+        height: 600px;
+    }
 `; //end TransferToITModalContainer
 
 const ReqRectContainer = styled("main")`
     width: 100%;
-    height: 316px;
+    height: 80%;
 
     overflow-y: auto;
     overflow-x: hidden;
@@ -112,6 +116,10 @@ const ReqRectContainer = styled("main")`
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
         };
+    }
+
+    @media only screen and (max-width: 630px) {
+        margin: auto;
     }
 `;
 

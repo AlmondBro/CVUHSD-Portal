@@ -75,11 +75,17 @@ const SubSection = styled("article")`
 
     margin-right: 2.5%;
 
+    @media only screen and (max-width: 765px) {
+        width: ${ `${((7/19)*100).toString()}%`};
+    }
+
     @media only screen and (max-width: 453px) {
-       width: 85%;
+       width: 100%;
        order: 2;
        margin-right: 0px;
+       padding-left: 15px;
     }
+
 `;
 
 const TicketMetaData = styled(SubSection)`
@@ -90,6 +96,26 @@ const TicketMetaData = styled(SubSection)`
                                     : "rgba(147,30, 29, 0.47)"
             };
     margin: 0px 10px;
+
+    @media only screen and (max-width: 765px) {
+        width: ${ `${((12/19)*100).toString()}%`};
+    }
+
+    @media only screen and (max-width: 453px) {
+        width:  100%;
+        border-left: 0px;
+
+        border-bottom: 1px solid ${ props => props.districtPosition ?
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
+                                          "rgba(147,30, 29, 0.47)": "rgba(30,108, 147, 0.47)"
+                                    : "rgba(147,30, 29, 0.47)"
+            };
+        order: 1;
+
+        margin-bottom: 15px;
+        padding-left: 0px;  
+        padding-bottom: 15px;
+    }
 `;
 
 const IconSubSection = styled(SubSection)`
