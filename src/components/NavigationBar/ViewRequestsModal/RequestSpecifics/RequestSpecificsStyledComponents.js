@@ -79,7 +79,7 @@ const SubSection = styled("article")`
         width: ${ `${((7/19)*100).toString()}%`};
     }
 
-    @media only screen and (max-width: 453px) {
+    @media only screen and (max-width: 550px) {
        width: 100%;
        order: 2;
        margin-right: 0px;
@@ -221,6 +221,11 @@ const RequestDescription = styled(RequestTitle)`
                                     : "#931E1D"
         };
     }
+
+    
+    @media only screen and (max-width: 550px) {
+       padding-right: 0px;
+    }
 `;
 
 const DateTime = styled("h5")`
@@ -234,7 +239,7 @@ const DateTime = styled("h5")`
 
     margin: 0;
 
-    @media only screen and (max-width: 453px) {
+    @media only screen and (max-width: 550px) {
        margin-right: 0px;
     }
 `;
@@ -393,6 +398,10 @@ const ConversationsButtonTitle = styled("h4")`
 
     margin: 0;
     padding: 0;
+
+    @media only screen and (max-width: 550px) {
+        font-size: 1.1em;
+    }
 `;
 
 const ReplyButton = styled(ConversationsButton)`
