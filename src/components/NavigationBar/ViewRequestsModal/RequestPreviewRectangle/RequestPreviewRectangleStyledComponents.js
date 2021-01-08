@@ -16,7 +16,6 @@ const Divider = styled("hr")`
     width: 85%;
     margin: 0 auto;
     margin-top: 25px;
-    margin-bottom: 5px;
     background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
                                           "#931E1D": "#1E6C93"
@@ -38,8 +37,6 @@ const Content = styled("article")`
 
     margin: 0;
     margin-top: 10px;
-
-    border-radius: 10px;
 
     :hover, :active  {
         background-color: ${ props => props.districtPosition ?

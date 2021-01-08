@@ -25,7 +25,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     let [ requestRectangles, setRequestRectangles ]         =   useState([]);
 
     const history   = useHistory();
-    const { state } = useLocation();
+    const location = useLocation();
 
     const match = useRouteMatch();
 
@@ -179,10 +179,10 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     }, [ requestsType ]); //end useEffect()
 
     useEffect(() => {
-        if (history.location.pathname === `${match.url}/view-requests`) {
+        if (location.pathname === `${match.url}/view-requests` || history.location.pathname === `${match.url}/view-requests/:id/` || history.location.pathname === `${match.url}/view-requests/:id/reply`  ) {
             toggleModal(true);
         }
-    }, [ history ] );
+    }, [ location ] );
 
     return (
       <Container
