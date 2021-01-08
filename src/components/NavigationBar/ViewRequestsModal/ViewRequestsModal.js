@@ -179,9 +179,11 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     }, [ requestsType ]); //end useEffect()
 
     useEffect(() => {
-        if (location.pathname === `${match.url}/view-requests` || history.location.pathname === `${match.url}/view-requests/:id/` || history.location.pathname === `${match.url}/view-requests/:id/reply`  ) {
+        if (location.pathname.indexOf(`${match.url}/view-requests`) > -1) {
             toggleModal(true);
         }
+
+       //alert(JSON.stringify(match));
     }, [ location ] );
 
     return (
