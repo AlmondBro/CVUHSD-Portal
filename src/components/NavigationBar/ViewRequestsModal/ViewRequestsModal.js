@@ -182,7 +182,6 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         if (location.pathname.indexOf(`${match.url}/view-requests`) > -1) {
             toggleModal(true);
         }
-
        //alert(JSON.stringify(match));
     }, [ location ] );
 

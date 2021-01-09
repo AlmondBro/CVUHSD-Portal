@@ -398,30 +398,23 @@ class App extends Component {
                     <Troubleshooting/>
                 </Route>
 
-                {
-                  (window.location.pathname !== "/staff") || (window.location.pathname !== "/student") 
-                  || (window.location.pathname !== "/troubleshooting") 
-                  || (window.location.pathname !== "/staff/view-request-modal") || (window.location.pathname !== "/student/view-request-modal") ?   
-                    (<Route> 
-                      <NotFound
-                        defaultURL            = { this.state.defaultURL }
+                <Route> 
+                  <NotFound
+                    defaultURL            = { this.state.defaultURL }
 
-                        history               = { this.props.history }
-                        fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
-                        title                 = { this.state.title }
-                        site                  = { this.state.site }
-                        gradeLevel            = { this.state.gradeLevel }
-                        clearState            = { this.clearState }
-                        logOut                = { this.logOut}
-                        changeContainerStyle  = { this.changeContainerStyle }
+                    fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
+                    title                 = { this.state.title }
+                    site                  = { this.state.site }
+                    gradeLevel            = { this.state.gradeLevel }
+                    clearState            = { this.clearState }
+                    logOut                = { this.logOut}
+                    changeContainerStyle  = { this.changeContainerStyle }
 
-                        modifySite            = { this.modifySite }
-                        modifyTitle           = { this.modifyTitle }
-                        modifyRenderAsStudent = { this.modifyRenderAsStudent }
-                      />
-                     </Route>
-                     ) : null
-                } 
+                    modifySite            = { this.modifySite }
+                    modifyTitle           = { this.modifyTitle }
+                    modifyRenderAsStudent = { this.modifyRenderAsStudent }
+                  />
+                  </Route>
             </Switch>
             <MobileAppBanner
                 districtPosition      = { this.state.title }
