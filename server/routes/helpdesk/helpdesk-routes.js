@@ -106,13 +106,14 @@ router.post('/request/create', async (req, res) => {
 
 /* === GET INDIVIDUAL REQUEST DETAILS === */
 const getSingleRequestDetails = async (id) => {
+    console.log("\n\n\getSingleReqDetails() singleReq ID:\t", id);
+
     const sdpReadRequestsURL = `${process.env.SDP_URL}/api/v3/requests/${id}`; 
 
     const sdpReadRequestsURLHeaders = {
         'Content-Type'      :   'application/x-www-form-urlencoded',
         'technician_key'    :   process.env.SDP_TECH_KEY
     };
-
 
     let getSingleReqInfo = await fetch(sdpReadRequestsURL, {
         method: 'GET',
@@ -129,11 +130,25 @@ const getSingleRequestDetails = async (id) => {
 router.get('/request/read/:id', async (req, res) => {
     const { id } = req.params;
 
+    let requestInfo = "";
+    let message = "";
+    let error = null;
+
     let requestDetails = await getSingleRequestDetails(id);
 
-    let message, error = null;
+    const { response_status, request } = requestDetails;
+    const status = response_status.status;
 
-    return res.json({...requestDetails, message, error});
+    if (requestDetails && status === "success") {
+        message = "Success getting request details";
+        requestInfo = request;
+        error = false;
+    } else {
+        message = response_status.messages[0].message;
+        error = true;
+    }
+
+    return res.json({ requestInfo, message, error});
 });
 
 /* === GET INDIVIDUAL REQUEST CONVOS' DETAILS === */

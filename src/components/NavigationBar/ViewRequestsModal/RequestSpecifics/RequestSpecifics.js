@@ -8,31 +8,44 @@ import SingleConvo from './SingleConvo/SingleConvo.js';
 
 import isDev from 'isdev';
 
+import undefsafe from 'undefsafe';
+
 //import styled components
 import { NoConvosMessage, TechLink, SingleConvosContainer, SortButton, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 import ReplyToConvo from './ReplyToConvo/ReplyToConvo.js';
 
 import { removeHTML } from './../../../../utilityFunctions.js';
 
+/* eslint no-restricted-globals:0 */
+
 const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
-    const { id }    = useParams();
+    const id        = useParams().id || location.slice(-2);
     const history   = useHistory();
-    const { state } = useLocation();
+    const match     = useRouteMatch();
 
-    const match = useRouteMatch();
+    const location = useLocation();
 
-    let [ statusIcon, setStatusIcon ] = useState(faTasks);
-    let [ convoComps, setConvoComps ] = useState([]);
-    let [ showConvos, setShowConvos ] = useState(false);
+    let [ statusIcon, setStatusIcon ]   = useState(faTasks);
+    let [ convoComps, setConvoComps ]   = useState([]);
+    let [ showConvos, setShowConvos ]   = useState(false);
     let [ isLoading, setIsLoading ]     = useState(false);
 
-    const { subject, description, time, date, techInfo, status, site } = state;
+    let [ reqDetails, setReqDetails ] = useState({
+        subject : "", 
+        description: "", 
+        time: "", 
+        date: "", 
+        techInfo: {
+            name: "",
+            email_id: "helpdesk@centinela.k12.ca.us"
+        }, 
+        status: "",
+        site: "",
 
-    // let techFullNameFormatted = techInfo;
-
-    let { email_id: techEmail, name } = techInfo;
-    
-    let techFullNameFormatted = (name !== "No assigned tech") ? name.split(",")[1] + " " + name.split(",")[0] : name;
+        techFullNameFormatted: "",
+        techEmail: "helpdesk@centinela.k12.ca.us",
+        name: ""
+    });
 
     const reverseConvosOrder = () => {
         return setConvoComps([...convoComps].reverse());
@@ -129,8 +142,55 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
         setIsLoading(false);
     };
 
+
+    //This function is a normal ES5 function thus so it can be hoisted at the top.
+    const getSingleRequestDetails = async () => {
+        const getSingleRequestDetails_URL = `${isDev ? "" : "/server"}/helpdesk/request/read/${id}`;
+        const getSingleRequestDetails_Headers = {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-Credentials": true
+        };
+    
+        let requestDetails = await fetch(getSingleRequestDetails_URL, {
+            method: 'GET',
+            headers: getSingleRequestDetails_Headers
+        })
+        .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
+        .then((jsonResponse) => jsonResponse)
+        .catch((error) => {
+            console.error(`getReqConvos() Catching error:\t ${error}`);
+        });
+
+        console.log("async reqDetails 1:\t", requestDetails);
+
+        return requestDetails;
+    }; //end getSingleRequestDetails
+
+    const setMetaDataState = () => {
+        const { state } = location;
+
+        if (state) {
+            const { subject, description, time, date, techInfo, status, site } = state;
+    
+            getFAIcon(status);
+
+            let { email_id: techEmail, name } = techInfo;
+            let techFullNameFormatted = (name !== "No assigned tech") ? name.split(",")[1] + " " + name.split(",")[0] : name;
+            
+            setReqDetails({subject, description, time, date, techInfo, techEmail, status, site, techFullNameFormatted });
+        } else {
+            //Call function to get the user requests
+             (async () => {
+                const requestDetails = await getSingleRequestDetails();
+    
+                console.log("async reqDetails 2:\t", requestDetails);
+            })();
+        } //end else-statement
+    }; 
+
     useEffect(() => {
-        getFAIcon(status);
+        setMetaDataState();
     }, []); //end useEffect() hook
 
     useEffect(() => {
@@ -138,6 +198,8 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
             loadConvoComponents();
         }
     }, [ showConvos ]); //end useEffect() hook
+
+    let { subject, description, time, date, techInfo, status, site, techFullNameFormatted } = reqDetails;
     
     return (
         <Switch> 
@@ -176,20 +238,18 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                         districtPosition    =   { districtPosition.toLowerCase() }
                         renderAsStudent     =   { renderAsStudent }
                     >
-                        { subject || "Ticket Title"}
+                        { subject || "No ticket Title"}
                     </ModalTitle>
                 </HeaderContainer>
 
                 <Container 
-                    className={`request-#${id}-container`}
+                    className = {`request-#${id}-container`}
                 >
-                    
                         <Content className={`request-#${id}-ticket-content`}>
                             <SubSection
                                 className   =   {`request-#${id}-ticket-subsection`}
                                 width       =   { `${((12/19)*100).toString()}%`}
                                 alignItems  =   "flex-start"
-
                             >
                                 {
                                     isLoading ? (
@@ -247,7 +307,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                                 <Skeleton
                                                     width = {40}
                                                 />
-                                            ) : status || "Open"
+                                            ) : status|| "Open"
                                         }  
                                     </DateTime>
                                 </MetaDataContainer>
@@ -304,7 +364,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                                 />
                                             ) : (
                                                 <TechLink
-                                                    href                =   { `mailto:${techEmail}` }
+                                                    href                =   { `mailto:${reqDetails.techEmail}` }
                                                     districtPosition    =   { districtPosition.toLowerCase() }
                                                     renderAsStudent     =   { renderAsStudent }
                                                 >
@@ -344,7 +404,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                     />
                                     <ConversationsButtonTitle
                                         className           =   {`request-#${id}-convo-reply-button-title`}
-                                    
                                     >
                                         Conversations
                                     </ConversationsButtonTitle>
@@ -372,7 +431,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                     className  =   {`request-#${id}-reply-button`}
                                     onClick     =   { () => history.push({
                                                         pathname    : `${match.url}/reply`,
-                                                        state       : { subject, description, time, date, techInfo, status, site }
+                                                        state       : { subject: subject, description, time, date, techInfo, status, site }
                                                     }) 
                                     }
                                 >

@@ -71,7 +71,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         const pathname = `${match.url}/view-requests/${id}`;
         return history.push({
             pathname: pathname,
-            state: { request: requestObject, subject, description, time, date, status, techInfo, site }
+            state: { subject, description, time, date, status, techInfo, site }
         });
     }; //end routeToReqID
     
