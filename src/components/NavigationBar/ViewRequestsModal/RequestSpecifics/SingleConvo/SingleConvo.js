@@ -8,7 +8,8 @@ import { removeHTML } from './../../../../../utilityFunctions.js';
 import { Container, SubSection, ReqSkeletonContainer, RequestDescription, TicketMetaData, MetaDataContainer,  FAIconStyled, DateTime, Divider } from './SingleConvoStyledComponents.js';
 
 const SingleConvo = ({id, isLoading, districtPosition, renderAsStudent, showConvos, description, date, time, author}) => {
- 
+    let parsedAuthor = `${author.split(",")[1]} ${author.split(",")[0]}`;
+    
     return (
         <Container 
             className           =   {`#${id}-single-convo-container`}
@@ -43,7 +44,6 @@ const SingleConvo = ({id, isLoading, districtPosition, renderAsStudent, showConv
                         </RequestDescription>
                     )
                 }
-
             </SubSection>
 
             <TicketMetaData
@@ -102,7 +102,7 @@ const SingleConvo = ({id, isLoading, districtPosition, renderAsStudent, showConv
                                 <Skeleton
                                     width = {80}
                                 />
-                            ) : author 
+                            ) : parsedAuthor 
                         }  
                     </DateTime>
                 </MetaDataContainer>
