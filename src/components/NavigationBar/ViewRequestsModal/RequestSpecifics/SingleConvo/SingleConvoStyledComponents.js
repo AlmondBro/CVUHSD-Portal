@@ -16,7 +16,8 @@ const Container = styled("article")`
     margin-bottom: 15px;
 
     padding: 0%;
-
+    padding-bottom: 15px;
+    
     border-radius: 0px;
     border-bottom: 1px solid  ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
