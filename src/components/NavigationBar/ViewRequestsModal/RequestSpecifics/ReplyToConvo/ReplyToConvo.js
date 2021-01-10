@@ -1,29 +1,31 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { faTicketAlt, faArrowLeft, faReply } from '@fortawesome/free-solid-svg-icons';
+import { faTicketAlt, faArrowLeft, faReply, faUserSecret } from '@fortawesome/free-solid-svg-icons';
 
 import ReactLoading from 'react-loading';
 import isDev from 'isdev';
 
 import { HeaderContainer, BackButton, BackArrowIcon, FAIconStyled, TicketNumberTitle, ModalTitle, Container, Form, FormInputContainer, TextArea, ReplyButton } from './ReplyToConvoStyledComponents.js';
 import { HelpdeskSubmitMessage } from './../../../SupportRequestModal/SupportRequestModalStyledComponents.js';
+
+import { getSingleRequestDetails } from './../RequestSpecifics.js';
+
 const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
     let [ message, setMessage ]             = useState("");
 
     let [ isLoading, setIsLoading ]         = useState(false);
     let [ submitEnabled, setSubmitEnabled ] = useState(true);
 
+    let [ headerTitle, setHeaderTitle ]     = useState("Reply to Request");
+    let [ replySubject, setReplySubject ]    = useState(`Re: No Ticket Title`);
+    let [ techEmail, setTechEmail ]         = useState("helpdesk@centinela.k12.ca.us");
+
     const history                           = useHistory();
-    const { state }                         = useLocation();
-
-    let { subject, techEmail } = state;
-
-    let replySubject = `Re: [Request ID: ##RE-${id}##]: ${subject} `; 
+    const location                          = useLocation();
 
     const onChange = (event) => {
         setMessage(event.target.value);
-
       }; //end onChange() handler
 
     const sendReplyReq = async () => {
@@ -48,7 +50,6 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
 
         return sendReplyReqResult;
     }; //end getReqConvos
-
 
     const submitRequest = async (event) => {
         event.preventDefault();
@@ -95,12 +96,55 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
         } //end outer if-statement
     }; //end submitRequest
 
+    const getReqDetSetState = async () => {
+        setIsLoading(true);
+
+        const requestDetails = await getSingleRequestDetails(id);
+
+        const { requestInfo, message, error } = requestDetails;
+
+        if (!error) {
+            let { subject, technician } = requestInfo;
+            let { email_id }  = technician;
+
+            let replySubject = `Re: [Request ID: ##RE-${id}##]: ${subject} `; 
+
+            setHeaderTitle(subject);
+            setTechEmail(email_id);
+            setReplySubject(replySubject);
+
+            setIsLoading(false);
+        }
+    }; //end getReqDetSetState()
+
+    const setStateVariables = () => {
+        setIsLoading(true);
+        const { state } = location;
+
+        if (state) {
+            let { subject, techEmail } = state;
+
+            let replySubject = `Re: [Request ID: ##RE-${id}##]: ${subject} `; 
+
+            setHeaderTitle(subject);
+            setTechEmail(techEmail);
+            setReplySubject(replySubject);
+            setIsLoading(false);
+        } else {
+            getReqDetSetState();
+        } //end else statement
+    }; //end setStateVariables()
+
+    useEffect(() => {
+        setStateVariables();
+    }, []); //end useEffect()
+
     return (
         <Fragment>
             <HeaderContainer className={`request-#${id}-header-container`}>
                 <BackButton
                     className   =   {`request-#${id}-back-button`}
-                    onClick     = { () => history.goBack() }
+                    onClick     =   { () => history.push(`/${(renderAsStudent || districtPosition.toLowerCase() === "student") ? "student" : "staff"}/view-requests/${id}`) }
                 >
                     <BackArrowIcon
                         districtPosition    =   { districtPosition.toLowerCase() }
@@ -129,7 +173,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
                     districtPosition    =   { districtPosition.toLowerCase() }
                     renderAsStudent     =   { renderAsStudent }
                 >
-                    { subject || "No title specified"}
+                    { headerTitle || "No title specified"}
                 </ModalTitle>
 
                 {
@@ -157,7 +201,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
 
                             name        =   {`request-#${id}-reply-message`}
                             rows        =   "10"
-                            placeholder =   { `Enter your response to ${subject} here...`}
+                            placeholder =   { `Enter your response to ${headerTitle} here...`}
                             onChange    =   { onChange }  
                             value       =   { message }
                             required    =   { true }

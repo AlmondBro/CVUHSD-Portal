@@ -20,6 +20,29 @@ import { removeHTML } from './../../../../utilityFunctions.js';
 
 /* eslint no-restricted-globals:0 */
 
+const getSingleRequestDetails = async (id) => {
+    const getSingleRequestDetails_URL = `${isDev ? "" : "/server"}/helpdesk/request/read/${id}`;
+    const getSingleRequestDetails_Headers = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Credentials": true
+    };
+
+    let requestDetails = await fetch(getSingleRequestDetails_URL, {
+        method: 'GET',
+        headers: getSingleRequestDetails_Headers
+    })
+    .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
+    .then((jsonResponse) => jsonResponse)
+    .catch((error) => {
+        console.error(`getReqConvos() Catching error:\t ${error}`);
+    });
+
+    console.log("async reqDetails 1:\t", requestDetails);
+
+    return requestDetails;
+}; //end getSingleRequestDetails
+
 const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
     const id        = useParams().id || location.slice(-2);
     const history   = useHistory();
@@ -140,37 +163,12 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
         setIsLoading(false);
     };
 
-    //This function is a normal ES5 function thus so it can be hoisted at the top.
-    const getSingleRequestDetails = async () => {
-        const getSingleRequestDetails_URL = `${isDev ? "" : "/server"}/helpdesk/request/read/${id}`;
-        const getSingleRequestDetails_Headers = {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            "Access-Control-Allow-Credentials": true
-        };
-    
-        let requestDetails = await fetch(getSingleRequestDetails_URL, {
-            method: 'GET',
-            headers: getSingleRequestDetails_Headers
-        })
-        .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
-        .then((jsonResponse) => jsonResponse)
-        .catch((error) => {
-            console.error(`getReqConvos() Catching error:\t ${error}`);
-        });
-
-        console.log("async reqDetails 1:\t", requestDetails);
-
-        return requestDetails;
-    }; //end getSingleRequestDetails
-
     const getReqDetSetState = async () => {
         setIsLoading(true);
-        const requestDetails = await getSingleRequestDetails();
+        const requestDetails = await getSingleRequestDetails(id);
 
         const { requestInfo, message, error } = requestDetails;
 
-        // /*
         if (!error) {
             let { subject, description, created_time, status, id, technician, site } = requestInfo;
 
@@ -196,7 +194,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
             setReqDetails({subject, description, time, date, techEmail, status, site, techFullNameFormatted });
             setIsLoading(false);
         } //end if-statement
-        //*/
     }; //getReqDetSetState()
 
     const setMetaDataState = () => {
@@ -506,7 +503,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
 }; //end RequestSpecifics()
 
 export default RequestSpecifics;
-
+export { getSingleRequestDetails };
 // <SkeletonThemeStyled 
 //                         color           = {
 //                                             districtPosition ?
