@@ -10,6 +10,8 @@ import isDev from 'isdev';
 
 import undefsafe from 'undefsafe';
 
+import { dateFormatChange, parseDate } from './../ViewRequestsModal.js';
+
 //import styled components
 import { NoConvosMessage, TechLink, SingleConvosContainer, SortButton, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, SkeletonThemeStyled, BackButton, BackArrowIcon, MetaDataContainer, HeaderContainer, TicketNumberTitle, ModalTitle, Container, Divider, Content, FAIconStyled, SubSection, IconSubSection, TicketMetaData, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton, ReqSkeletonContainer } from './RequestSpecificsStyledComponents.js';
 import ReplyToConvo from './ReplyToConvo/ReplyToConvo.js';
@@ -35,10 +37,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
         description: "", 
         time: "", 
         date: "", 
-        techInfo: {
-            name: "",
-            email_id: "helpdesk@centinela.k12.ca.us"
-        }, 
         status: "",
         site: "",
 
@@ -142,7 +140,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
         setIsLoading(false);
     };
 
-
     //This function is a normal ES5 function thus so it can be hoisted at the top.
     const getSingleRequestDetails = async () => {
         const getSingleRequestDetails_URL = `${isDev ? "" : "/server"}/helpdesk/request/read/${id}`;
@@ -167,6 +164,41 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
         return requestDetails;
     }; //end getSingleRequestDetails
 
+    const getReqDetSetState = async () => {
+        setIsLoading(true);
+        const requestDetails = await getSingleRequestDetails();
+
+        const { requestInfo, message, error } = requestDetails;
+
+        // /*
+        if (!error) {
+            let { subject, description, created_time, status, id, technician, site } = requestInfo;
+
+            let techInfo = {
+                email_id: "helpdesk@centinela.k12.ca.us",
+                name: "No assigned tech"
+            };
+
+            if (technician) {
+                techInfo = technician;
+            }
+
+            let dateAndTime                     =   parseDate(created_time["display_value"]);
+
+            const date                          =   dateFormatChange(dateAndTime[0]);
+            const time                          =   dateAndTime[1] + " " + dateAndTime[2];
+            status                              =   status.name;
+            site                                =   site.name;
+            const techEmail                     =   techInfo.email_id;
+
+            let techFullNameFormatted = (techInfo.name !== "No assigned tech") ? techInfo.name.split(",")[1] + " " + techInfo.name.split(",")[0] : techInfo.name;
+
+            setReqDetails({subject, description, time, date, techEmail, status, site, techFullNameFormatted });
+            setIsLoading(false);
+        } //end if-statement
+        //*/
+    }; //getReqDetSetState()
+
     const setMetaDataState = () => {
         const { state } = location;
 
@@ -178,14 +210,10 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
             let { email_id: techEmail, name } = techInfo;
             let techFullNameFormatted = (name !== "No assigned tech") ? name.split(",")[1] + " " + name.split(",")[0] : name;
             
-            setReqDetails({subject, description, time, date, techInfo, techEmail, status, site, techFullNameFormatted });
+            setReqDetails({subject, description: description, time, date, techInfo, techEmail, status, site, techFullNameFormatted });
         } else {
             //Call function to get the user requests
-             (async () => {
-                const requestDetails = await getSingleRequestDetails();
-    
-                console.log("async reqDetails 2:\t", requestDetails);
-            })();
+            getReqDetSetState();
         } //end else-statement
     }; 
 
@@ -196,10 +224,10 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
     useEffect(() => {
         if (showConvos === true) {
             loadConvoComponents();
-        }
+        } 
     }, [ showConvos ]); //end useEffect() hook
 
-    let { subject, description, time, date, techInfo, status, site, techFullNameFormatted } = reqDetails;
+    let { subject, description, time, date, status, site, techFullNameFormatted } = reqDetails;
     
     return (
         <Switch> 
@@ -207,7 +235,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                 <HeaderContainer className={`request-#${id}-header-container`}>
                     <BackButton
                         className   =   {`request-#${id}-back-button`}
-                        onClick     = { () => history.goBack() }
+                        onClick     =   { () => history.push(`/${(renderAsStudent || districtPosition.toLowerCase() === "student") ? "student" : "staff"}/view-requests`) }
                     >
                         <BackArrowIcon
                             districtPosition    =   { districtPosition.toLowerCase() }
@@ -273,7 +301,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                         </RequestDescription>
                                     )
                                 }
-                            
                             </SubSection>
 
                             <TicketMetaData
@@ -340,7 +367,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                     </DateTime>
                                     </MetaDataContainer>
 
-        
                                 <MetaDataContainer
                                     className   =   {`request-#${id}-metadata-container`}
                                 >
@@ -431,7 +457,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                     className  =   {`request-#${id}-reply-button`}
                                     onClick     =   { () => history.push({
                                                         pathname    : `${match.url}/reply`,
-                                                        state       : { subject: subject, description, time, date, techInfo, status, site }
+                                                        state       : { subject: subject, description, time, date, status, site }
                                                     }) 
                                     }
                                 >
@@ -453,15 +479,16 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
 
                                 showConvos          =   { showConvos }
                             >
-                                { (convoComps.length > 0) ? convoComps : (
-                                        <NoConvosMessage
-                                            className           =   {`request-#${id}-no-convos-message`}
-                                            districtPosition    =   { districtPosition.toLowerCase() }
-                                            renderAsStudent     =   { renderAsStudent }
-                                        >
-                                            { `No conversations in this request (#${id})` }
-                                        </NoConvosMessage>
-                                    )
+                                { 
+                                        (convoComps.length > 0) ? convoComps : (
+                                            <NoConvosMessage
+                                                className           =   {`request-#${id}-no-convos-message`}
+                                                districtPosition    =   { districtPosition.toLowerCase() }
+                                                renderAsStudent     =   { renderAsStudent }
+                                            >
+                                                { `No conversations in this request (#${id})` }
+                                            </NoConvosMessage>
+                                        )
                                 }
                             </SingleConvosContainer>
                         </ConversationsOuterContainer> 

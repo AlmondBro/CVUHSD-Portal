@@ -15,6 +15,20 @@ import RequestSpecifics from './RequestSpecifics/RequestSpecifics.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterSortButtonContainer, FilterButton, TitleFilterContainer, FilterText, SortButton, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
+const parseDate = (stringToParse) => {
+    let dateAndTime = stringToParse.split(" ");
+
+    return dateAndTime;
+}; //end parseDate()
+
+const dateFormatChange = (dateToChange) => {
+    const dateParts = dateToChange.split("/");
+
+    const formattedDate  = dateParts[1] + "/" +  dateParts[0] + "/" + dateParts[2];
+
+    return formattedDate;
+};
+
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
 
@@ -41,21 +55,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             overlayClassName="view-requests-modal-overlay",
             portalClassName="view-requests-modal",
             contentClassName="view-requests-modal-content",
-            parentSelectorID="chat-page-main-container";
-
-    const parseDate = (stringToParse) => {
-        let dateAndTime = stringToParse.split(" ");
-
-        return dateAndTime;
-    }; //end parseDate()
-
-    const dateFormatChange = (dateToChange) => {
-        const dateParts = dateToChange.split("/");
-
-        const formattedDate  = dateParts[1] + "/" +  dateParts[0] + "/" + dateParts[2];
-
-        return formattedDate;
-    };
+            parentSelectorID="chat-page-main-container"
 
     const routeToReqID = (requestObject, subject, description, time, date, status, technician, site) => {
         const { id } = requestObject;
@@ -68,7 +68,9 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         if (technician) {
             techInfo = technician;
         }
+
         const pathname = `${match.url}/view-requests/${id}`;
+        
         return history.push({
             pathname: pathname,
             state: { subject, description, time, date, status, techInfo, site }
@@ -96,7 +98,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
 
                     subject             =   { subject}
                     description         =   { description }
-                    date                =   {  date }
+                    date                =   { date }
                     time                =   { dateAndTime[1] + " " + dateAndTime[2] }
                     status              =   { status }
                     id                  =   { id }
@@ -405,3 +407,5 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
 }; //end TransferToITModal()
 
 export default ViewRequestsModal;
+
+export { dateFormatChange, parseDate };
