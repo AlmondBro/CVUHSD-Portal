@@ -227,7 +227,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
         } 
     }, [ showConvos ]); //end useEffect() hook
 
-    let { subject, description, time, date, status, site, techFullNameFormatted } = reqDetails;
+    let { subject, description, time, date, status, site, techFullNameFormatted, techEmail } = reqDetails;
     
     return (
         <Switch> 
@@ -406,7 +406,6 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                         <ConversationsOuterContainer
                                 className           =   {`request-#${id}-conversations-outer-container`}
                         >
-
                             <ConvoReplyButtonContainer 
                                 className           =   {`request-#${id}-convo-button-container`}
 
@@ -457,7 +456,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                     className  =   {`request-#${id}-reply-button`}
                                     onClick     =   { () => history.push({
                                                         pathname    : `${match.url}/reply`,
-                                                        state       : { subject: subject, description, time, date, status, site }
+                                                        state       : { subject, techEmail }
                                                     }) 
                                     }
                                 >

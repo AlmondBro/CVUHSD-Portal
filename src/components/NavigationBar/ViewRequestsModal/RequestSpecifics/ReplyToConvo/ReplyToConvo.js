@@ -17,11 +17,9 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
     const history                           = useHistory();
     const { state }                         = useLocation();
 
-    let { subject, techInfo } = state;
+    let { subject, techEmail } = state;
 
     let replySubject = `Re: [Request ID: ##RE-${id}##]: ${subject} `; 
-
-    const techEmail = techInfo.email_id;
 
     const onChange = (event) => {
         setMessage(event.target.value);
