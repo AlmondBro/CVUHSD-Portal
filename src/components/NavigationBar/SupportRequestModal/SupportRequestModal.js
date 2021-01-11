@@ -5,9 +5,7 @@ import { faLaptop, faTicketAlt, faWindowClose } from '@fortawesome/free-solid-sv
 import isDev from 'isdev';
 import ReactLoading from 'react-loading';
 
-import { 
-    ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,
-    TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
+import { ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage } from './SupportRequestModalStyledComponents.js';
 
 /* eslint no-restricted-globals:0 */
 const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
@@ -57,10 +55,7 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
     let submitReqResponse = "";
 
     if (submitEnabled && (isLoading === false) ) {
-        setIsLoading(true);
-
-        // window.alert(JSON.stringify(formField));
-    
+        setIsLoading(true); 
         setSubmitEnabled(false);
 
         let {     
@@ -100,17 +95,12 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
         .then((jsonResponse) => jsonResponse)
         .catch((error) => {
             console.error(`Catching error:\t ${error}`);
-        });
+        }); //end fetch() call
     
-        //window.alert(JSON.stringify(submitReqResponse));
-    
-
         if (submitReqResponse) {
             const responseStatus = submitReqResponse["response_status"].status;
     
             setIsLoading(false);
-
-            // window.alert("responseStatus:\t", responseStatus);
     
             if (responseStatus === "success") {
     
@@ -118,12 +108,12 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
 
                 notify(
                     <HelpdeskSubmitMessage
-                    districtPosition    =   { districtPosition }
-                    renderAsStudent     =   { renderAsStudent }
-                    message             =   "Helpdesk Request Submitted"
-                    icon                =   { faTicketAlt }
+                        districtPosition    =   { districtPosition }
+                        renderAsStudent     =   { renderAsStudent }
+                        message             =   "Helpdesk Request Submitted"
+                        icon                =   { faTicketAlt }
                     />
-                );
+                ); //end notify()
     
                 setTimeout(() => {
                          //Reset the form field after submitting.
@@ -230,7 +220,7 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
 
         let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
         history.push(rootPathName);
-    }; //end onClose
+    }; //end onClose()
 
   return (
       <TransferToITModalContainer
