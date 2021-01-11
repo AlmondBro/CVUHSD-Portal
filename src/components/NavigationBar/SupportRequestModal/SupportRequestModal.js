@@ -207,13 +207,6 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
 
     }, [ site, districtPosition ]); //end useEffect()
 
-    
-    useEffect(() => {
-        if (routerLocation.pathname.indexOf(`${match.url}/submit-support-request`) > -1) {
-            toggleModal(true);
-        }
-    }, [ routerLocation ] );
-
     const onClose = () => {
         setIsRequestSuccessful(null);
         toggleModal(false);
@@ -221,6 +214,12 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
         let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
         history.push(rootPathName);
     }; //end onClose()
+
+    useEffect(() => {
+        if (routerLocation.pathname.indexOf(`${match.url}/submit-support-request`) > -1) {
+            toggleModal(true);
+        }
+    }, [ routerLocation ] );
 
   return (
       <TransferToITModalContainer

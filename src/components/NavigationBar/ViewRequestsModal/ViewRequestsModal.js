@@ -38,10 +38,10 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     let [ requestsType, setRequestsType ]                   =   useState("All");
     let [ requestRectangles, setRequestRectangles ]         =   useState([]);
 
-    const history   = useHistory();
-    const location = useLocation();
+    let history   = useHistory();
+    let location = useLocation();
 
-    const match = useRouteMatch();
+    let match = useRouteMatch();
 
     const onClose = () => {
         toggleModal(false);
@@ -184,7 +184,6 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         if (location.pathname.indexOf(`${match.url}/view-requests`) > -1) {
             toggleModal(true);
         }
-       //alert(JSON.stringify(match));
     }, [ location ] );
 
     return (
