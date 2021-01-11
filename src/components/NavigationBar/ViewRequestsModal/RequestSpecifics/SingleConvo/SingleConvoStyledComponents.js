@@ -139,9 +139,9 @@ const TicketMetaData = styled(SubSection)`
 
     height: 120px;
     border-left: 1px solid ${ props => props.districtPosition ?
-                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
-                                          "rgba(30,108, 147, 0.42)": "rgba(147,30, 29, 0.42)"
-                                    : "rgba(30,108, 147, 0.42)"
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent) ? 
+                                          "rgba(147,30, 29, 0.42)": "rgba(30,108, 147, 0.42)"
+                                    : "rgba(147,30, 29, 0.42)"
             };
     margin: 0px 10px;
 

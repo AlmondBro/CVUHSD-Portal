@@ -446,7 +446,7 @@ const SingleConvosContainer = styled("div")`
     transition-delay: 150ms;
     /* Firefox properties to target the scrollbar color */
     scrollbar-color:  ${ props => props.districtPosition ?
-                                    ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                    ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent) ? 
                                         "#931E1D white": "#1E6C93 white"
                                 : "#931E1D white"
     } !important;
@@ -458,7 +458,7 @@ const SingleConvosContainer = styled("div")`
       box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
       border-radius: 10px;
       background-color: ${ props => props.districtPosition ?
-                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent) ? 
                                           "#931E1D white": "#1E6C93 white"
                                     : "#931E1D white"
         };
@@ -477,7 +477,7 @@ const SingleConvosContainer = styled("div")`
       border-radius: 10px;
       box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
       background-color: ${ props => props.districtPosition ?
-                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
+                                      ( (props.districtPosition === "student") || props.renderAsStudent) ? 
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
         };
