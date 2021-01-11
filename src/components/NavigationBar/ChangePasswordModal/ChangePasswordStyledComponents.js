@@ -73,7 +73,10 @@ const ChangePasswordModalContainer = styled(Modal).attrs(props => ({
 `; //end TransferToITModalContainer
 
 const CloseButton = styled('button')`
+    cursor: pointer;
     position: absolute;
+    z-index: 3;
+    
     top: 0;
     left: 97%;
 
@@ -100,8 +103,16 @@ const CloseButton = styled('button')`
     border: 0px;
     outline: 0px;
 
-    :hover {
-        cursor: pointer;
+    @media only screen and (min-width: 538px) and (max-width: 780px) {
+        left: 94%;
+    }
+
+    @media only screen and (min-width: 400px) and (max-width: 537px) {
+        left: 92%;
+    }
+
+    @media only screen and (max-width: 399px) {
+        left: 90%;
     }
 `;
 
@@ -419,7 +430,7 @@ const EyeSymbol = styled(FontAwesomeIcon)`
         };
 `;
 
-const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inputType, isOfTypePassword, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }, ref) => {
+const ModalTextInputField = forwardRef(({ districtPosition, renderAsStudent, title, pathname, inputType, isOfTypePassword, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }, ref) => {
     const [ isPasswordVisible, setIsPasswordVisible ]   =   useState(false);
     const [ isEyeVisible, setIsEyeVisible ] =   useState(false);   
 
@@ -440,7 +451,7 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
             <StyledLabel>
                 <StyledHeader 
                     districtPosition    =   { districtPosition.toLowerCase() }
-
+                    renderAsStudent     =   { renderAsStudent }
                 > 
                     { title } 
                 </StyledHeader>
@@ -458,6 +469,8 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                         required            =   { required }
 
                         districtPosition    =   { districtPosition.toLowerCase() }
+                        renderAsStudent     =   { renderAsStudent }
+
                         ref                 =   { ref }
                     >
                         { description }
@@ -467,6 +480,8 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                         <Fragment>
                             <StyledInput 
                                 districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
+
                                 name                =   { name }
                                 type                =   { isPasswordVisible ? "text" : "password" } 
                                 placeholder         =   { placeholder }
@@ -486,6 +501,8 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                                 isEyeVisible && (document.activeElement) ? (
                                     <EyeSymbol 
                                         districtPosition    =   { districtPosition }
+                                        renderAsStudent     =   { renderAsStudent }
+
                                         className           =   "eye-symbol" 
                                         icon                =   { !isPasswordVisible ? faEye : faEyeSlash }
                                         onClick             =   { toggleShowPassword }
@@ -500,6 +517,8 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                 ) : (
                     <StyledInput 
                         districtPosition    =   { districtPosition.toLowerCase() }
+                        renderAsStudent     =   { renderAsStudent }
+
                         name                =   { name }
                         type                =   { inputType || "text" } 
                         placeholder         =   { placeholder }
@@ -517,7 +536,7 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
     ); //end return statement
 }); //end ModalInputField
 
-const SelectInputField = ({ districtPosition, title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange, options }) => {
+const SelectInputField = ({ districtPosition, renderAsStudent, title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange, options }) => {
     
     const [ optionsDropdowns, setOptions] = useState([]);
 
@@ -549,11 +568,18 @@ const SelectInputField = ({ districtPosition, title, inputType, placeholder, tex
     return (
         <InputSection>
             <StyledLabel>
-                <StyledHeader districtPosition = { districtPosition }>{ title }</StyledHeader>
+                <StyledHeader 
+                    districtPosition    = { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
+                >
+                    { title }
+                </StyledHeader>
             </StyledLabel>
 
             <SelectDropDownArrow 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
+
                 optionsDropdowns    =   { optionsDropdowns} 
                 className           =   "select-drop-down-arrow"
             >
@@ -561,6 +587,8 @@ const SelectInputField = ({ districtPosition, title, inputType, placeholder, tex
                     name                =   { name } 
                     id                  =   { `support-request-${name}`}
                     districtPosition    =   { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
+
                     value               =   { value }
                     onChange            =   { onChange }
                 >

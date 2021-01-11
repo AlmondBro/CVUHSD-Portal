@@ -14,10 +14,12 @@ const ad_config = {
 
 const activeDirectory = new AD(ad_config);
 
-router.put('/password/update', async (req, res) => {
+router.post('/password/update', async (req, res) => {
     let message, error = null;
 
     let { username, currentPassword, newPassword } = req.body;
+
+    await activeDirectory.user(username).unlock(); //Unlock account before authenticating so one does not get their account locked out, where the error displays that the current password is incorrect when it is correct
 
     const isAuthenticated = await activeDirectory.user(username).authenticate(currentPassword)
                             .catch((error) => { 

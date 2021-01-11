@@ -133,6 +133,18 @@ let staffPortalButtons = {
             buttonLink: "https://teams.webex.com/",
             buttonImg: "webex-teams.jpg",
             description: "WebEx Teams"
+        },
+
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
         }
     }, //end quickLinks
 
@@ -324,24 +336,6 @@ let staffPortalButtons = {
                 playStoreId: "com.google.android.apps.docs"
             }  
         },
-        
-        lawndaleLaptopCartSystem_button : {
-            buttonLink: "https://sites.google.com/a/cvuhsd.org/lwlaptopcartsystem/home",
-            buttonImg: "lawndale-laptop-cart-system.png",
-            description: "Lawndale Laptop Cart System"
-        },
-        
-        leuzingerLaptopCartSystem_button : {
-            buttonLink: "https://sites.google.com/a/cvuhsd.org/lzlaptopcartsystem/",
-            buttonImg: "Hawthorne-laptop-cart-system.png",
-            description: "Leuzinger Laptop Cart System"
-        },
-
-        hawthorneLaptopCartSystem_button : {
-            buttonLink: "https://sites.google.com/a/cvuhsd.org/hwlaptopcartsystem/",
-            buttonImg: "Hawthorne-laptop-cart-system.png",
-            description: "Hawthorne Laptop Cart System"
-        }
     }, //end teacherTools
 
     classroomTools : {
@@ -410,32 +404,25 @@ let staffPortalButtons = {
             }
         },
 
-        read180HW_button : {
-            buttonLink: "https://hwread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180HW-Teacher.png",
-            description: "Read 180/System 44-HW Teacher"
-        },
-        
-        read180LW_button : {
-            buttonLink: "https://lwread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180LW-Teacher.png",
-            description: "Read 180/System 44-LW Teacher"
-        },
-
-        read180LZ_button : {
-            buttonLink: "https://lxread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180LZ-Teacher.png",
-            description: "Read 180/System 44-LX Teacher"
-        },
-
-
         //TODO: Need to find deep link for clever. NOTE: Appears to only be available on iOS!!
         everfi_button : {
                 buttonLink: "https://clever.com/oauth/instant-login?client_id=2b024c690549687be970&district_id=5283beba2c067cd50b000031",
                 buttonImg: "everfi.jpg",
                 description: "Everfi",
                 deepLink: "clever://",
-            }
+            },
+    
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
+        }
     }, //end learningTools
 
     digitalTextbooks : {
@@ -781,8 +768,20 @@ let studentPortalButtons = {
             //     appStoreLocale: "us",
             //     playStoreId: "com.instructure.teacher"
             // }
+        },
+
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
+            // }
         }
-  
     }, //end quickLinks
 
     standardStudentTools : {
@@ -811,6 +810,18 @@ let studentPortalButtons = {
                 playStoreId: "com.google.android.apps.docs"
             }
         },
+        virtualJobShadow_Button : {
+            buttonLink: "https://auth.virtualjobshadow.com/sso/v1/centinela-k12-ca-us/",
+            buttonImg: "virtual-job-shadow.jpg",
+            description: "Virtual Job Shadow",
+            // deepLink : "canvas-teacher://",
+            // appLink_config : {
+            //     appName: "canvas-teacher",
+            //     appStoreId: "1257834464",
+            //     appStoreLocale: "us",
+            //     playStoreId: "com.instructure.teacher"
+            // }
+        }
     }, //end standardStudentTools
 
     //TODO: Find Deep Link & app config for apex!
@@ -895,24 +906,6 @@ let studentPortalButtons = {
                 appStoreLocale: "us",
                 playStoreId: "com.brainpop.brainpopfeaturedmovieandroid"
             }
-        },
-
-        read180HW_button : {
-            buttonLink: "https://hwread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180HW-Teacher.png",
-            description: "Read 180/System 44-HW Teacher"
-        },
-        
-        read180LW_button : {
-            buttonLink: "https://lwread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180LW-Teacher.png",
-            description: "Read 180/System 44-LW Teacher"
-        },
-
-        read180LZ_button : {
-            buttonLink: "https://lxread180.centinela.k12.ca.us:56243/slms/EducatorAccess",
-            buttonImg: "Read180LZ-Teacher.png",
-            description: "Read 180/System 44-LX Teacher"
         },
 
         //TODO: Need to find deep link for clever. NOTE: Appears to only be available on iOS!!

@@ -1,15 +1,16 @@
 import React, { useState, useEffect, createRef, useRef } from 'react';
 import { faLock, faTicketAlt, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
+import { useRouteMatch, useHistory, useLocation } from 'react-router-dom';
+
 import isDev from 'isdev';
 import ReactLoading from 'react-loading';
 
 import { 
     ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,
     ChangePasswordModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './ChangePasswordStyledComponents.js';
-import { create } from 'ssl-root-cas/ssl-root-cas-latest';
 
-const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
+const ChangePasswordModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
     let [ changePasswordResult, setChangePasswordResult ]   = useState(null);
 
@@ -17,15 +18,21 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
 
     let [ submitEnabled, setSubmitEnabled ]                 = useState(false);
 
-    const [ formField, setFormField ]                       = useState({
+    let [ formField, setFormField ]                         = useState({
                                                                     currentPassword         :   "",
                                                                     confirmNewPassword  :   "",
                                                                     newPassword         :   ""
                                                                 });
 
+    let history                                             = useHistory();
+    let location                                            = useLocation();
+
+    let match                                               = useRouteMatch();
+                                                            
     var formFieldRef                                        = useRef({});
 
 
+    
   const onChange = (event) => {
     setFormField( { ...formField, [ event.target.name ] : event.target.value });
   }; //end onChange() handler
@@ -40,15 +47,19 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
   }; //afterOpenModal()
 
   const onClose = () => {
-    setChangePasswordResult(null);
-    setServerMessage("");
-    toggleModal(false);
+        setChangePasswordResult(null);
+        setServerMessage("");
+        toggleModal(false);
 
-    setFormField({
-        currentPassword         :   "",
-        confirmNewPassword  :   "",
-        newPassword         :   ""
-    });
+        setFormField({
+            currentPassword         :   "",
+            confirmNewPassword  :   "",
+            newPassword         :   ""
+        });
+
+        let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
+        history.push(rootPathName);
+
     }; //end onClose()
 
   const onSubmit = async (event) => {
@@ -80,7 +91,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 };
             
                 changePasswordServerResponse = await fetch(changePassword_URL, {
-                    method: 'PUT',
+                    method: 'POST',
                     headers: changePassword_headers,
                     body: JSON.stringify({...formField, username})
                 })
@@ -168,10 +179,12 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         newPassword         
     } = formField;
 
-    
     useEffect(() => {
+        if (location.pathname.indexOf(`${match.url}/change-password`) > -1) {
+            toggleModal(true);
+        }
 
-    }, [ site, districtPosition ]); //end useEffect()
+    }, [ location ] );
 
   return (
       <ChangePasswordModalContainer
@@ -199,6 +212,8 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         <CloseButton 
             title               =   "Close modal"
             districtPosition    =   { districtPosition.toLowerCase() }
+            renderAsStudent     =   { renderAsStudent }
+
             onClick             =   { () => toggleModal(false) } 
         >
             &times;
@@ -207,11 +222,14 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
             <label htmlFor="it-transfer-select">
                 <ModalTitle 
                     districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
                 >
                     Change Password
                 </ModalTitle>
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
+
                     icon                =   { faLock }
                 />
             </label>
@@ -220,6 +238,8 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 name                =   "currentPassword"
                 title               =   "Old Password:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
+
                 inputType           =   "password"
                 placeholder         =   "Old Password"
                 
@@ -235,14 +255,14 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 name                =   "newPassword"
                 title               =   "New Password:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
+
                 inputType           =   "password"
                 placeholder         =   "New Password"
                 
                 onChange            =   { onChange }   
                 value               =   { newPassword } 
                 ref                 =   { element => formFieldRef.current['newPassword'] = element } 
-
-
 
                 isOfTypePassword
                 required
@@ -252,6 +272,8 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
                 name                =   "confirmNewPassword"
                 title               =   "" 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
+
                 inputType           =   "password"
                 placeholder         =   "Confirm New Password"
                 
@@ -265,6 +287,8 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
 
             <SubmitButton 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
+
                 disabled            =   { !submitEnabled }
                 submitEnabled       =   {  submitEnabled }
                 type                =   "submit"
@@ -284,6 +308,7 @@ const ChangePasswordModal = ({ districtPosition, fullName, email, site, toggleMo
         <TransferResultMessage 
             className           =   "transfer-result-message"
             districtPosition    =   { districtPosition.toLowerCase() }
+            renderAsStudent     =   { renderAsStudent }
         >
           {
             (changePasswordResult === null) ? null :

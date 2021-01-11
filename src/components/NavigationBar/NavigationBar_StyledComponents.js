@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
-let NavBar = styled.nav`
+const navMenuBreakpoint = "982px";
+
+let NavBar = styled("nav")`
         display: inline-block;
         padding: 0.5% 0%;
 
@@ -16,7 +18,7 @@ let NavBar = styled.nav`
             display: none;
         }
 
-        @media only screen and (max-width: 705px) {
+        @media only screen and (max-width: ${navMenuBreakpoint}) {
             display: inline;
 
             & ul {
@@ -25,7 +27,7 @@ let NavBar = styled.nav`
                 left: 15%;
                 margin-bottom: -52px;
                 z-index: 1;
-                max-height: 350px;
+                max-height: 435px;
                 overflow-y: auto;
                 /*Used to be -25px, now it's -50px */
                 /*margin-bottom Used to be -10px */
@@ -50,13 +52,13 @@ let NavBar = styled.nav`
     let NavBarImageWrapper = styled("div")`
         margin-top: 5px;
 
-        @media only screen and (max-width: 705px) {
+        @media only screen and (max-width: ${navMenuBreakpoint}) {
             .navigation-bar-image-wrapper {
                 display: inline;
             } 
         }
 
-        @media only screen and (min-width: 1282px) { 
+        @media only screen and (min-width: 1465px) { 
           &::after {
                 content: "Centinela Valley Union High School District";
                 display: ${props => (props.districtPosition) ? "inline" : "none"};
@@ -80,7 +82,7 @@ let NavBar = styled.nav`
         }
     `; //end navBarImageWrapper
 
-    let NavBarLogo = styled.img`
+    let NavBarLogo = styled("img")`
         height: 100px;
         /* Was 50px */
         width: auto;
@@ -88,7 +90,7 @@ let NavBar = styled.nav`
         margin-left: 50%;
         margin-top: 8px;
 
-        @media only screen and (max-width: 785px) { 
+        @media only screen and (max-width: ${navMenuBreakpoint}) { 
             display: inline;
             vertical-align: middle;
             margin-left: 25%;
@@ -97,7 +99,7 @@ let NavBar = styled.nav`
         }
     `; //end NavBar logo
 
-    let NavBarUL = styled.ul`
+    let NavBarUL = styled("ul")`
         position: absolute;
         top: 50%;
         margin-top: -0.5em;
@@ -117,7 +119,7 @@ let NavBar = styled.nav`
         overflow: hidden;
     `; //end NavBarUL_Loading
 
-    let MenuToggle = styled.input`
+    let MenuToggle = styled("input")`
         display: none;
 
         /* Rotate First Bar */
@@ -150,16 +152,16 @@ let NavBar = styled.nav`
         }
     `; //end CheckBoxHack
 
-    let NavMenuIcon = styled.div`
+    let NavMenuIcon = styled("div")`
         display: none;
 
-        @media only screen and (max-width: 705px) {
+        @media only screen and (max-width: ${navMenuBreakpoint}) {
             display: block;
             cursor: pointer
         }  
     `; //end NavMenuIcon
 
-    let FirstBar = styled.div`
+    let FirstBar = styled("div")`
         width: 35px;
         height: 5px;
         margin: 6px auto;
@@ -220,8 +222,12 @@ let NavBar = styled.nav`
 
     let NavBarListItem_Link = ({to, children, onClick, ...props}) => {
         return (
-            <li onClick={onClick}>
-                <Link to={to} {...props}>
+            <li>
+                <Link
+                    to      =   { to }  
+                    onClick =   { onClick } 
+                    {...props}
+                >   
                     { children }
                 </Link>
             </li> 
@@ -245,7 +251,7 @@ let NavBar = styled.nav`
                 };
         }
 
-        @media only screen and (max-width: 705px) { 
+        @media only screen and (max-width: ${navMenuBreakpoint}) { 
             &&>li~li::before {
                 content: ${props => props.bulletPointInMobile ? "•" : null };
                 margin-right: 8px;
@@ -260,7 +266,7 @@ let NavBar = styled.nav`
         font-size: 1.1em;
         transition: color 0.5s;
 
-        @media only screen and (max-width: 705px) { 
+        @media only screen and (max-width: ${navMenuBreakpoint}) { 
             &&>li~li::before {
                 content: ${props => props.bulletPointInMobile ? "•" : null };
                 margin-right: 8px;
@@ -277,13 +283,13 @@ let NavBar = styled.nav`
         if (props.to) {
             return (
                 <NavBarListItem_StyledLink 
-                    to={props.to} 
-                    linkName={props.LinkName} 
-                    bulletPointInMobile={props.bulletPointInMobile}
-                    districtPosition={props.districtPosition}
-                    renderAsStudent={props.renderAsStudent}
-                    title={props.title}
-                    onClick={props.onClick}
+                    to                  =   {props.to} 
+                    linkName            =   {props.LinkName} 
+                    bulletPointInMobile =   {props.bulletPointInMobile}
+                    districtPosition    =   {props.districtPosition}
+                    renderAsStudent     =   {props.renderAsStudent}
+                    title               =   {props.title}
+                    onClick             =   {props.onClick}
                 >
                     
                     {props.linkName || props.children}
@@ -306,7 +312,22 @@ let NavBar = styled.nav`
         
     };
 
+const WhiteRouterLink = styled(Link)`
+    cursor: pointer;
+    
+    display: block;
+    width: 100%;
+    height:  100%;
+
+    color: white;
+
+    :hover {
+        color: white;
+        text-decoration: none;
+    }
+`;
+
 export { NavBar, NavBarImageWrapper, NavBarLogo, NavBarUL, NavBarUL_Loading, MenuToggle, 
          NavMenuIcon, FirstBar, NavBarListItem, NavBarButton, NavBarListItem_Link, 
-         NavBarListItem_StyledLink, NavBarListItem_Li, NavBarListItemLi 
+         NavBarListItem_StyledLink, NavBarListItem_Li, NavBarListItemLi, WhiteRouterLink
         }
