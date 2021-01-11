@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Container = styled("article")`
     position: absolute;
     z-index: 2;
-    top: 23%;
-    left: 69%;
+    top: 126px;
+    left: 64%;
 
     width: ${props => props.showFilterPane ? "200px" : "0px"};
     max-height: ${props => props.showFilterPane ? "300px" : "0px"};
@@ -22,28 +22,28 @@ const Container = styled("article")`
     /* transition: 350ms max-height ease-in-out, 350ms width ease-in-out; */
 
     @media only screen and (min-width: 818px) and (max-width: 1059px) {
-        left: 62%;
+        left: 57%;
     }
 
-    @media only screen and (min-width: 656px) and (max-width: 817px) {
-        left: 54%;
+    @media only screen and (min-width: 765px) and (max-width: 817px) {
+        left: 49%;
     }
     
-    @media only screen and (min-width: 528px) and (max-width: 655px) {
-        left: 44%;
+    @media only screen and (min-width: 528px) and (max-width: 765px) {
+        left: 19%;
     }
 
     @media only screen and (min-width: 426px) and (max-width: 527px) {
-        left: 32%;
+        left: 11%;
     }
 
     @media only screen and (min-width: 342px) and (max-width: 425px) {
-        left: 17%;
+        left: 7%;
     }
 
     @media only screen and (max-width: 341px) {
         width: 160px;
-        left: 14%;
+        left: 9%;
     }
     
     

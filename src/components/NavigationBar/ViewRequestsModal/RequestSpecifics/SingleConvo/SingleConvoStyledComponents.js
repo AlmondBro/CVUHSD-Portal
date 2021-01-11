@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-import Skeleton from 'react-loading-skeleton';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { SkeletonTheme } from 'react-loading-skeleton';
 
 const Container = styled("article")`
     position: relative;
@@ -20,18 +16,21 @@ const Container = styled("article")`
     margin-bottom: 15px;
 
     padding: 0%;
-
+    padding-bottom: 15px;
+    
     border-radius: 0px;
     border-bottom: 1px solid  ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
                                           "rgba(147,30, 29, 0.42)": "rgba(30,108, 147, 0.42)"
                                     : "rgba(147,30, 29, 0.42)"
                             };
-    @media only screen and (max-width: 453px) {
+    @media only screen and (max-width: 550px) {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
+
+        width: 100%;
     }
 `;
 
@@ -45,7 +44,7 @@ const SubSection = styled("section")`
 
     margin-right: 2.5%;
 
-    @media only screen and (max-width: 453px) {
+    @media only screen and (max-width: 550px) {
        width: 85%;
        order: 2;
        margin-right: 0px;
@@ -92,8 +91,8 @@ const RequestDescription = styled(RequestTitle)`
     /* Firefox properties to target the scrollbar color */
     scrollbar-color:  ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
+                                          "#931E1D white": "#1E6C93 white"
+                                    : "#931E1D white"
         } !important;
     scrollbar-width: 1px !important;
    
@@ -104,8 +103,8 @@ const RequestDescription = styled(RequestTitle)`
       border-radius: 10px;
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
+                                          "#931E1D white": "#1E6C93 white"
+                                    : "#931E1D white"
         };
 
     }
@@ -123,9 +122,13 @@ const RequestDescription = styled(RequestTitle)`
       box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F": "#1E6C93"
-                                    : "#B41A1F"
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
         };
+    }
+
+    @media only screen and (max-width: 550px) {
+        text-align: center;
     }
 `;
 
@@ -141,6 +144,12 @@ const TicketMetaData = styled(SubSection)`
                                     : "rgba(30,108, 147, 0.42)"
             };
     margin: 0px 10px;
+
+    @media only screen and (max-width: 550px) {
+        order: 1;
+        border-left: 0px;
+
+    }
 `;
 
 
@@ -155,6 +164,11 @@ const MetaDataContainer = styled("section")`
 
     :last-child {
         margin-bottom: 0px;
+    }
+
+    @media only screen and (max-width: 550px) {
+        margin-bottom: 5px;
+        padding-left: 0px;
     }
 `;
 
@@ -174,7 +188,7 @@ const FAIconStyled = styled(FontAwesomeIcon)`
 
    font-size: ${props => props.fontSize ? props.fontSize : "1.0em"};
 
-   @media only screen and (max-width: 453px) {
+   @media only screen and (max-width: 550px) {
     margin-left: 0px;
 
    }
@@ -190,7 +204,7 @@ const DateTime = styled("h5")`
 
     margin: 0;
 
-    @media only screen and (max-width: 453px) {
+    @media only screen and (max-width: 550px) {
        margin-right: 0px;
     }
 `;

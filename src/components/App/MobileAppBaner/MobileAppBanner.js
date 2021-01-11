@@ -66,6 +66,7 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
     return (
         <Fragment>
             <DarkOverlay
+                className       =   { "mobile-app-banner-dark-overlay" }
                 screenWidth     =   { width }
                 bannerVisible   =   { bannerVisible }
             />
@@ -96,6 +97,8 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
                     />
                 
                     <ViewOptionText
+                        className             = "mobile-app-banner-view-option-text"
+
                         districtPosition      = { districtPosition }
                         renderAsStudent       = { renderAsStudent }
                     >
@@ -104,6 +107,8 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
 
                     <ViewOptionLink className="mobile-app-banner-view-option-link">
                         <Button
+                            className             = "mobile-app-banner-view-option-button"
+
                             districtPosition      = { districtPosition }
                             renderAsStudent       = { renderAsStudent }
 
@@ -113,7 +118,7 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
                                                         }
                                                     }
                         >
-                        Continue
+                            Continue
                         </Button>
                     </ViewOptionLink>
                 </ViewOptionContainer>
@@ -123,8 +128,8 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
                 >
                 
                     <ViewOptionImage 
-                        className="mobile-app-banner-view-option-image"
-                        src={`/images/wp-portal-logo-${districtPosition ? ( (districtPosition.toLowerCase() === "student") || renderAsStudent) ? "red" : "blue"  : "red"}-white-interior.svg`}
+                        className             = "mobile-app-banner-view-option-image"
+                        src                   = {`/images/wp-portal-logo-${districtPosition ? ( (districtPosition.toLowerCase() === "student") || renderAsStudent) ? "red" : "blue"  : "red"}-white-interior.svg`}
 
                         districtPosition      = { districtPosition }
                         renderAsStudent       = { renderAsStudent }
@@ -144,6 +149,7 @@ const MobileAppBanner = ({districtPosition, renderAsStudent, setHideOverflow, hi
                         href        =   { getDeepLinkURL() }
                     >
                         <Button
+                            className             = "mobile-app-banner-view-option-button"
                             districtPosition      = { districtPosition }
                             renderAsStudent       = { renderAsStudent }
                         >

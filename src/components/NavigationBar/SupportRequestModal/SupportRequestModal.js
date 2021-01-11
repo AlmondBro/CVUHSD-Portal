@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { faLaptop, faTicketAlt, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 
+import { faLaptop, faTicketAlt, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import isDev from 'isdev';
 import ReactLoading from 'react-loading';
 
-import { 
-    ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,
-    TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
+import { ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage } from './SupportRequestModalStyledComponents.js';
 
-const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
+/* eslint no-restricted-globals:0 */
+const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]     = useState(false);
 
     let [ categories, setCategories ]   = useState([]);
@@ -16,9 +16,13 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
 
     let [ isRequestSuccessful, setIsRequestSuccessful ] = useState(null);
 
-    let [ submitEnabled, setSubmitEnabled ] = useState(false);
+    let [ submitEnabled, setSubmitEnabled ] = useState(false);  
+    
+    let history             = useHistory();
+    let routerLocation    = useLocation();
+    let match             = useRouteMatch();
 
-    const [ formField, setFormField ] = useState({
+    let [ formField, setFormField ] = useState({
         supportRequestTitle :   "",
         category            :   "",
         description         :   "",
@@ -33,7 +37,6 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
   const onChange = (event) => {
     setFormField( { ...formField, [ event.target.name ] : event.target.value });
   }; //end onChange() handler
-
 
   const afterOpenModal = async () => {
       console.log("<TransferToITModal/>afterOpenModal()");
@@ -52,10 +55,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     let submitReqResponse = "";
 
     if (submitEnabled && (isLoading === false) ) {
-        setIsLoading(true);
-
-        // window.alert(JSON.stringify(formField));
-    
+        setIsLoading(true); 
         setSubmitEnabled(false);
 
         let {     
@@ -95,17 +95,12 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         .then((jsonResponse) => jsonResponse)
         .catch((error) => {
             console.error(`Catching error:\t ${error}`);
-        });
+        }); //end fetch() call
     
-        //window.alert(JSON.stringify(submitReqResponse));
-    
-
         if (submitReqResponse) {
             const responseStatus = submitReqResponse["response_status"].status;
     
             setIsLoading(false);
-
-            // window.alert("responseStatus:\t", responseStatus);
     
             if (responseStatus === "success") {
     
@@ -113,11 +108,12 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
 
                 notify(
                     <HelpdeskSubmitMessage
-                    districtPosition    =   { districtPosition }
-                    message             =   "Helpdesk Request Submitted"
-                    icon                =   { faTicketAlt }
+                        districtPosition    =   { districtPosition }
+                        renderAsStudent     =   { renderAsStudent }
+                        message             =   "Helpdesk Request Submitted"
+                        icon                =   { faTicketAlt }
                     />
-                );
+                ); //end notify()
     
                 setTimeout(() => {
                          //Reset the form field after submitting.
@@ -214,7 +210,16 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
     const onClose = () => {
         setIsRequestSuccessful(null);
         toggleModal(false);
-    }; //end onClose
+
+        let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
+        history.push(rootPathName);
+    }; //end onClose()
+
+    useEffect(() => {
+        if (routerLocation.pathname.indexOf(`${match.url}/submit-support-request`) > -1) {
+            toggleModal(true);
+        }
+    }, [ routerLocation ] );
 
   return (
       <TransferToITModalContainer
@@ -242,6 +247,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         <CloseButton 
             title               =   "Close modal"
             districtPosition    =   { districtPosition.toLowerCase() }
+            renderAsStudent     =   { renderAsStudent }
             onClick             =   { () => toggleModal(false) } 
         >
             &times;
@@ -250,11 +256,13 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
             <label htmlFor="it-transfer-select">
                 <ModalTitle 
                     districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
                 >
                     Tech Support Request
                 </ModalTitle>
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
                     icon                =   { faLaptop }
                 />
             </label>
@@ -263,6 +271,8 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                 name                =   "supportRequestTitle"
                 title               =   "Title:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
+
                 inputType           =   "text"
                 placeholder         =   "Support Request Title"
                 
@@ -276,7 +286,8 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                 name                =   "category" 
                 title               =   { "Category:" }
                 districtPosition    =   { districtPosition.toLowerCase() }
-                
+                renderAsStudent     =   { renderAsStudent }
+
                 options             =   { categories }
 
                 onChange            =   { onChange }  
@@ -287,6 +298,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                 name                =   "description"
                 title               =   "Description:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
 
                 inputType           =   "text"
                 placeholder         =   "What is the issue at hand?"
@@ -294,25 +306,25 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                 onChange            =   { onChange }  
                 value               =   { description }
                 required
-                textArea
-                
+                textArea 
             />
 
             <SelectInputField 
                 name                =   "location"
                 title               =   "Location:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
-                
+                renderAsStudent     =   { renderAsStudent }
+
                 options             =   { locations }
                 value               =   { location  }
                 onChange            =   { onChange  }
-
             />
             
             <ModalTextInputField
                 name                =   "phoneExt"
                 title               =   "Phone Ext./ Number:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
 
                 inputType           =   "tel"
                 placeholder         =   "XXX-XXX-XXX"
@@ -327,6 +339,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
                         name                =   "room"
                         title               =   "Office/ Room Number:" 
                         districtPosition    =   { districtPosition }
+                        renderAsStudent     =   { renderAsStudent }
 
                         inputType           =   "text"
                         placeholder         =   "Your location"
@@ -339,6 +352,8 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
          
             <SubmitButton 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
+
                 disabled            =   { !submitEnabled }
                 submitEnabled       =   {  submitEnabled }
                 type                =   "submit"
@@ -358,6 +373,7 @@ const SupportRequestModal = ({ districtPosition, fullName, email, site, toggleMo
         <TransferResultMessage 
             className           =   "transfer-result-message"
             districtPosition    =   { districtPosition.toLowerCase() }
+            renderAsStudent     =   { renderAsStudent }
         >
           {
             (isRequestSuccessful === null) ? null :

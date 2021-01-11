@@ -1,9 +1,6 @@
-body, #cvuhsd-portal-app {
-    transition: all 700ms ease-in-out !important;
-    font-family: 'Source Sans Pro', sans-serif;
-
-    overflow-y: auto;
-    
+body, #cvuhsd-sso-portal {
+    /* transition: all 700ms ease-in-out !important; */
+    font-family: 'Source Sans Pro', sans-serif; 
 }
 
 /* html {
@@ -38,6 +35,11 @@ iframe {
 }
 
 .no-vertical-scroll {
+    overflow-y: hidden;
+}
+
+main#cvuhsd-sso-portal {
+    position: relative;
     overflow-y: hidden;
 }
 
@@ -138,3 +140,70 @@ body > div#me_sdp_chat_content_div {
     border-top-right-radius: 5px;
     overflow: hidden;
 }
+
+/* === React Toast === */ 
+
+/** Used to define container behavior: width, position: fixed etc... **/
+.Toastify__toast-container {
+    filter: blur(0px) !important;
+}
+
+/** Used to define the position of the ToastContainer **/
+.Toastify__toast-container--top-left {
+}
+.Toastify__toast-container--top-center {
+}
+.Toastify__toast-container--top-right {
+}
+.Toastify__toast-container--bottom-left {
+}
+.Toastify__toast-container--bottom-center {
+}
+.Toastify__toast-container--bottom-right {
+}
+
+/** Classes for the displayed toast **/
+.Toastify__toast {
+    filter: blur(0px) !important;
+}
+.Toastify__toast--rtl {
+}
+.Toastify__toast--dark {
+}
+.Toastify__toast--default {
+}
+.Toastify__toast--info {
+}
+.Toastify__toast--success {
+}
+.Toastify__toast--warning {
+}
+.Toastify__toast--error {
+}
+.Toastify__toast-body {
+    filter: blur(0px) !important;
+}
+
+/** Classes for the close button. Better use your own closeButton **/
+.Toastify__close-button {
+}
+.Toastify__close-button--default {
+}
+.Toastify__close-button > svg {
+}
+.Toastify__close-button:hover, .Toastify__close-button:focus {
+}
+
+/** Classes for the progress bar **/
+.Toastify__progress-bar {
+}
+.Toastify__progress-bar--animated {
+}
+.Toastify__progress-bar--controlled {
+}
+.Toastify__progress-bar--rtl {
+}
+.Toastify__progress-bar--default {
+}
+.Toastify__progress-bar--dark {
+} */
