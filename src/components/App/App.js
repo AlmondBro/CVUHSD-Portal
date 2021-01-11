@@ -22,7 +22,6 @@ import MobileAppBanner from "./MobileAppBaner/MobileAppBanner.js";
 //Import pages
 import NotFound from "./../NotFound/NotFound.js";
 
-
 //Import styled components
 import { GlobalStyles, StyledContainer, StyledToastContainer } from "./App_StyledComponents.js";
 
@@ -71,7 +70,8 @@ class App extends Component {
       hideOverflow: false,
       containerStyle: {
           "background": `linear-gradient(to bottom, #4177a3 0%, #182c3d 100%)`
-      } 
+      },
+      defaultURL: "student"
     }; //end state object
 
     // store the component's initial state to reset it
@@ -212,7 +212,7 @@ class App extends Component {
     });
   }; //end logOut
 
-  checkForLogIn = async (history) => {
+  checkForLogIn = async () => {
     const checkForLogin_URL = `${isDev ? "" : "/server"}/auth/callback`; 
 
     const successfulAuthURL = `${isDev ? "" : ""}/auth-success`; 
@@ -244,17 +244,11 @@ class App extends Component {
           username: username,
           email: email,
           title: jobTitle || "staff",
+          defaultURL: (jobTitle === "Student") ? "student" : "staff",
           uid,
           accessToken,
         });
       }
-    })
-    .then(() => {
-      if (window.location.pathname === successfulAuthURL) {
-        //window.location.href = `http://${isDev ? "localhost:3000" : productionDomain}/staff`;
-        history.push(`/`);
-
-      } 
     })
     .catch((error) => {
         console.error(`checkForLogIn() Catching error:\t ${error}`);
@@ -275,13 +269,13 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    let { history, cookies } = this.props;
+    let { cookies } = this.props;
 
     const accessTokenCookie = cookies.get("accessToken");
     
-    //if (!accessTokenCookie) {
+    if (!accessTokenCookie) {
       if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
-        this.checkForLogIn(history);
+        this.checkForLogIn();
       }
   
       if (!this.state.loggedIn && !this.state.title && (window.location.pathname !== "/auth-success") ) {
@@ -292,7 +286,7 @@ class App extends Component {
           this.logIn();
         } //end inner else-statement, checking if the login is IE
       } //end if-statement checking if the route is not auth-success
-    //} //end outer if-statement checking for cookies
+    } //end outer if-statement checking for cookies
 
     const favicon = document.getElementById("favicon");
 
@@ -311,10 +305,10 @@ class App extends Component {
     const favicon = document.getElementById("favicon");
     
     if (this.state.title === "Student" || this.state.renderAsStudent || window.location.pathname === "/student") {
-      favicon.href = "./images/icons/wp-portal-logo-red-white-interior.ico";
+      favicon.href = "/images/icons/wp-portal-logo-red-white-interior.ico";
       document.title = "CVUHSD | Student Portal"
     } else {
-      favicon.href = "./images/icons/wp-portal-logo-blue-white-interior.ico";
+      favicon.href = "/images/icons/wp-portal-logo-blue-white-interior.ico";
       document.title = "CVUHSD | Staff Portal"
     }
   }; //end componentDidUpdate()
@@ -322,10 +316,10 @@ class App extends Component {
   render = () => {
     let publicURL = ""; //process.env.PUBLIC_URL;
 
-    let defaultURL = this.state.title ? (this.state.title.toLowerCase() === "student" ? "student" : "staff") : "staff";
+    //let defaultURL = this.state.title ? (this.state.title.toLowerCase() === "student" ? "student" : "staff") : "staff";
     // ( window.location.pathname === "/student" || window.location.pathname === "/" || (this.state.title.toLowerCase() === "student" ) || undefsafe(this.props.location, "state", "renderAsStudent") == "true" ) ? "student" : "staff";
 
-    console.log("defaultURL:\t" + defaultURL);
+    //console.log("defaultURL:\t" + defaultURL);
 
     return (
       <Fragment>
@@ -361,11 +355,11 @@ class App extends Component {
                   //Source: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1   
                 }
                 <Route exact path={`${publicURL}/` || `${publicURL}/staff.html` || `${publicURL}/student.html`}>
-                  <Redirect to={`${publicURL}/${defaultURL}`} />
+                  <Redirect to={`${publicURL}/${this.state.defaultURL}`} />
                 </Route>
 
                 <Route 
-                  path                  = {  [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
+                  path                  = {  [`${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
                  >
                     <PageContent
                       fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
@@ -375,7 +369,6 @@ class App extends Component {
                       site                  = { this.state.site }
                       renderAsStudent       = { this.state.renderAsStudent }
                       gradeLevel            = { this.state.gradeLevel }
-                      location              = { this.props.location }
                       username              = { this.state.username }
                       accessToken           = { this.state.accessToken }
                       clearState            = { this.clearState }
@@ -392,19 +385,9 @@ class App extends Component {
                     />
                   </Route>
 
-                <Route path={`${publicURL}/staff`}>
-                  <Redirect to={`${publicURL}/${defaultURL}`} />
-                </Route>
-
-
                 <Route path={`${publicURL}/staff.html`}>
                   <Redirect to={`${publicURL}/staff`} />
                 </Route>
-
-
-              <Route path={`${publicURL}/student`}>
-                <Redirect to={`${publicURL}/${"student"}`} />
-              </Route>
 
           
               <Route path={`${publicURL}/student.html`}>
@@ -415,31 +398,23 @@ class App extends Component {
                     <Troubleshooting/>
                 </Route>
 
-                {
-                  (window.location.pathname !== "/staff") || (window.location.pathname !== "/student") 
-                  || (window.location.pathname !== "/troubleshooting") ?   
-                    (<Route 
-                        path                  = { [`${publicURL}/${defaultURL}`, `${publicURL}/student`, `${publicURL}/staff`, `${publicURL}/auth-success`]}
-                     > 
-                      <NotFound
-                        defaultURL            = { defaultURL }
+                <Route> 
+                  <NotFound
+                    defaultURL            = { this.state.defaultURL }
 
-                        history               = { this.props.history }
-                        fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
-                        title                 = { this.state.title }
-                        site                  = { this.state.site }
-                        gradeLevel            = { this.state.gradeLevel }
-                        clearState            = { this.clearState }
-                        logOut                = { this.logOut}
-                        changeContainerStyle  = { this.changeContainerStyle }
+                    fullName              = { (this.state.firstName || "") + " " + (this.state.lastName || "") }
+                    title                 = { this.state.title }
+                    site                  = { this.state.site }
+                    gradeLevel            = { this.state.gradeLevel }
+                    clearState            = { this.clearState }
+                    logOut                = { this.logOut}
+                    changeContainerStyle  = { this.changeContainerStyle }
 
-                        modifySite            = { this.modifySite }
-                        modifyTitle           = { this.modifyTitle }
-                        modifyRenderAsStudent = { this.modifyRenderAsStudent }
-                      />
-                     </Route>
-                     ) : null
-                }
+                    modifySite            = { this.modifySite }
+                    modifyTitle           = { this.modifyTitle }
+                    modifyRenderAsStudent = { this.modifyRenderAsStudent }
+                  />
+                  </Route>
             </Switch>
             <MobileAppBanner
                 districtPosition      = { this.state.title }

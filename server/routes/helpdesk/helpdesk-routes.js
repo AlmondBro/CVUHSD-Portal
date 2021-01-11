@@ -106,13 +106,14 @@ router.post('/request/create', async (req, res) => {
 
 /* === GET INDIVIDUAL REQUEST DETAILS === */
 const getSingleRequestDetails = async (id) => {
+    console.log("\n\n\getSingleReqDetails() singleReq ID:\t", id);
+
     const sdpReadRequestsURL = `${process.env.SDP_URL}/api/v3/requests/${id}`; 
 
     const sdpReadRequestsURLHeaders = {
         'Content-Type'      :   'application/x-www-form-urlencoded',
         'technician_key'    :   process.env.SDP_TECH_KEY
     };
-
 
     let getSingleReqInfo = await fetch(sdpReadRequestsURL, {
         method: 'GET',
@@ -129,11 +130,25 @@ const getSingleRequestDetails = async (id) => {
 router.get('/request/read/:id', async (req, res) => {
     const { id } = req.params;
 
+    let requestInfo = "";
+    let message = "";
+    let error = null;
+
     let requestDetails = await getSingleRequestDetails(id);
 
-    let message, error = null;
+    const { response_status, request } = requestDetails;
+    const status = response_status.status;
 
-    return res.json({...requestDetails, message, error});
+    if (requestDetails && status === "success") {
+        message = "Success getting request details";
+        requestInfo = request;
+        error = false;
+    } else {
+        message = response_status.messages[0].message;
+        error = true;
+    }
+
+    return res.json({ requestInfo, message, error});
 });
 
 /* === GET INDIVIDUAL REQUEST CONVOS' DETAILS === */
@@ -190,6 +205,71 @@ router.get('/request/get-convos/:id', async (req, res) => {
     return res.json({convos, message, error});
 });
 
+/* === REPLY TO REQUEST === */
+const sdpReplyToReq = async (id, title, emailTo, description) => {
+    let replyTo = emailTo || "lopezj@centinela.k12.ca.us";
+    let cc      = emailTo || "lopezj@centinela.k12.ca.us";
+    let subject = title ||"View Requests Open Ticket";
+
+    const sdpReplyURL = `${process.env.SDP_URL}/sdpapi/request/${id}/`; 
+    const sdpReplyHeaders = {
+        'Content-Type'      :   'application/x-www-form-urlencoded',
+        'technician_key'    :   process.env.SDP_TECH_KEY
+    };
+
+    const inputData = {
+        operation: {
+            details: {
+                to: replyTo,
+                cc: cc,
+                subject: subject,
+                description: description || "No reply description provided"
+            }
+        }
+    }; //end inputData object
+
+    const params = {
+        OPERATION_NAME  : "REPLY_REQUEST",
+        format          : "json"
+    };  //end params object
+
+    const query = "?" + Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`).join('&');
+
+    const fetchUrl = sdpReplyURL + query + `&INPUT_DATA=${escape(JSON.stringify(inputData))}`;
+
+    const sdpReplyResponse = await fetch(fetchUrl, {
+        method: 'POST',
+        headers: sdpReplyHeaders,
+    })
+    .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
+    .then((jsonResponse) => jsonResponse)
+    .catch((error) => {
+        console.error(`Catching error:\t ${error}`);
+    });
+
+    console.log("fetchUrl:\t", fetchUrl);
+    console.log(sdpReplyResponse);
+    return sdpReplyResponse;
+}; //end getSingleRequestDetails()
+
+router.post('/request/:id/reply', async (req, res) => {
+    const { id } = req.params;
+    const { subject, description, email } = req.body;
+
+    let message, error = null;
+
+    let replyResp = await sdpReplyToReq(id, subject, email, description);
+
+    if (replyResp.operation.result.status === "Success") {
+        error = null;
+        message  = replyResp.operation.result.message;
+    } else {
+        error = true;
+        message = `Could not reply to request with ID ${id}'s convos. Error message: ${replyResp.operation.result.message}`;
+    }
+
+    return res.json({ message, error });
+});
 
 /* === VIEW SINGLE USER REQUEST === */
 const viewUserRequests = async (sdpName, requestType) => {

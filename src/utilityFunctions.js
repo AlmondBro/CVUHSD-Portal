@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import he from 'he'; //Import HTML character entity decoder
+
 import isIe from '@braintree/browser-detection/is-ie';
 import isChromeOS from '@braintree/browser-detection/is-chrome-os';
 import isChrome from '@braintree/browser-detection/is-chrome';
@@ -68,4 +70,10 @@ const useWindowSize = () => {
     return windowSize;
   }
 
-export { isEmpty, isIE, isSafari, isChromeBrowser, isFirefoxBrowser, useWindowSize }
+const removeHTML = (htmlString) => {
+  var strippedHtmlString = htmlString.replace(/<[^>]+>/g, '');
+  
+  return he.decode(strippedHtmlString); //Use he to decode any special character HTML entities
+};
+
+export { isEmpty, isIE, isSafari, isChromeBrowser, isFirefoxBrowser, useWindowSize, removeHTML }

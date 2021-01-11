@@ -8,6 +8,7 @@ Modal.setAppElement('#cvuhsd-sso-portal');
 
 // let isSafari, isChrome = false;
 
+const FilterSortButtonBreakpoint = "765px";
 const Container = styled(Modal).attrs(props => ({
     // title: (props) => props.title,
     // onAfterOpen: (props) => props.onAfterOpen,
@@ -65,11 +66,19 @@ const Container = styled(Modal).attrs(props => ({
         border: 0px;
         outline: none;
     }
+
+    @media only screen and (min-width: 461px) and (max-width: 750px) {
+        height: 600px;
+    }
+
+    @media only screen and (min-width: 0px) and (max-width: 462px) {
+        height: 750px;
+    }
 `; //end TransferToITModalContainer
 
 const ReqRectContainer = styled("main")`
     width: 100%;
-    height: 316px;
+    height: 80%;
 
     overflow-y: auto;
     overflow-x: hidden;
@@ -77,8 +86,8 @@ const ReqRectContainer = styled("main")`
     /* Firefox properties to target the scrollbar color */
     scrollbar-color:  ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
+                                          "#931E1D white": "#1E6C93 white"
+                                    : "#931E1D white"
         } !important;
     scrollbar-width: 1px !important;
    
@@ -89,8 +98,8 @@ const ReqRectContainer = styled("main")`
       border-radius: 10px;
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
+                                          "#931E1D white": "#1E6C93 white"
+                                    : "#931E1D white"
         };
 
     }
@@ -108,9 +117,13 @@ const ReqRectContainer = styled("main")`
       box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F": "#1E6C93"
-                                    : "#B41A1F"
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
         };
+    }
+
+    @media only screen and (max-width: 630px) {
+        margin: auto;
     }
 `;
 
@@ -160,9 +173,14 @@ const CloseButton = styled('button')`
 
 const InnerContainer = styled('div')`
     position: relative;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    width: 100%;
+    height: 100%;
+    
     padding: 15px;
 `; 
 
@@ -184,7 +202,7 @@ const ModalTitle = styled('h3')`
 `; 
 
 const RequestTypeTitle = styled('h4')`
-    display: inline-block;
+    display: block;
     color: ${ props => props.districtPosition ?
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
                                         "#931E1D": "#1E6C93"
@@ -224,8 +242,8 @@ const FilterButton = styled('button')`
     color: white;
     background-color: ${ props => props.districtPosition ?
                                     ( (props.districtPosition === "student") || props.renderAsStudent === true || window.location.pathname === "/student") ? 
-                                        "#B41A1F": "#1E6C93"
-                                    :  "#B41A1F" 
+                                        "#931E1D": "#1E6C93"
+                                    :  "#931E1D" 
                             
                         };
 
@@ -245,21 +263,44 @@ const FilterButton = styled('button')`
                                     :   "rgba(147, 30, 29, 0.67)" 
                      };
     }
+
+    @media only screen and (max-width: ${FilterSortButtonBreakpoint}) {
+        margin-left: 0px;
+    }
 `;
 
 const SortButton = styled(FilterButton)`
     margin-left: 15px;
 `;
 
-const TitleFilterContainer = styled("div")`
+const TitleFilterContainer = styled("header")`
     display: inline-flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     overflow-y: hidden;
 
     width: 85%;
+
+    @media only screen and (max-width: 425px) {
+        display: flex;
+        flex-direction: column;
+    }
+`;
+
+const FilterSortButtonContainer = styled("section")`
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+    @media only screen and (max-width: ${FilterSortButtonBreakpoint}) {
+        justify-content: center;
+    }
 `;
 
 const FAIconStyled = styled(FontAwesomeIcon)`
@@ -280,7 +321,7 @@ const NoCVTechsMessage = styled('p')`
     margin-top: 8px;
 
     padding: 0px; 
-    color: #B41A1F;
+    color: #931E1D;
 
     font-style: italic;
 
@@ -340,4 +381,4 @@ const NoRequestsMessage = styled("p")`
                                     : "#931E1D"
             };
 `;
-export { HelpdeskSubmitMessage, RequestTypeTitle, FilterButton, FilterText, SortButton, Container, CloseButton, InnerContainer, ModalTitle, ReqRectContainer, FAIconStyled, NoCVTechsMessage, TitleFilterContainer, NoRequestsMessage };
+export { HelpdeskSubmitMessage, RequestTypeTitle, FilterSortButtonContainer, FilterButton, FilterText, SortButton, Container, CloseButton, InnerContainer, ModalTitle, ReqRectContainer, FAIconStyled, NoCVTechsMessage, TitleFilterContainer, NoRequestsMessage };

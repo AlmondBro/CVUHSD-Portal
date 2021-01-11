@@ -3,10 +3,13 @@ import React from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { faTasks, faCircle, faCheck, faAngleDoubleRight, faTicketAlt, faArrowLeft, faClock, faUserTag, faEyeSlash, faEye, faReply, faLock } from '@fortawesome/free-solid-svg-icons';
 
+import { removeHTML } from './../../../../../utilityFunctions.js';
 //Impor styled components
 import { Container, SubSection, ReqSkeletonContainer, RequestDescription, TicketMetaData, MetaDataContainer,  FAIconStyled, DateTime, Divider } from './SingleConvoStyledComponents.js';
 
 const SingleConvo = ({id, isLoading, districtPosition, renderAsStudent, showConvos, description, date, time, author}) => {
+    let parsedAuthor = `${author.split(",")[1]} ${author.split(",")[0]}`;
+    
     return (
         <Container 
             className           =   {`#${id}-single-convo-container`}
@@ -34,17 +37,13 @@ const SingleConvo = ({id, isLoading, districtPosition, renderAsStudent, showConv
                         <RequestDescription
                             className           =   {`request-#${id}-ticket-description`}
                             districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
                             as                  =   "p"
                         >
-                            { description || `Hello! I need to log into my PowerSchool account to see my grades, but whenever I try, it either 
-                            says that the password or username is incorrect, or that I need to contact my district administrator. 
-                            I am using the same exact credentials that I use to log into all of my other school-related things 
-                            (Canvas, DeltaMath, etc.) but it still won’t let me log in. I’ve been having this issue since the 
-                            second semester of 9th grade. Help would be greatly appreciated. Thank you :)` }
+                            { removeHTML(description) || `No description` }
                         </RequestDescription>
                     )
                 }
-
             </SubSection>
 
             <TicketMetaData
@@ -103,7 +102,7 @@ const SingleConvo = ({id, isLoading, districtPosition, renderAsStudent, showConv
                                 <Skeleton
                                     width = {80}
                                 />
-                            ) : author 
+                            ) : parsedAuthor 
                         }  
                     </DateTime>
                 </MetaDataContainer>

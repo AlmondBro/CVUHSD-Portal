@@ -6,18 +6,18 @@ import Header from "./../Header/Header.js";
 
 import undefsafe from "undefsafe";
 
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 //import styled components
 import { NotFoundContainer } from "./NotFound_StyledComponents.js";
 
 //TODO: Make this wayyy more decorative!
-const NotFound_404 = ({ defaultURL, history, fullName, title, site, gradeLevel, clearState, logOut, changeContainerStyle, modifySite, modifyTitle, modifyRenderAsStudent }) => {
-
+const NotFound_404 = ({ defaultURL, fullName, title, site, gradeLevel, clearState, logOut, changeContainerStyle, modifySite, modifyTitle, modifyRenderAsStudent }) => {
     //Initialize hooks:
     const countDownTime = 7;
     const [seconds, setSeconds] = useState(countDownTime);
 
+    let history  = useHistory();
 
     useEffect(() => {
         let interval = null;
@@ -41,8 +41,6 @@ const NotFound_404 = ({ defaultURL, history, fullName, title, site, gradeLevel, 
                                     "opacity": "0.2"
                                 }
         ); //end changeContainerStyle()
-
-
     }, [seconds]);
 
     return (
@@ -70,10 +68,8 @@ const NotFound_404 = ({ defaultURL, history, fullName, title, site, gradeLevel, 
                 <p>It seems you may have gotten lost off the trail.</p>
                 <p>Redirecting you back to the path in <span>{seconds} second(s)</span></p>
             </NotFoundContainer>
-        
         </Fragment>
-       
     ); //end return statement
 }; 
 
-export default withRouter(NotFound_404);
+export default NotFound_404;
