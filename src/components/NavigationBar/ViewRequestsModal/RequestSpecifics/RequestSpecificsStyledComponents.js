@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { SkeletonTheme } from 'react-loading-skeleton';
 
+//Former color was #931E1D
 const Container = styled("div")`
     position: relative;
 
@@ -74,21 +75,47 @@ const SubSection = styled("article")`
 
     margin-right: 2.5%;
 
-    @media only screen and (max-width: 453px) {
-       width: 85%;
+    @media only screen and (max-width: 765px) {
+        width: ${ `${((7/19)*100).toString()}%`};
+    }
+
+    @media only screen and (max-width: 550px) {
+       width: 100%;
        order: 2;
        margin-right: 0px;
+       padding-left: 15px;
     }
+
 `;
 
 const TicketMetaData = styled(SubSection)`
     height: 120px;
     border-left: 1px solid ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
-                                          "rgba(30,108, 147, 0.42)": "rgba(147,30, 29, 0.42)"
-                                    : "rgba(30,108, 147, 0.42)"
+                                          "rgba(147,30, 29, 0.47)": "rgba(30,108, 147, 0.47)"
+                                    : "rgba(147,30, 29, 0.47)"
             };
     margin: 0px 10px;
+
+    @media only screen and (max-width: 765px) {
+        width: ${ `${((12/19)*100).toString()}%`};
+    }
+
+    @media only screen and (max-width: 453px) {
+        width:  100%;
+        border-left: 0px;
+
+        border-bottom: 1px solid ${ props => props.districtPosition ?
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
+                                          "rgba(147,30, 29, 0.47)": "rgba(30,108, 147, 0.47)"
+                                    : "rgba(147,30, 29, 0.47)"
+            };
+        order: 1;
+
+        margin-bottom: 15px;
+        padding-left: 0px;  
+        padding-bottom: 15px;
+    }
 `;
 
 const IconSubSection = styled(SubSection)`
@@ -124,6 +151,7 @@ const RequestTitle = styled("h3")`
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
             };
+    text-align: center;
 `;
 
 const ReqSkeletonContainer = styled("div")`
@@ -150,6 +178,7 @@ const RequestDescription = styled(RequestTitle)`
     font-weight: normal;
 
     max-height: 150px;
+    max-width: 336px;
     overflow-y: auto;
 
     padding-right: 20px; 
@@ -157,8 +186,8 @@ const RequestDescription = styled(RequestTitle)`
     /* Firefox properties to target the scrollbar color */
     scrollbar-color:  ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
+                                          "#931E1D white": "#1E6C93 white"
+                                    : "#931E1D white"
         } !important;
     scrollbar-width: 1px !important;
    
@@ -169,8 +198,8 @@ const RequestDescription = styled(RequestTitle)`
       border-radius: 10px;
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
+                                          "#931E1D white": "#1E6C93 white"
+                                    : "#931E1D white"
         };
 
     }
@@ -188,9 +217,14 @@ const RequestDescription = styled(RequestTitle)`
       box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F": "#1E6C93"
-                                    : "#B41A1F"
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
         };
+    }
+
+    
+    @media only screen and (max-width: 550px) {
+       padding-right: 0px;
     }
 `;
 
@@ -205,7 +239,7 @@ const DateTime = styled("h5")`
 
     margin: 0;
 
-    @media only screen and (max-width: 453px) {
+    @media only screen and (max-width: 550px) {
        margin-right: 0px;
     }
 `;
@@ -309,7 +343,15 @@ let ConversationsOuterContainer = styled("div")`
     justify-content: flex-start;
 
     width: 100%;
-    height: 172px;
+    height: 50%;
+
+    @media only screen and (min-width: 367px) and (max-width: 751px) {
+        height: 80%;
+    }
+
+    @media only screen and (min-width: 0px) and (max-width: 366px) {
+        height: 55%;
+    }
 `;
 
 const ConvoReplyButtonContainer = styled("div")`
@@ -332,6 +374,7 @@ const ConvoReplyButtonContainer = styled("div")`
 const ConversationsButton = styled("button")`
     position: relative;
     z-index: 1;
+    
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -355,25 +398,35 @@ const ConversationsButtonTitle = styled("h4")`
 
     margin: 0;
     padding: 0;
+
+    @media only screen and (max-width: 550px) {
+        font-size: 1.1em;
+    }
 `;
 
 const ReplyButton = styled(ConversationsButton)`
     background-color: transparent;
 `;
 
+const SortButton = styled(ConversationsButton)`
+    margin-right: auto;
+    margin-left: 5px;
+    background-color: transparent;
+`;
+
 const TechLink = styled("a")`
     text-decoration: none;
     color: ${ props => props.districtPosition ?
-                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F": "#1E6C93"
-                                    : "#B41A1F"
+                                      ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
         };
     :hover, :focus {
         text-decoration: underline;
         color: ${ props => props.districtPosition ?
-                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F": "#1E6C93"
-                                    : "#B41A1F"
+                                      ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
         };
     }
 `;
@@ -394,8 +447,8 @@ const SingleConvosContainer = styled("div")`
     /* Firefox properties to target the scrollbar color */
     scrollbar-color:  ${ props => props.districtPosition ?
                                     ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                        "#B41A1F white": "#1E6C93 white"
-                                : "#B41A1F white"
+                                        "#931E1D white": "#1E6C93 white"
+                                : "#931E1D white"
     } !important;
     scrollbar-width: 1px !important;
    
@@ -406,8 +459,8 @@ const SingleConvosContainer = styled("div")`
       border-radius: 10px;
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F white": "#1E6C93 white"
-                                    : "#B41A1F white"
+                                          "#931E1D white": "#1E6C93 white"
+                                    : "#931E1D white"
         };
 
     }
@@ -425,8 +478,8 @@ const SingleConvosContainer = styled("div")`
       box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
       background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F": "#1E6C93"
-                                    : "#B41A1F"
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
         };
     }
 `;
@@ -439,9 +492,9 @@ const NoConvosMessage = styled("p")`
     font-size: 1.2em;
 
     color: ${ props => props.districtPosition ?
-                                      ( (props.districtPosition === "Student") || props.renderAsStudent) ? 
-                                          "#B41A1F": "#1E6C93"
-                                    : "#B41A1F"
+                                      ( (props.districtPosition === "student") || props.renderAsStudent) ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
         };
 
     width: 85%;
@@ -452,4 +505,4 @@ const NoConvosMessage = styled("p")`
     margin: auto;
 `;
 
-export { NoConvosMessage, TechLink, SingleConvosContainer, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+export { NoConvosMessage, TechLink, SingleConvosContainer, SortButton, ReplyButton, ConvoReplyButtonContainer, ConversationsButton,ConversationsButtonTitle, ConversationsOuterContainer, BackButton, BackArrowIcon, SkeletonThemeStyled, MetaDataContainer, ReqSkeletonContainer, HeaderContainer, ModalTitle, TicketNumberTitle, Container, Divider, FAIconStyled, SubSection, IconSubSection, TicketMetaData, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };

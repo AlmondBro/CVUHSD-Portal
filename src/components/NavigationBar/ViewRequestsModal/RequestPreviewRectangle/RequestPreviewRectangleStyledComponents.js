@@ -16,7 +16,6 @@ const Divider = styled("hr")`
     width: 85%;
     margin: 0 auto;
     margin-top: 25px;
-    margin-bottom: 5px;
     background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
                                           "#931E1D": "#1E6C93"
@@ -40,7 +39,6 @@ const Content = styled("article")`
     margin-top: 10px;
 
     border-radius: 10px;
-
     :hover, :active  {
         background-color: ${ props => props.districtPosition ?
                                       ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
@@ -53,7 +51,7 @@ const Content = styled("article")`
         padding: 0;
     }
 
-    @media only screen and (max-width: 453px) {
+    @media only screen and (max-width: 471px) {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -71,15 +69,22 @@ const SubSection = styled("article")`
 
     margin-right: 2.5%;
 
-    @media only screen and (max-width: 453px) {
-       width: 85%;
+    @media only screen and (max-width: 471px) {
+       width: 100% !important;
        order: 2;
-       margin-right: 0px;
+       margin-right: 0;
+       margin-left: 2.5%;
+
+       align-items: center;
     }
 `;
 
 const TimeDateSubSection = styled(SubSection)`
-     @media only screen and (max-width: 453px) {
+   @media only screen and (max-width: 500px) {
+        width: 100%;
+    }
+
+     @media only screen and (max-width: 472px) {
        order: 1;
        margin-right: 0px;
     }
@@ -98,16 +103,19 @@ const IconSubSection = styled(SubSection)`
         margin-right: 12%;
     }
 
-    @media only screen and (max-width: 453px) {
-        position: absolute;
-        left: 26px;
-        top: 13px;
-        
-        width: auto;
+    @media only screen and (max-width: 471px) {
+        width: 100% !important;
 
         margin-right: 0px;
 
-        order: 3;
+        margin-top: 10px;
+        margin-bottom: 5px;
+
+        padding-left: 2.5%;
+
+        order: 2;
+
+        align-items: flex-start;
     }
 `;
 
@@ -118,6 +126,7 @@ const RequestTitle = styled("h3")`
                                           "#931E1D": "#1E6C93"
                                     : "#931E1D"
             };
+    text-align: center;
 `;
 
 const RequestDescription = styled(RequestTitle)`
@@ -126,6 +135,53 @@ const RequestDescription = styled(RequestTitle)`
     /* padding-left: 10px; */
 
     opacity: 0.42;
+
+    @media only screen and (max-width: 471px) {
+       padding: 0% 5%; 
+    }
+`;
+
+const MetaDataContainer = styled("section")`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    margin-bottom: 15px;
+    padding-left: 15px;
+
+    :last-child {
+        margin-bottom: 0px;
+    }
+
+    @media only screen and (max-width: 471px) {
+        justify-content: center;
+    }
+`;
+
+const MetaDataIcon = styled(FontAwesomeIcon)`
+    display: inline-block;
+
+    width: 50% !important;
+    color: ${ props => props.color ? props.color :
+                        props.districtPosition ?
+                                      ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
+                                          "#931E1D": "#1E6C93"
+                                    : "#931E1D"
+            };
+
+   margin: 0px;
+
+
+   font-size: ${props => props.fontSize ? props.fontSize : "1.0em"};
+
+   @media only screen and (max-width: 765px) {
+       width: auto !important;
+   }
+
+   @media only screen and (max-width: 595px) {
+       margin-right: 5px;
+   }
 `;
 
 const DateTime = styled("h4")`
@@ -139,8 +195,10 @@ const DateTime = styled("h4")`
 
     margin-right: 14%;
 
-    @media only screen and (max-width: 453px) {
-       margin-right: 0px;
+    @media only screen and (max-width: 471px) {
+        margin-right: 0;
+       text-align: center;
+        width: 100%;
     }
 `;
 
@@ -157,9 +215,8 @@ const FAIconStyled = styled(FontAwesomeIcon)`
 
    font-size: ${props => props.fontSize ? props.fontSize : "1.0em"};
 
-   @media only screen and (max-width: 453px) {
-    margin-left: 0px;
-
+   @media only screen and (max-width: 471px) {
+    margin-left: 2.5%;
    }
 `;
 
@@ -167,4 +224,4 @@ const TicketTypeCircleSkeleton = styled(Skeleton)`
     margin-left: 20px;
 `;
 
-export { Container, Divider, FAIconStyled, SubSection, IconSubSection, TimeDateSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };
+export { Container, Divider, FAIconStyled, MetaDataContainer, MetaDataIcon, SubSection, IconSubSection, TimeDateSubSection, Content, RequestTitle, RequestDescription, DateTime, TicketTypeCircleSkeleton };

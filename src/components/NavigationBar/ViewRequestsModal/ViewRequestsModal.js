@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
-import { withRouter, Route, Switch } from "react-router-dom";
+import { useRouteMatch, useHistory, useLocation, Route, Switch } from "react-router-dom";
 
 import isDev from 'isdev';
 
@@ -13,9 +13,23 @@ import FilterPane from './FilterPane/FilterPane.js';
 
 import RequestSpecifics from './RequestSpecifics/RequestSpecifics.js';
 
-import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterButton, TitleFilterContainer, FilterText, SortButton, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
+import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterSortButtonContainer, FilterButton, TitleFilterContainer, FilterText, SortButton, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
-const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, match, history, itUID, notify }) => {
+const parseDate = (stringToParse) => {
+    let dateAndTime = stringToParse.split(" ");
+
+    return dateAndTime;
+}; //end parseDate()
+
+const dateFormatChange = (dateToChange) => {
+    const dateParts = dateToChange.split("/");
+
+    const formattedDate  = dateParts[1] + "/" +  dateParts[0] + "/" + dateParts[2];
+
+    return formattedDate;
+};
+
+const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         = useState(false);
 
     let [ submitEnabled, setSubmitEnabled ]                 = useState(false);
@@ -24,10 +38,15 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     let [ requestsType, setRequestsType ]                   =   useState("All");
     let [ requestRectangles, setRequestRectangles ]         =   useState([]);
 
+    let history   = useHistory();
+    let location = useLocation();
+
+    let match = useRouteMatch();
+
     const onClose = () => {
-        let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
         toggleModal(false);
 
+        let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
         history.push(rootPathName);
     }; //end onClose()
 
@@ -36,22 +55,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             overlayClassName="view-requests-modal-overlay",
             portalClassName="view-requests-modal",
             contentClassName="view-requests-modal-content",
-            parentSelectorID="chat-page-main-container";
-
-    
-    const parseDate = (stringToParse) => {
-        let dateAndTime = stringToParse.split(" ");
-
-        return dateAndTime;
-    }; //end parseDate()
-
-    const dateFormatChange = (dateToChange) => {
-        const dateParts = dateToChange.split("/");
-
-        const formattedDate  = dateParts[1] + "/" +  dateParts[0] + "/" + dateParts[2];
-
-        return formattedDate;
-    };
+            parentSelectorID="chat-page-main-container"
 
     const routeToReqID = (requestObject, subject, description, time, date, status, technician, site) => {
         const { id } = requestObject;
@@ -64,10 +68,12 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         if (technician) {
             techInfo = technician;
         }
+
         const pathname = `${match.url}/view-requests/${id}`;
+        
         return history.push({
             pathname: pathname,
-            state: { request: requestObject, subject, description, time, date, status, techInfo, site }
+            state: { subject, description, time, date, status, techInfo, site }
         });
     }; //end routeToReqID
     
@@ -92,7 +98,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
 
                     subject             =   { subject}
                     description         =   { description }
-                    date                =   {  date }
+                    date                =   { date }
                     time                =   { dateAndTime[1] + " " + dateAndTime[2] }
                     status              =   { status }
                     id                  =   { id }
@@ -146,7 +152,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     //Run ref on component updates except for initial mount via use of ref variable
     const isInitialMount = useRef(true);
 
-    const getRequestRectangles = async (reverse) => { 
+    const getRequestRectangles = async () => { 
         let requests = await getUserRequests(email, requestsType);
 
         let requestRectangles = loadRequestRectangles(requests);
@@ -175,10 +181,10 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     }, [ requestsType ]); //end useEffect()
 
     useEffect(() => {
-        if (history.location.pathname === `${match.url}/view-requests`) {
+        if (location.pathname.indexOf(`${match.url}/view-requests`) > -1) {
             toggleModal(true);
         }
-    }, [ history ] );
+    }, [ location ] );
 
     return (
       <Container
@@ -206,6 +212,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             className           =   "view-request-modal-close-button"
             title               =   "Close modal"
             districtPosition    =   { districtPosition.toLowerCase() }
+            renderAsStudent     =   { renderAsStudent}
             onClick             =   { () => toggleModal(false) } 
         >
             &times;
@@ -216,12 +223,15 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                     <div>
                         <ModalTitle 
                             districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
                         >
                             View Requests
                         </ModalTitle>
                         
                         <FAIconStyled
                             districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
+
                             icon                =   { faTasks }
                         />
                     </div>
@@ -229,6 +239,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                         <RequestTypeTitle
                             className           =   "view-request-modal-request-type-title"
                             districtPosition    =   { districtPosition.toLowerCase() }
+                            renderAsStudent     =   { renderAsStudent }
                         >
                             {
                                 requestsType ? (requestsType === "Open") ? "Open Requests" :   
@@ -239,48 +250,60 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                             }
                         </RequestTypeTitle>
 
-                        <FilterButton
-                            className           =   "view-request-modal-filter-button"
-                            districtPosition    =   { districtPosition.toLowerCase() }
-                            onClick             =   { () => setShowFilterPane(!showFilterPane) }
-                        >
-                            <FAIconStyled
-                                    className           =   "view-request-modal-request-status-icon"
-                                    districtPosition    =   { districtPosition.toLowerCase() }
-                                    color               =   "white"
-                                    icon                =   { faFilter }
-                            />
-                            <FilterText
-                                    className="view-request-modal-filter-text"
-                                    districtPosition    =   { districtPosition.toLowerCase() }
-                            >
-                                Filter/Legend
-                            </FilterText>
-                        </FilterButton>
-                        {
-                            (requestRectangles.length > 1) ? (
-                                <SortButton
-                                    className           =   "view-request-modal-sort-button"
-                                    districtPosition    =   { districtPosition.toLowerCase() }
-                                    onClick             =   { () => setRequestRectangles([...requestRectangles].reverse()) }
-                                >
-                                <FAIconStyled
-                                        className           =   "view-request-modal-request-sort-icon"
-                                        districtPosition    =   { districtPosition.toLowerCase() }
-                                        color               =   "white"
+                        <FilterSortButtonContainer className="view-request-modal-filter-sort-buttons-container">
+                            <FilterButton
+                                className           =   "view-request-modal-filter-button"
+                                districtPosition    =   { districtPosition.toLowerCase() }
+                                renderAsStudent     =   { renderAsStudent }
 
-                                        icon                =   { faSort }
-                                        noLeftMargin
-                                />
-                                {/* <FilterText
-                                        className="view-request-modal-filter-text"
+                                onClick             =   { () => setShowFilterPane(!showFilterPane) }
+                            >
+                                <FAIconStyled
+                                        className           =   "view-request-modal-request-status-icon"
                                         districtPosition    =   { districtPosition.toLowerCase() }
+                                        renderAsStudent     =   { renderAsStudent }
+                                        
+                                        color               =   "white"
+                                        icon                =   { faFilter }
+                                />
+                                <FilterText
+                                        className           =   "view-request-modal-filter-text"
+                                        districtPosition    =   { districtPosition.toLowerCase() }
+                                        renderAsStudent     =   { renderAsStudent }
+
                                 >
-                                    Asc/Desc
-                                </FilterText> */}
-                            </SortButton>
-                            ) : null
-                        }
+                                    Filter/Legend
+                                </FilterText>
+                            </FilterButton>
+                            {
+                                (requestRectangles.length > 1) ? (
+                                    <SortButton
+                                        className           =   "view-request-modal-sort-button"
+                                        districtPosition    =   { districtPosition.toLowerCase() }
+                                        renderAsStudent     =   { renderAsStudent }
+
+                                        onClick             =   { () => setRequestRectangles([...requestRectangles].reverse()) }
+                                    >
+                                    <FAIconStyled
+                                            className           =   "view-request-modal-request-sort-icon"
+                                            districtPosition    =   { districtPosition.toLowerCase() }
+                                            renderAsStudent     =   { renderAsStudent }
+                                            
+                                            color               =   "white"
+
+                                            icon                =   { faSort }
+                                            noLeftMargin
+                                    />
+                                    {/* <FilterText
+                                            className="view-request-modal-filter-text"
+                                            districtPosition    =   { districtPosition.toLowerCase() }
+                                    >
+                                        Asc/Desc
+                                    </FilterText> */}
+                                </SortButton>
+                                ) : null
+                            }
+                        </FilterSortButtonContainer>
                     </TitleFilterContainer>
             
                     <FilterPane
@@ -373,6 +396,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 <RequestSpecifics
                     districtPosition    =   { districtPosition }
                     renderAsStudent     =   { renderAsStudent }
+                    notify              =   { notify }
                 />
             </Route>
             </Switch>
@@ -381,4 +405,6 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
   ); //end return statement
 }; //end TransferToITModal()
 
-export default withRouter(ViewRequestsModal);
+export default ViewRequestsModal;
+
+export { dateFormatChange, parseDate };

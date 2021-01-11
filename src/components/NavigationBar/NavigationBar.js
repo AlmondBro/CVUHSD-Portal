@@ -243,7 +243,7 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                             <NavBarListItemLi 
                                 bulletPointInMobile =   {   true    }
                                 renderAsStudent     =   {   renderAsStudent }
-                                onClick             =   {   () => toggleSupportRequestModal(true) }
+                                onClick             =   { () => { toggleSupportRequestModal(true); history.push(match.url + "/submit-support-request") } }
                             >
                                 <Tooltip
                                     placement               =   { "bottom" }
@@ -296,7 +296,7 @@ const NavigationBar = ({ fullName, title, email, site, districtPosition, renderA
                                     <NavBarListItemLi 
                                         bulletPointInMobile =   { true}
                                         renderAsStudent     =   { renderAsStudent }
-                                        onClick             =   { () => toggleChangePasswordModal(true) }
+                                        onClick             =   { () => { toggleChangePasswordModal(true); history.push(match.url + "/change-password") } }
                                     >
                                         <Tooltip
                                             placement               =   { "bottom" }
