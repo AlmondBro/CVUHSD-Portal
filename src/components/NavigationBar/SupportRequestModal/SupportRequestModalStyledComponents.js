@@ -412,13 +412,13 @@ const StyledTextArea = styled('textarea')`
 `;
 
 
-const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inputType, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }, ref) => {
+const ModalTextInputField = forwardRef(({ districtPosition, renderAsStudent, title, pathname, inputType, placeholder, textArea, description, rows, cols, name, value, width, required, onChange }, ref) => {
     return (
         <InputSection>
             <StyledLabel>
                 <StyledHeader 
                     districtPosition    =   { districtPosition.toLowerCase() }
-
+                    renderAsStudent     =   { renderAsStudent }
                 > 
                     { title } 
                 </StyledHeader>
@@ -436,6 +436,8 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                         required            =   { required }
 
                         districtPosition    =   { districtPosition.toLowerCase() }
+                        renderAsStudent     =   { renderAsStudent }
+
                         ref                 =   { ref }
                     >
                         { description }
@@ -443,6 +445,8 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
                 ) : ( 
                     <StyledInput 
                         districtPosition    =   { districtPosition.toLowerCase() }
+                        renderAsStudent     =   { renderAsStudent }
+
                         name                =   { name }
                         type                =   { inputType || "text" } 
                         placeholder         =   { placeholder }
@@ -460,7 +464,7 @@ const ModalTextInputField = forwardRef(({ districtPosition, title, pathname, inp
     ); //end return statement
 }); //end ModalInputField
 
-const SelectInputField = ({ districtPosition, title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange, options }) => {
+const SelectInputField = ({ districtPosition, renderAsStudent, title, inputType, placeholder, textArea, description, rows, cols, name, value, onChange, options }) => {
     
     const [ optionsDropdowns, setOptions] = useState([]);
 
@@ -492,11 +496,18 @@ const SelectInputField = ({ districtPosition, title, inputType, placeholder, tex
     return (
         <InputSection>
             <StyledLabel>
-                <StyledHeader districtPosition = { districtPosition }>{ title }</StyledHeader>
+                <StyledHeader 
+                    districtPosition = { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
+                >
+                    { title }
+                </StyledHeader>
             </StyledLabel>
 
             <SelectDropDownArrow 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
+
                 optionsDropdowns    =   { optionsDropdowns} 
                 className           =   "select-drop-down-arrow"
             >
@@ -504,6 +515,8 @@ const SelectInputField = ({ districtPosition, title, inputType, placeholder, tex
                     name                =   { name } 
                     id                  =   { `support-request-${name}`}
                     districtPosition    =   { districtPosition }
+                    renderAsStudent     =   { renderAsStudent }
+
                     value               =   { value }
                     onChange            =   { onChange }
                 >
@@ -532,17 +545,20 @@ const HelpdeskSubmitMessageContainer = styled('p')`
             };
 `;
 
-const HelpdeskSubmitMessage = ({ districtPosition, message, icon }) => {
+const HelpdeskSubmitMessage = ({ districtPosition, renderAsStudent, message, icon }) => {
     return (
         <HelpdeskSubmitMessageContainer 
             className           =   "helpdesk-submit-message"
             districtPosition    =   { districtPosition }
+            renderAsStudent     =   { renderAsStudent }
+
         >
             { message } 
             {icon ? ( 
                         <FAIconStyled 
                             icon                =   { icon }
                             districtPosition    =   { districtPosition }
+                            renderAsStudent     =   { renderAsStudent }
                         /> 
                         ) : null 
             }

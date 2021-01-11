@@ -247,6 +247,7 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
         <CloseButton 
             title               =   "Close modal"
             districtPosition    =   { districtPosition.toLowerCase() }
+            renderAsStudent     =   { renderAsStudent }
             onClick             =   { () => toggleModal(false) } 
         >
             &times;
@@ -255,11 +256,13 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
             <label htmlFor="it-transfer-select">
                 <ModalTitle 
                     districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
                 >
                     Tech Support Request
                 </ModalTitle>
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
+                    renderAsStudent     =   { renderAsStudent }
                     icon                =   { faLaptop }
                 />
             </label>
@@ -268,6 +271,8 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
                 name                =   "supportRequestTitle"
                 title               =   "Title:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
+
                 inputType           =   "text"
                 placeholder         =   "Support Request Title"
                 
@@ -281,7 +286,8 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
                 name                =   "category" 
                 title               =   { "Category:" }
                 districtPosition    =   { districtPosition.toLowerCase() }
-                
+                renderAsStudent     =   { renderAsStudent }
+
                 options             =   { categories }
 
                 onChange            =   { onChange }  
@@ -292,6 +298,7 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
                 name                =   "description"
                 title               =   "Description:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
 
                 inputType           =   "text"
                 placeholder         =   "What is the issue at hand?"
@@ -306,17 +313,18 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
                 name                =   "location"
                 title               =   "Location:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
-                
+                renderAsStudent     =   { renderAsStudent }
+
                 options             =   { locations }
                 value               =   { location  }
                 onChange            =   { onChange  }
-
             />
             
             <ModalTextInputField
                 name                =   "phoneExt"
                 title               =   "Phone Ext./ Number:" 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
 
                 inputType           =   "tel"
                 placeholder         =   "XXX-XXX-XXX"
@@ -331,6 +339,7 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
                         name                =   "room"
                         title               =   "Office/ Room Number:" 
                         districtPosition    =   { districtPosition }
+                        renderAsStudent     =   { renderAsStudent }
 
                         inputType           =   "text"
                         placeholder         =   "Your location"
@@ -343,6 +352,8 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
          
             <SubmitButton 
                 districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
+
                 disabled            =   { !submitEnabled }
                 submitEnabled       =   {  submitEnabled }
                 type                =   "submit"
@@ -362,6 +373,7 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
         <TransferResultMessage 
             className           =   "transfer-result-message"
             districtPosition    =   { districtPosition.toLowerCase() }
+            renderAsStudent     =   { renderAsStudent }
         >
           {
             (isRequestSuccessful === null) ? null :
