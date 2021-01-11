@@ -1,3 +1,4 @@
+/* eslint no-restricted-globals:0 */
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory, useLocation, useRouteMatch, Switch, Route } from 'react-router-dom';
 
@@ -17,8 +18,6 @@ import { NoConvosMessage, TechLink, SingleConvosContainer, SortButton, ReplyButt
 import ReplyToConvo from './ReplyToConvo/ReplyToConvo.js';
 
 import { removeHTML } from './../../../../utilityFunctions.js';
-
-/* eslint no-restricted-globals:0 */
 
 const getSingleRequestDetails = async (id) => {
     const getSingleRequestDetails_URL = `${isDev ? "" : "/server"}/helpdesk/request/read/${id}`;

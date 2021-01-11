@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { faLaptop, faTicketAlt, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 
+import { faLaptop, faTicketAlt, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import isDev from 'isdev';
 import ReactLoading from 'react-loading';
 
@@ -8,6 +9,7 @@ import {
     ModalTextInputField, SelectInputField, HelpdeskSubmitMessage,
     TransferToITModalContainer, CloseButton, Form, ModalTitle, SubmitButton, FAIconStyled, TransferResultMessage, NoCVTechsMessage } from './SupportRequestModalStyledComponents.js';
 
+/* eslint no-restricted-globals:0 */
 const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]     = useState(false);
 
@@ -16,9 +18,13 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
 
     let [ isRequestSuccessful, setIsRequestSuccessful ] = useState(null);
 
-    let [ submitEnabled, setSubmitEnabled ] = useState(false);
+    let [ submitEnabled, setSubmitEnabled ] = useState(false);  
+    
+    let history             = useHistory();
+    let routerLocation    = useLocation();
+    let match             = useRouteMatch();
 
-    const [ formField, setFormField ] = useState({
+    let [ formField, setFormField ] = useState({
         supportRequestTitle :   "",
         category            :   "",
         description         :   "",
@@ -33,7 +39,6 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
   const onChange = (event) => {
     setFormField( { ...formField, [ event.target.name ] : event.target.value });
   }; //end onChange() handler
-
 
   const afterOpenModal = async () => {
       console.log("<TransferToITModal/>afterOpenModal()");
@@ -212,9 +217,19 @@ const SupportRequestModal = ({ districtPosition, renderAsStudent, fullName, emai
 
     }, [ site, districtPosition ]); //end useEffect()
 
+    
+    useEffect(() => {
+        if (routerLocation.pathname.indexOf(`${match.url}/submit-support-request`) > -1) {
+            toggleModal(true);
+        }
+    }, [ routerLocation ] );
+
     const onClose = () => {
         setIsRequestSuccessful(null);
         toggleModal(false);
+
+        let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
+        history.push(rootPathName);
     }; //end onClose
 
   return (

@@ -44,9 +44,9 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     const match = useRouteMatch();
 
     const onClose = () => {
-        let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
         toggleModal(false);
 
+        let rootPathName = (districtPosition.toLowerCase() === "student" || renderAsStudent) ? "/student" : "/staff";
         history.push(rootPathName);
     }; //end onClose()
 
