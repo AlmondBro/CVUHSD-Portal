@@ -41,13 +41,19 @@ promisePolyfill();
 */
 const subDirectory = false;
 const baseName = isDev ? "" : (subDirectory ? "/build" : ""); 
+//basename={baseName}
+
+/*
+    Turns out if using create-react-app, you just need to set the home page to the subdirectory you are deploying to:
+    https://muffinman.io/blog/react-router-subfolder-on-server/
+*/
 
 const CVUHSD_PORTAL_APP_ELEM = document.getElementById("cvuhsd-sso-portal");
 // document.body;
 
 let WrappedApp = () => {
     return (
-        <Router basename={baseName}>
+        <Router >
             <CookiesProvider>
                 <App />
             </CookiesProvider>
