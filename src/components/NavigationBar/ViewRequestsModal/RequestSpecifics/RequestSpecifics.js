@@ -42,7 +42,7 @@ const getSingleRequestDetails = async (id) => {
     return requestDetails;
 }; //end getSingleRequestDetails
 
-const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
+const RequestSpecifics = ({districtPosition, renderAsStudent, email, notify}) => {
     const id        = useParams().id || location.slice(-2);
     const history   = useHistory();
     const match     = useRouteMatch();
@@ -493,6 +493,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
             <ReplyToConvo
              districtPosition   =   { districtPosition.toLowerCase() }
              renderAsStudent    =   { renderAsStudent }
+             email              =   { email }
              notify             =   { notify }
              id                 =   { id }
             />
