@@ -133,6 +133,8 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, email, notify}) =>
             let time = new Date(CREATEDDATE).toLocaleTimeString();
             let date =  new Date(CREATEDDATE).toLocaleDateString();
 
+            console.log("FROM:\t", FROM);
+
             return (
                 <SingleConvo
                     isLoading           =   { isLoading }
@@ -447,7 +449,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, email, notify}) =>
                                         </SortButton>
                                     ) : null
                                 }
-                              
+{/*                               
                                 <ReplyButton
                                     className  =   {`request-#${id}-reply-button`}
                                     onClick     =   { () => history.push({
@@ -463,7 +465,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, email, notify}) =>
                                             icon                =   { faReply }
                                             fontSize            =   "1.15em"
                                     />
-                                </ReplyButton>
+                                </ReplyButton> */}
                             </ConvoReplyButtonContainer>
                             
                             <SingleConvosContainer
