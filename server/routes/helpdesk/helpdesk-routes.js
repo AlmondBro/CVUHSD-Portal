@@ -4,6 +4,7 @@ import { request, Router } from 'express';
 import fetch from 'node-fetch';
 
 import rateLimiter from 'express-rate-limit';
+import nodemailer from 'nodemailer';
 
 const router = Router();
 
@@ -205,7 +206,13 @@ router.get('/request/get-convos/:id', async (req, res) => {
     return res.json({convos, message, error});
 });
 
-/* === REPLY TO REQUEST === */
+/* === OLD REPLY TO REQUEST === */
+/* 
+    Reply to a request using the public SDP API. However, the requester name will 
+    always be the technician; this is a limitation with the public API as there is 
+    for a non-technician request's name to appear.
+*/
+/*
 const sdpReplyToReq = async (id, title, emailTo, description) => {
     let replyTo = emailTo || "lopezj@centinela.k12.ca.us";
     let cc      = emailTo || "lopezj@centinela.k12.ca.us";
@@ -268,6 +275,75 @@ router.post('/request/:id/reply', async (req, res) => {
         message = `Could not reply to request with ID ${id}'s convos. Error message: ${replyResp.operation.result.message}`;
     }
 
+    return res.json({ message, error });
+});
+*/
+
+const sendEmail = async (from, to, subject, description) => {
+    //*
+    try {
+      // Create a transporter
+      let transporter = nodemailer.createTransport({
+        host: process.env.MAIL_SERVER,
+        port: process.env.MAIL_PORT,
+        auth: {
+          user: process.env.ADFS_USER_NAME,
+          pass: process.env.ADFS_PASSWORD,
+        },
+      });
+  
+      // send mail with defined transport object
+      let info = await transporter.sendMail({
+        from: from, // sender address
+        to: to, // list of receivers
+        subject: subject, // Subject line
+        text: description, // plain text body
+        // html: {
+        //   path: path.resolve(__dirname, "../template/mail.html"),
+        // }, // html body
+      });
+  
+      console.log(`Message sent: ${info.messageId}`);
+      return `Success Message sent: ${info.messageId}`;
+    } catch (error) {
+      console.error(error);
+      throw new Error(
+        `Something went wrong in the sendmail method. Error: ${error.message}`
+      );
+    } //end catch block
+   // */
+   
+}; //end sendEmail() 
+
+router.post('/request/:id/reply', async (req, res) => {
+    const { id } = req.params;
+    //const { subject, description, email, techEmail } = req.body;
+
+    let from = process.env.ADFS_USER_NAME;
+    let to   = process.env.ADFS_USER_NAME;
+    let subject = "Re: [Request ID :##RE-621##] : Test (Manage Engine)";
+
+    let description = `4 - Testing replying to a manage engine request via the NodeJS server.`;
+
+    let message, error = null;
+
+
+    // /*
+    try {
+        let replyResp = await sendEmail(from, to, subject, description);
+
+        if (replyResp.operation.result.status === "Success") {
+            error = null;
+            message  = replyResp.operation.result.message;
+        } else {
+            error = true;
+            message = `Could not reply to request with ID ${id}'s convos. Error message: ${replyResp.operation.result.message}`;
+        }
+    } catch (error) {
+        error = true;
+        message = error.message;
+    }
+//*/
     return res.json({ message, error });
 });
 
@@ -383,10 +459,6 @@ const getSDPUserInfo = async (email) => {
 router.post('/request/read/all/user', async (req, res) => {
     let userRequests, error, message = null;
     let { email, requestsType } = req.body;
-
-    //Test variables:
-    //email = "noreply@cvuhsd.org";
-    //requestType = "Closed";
 
     let sdpName =   await getSDPUserInfo(email);
 
