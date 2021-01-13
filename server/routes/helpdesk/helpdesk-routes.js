@@ -317,13 +317,10 @@ const sendEmail = async (from, to, subject, description) => {
 
 router.post('/request/:id/reply', async (req, res) => {
     const { id } = req.params;
-    //const { subject, description, email, techEmail } = req.body;
+    const { subject, description, email, techEmail } = req.body;
 
-    let from = process.env.ADFS_USER_NAME;
-    let to   = process.env.ADFS_USER_NAME;
-    let subject = "Re: [Request ID :##RE-621##] : Test (Manage Engine)";
-
-    let description = `4 - Testing replying to a manage engine request via the NodeJS server.`;
+    const from = email;
+    const to   = techEmail;
 
     let message, error = null;
 
@@ -344,7 +341,7 @@ router.post('/request/:id/reply', async (req, res) => {
         message = error.message;
     }
 //*/
-    return res.json({ message, error });
+    return res.json({ replyResp, message, error });
 });
 
 /* === VIEW SINGLE USER REQUEST === */
