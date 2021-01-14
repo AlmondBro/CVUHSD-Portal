@@ -1,5 +1,5 @@
 import { escape } from 'querystring';
-import { request, Router } from 'express';
+import { Router } from 'express';
 
 import fetch from 'node-fetch';
 
