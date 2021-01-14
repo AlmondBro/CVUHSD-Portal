@@ -287,8 +287,8 @@ const sendEmail = async (from, to, subject, description) => {
         host: process.env.MAIL_SERVER,
         port: process.env.MAIL_PORT,
         auth: {
-          user: process.env.ADFS_USER_NAME,
-          pass: process.env.ADFS_USER_PASSWORD,
+          user: process.env.REPLY_ACCOUNT,
+          pass: process.env.REPLY_PASSWORD,
         },
       });
   
