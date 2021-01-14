@@ -306,10 +306,10 @@ class App extends Component {
     
     if (this.state.title === "Student" || this.state.renderAsStudent || window.location.pathname === "/student") {
       favicon.href = "/images/icons/wp-portal-logo-red-white-interior.ico";
-      document.title = "CVUHSD | Student Portal"
+      document.title = "CVUHSD | Student Portal";
     } else {
       favicon.href = "/images/icons/wp-portal-logo-blue-white-interior.ico";
-      document.title = "CVUHSD | Staff Portal"
+      document.title = "CVUHSD | Staff Portal";
     }
   }; //end componentDidUpdate()
 
@@ -321,6 +321,7 @@ class App extends Component {
 
     //console.log("defaultURL:\t" + defaultURL);
 
+    // mVu*pTa3#XR2
     return (
       <Fragment>
         <GlobalStyles

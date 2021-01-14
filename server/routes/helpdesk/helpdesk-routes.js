@@ -288,14 +288,14 @@ const sendEmail = async (from, to, subject, description) => {
         port: process.env.MAIL_PORT,
         auth: {
           user: process.env.ADFS_USER_NAME,
-          pass: process.env.ADFS_PASSWORD,
+          pass: process.env.ADFS_USER_PASSWORD,
         },
       });
   
       // send mail with defined transport object
       let info = await transporter.sendMail({
         from: from, // sender address
-        to: to, // list of receivers
+        to: process.env.HELPDESK_EMAIL, // list of receivers
         subject: subject, // Subject line
         text: description, // plain text body
         // html: {
@@ -324,12 +324,12 @@ router.post('/request/:id/reply', async (req, res) => {
 
     let message, error = null;
 
-
+    let replyResp;
     // /*
     try {
         let replyResp = await sendEmail(from, to, subject, description);
 
-        if (replyResp.operation.result.status === "Success") {
+        if (replyResp) {
             error = null;
             message  = replyResp.operation.result.message;
         } else {
@@ -337,9 +337,10 @@ router.post('/request/:id/reply', async (req, res) => {
             message = `Could not reply to request with ID ${id}'s convos. Error message: ${replyResp.operation.result.message}`;
         }
     } catch (error) {
+        replyResp = "";
         error = true;
         message = error.message;
-    }
+    } //end catch() block
 //*/
     return res.json({ replyResp, message, error });
 });
