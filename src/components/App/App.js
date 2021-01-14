@@ -212,7 +212,7 @@ class App extends Component {
     });
   }; //end logOut
 
-  checkForLogIn = async () => {
+  fetchUserInfo = async () => {
     const checkForLogin_URL = `${isDev ? "" : "/server"}/auth/callback`; 
 
     const successfulAuthURL = `${isDev ? "" : ""}/auth-success`; 
@@ -275,7 +275,7 @@ class App extends Component {
     
     if (!accessTokenCookie) {
       if ( !this.state.loggedIn && ( (window.location.pathname === "/auth-success") ) ) {
-        this.checkForLogIn();
+        this.fetchUserInfo();
       }
   
       if (!this.state.loggedIn && !this.state.title && (window.location.pathname !== "/auth-success") ) {
