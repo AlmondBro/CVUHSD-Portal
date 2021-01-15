@@ -449,7 +449,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, email, notify}) =>
                                         </SortButton>
                                     ) : null
                                 }
-{/*                               
+                              
                                 <ReplyButton
                                     className  =   {`request-#${id}-reply-button`}
                                     onClick     =   { () => history.push({
@@ -465,7 +465,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, email, notify}) =>
                                             icon                =   { faReply }
                                             fontSize            =   "1.15em"
                                     />
-                                </ReplyButton> */}
+                                </ReplyButton>
                             </ConvoReplyButtonContainer>
                             
                             <SingleConvosContainer
