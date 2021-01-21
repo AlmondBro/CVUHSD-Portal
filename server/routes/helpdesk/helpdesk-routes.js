@@ -280,7 +280,7 @@ router.post('/request/:id/reply', async (req, res) => {
 */
 
 const sendEmail = async (from, to, subject, description) => {
-    //*
+    // /*
     try {
       // Create a transporter
       let transporter = nodemailer.createTransport({
@@ -304,12 +304,14 @@ const sendEmail = async (from, to, subject, description) => {
       });
   
       console.log(`Message sent: ${info.messageId}`);
-      return `Success Message sent: ${info.messageId}`;
+      return true;
     } catch (error) {
       console.error(error);
-      throw new Error(
-        `Something went wrong in the sendmail method. Error: ${error.message}`
-      );
+
+      return false; 
+    //   throw new Error(
+    //     `Something went wrong in the sendmail method. Error: ${error.message}`
+    //   );
     } //end catch block
    // */
    
@@ -322,7 +324,8 @@ router.post('/request/:id/reply', async (req, res) => {
     const from = email;
     const to   = techEmail;
 
-    let message, error = null;
+    let message = null;
+    let error = null;
 
     let replyResp;
     // /*
@@ -330,7 +333,7 @@ router.post('/request/:id/reply', async (req, res) => {
         let replyResp = await sendEmail(from, to, subject, description);
 
         if (replyResp) {
-            error = null;
+            error = false;
             message  = replyResp.operation.result.message;
         } else {
             error = true;
