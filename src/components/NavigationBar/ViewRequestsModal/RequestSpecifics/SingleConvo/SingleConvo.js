@@ -8,7 +8,10 @@ import { removeHTML } from './../../../../../utilityFunctions.js';
 import { Container, SubSection, ReqSkeletonContainer, RequestDescription, TicketMetaData, MetaDataContainer,  FAIconStyled, DateTime, Divider } from './SingleConvoStyledComponents.js';
 
 const SingleConvo = ({id, isLoading, districtPosition, renderAsStudent, showConvos, description, date, time, author}) => {
-    let parsedAuthor = `${author.split(",")[1]} ${author.split(",")[0]}`;
+    let firstName = author.split(",")[1];
+    let lastName = author.split(",")[0];
+
+    let parsedAuthor =  (firstName ? (" " + firstName) : "" ) + (lastName ? (" " + lastName) : "" );
     
     return (
         <Container 
