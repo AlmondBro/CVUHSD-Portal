@@ -15,6 +15,8 @@ import RequestSpecifics from './RequestSpecifics/RequestSpecifics.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterSortButtonContainer, FilterButton, TitleFilterContainer, FilterText, SortButton, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
+import undefsafe from 'undefsafe';
+
 const parseDate = (stringToParse) => {
     let dateAndTime = stringToParse.split(" ");
 
@@ -89,7 +91,10 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             const time = dateAndTime[1] + " " + dateAndTime[2];
             
             status = status.name;
-            site   =  site.name;
+
+            if (undefsafe(site, "name")) {
+                site   =  site.name;
+            }
             
             return (
                 <RequestPreviewRectangle
