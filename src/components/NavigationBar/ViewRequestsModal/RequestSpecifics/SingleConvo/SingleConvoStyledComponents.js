@@ -128,7 +128,10 @@ const RequestDescription = styled(RequestTitle)`
     }
 
     @media only screen and (max-width: 550px) {
+        width: 100%;
         text-align: center;
+
+        padding: 0px;
     }
 `;
 

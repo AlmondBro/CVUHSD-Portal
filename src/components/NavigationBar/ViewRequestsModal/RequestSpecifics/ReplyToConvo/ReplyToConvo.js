@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import { faTicketAlt, faArrowLeft, faReply, faUserSecret } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faReply } from '@fortawesome/free-solid-svg-icons';
 
 import ReactLoading from 'react-loading';
 import isDev from 'isdev';
@@ -91,6 +91,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, email, id, notify }) =
                     />
                 );
 
+                setDescription("");
                 setSubmitEnabled(true);
             } //end else-statement
         } //end outer if-statement
