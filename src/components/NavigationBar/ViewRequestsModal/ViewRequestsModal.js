@@ -30,9 +30,9 @@ const dateFormatChange = (dateToChange) => {
 };
 
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
-    let [ isLoading, setIsLoading ]                         = useState(false);
+    let [ isLoading, setIsLoading ]                         =   useState(false);
 
-    let [ submitEnabled, setSubmitEnabled ]                 = useState(false);
+    let [ submitEnabled, setSubmitEnabled ]                 =   useState(false);
 
     let [ showFilterPane, setShowFilterPane ]               =   useState(false);
     let [ requestsType, setRequestsType ]                   =   useState("All");
@@ -396,6 +396,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                 <RequestSpecifics
                     districtPosition    =   { districtPosition }
                     renderAsStudent     =   { renderAsStudent }
+                    email               =   { email }
                     notify              =   { notify }
                 />
             </Route>

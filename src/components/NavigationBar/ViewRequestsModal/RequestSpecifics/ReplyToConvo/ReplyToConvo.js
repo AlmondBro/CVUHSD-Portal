@@ -11,7 +11,7 @@ import { HelpdeskSubmitMessage } from './../../../SupportRequestModal/SupportReq
 
 import { getSingleRequestDetails } from './../RequestSpecifics.js';
 
-const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
+const ReplyToConvo = ({districtPosition, renderAsStudent, email, id, notify }) => {
     let [ message, setMessage ]             = useState("");
 
     let [ isLoading, setIsLoading ]         = useState(false);
@@ -191,7 +191,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
             </HeaderContainer>
 
             <Container 
-                className={`request-#${id}-container`}
+                className   =   {`request-#${id}-container`}
             >
                 <Form onSubmit = { submitRequest}>
                     <FormInputContainer>
@@ -199,7 +199,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, id, notify }) => {
                             renderAsStudent     =   { renderAsStudent }
                             districtPosition    =   { districtPosition }
 
-                            name        =   {`request-#${id}-reply-message`}
+                            name        =   { `request-#${id}-reply-message` }
                             rows        =   "10"
                             placeholder =   { `Enter your response to ${headerTitle} here...`}
                             onChange    =   { onChange }  

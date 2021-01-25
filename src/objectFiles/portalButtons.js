@@ -506,47 +506,6 @@ let staffPortalButtons = {
             buttonImg: "lacoe-media.jpg",
             description: "LACOE - LACOE (Los Angeles County Office of Education)"
         },
-
-        //TODO: Need to find flipster deeplink!
-        flipsterLW_Button : {
-            buttonLink: "http://web.b.ebscohost.com/eon/search/basic?sid=a4eca46f-31e5-4e5b-a010-c8e57da30aeb%40sessionmgr102&vid=0&hid=125",
-            buttonImg: "FlipsterLW.png",
-            description: "Flipster Lawndale (E-Magazines)",
-            deepLink: "flipsterebsco://",
-            appLink_config : {
-                appName: "flipster-digital-magazine",
-                appStoreId: "797106282",
-                appStoreLocale: "us",
-                playStoreId: "com.eis.mae.flipster.readerapp"
-            }
-        },
-
-        //TODO: Need to find flipster deeplink!
-        flipsterLZ_Button : {
-            buttonLink: "http://web.b.ebscohost.com/eon/search/basic?sid=a4eca46f-31e5-4e5b-a010-c8e57da30aeb%40sessionmgr102&vid=0&hid=125",
-            buttonImg: "FlipsterLZ.png",
-            description: "Flipster Leuzinger (E-Magazines)",
-            deepLink: "flipsterebsco://",
-            appLink_config : {
-                appName: "flipster-digital-magazine",
-                appStoreId: "797106282",
-                appStoreLocale: "us",
-                playStoreId: "com.eis.mae.flipster.readerapp"
-            }
-        },
-
-        flipsterHW_Button : {
-            buttonLink: "http://web.b.ebscohost.com/eon/search/basic?sid=10e9224c-4ef8-4d69-805f-55d64d31a26f%40sessionmgr103&vid=0&hid=125",
-            buttonImg: "FlipsterHW.png",
-            description: "Flipster Hawthorne (E-Magazines)",
-            deepLink: "flipsterebsco://",
-            appLink_config : {
-                appName: "flipster-digital-magazine",
-                appStoreId: "797106282",
-                appStoreLocale: "us",
-                playStoreId: "com.eis.mae.flipster.readerapp"
-            }
-        }
     },
 
     schoolWebsites : {
@@ -992,46 +951,11 @@ let studentPortalButtons = {
             }
         },
 
-        //TODO: Find a way to conditionally render these buttons based off a student's school
-        //TODO: Need to find flipster deeplink!
-        flipsterLW_Button : {
-            buttonLink: "http://web.b.ebscohost.com/eon/search/basic?sid=a4eca46f-31e5-4e5b-a010-c8e57da30aeb%40sessionmgr102&vid=0&hid=125",
-            buttonImg: "FlipsterLW.png",
-            description: "Flipster Lawndale (E-Magazines)",
-            deepLink: "flipsterebsco://",
-            appLink_config : {
-                appName: "flipster-digital-magazine",
-                appStoreId: "797106282",
-                appStoreLocale: "us",
-                playStoreId: "com.eis.mae.flipster.readerapp"
-            }
+        calSnap_Button : {
+            buttonLink: "http://media.lacoe.edu",
+            buttonImg: "lacoe-media.jpg",
+            description: "LACOE - LACOE (Los Angeles County Office of Education)"
         },
-
-        flipsterLZ_Button : {
-            buttonLink: "http://web.b.ebscohost.com/eon/search/basic?sid=a4eca46f-31e5-4e5b-a010-c8e57da30aeb%40sessionmgr102&vid=0&hid=125",
-            buttonImg: "FlipsterLZ.png",
-            description: "Flipster Leuzinger (E-Magazines)",
-            deepLink: "flipsterebsco://",
-            appLink_config : {
-                appName: "flipster-digital-magazine",
-                appStoreId: "797106282",
-                appStoreLocale: "us",
-                playStoreId: "com.eis.mae.flipster.readerapp"
-            }
-        },
-
-        flipsterHW_Button : {
-            buttonLink: "http://web.b.ebscohost.com/eon/search/basic?sid=10e9224c-4ef8-4d69-805f-55d64d31a26f%40sessionmgr103&vid=0&hid=125",
-            buttonImg: "FlipsterHW.png",
-            description: "Flipster Hawthorne (E-Magazines)",
-            deepLink: "flipsterebsco://",
-            appLink_config : {
-                appName: "flipster-digital-magazine",
-                appStoreId: "797106282",
-                appStoreLocale: "us",
-                playStoreId: "com.eis.mae.flipster.readerapp"
-            }
-        }
     },
 
     schoolWebsites : {

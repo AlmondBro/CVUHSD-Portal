@@ -47,6 +47,9 @@ const SingleConvo = ({id, isLoading, districtPosition, renderAsStudent, showConv
             </SubSection>
 
             <TicketMetaData
+                districtPosition    =   { districtPosition.toLowerCase() }
+                renderAsStudent     =   { renderAsStudent }
+
                 className       =   "request-rectangle-ticket-metadata"
                 width       =   { `${((7/19)*100).toString()}%`}
                 alignItems      =   "flex-end"

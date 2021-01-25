@@ -42,7 +42,7 @@ const getSingleRequestDetails = async (id) => {
     return requestDetails;
 }; //end getSingleRequestDetails
 
-const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
+const RequestSpecifics = ({districtPosition, renderAsStudent, email, notify}) => {
     const id        = useParams().id || location.slice(-2);
     const history   = useHistory();
     const match     = useRouteMatch();
@@ -132,6 +132,8 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
 
             let time = new Date(CREATEDDATE).toLocaleTimeString();
             let date =  new Date(CREATEDDATE).toLocaleDateString();
+
+            console.log("FROM:\t", FROM);
 
             return (
                 <SingleConvo
@@ -447,7 +449,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                         </SortButton>
                                     ) : null
                                 }
-                              
+{/*                               
                                 <ReplyButton
                                     className  =   {`request-#${id}-reply-button`}
                                     onClick     =   { () => history.push({
@@ -463,7 +465,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
                                             icon                =   { faReply }
                                             fontSize            =   "1.15em"
                                     />
-                                </ReplyButton>
+                                </ReplyButton> */}
                             </ConvoReplyButtonContainer>
                             
                             <SingleConvosContainer
@@ -493,6 +495,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, notify}) => {
             <ReplyToConvo
              districtPosition   =   { districtPosition.toLowerCase() }
              renderAsStudent    =   { renderAsStudent }
+             email              =   { email }
              notify             =   { notify }
              id                 =   { id }
             />

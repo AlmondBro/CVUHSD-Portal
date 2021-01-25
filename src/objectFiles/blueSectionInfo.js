@@ -156,6 +156,14 @@ let redSectionInfo_digitalTextbooks = {
     buttons: studentPortalButtons.digitalTextbooks
 };
 
+let redSectionInfo_digitalLibraryResources = {
+    blueSectionName: "digitalLibraryResources",
+    expanded: false,
+    headerTitle: "Digital Library Resources",
+    buttonRowID: "digitalLibraryResourcesButtonRow",
+    buttons: studentPortalButtons.digitalLibraryResources
+};
+
 let redSectionInfo_schoolWebsites = {
     blueSectionName: "schoolWebsites",
     expanded: false,
@@ -185,6 +193,7 @@ let redSectionInfo_Student = [
     redSectionInfo_classRoomTools,
     redSectionInfo_learningTools,
     redSectionInfo_digitalTextbooks,
+    redSectionInfo_digitalLibraryResources,
     redSectionInfo_schoolWebsites, 
     redSectionInfo_allLinks
 ];

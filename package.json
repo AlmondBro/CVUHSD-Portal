@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/JuanDavidLopez95/CVUHSD-Portal/issues"
   },
-  "homepage": "/build",
+  "homepage": ".",
   "dependencies": {
     "@braintree/browser-detection": "^1.11.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
