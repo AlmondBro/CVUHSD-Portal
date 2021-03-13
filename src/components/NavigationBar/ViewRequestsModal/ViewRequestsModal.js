@@ -190,7 +190,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             //toggleModal(true);
             getRequestRectangles(); //only run this function on first mount
         }
-    }, [ location ] );
+    }, [ location, requestsType ] );
 
     return (
       <Container
