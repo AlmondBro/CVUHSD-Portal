@@ -173,21 +173,22 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         setSubmitEnabled(true);
         // setIsLoading(false);
 
-        getRequestRectangles();
+        //getRequestRectangles();
     }; //afterOpenModal()
 
-    useEffect(() => {
-        if (isInitialMount.current) {
-            isInitialMount.current = false;
-        } else {
-            getRequestRectangles(); //only run this function on first mount
-        }
-        // setTimeout(() => setIsLoading(false), 3000);
-    }, [ requestsType ]); //end useEffect()
+    // useEffect(() => {
+    //     if (isInitialMount.current) {
+    //         isInitialMount.current = false;
+    //     } else {
+    //         getRequestRectangles(); //only run this function on first mount
+    //     }
+    //     // setTimeout(() => setIsLoading(false), 3000);
+    // }, [ requestsType ]); //end useEffect()
 
     useEffect(() => {
         if (location.pathname.indexOf(`${match.url}/view-requests`) > -1) {
-            toggleModal(true);
+            //toggleModal(true);
+            getRequestRectangles(); //only run this function on first mount
         }
     }, [ location ] );
 
