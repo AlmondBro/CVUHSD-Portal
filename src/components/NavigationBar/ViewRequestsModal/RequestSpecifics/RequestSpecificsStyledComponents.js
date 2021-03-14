@@ -345,6 +345,8 @@ let ConversationsOuterContainer = styled("div")`
     width: 100%;
     height: 50%;
 
+    margin-top: 25px;
+
     @media only screen and (min-width: 367px) and (max-width: 751px) {
         height: 80%;
     }
