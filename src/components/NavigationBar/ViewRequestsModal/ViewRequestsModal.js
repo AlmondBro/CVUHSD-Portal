@@ -34,8 +34,6 @@ const dateFormatChange = (dateToChange) => {
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         =   useState(false);
 
-    let [ submitEnabled, setSubmitEnabled ]                 =   useState(false);
-
     let [ showFilterPane, setShowFilterPane ]               =   useState(false);
     let [ requestsType, setRequestsType ]                   =   useState("All");
     let [ requestRectangles, setRequestRectangles ]         =   useState([]);
@@ -169,25 +167,9 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         console.log("request rectangles:\t", requestRectangles);
     };
 
-    const afterOpenModal = async () => {
-        setSubmitEnabled(true);
-        // setIsLoading(false);
-
-        //getRequestRectangles();
-    }; //afterOpenModal()
-
-    // useEffect(() => {
-    //     if (isInitialMount.current) {
-    //         isInitialMount.current = false;
-    //     } else {
-    //         getRequestRectangles(); //only run this function on first mount
-    //     }
-    //     // setTimeout(() => setIsLoading(false), 3000);
-    // }, [ requestsType ]); //end useEffect()
-
     useEffect(() => {
         if (location.pathname.indexOf(`${match.url}/view-requests`) > -1) {
-            //toggleModal(true);
+            toggleModal(true);
             getRequestRectangles(); //only run this function on first mount
         }
     }, [ location, requestsType ] );
@@ -195,7 +177,6 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
     return (
       <Container
         isOpen                      =   { modalIsOpen }
-        onAfterOpen                 =   { afterOpenModal }
         onAfterClose                =   { onClose }
         shouldCloseOnEsc            =   { true }
         shouldReturnFocusAfterClose =   { true }
