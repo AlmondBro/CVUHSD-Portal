@@ -15,6 +15,8 @@ import RequestSpecifics from './RequestSpecifics/RequestSpecifics.js';
 
 import { Container, CloseButton, ReqRectContainer, InnerContainer, ModalTitle, RequestTypeTitle, FilterSortButtonContainer, FilterButton, TitleFilterContainer, FilterText, SortButton, NoRequestsMessage, FAIconStyled } from './ViewRequestsModalStyledComponents.js';
 
+import undefsafe from 'undefsafe';
+
 const parseDate = (stringToParse) => {
     let dateAndTime = stringToParse.split(" ");
 
@@ -31,8 +33,6 @@ const dateFormatChange = (dateToChange) => {
 
 const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email, site, toggleModal, modalIsOpen, itUID, notify }) => {
     let [ isLoading, setIsLoading ]                         =   useState(false);
-
-    let [ submitEnabled, setSubmitEnabled ]                 =   useState(false);
 
     let [ showFilterPane, setShowFilterPane ]               =   useState(false);
     let [ requestsType, setRequestsType ]                   =   useState("All");
@@ -89,7 +89,10 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
             const time = dateAndTime[1] + " " + dateAndTime[2];
             
             status = status.name;
-            site   =  site.name;
+
+            if (undefsafe(site, "name")) {
+                site   =  site.name;
+            }
             
             return (
                 <RequestPreviewRectangle
@@ -164,32 +167,16 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
         console.log("request rectangles:\t", requestRectangles);
     };
 
-    const afterOpenModal = async () => {
-        setSubmitEnabled(true);
-        // setIsLoading(false);
-
-        getRequestRectangles();
-    }; //afterOpenModal()
-
-    useEffect(() => {
-        if (isInitialMount.current) {
-            isInitialMount.current = false;
-        } else {
-            getRequestRectangles(); //only run this function on first mount
-        }
-        // setTimeout(() => setIsLoading(false), 3000);
-    }, [ requestsType ]); //end useEffect()
-
     useEffect(() => {
         if (location.pathname.indexOf(`${match.url}/view-requests`) > -1) {
             toggleModal(true);
+            getRequestRectangles(); //only run this function on first mount
         }
-    }, [ location ] );
+    }, [ location, requestsType ] );
 
     return (
       <Container
         isOpen                      =   { modalIsOpen }
-        onAfterOpen                 =   { afterOpenModal }
         onAfterClose                =   { onClose }
         shouldCloseOnEsc            =   { true }
         shouldReturnFocusAfterClose =   { true }

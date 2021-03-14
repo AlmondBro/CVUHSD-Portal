@@ -85,6 +85,8 @@ const RequestDescription = styled(RequestTitle)`
     font-weight: normal;
 
     /* max-height: 150px; */
+    width: 100%;
+    word-wrap: break-word;
     overflow-y: auto;
 
     padding-right: 20px; 
@@ -128,7 +130,10 @@ const RequestDescription = styled(RequestTitle)`
     }
 
     @media only screen and (max-width: 550px) {
+        width: 100%;
         text-align: center;
+
+        padding: 0px;
     }
 `;
 

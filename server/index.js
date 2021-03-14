@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 
 import cors from 'cors';
 import helmet from 'helmet';
-import sslRootCAs from 'ssl-root-cas/latest';
+import sslRootCAs from 'ssl-root-cas';
 
 import requestIp from  'request-ip';
 

@@ -29,7 +29,7 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
       blueSection_objectsArray: sectionInfoObject
   };
 
-  const getUserInfo = () => {
+  const getStudentInfo = () => {
     console.log("getUserInfo()");
 
     const parseOUforSchool = async (organizationalUnit) => {
@@ -149,7 +149,7 @@ const PageContent = ({ fullName, email, title, uid, site, renderAsStudent, grade
     changeContainerStyle({"background-image": `none` });
 
     if ( (title === "Student") && !gradeLevel) {
-        getUserInfo();
+        getStudentInfo();
     } //end if-statement
 
     if (title && window.location.pathname === "/auth-success") {

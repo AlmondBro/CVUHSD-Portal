@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import { faTicketAlt, faArrowLeft, faReply, faUserSecret } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faReply } from '@fortawesome/free-solid-svg-icons';
 
 import ReactLoading from 'react-loading';
 import isDev from 'isdev';
@@ -12,7 +12,7 @@ import { HelpdeskSubmitMessage } from './../../../SupportRequestModal/SupportReq
 import { getSingleRequestDetails } from './../RequestSpecifics.js';
 
 const ReplyToConvo = ({districtPosition, renderAsStudent, email, id, notify }) => {
-    let [ message, setMessage ]             = useState("");
+    let [ description, setDescription ]             = useState("");
 
     let [ isLoading, setIsLoading ]         = useState(false);
     let [ submitEnabled, setSubmitEnabled ] = useState(true);
@@ -25,7 +25,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, email, id, notify }) =
     const location                          = useLocation();
 
     const onChange = (event) => {
-        setMessage(event.target.value);
+        setDescription(event.target.value);
       }; //end onChange() handler
 
     const sendReplyReq = async () => {
@@ -39,7 +39,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, email, id, notify }) =
         let sendReplyReqResult = await fetch(sendReplyReq_URL, {
             method: 'POST',
             headers: sendReplyReq_Headers,
-            body: JSON.stringify({subject: replySubject, description: message, email: techEmail})
+            body: JSON.stringify({subject: replySubject, description: description, email, techEmail: techEmail})
         })
         .then((serverResponse) => serverResponse.json()) //Parse the JSON of the response
         .then((jsonResponse) => jsonResponse)
@@ -51,7 +51,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, email, id, notify }) =
         return sendReplyReqResult;
     }; //end getReqConvos
 
-    const submitRequest = async (event) => {
+    const submitReply = async (event) => {
         event.preventDefault();
         event.stopPropagation();
 
@@ -68,7 +68,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, email, id, notify }) =
             if (sendReplyReqResult && !sendReplyReqResult.error) {
                 
                 console.log(`Successfully replied to request #${id}.`);
-                setMessage("");
+                setDescription("");
                 setSubmitEnabled(true);
 
                 notify(
@@ -91,6 +91,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, email, id, notify }) =
                     />
                 );
 
+                setDescription("");
                 setSubmitEnabled(true);
             } //end else-statement
         } //end outer if-statement
@@ -193,7 +194,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, email, id, notify }) =
             <Container 
                 className   =   {`request-#${id}-container`}
             >
-                <Form onSubmit = { submitRequest}>
+                <Form onSubmit = { submitReply}>
                     <FormInputContainer>
                         <TextArea
                             renderAsStudent     =   { renderAsStudent }
@@ -203,7 +204,7 @@ const ReplyToConvo = ({districtPosition, renderAsStudent, email, id, notify }) =
                             rows        =   "10"
                             placeholder =   { `Enter your response to ${headerTitle} here...`}
                             onChange    =   { onChange }  
-                            value       =   { message }
+                            value       =   { description }
                             required    =   { true }
                        />       
                         <ReplyButton
