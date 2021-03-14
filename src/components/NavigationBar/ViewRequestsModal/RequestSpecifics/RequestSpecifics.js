@@ -131,9 +131,10 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, email, notify}) =>
             let { CREATEDDATE, FROM, DESCRIPTION } = convo;
 
             let time = new Date(CREATEDDATE).toLocaleTimeString();
-            let date =  new Date(CREATEDDATE).toLocaleDateString();
+            let parsedTimeArray  = time.split(":");
+            let formattedTime  = parsedTimeArray[0] + ":" + parsedTimeArray[1] + " " + (parsedTimeArray[2].split(" "))[1];
 
-            console.log("FROM:\t", FROM);
+            let date =  new Date(CREATEDDATE).toLocaleDateString();
 
             return (
                 <SingleConvo
@@ -143,7 +144,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, email, notify}) =>
 
                     description         =   { DESCRIPTION }
                     date                =   { date }
-                    time                =   { time }
+                    time                =   { formattedTime }
                     author              =   { FROM } 
                     key                 =   { index }
                 />
