@@ -127,7 +127,7 @@ const RequestSpecifics = ({districtPosition, renderAsStudent, email, notify}) =>
     }; //end getReqConvos
 
     const mapConvos = (convos) => {
-        return convos.filter((convo, index) => convo["FROM"] != "System").map((convo, index) => {
+        return convos.filter((convo, index) => convo["FROM"] != "System").filter((convo) => convo["FROM"]  != "Microsoft Outlook").map((convo, index) => {
             let { CREATEDDATE, FROM, DESCRIPTION } = convo;
 
             let time = new Date(CREATEDDATE).toLocaleTimeString();
