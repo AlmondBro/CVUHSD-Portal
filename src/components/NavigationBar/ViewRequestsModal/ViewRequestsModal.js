@@ -300,6 +300,7 @@ const ViewRequestsModal = ({ districtPosition, renderAsStudent, fullName, email,
                         showFilterPane      =   { showFilterPane }
                         setShowFilterPane   =   { setShowFilterPane }
 
+                        requestsType        =   { requestsType }   
                         setRequestsType     =   { setRequestsType }
                     />
                         

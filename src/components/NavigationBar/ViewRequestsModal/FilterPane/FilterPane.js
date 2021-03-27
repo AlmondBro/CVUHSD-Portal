@@ -4,7 +4,7 @@ import { faTasks, faCircle, faCheck, faAngleDoubleRight } from '@fortawesome/fre
 
 import { Container, TicketTypeContainer, FAIconStyled, TicketStatusText } from "./FilterPaneStyledComponent.js";
 
-const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShowFilterPane, setRequestsType }) => {
+const FilterPane = ({ districtPosition, renderAsStudent, requestsType, showFilterPane, setShowFilterPane, setRequestsType }) => {
     FilterPane.handleClickOutside = () => setShowFilterPane(false);
     
     return (
@@ -20,6 +20,7 @@ const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShow
                 renderAsStudent     =   { renderAsStudent }
 
                 onClick     =   { () => setRequestsType("All") }
+                active      =   { (requestsType === "All") }     
             >           
                 <FAIconStyled
                     districtPosition    =   { districtPosition }
@@ -40,6 +41,7 @@ const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShow
                 districtPosition    =   { districtPosition }
                 renderAsStudent     =   { renderAsStudent }
                 onClick     =   { () => setRequestsType("Open") }
+                active      =   { (requestsType === "Open") } 
             >           
                 <FAIconStyled
                     districtPosition    =   { districtPosition }
@@ -60,6 +62,7 @@ const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShow
                 districtPosition    =   { districtPosition }
                 renderAsStudent     =   { renderAsStudent }
                 onClick             =   { () => setRequestsType("In Progress") }
+                active              =   { (requestsType === "In Progress") } 
             >              
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }
@@ -80,6 +83,7 @@ const FilterPane = ({ districtPosition, renderAsStudent, showFilterPane, setShow
                 districtPosition    =   { districtPosition }
                 renderAsStudent     =   { renderAsStudent }
                 onClick             =   { () => setRequestsType("Closed") }
+                active              =   { (requestsType === "Closed") } 
             >           
                 <FAIconStyled
                     districtPosition    =   { districtPosition.toLowerCase() }

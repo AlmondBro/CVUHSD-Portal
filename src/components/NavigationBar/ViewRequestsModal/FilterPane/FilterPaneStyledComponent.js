@@ -78,11 +78,22 @@ const TicketTypeContainer = styled("section")`
 
     margin-bottom: 8px;
 
+    background-color: ${props => props.active ? 
+        props.districtPosition ?
+        ( (props.districtPosition.toLowerCase() === "student") || props.renderAsStudent || window.location.pathname === "/student") ? 
+            "rgba(147, 30, 29, 0.1)": "rgba(30, 108, 147, 0.1)"
+        : "rgba(147, 30, 29, 0.1)"                 
+    : "white"};
+
+    border-radius: 10px;
+    /* ${props => props.active ? "10px" : "0px"}; */
+
 //red : "1px solid rgba(147, 30, 29, 0.21)"
 //blue: "1px solid rgba(30, 108, 146, 0.21)" 
-    border-bottom: ${props => (props.districtPosition.toLowerCase() === "student" || props.renderAsStudent)  
-                        ? "1px solid rgba(147, 30, 29, 0.21)" : "1px solid rgba(30, 108, 146, 0.21)" 
-                    };
+    /* border-bottom: ${props => props.active ? "0px solid white" : 
+                        (props.districtPosition.toLowerCase() === "student" || props.renderAsStudent)  
+                            ? "1px solid rgba(147, 30, 29, 0.21)" : "1px solid rgba(30, 108, 146, 0.21)" 
+                    }; */
 
     /*
 props.districtPosition ? 
@@ -99,8 +110,8 @@ props.districtPosition ?
                     }; */
 
         border-radius: 10px;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
+        /* border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px; */
     }
 `;
 
